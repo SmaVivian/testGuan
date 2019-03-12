@@ -4,6 +4,9 @@
       <sidebar :menuList="sidebarData" :openeds="openedsArr"></sidebar>
       <div class="content">
         <h1>全部项目</h1>
+        <div class="card-panel-icon-wrapper icon-eye">
+          <svg-icon icon-class="eye" class-name="card-panel-icon" />
+        </div>
         <ul class="pro-list">
           <el-row :gutter="20">
             <el-col class="box" :span="6" v-for="o in 6" :key="o">
