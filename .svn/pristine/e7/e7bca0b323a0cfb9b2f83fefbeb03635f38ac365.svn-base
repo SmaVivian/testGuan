@@ -1,0 +1,27 @@
+//暂时性解决diolag 问题 https://github.com/ElemeFE/element/issues/2461
+.el-dialog {
+  transform: none;
+  left: 0;
+  position: relative;
+  margin: 0 auto;
+}
+
+
+// 重置element-ui样式
+.el-menu--horizontal > .el-menu-item {
+  min-width: 120px;
+  height: $headerHeight;
+  line-height: $headerHeight;
+  text-align: center;
+}
+
+.el-menu--horizontal .el-menu-item:not(.is-disabled):hover, 
+.el-menu--horizontal .el-menu-item:not(.is-disabled):focus {
+  color: #fff;
+  background-color: transparent !important;
+}
+
+.el-menu--horizontal > .el-menu-item.is-active {
+  color: #fff !important;
+  border-bottom: none;
+}

@@ -1,0 +1,37 @@
+import Vue from 'vue'
+import Router from 'vue-router'
+
+Vue.use(Router)
+import Layout from '@views/layout'
+// 不区分用户角色
+export const constantRouterMap = [
+  { path: '/login', component: () => import('@views/login/index') },
+  {
+    path: '/',
+    name: 'index',
+    component: Layout,
+    meta: { title: '首页' },
+    redirect: '/home',
+    children: [
+      {
+        path: '/home',
+        name: 'home',
+        component: () => import('@views/home/index'),
+        meta: {title: '首页' }
+      }
+    ]
+  },
+]
+
+// 区分用户角色
+export const asyncRouterMap = [
+  {
+
+  }
+]
+
+export default new Router({
+  // mode: 'history', //后端支持可开
+  scrollBehavior: () => ({ y: 0 }),
+  routes: constantRouterMap
+})
