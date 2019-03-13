@@ -42,7 +42,7 @@
         <ul class="pro-list">
           <el-row :gutter="10">
             <el-col class="box" :span="8" v-for="(item, index) in menuData" :key="index">
-              <el-card class="box-card" shadow="hover">
+              <el-card class="box-card">
                 <router-link class="card-item" tag="div" :to="{path: '/project/sub?type=task'}">
                   <div :class="'card-pic card-pic-' + (index+1)"></div>
                   <p class="name tc">{{item.name}}</p>
@@ -58,7 +58,7 @@
       <h1>项目信息</h1>
       <el-form ref="form" :model="form" :rules="rules" label-width="0">
         <el-form-item class="mb-30" label="" prop="name">
-          <el-input v-model="form.name" placeholder="项目名称"/>
+          <el-input autofocus v-model="form.name" placeholder="项目名称"/>
         </el-form-item>
 
         <!-- 下拉框静态 -->
@@ -296,6 +296,9 @@ export default {
   }
 }
 .dialog-pro {
+  .el-card.is-always-shadow {
+    box-shadow: 0 10px 10px 0 #EEEFF5;
+  }
   .el-card {
     border: none;
   }
@@ -329,7 +332,7 @@ export default {
     height: 170px;
     padding: 10px;
     box-sizing: border-box;
-    background-color: #fdfdfe;
+    // background-color: #fdfdfe;
     .card-pic {
       background-color: #fff;
       width: 260px;

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+    <title>项目-新建分组_删除分组</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="项目-新建分组" transform="translate(-167.000000, -370.000000)">
+            <g id="分组-9" transform="translate(0.000000, 80.000000)">
+                <g id="项目-新建分组_删除分组" transform="translate(164.000000, 287.000000)">
+                    <circle id="椭圆形" cx="10" cy="10" r="10"></circle>
+                    <g id="分组-copy" transform="translate(4.000000, 4.000000)" stroke="#0590FF" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M7.5,2.75669189 L4.5,2.75669189 L4.5,1.45939459 C4.5,0.742962162 5.0373,0.162097297 5.7,0.162097297 L6.3,0.162097297 C6.9627,0.162097297 7.5,0.742962162 7.5,1.45939459 L7.5,2.75669189 Z" id="Stroke-1"></path>
+                        <path d="M8.7,11.837773 L3.3,11.837773 C2.6373,11.837773 2.1,11.2569081 2.1,10.5404757 L2.1,2.75669189 L9.9,2.75669189 L9.9,10.5404757 C9.9,11.2569081 9.3627,11.837773 8.7,11.837773 Z" id="Stroke-3"></path>
+                        <path d="M0.15,2.75669189 L11.85,2.75669189" id="Stroke-5"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

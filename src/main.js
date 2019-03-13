@@ -7,6 +7,10 @@ import router from './router'
 import store from './store'
 
 import '@/icons' // svg icon
+import {common} from '@/utils/util'
+// import request from '@/utils/request'
+
+Vue.prototype.common = common
 
 Vue.use(ElementUI)
 Vue.config.productionTip = false

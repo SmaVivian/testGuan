@@ -1,9 +1,9 @@
 //暂时性解决diolag 问题 https://github.com/ElemeFE/element/issues/2461
 .el-dialog {
-  // transform: none;
-  // left: 0;
-  // position: relative;
-  // margin: 0 auto;
+  transform: none;
+  left: 0;
+  position: relative;
+  margin: 0 auto;
 }
 
 .el-card__body {
@@ -12,14 +12,27 @@
 
 // 模态框
 .el-dialog__wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  text-align: center;
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
+}
+
+.el-dialog__wrapper::after {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  width: 0;
+  vertical-align: middle;
 }
 
 .el-dialog {
+  display: inline-block;
+  vertical-align: middle;
   margin-top: 0 !important;
+  margin: 0 auto;
   padding: 30px;
+  text-align: left;
 }
 
 .el-dialog__header {
@@ -59,6 +72,7 @@
 }
 
 .el-button--primary {
+  background-color: #0590FF;
   color: #fff;
 }
 
@@ -73,4 +87,28 @@
   color: #fff;
   background:rgba(121,195,253,1);
   border: none;
+}
+
+// confirm
+.el-message-box {
+  width: auto;
+}
+.el-message-box__title {
+  color: #575962;
+  font-size:18px;
+  font-weight: bold;
+}
+.el-message-box__message p {
+  color: #9699A2;
+}
+
+.el-message-box__btns {
+  padding: 0 27px;
+  display: flex;
+  .el-button {
+    padding: 0;
+    height: 40px;
+    line-height: 40px;
+    flex: 1;
+  }
 }

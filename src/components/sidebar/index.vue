@@ -23,9 +23,17 @@
             <i :class="item.icon"></i>
             <span>{{item.name}}</span>
           </template>
-          <template v-for="(v, i) in item.children">
+          <div class="submenu-wrap" v-for="(v, i) in item.children">
+            <div class="operate">
+              <span class="icon-box">
+                <svg-icon icon-class="edit" class-name="icon icon-edit" />
+              </span>
+              <span class="icon-box">
+                <svg-icon icon-class="dele" class-name="icon icon-dele" />
+              </span>
+            </div>
             <el-menu-item :index="v.index">{{v.name}}</el-menu-item>
-          </template>
+          </div>
           <el-menu-item index="add" v-if="item.hasBtn" @click="addGroup">
             <svg-icon icon-class="add" class-name="icon-add" /><span class="m-btn">新建分组</span></el-menu-item>
         </el-submenu>
@@ -69,6 +77,15 @@ export default {
     },
     addGroup() {
       console.log('add')
+      this.common.prompt(() => {
+        console.log('aaaaaaaa')
+        // this.$router.push({path: '/login'});
+      }, () =>{}, '新建分组', '所有内容', true, true)
+
+      // this.common.confirm(() => {
+      //   console.log('aaaaaaaa')
+      //   // this.$router.push({path: '/login'});
+      // }, () =>{}, '新建分组', '所有内容')
     }
   }
 }
@@ -89,6 +106,32 @@ export default {
     }
     .icon-add {
       font-size: 14px;
+    }
+    .submenu-wrap {
+      position: relative;
+      .operate {
+        display: none;
+        position: absolute;
+        right: 25px;
+        top: 15px;
+        z-index: 2;
+        .icon-box {
+          padding: 2px;
+          &:hover {
+            background-color: $color3;
+            border-radius: 100%;
+          }
+          .icon {
+            cursor: pointer;
+            font-size: 20px;
+            margin-top: -5px;
+          }
+        }
+      }
+      &:hover .operate,
+      &:focus .operate {
+        display: block;
+      }
     }
   }
   /deep/ .el-submenu__title {
