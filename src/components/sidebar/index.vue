@@ -7,11 +7,13 @@
       @open="handleOpen"
       @close="handleClose"
       @select="handleSelect">
+      
 
-      <template v-for="(item, index) in menuList">
+      <div class="menu-box" v-for="(item, index) in menuList">
+        <svg-icon :icon-class="item.icon" class-name="icon-menu" />
         <!-- 有子菜单 -->
         <el-menu-item :index="item.index" v-if="!item.children">
-          <i :class="item.icon"></i>
+          <!-- <i :class="item.icon"></i> -->
           <span slot="title">{{item.name}}</span>
         </el-menu-item>
 
@@ -24,9 +26,10 @@
           <template v-for="(v, i) in item.children">
             <el-menu-item :index="v.index">{{v.name}}</el-menu-item>
           </template>
-          <el-menu-item index="add" v-if="item.hasBtn" @click="addGroup">+新建分组</el-menu-item>
+          <el-menu-item index="add" v-if="item.hasBtn" @click="addGroup">
+            <svg-icon icon-class="add" class-name="icon-add" /><span class="m-btn">新建分组</span></el-menu-item>
         </el-submenu>
-      </template>
+      </div>
     </el-menu>
   </div>
 </template>
@@ -75,13 +78,35 @@ export default {
 .cmp-sidebar {
   float: left;
   width: 200px;
+  .menu-box {
+    position: relative;
+    .icon-menu {
+      font-size: 17px;
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 2;
+    }
+    .icon-add {
+      font-size: 14px;
+    }
+  }
+  /deep/ .el-submenu__title {
+    padding-left: 49px !important;
+  }
+  .el-menu-item {
+    @include menuNav;
+  }
+  .el-menu-item.is-active {
+    @include menuNavActive;
+  }
 }
 </style>
 
 <style lang="scss">
 .cmp-sidebar {
   .el-menu {
-    border-right: none;
+    // border-right: none;
   }
 }
 </style>

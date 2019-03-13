@@ -7,27 +7,31 @@ $headerHeight: 80px;  // 头部高度
 $leftMenuWidth: 210px;  // 左边导航菜单宽度
 
 // 顶部导航
-.m-menu-top {
+@mixin menuTop {
   font-size: 16px;
-  font-weight: bold;
+  font-weight: 400;
   color: #B5B1DD;
 }
 
 // 顶部导航选中
-.m-menu-top.active {
-  font-weight: bold;
+@mixin menuTopActive {
+  font-size: 16px;
+  font-weight: 400;
   color: #fff;
 }
 
 // 侧边导航
-.m-menu-nav {
+@mixin menuNav {
   font-size: 14px;
   color: #5E6383;
+  border-left: solid 5px transparent;
 }
 
 // 侧边导航选中
-.m-menu-nav.active {
+@mixin menuNavActive {
   color: $primary;
+  background-color: $color3;
+  border-left: solid 5px $primary;
 }
 
 // 标题
@@ -60,6 +64,19 @@ p {
 .m-link {
   font-size: 14px;
   color: #4A90E2;
+}
+
+// 按钮文字
+.m-btn {
+  font-size: 14px;
+  color: $primary;
+}
+
+@mixin bg( $path, $width:'', $height:'', $size:'') {
+  background: $path center center no-repeat;
+  @if $width { width: $width; }
+  @if $height { height: $height; }
+  @if $size { background-size: $size; }
 }
 
 @mixin scrollBar {

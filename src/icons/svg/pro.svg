@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+    <title>项目列表_项目</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="项目列表" transform="translate(-39.000000, -125.000000)" stroke="#575962">
+            <g id="分组-9" transform="translate(0.000000, 80.000000)">
+                <g id="分组-10" transform="translate(40.000000, 46.000000)">
+                    <g id="项目列表_项目">
+                        <path d="M13.6575,15.2279412 L0.901323529,15.2279412 C0.403676471,15.2279412 8.8817842e-16,14.8528585 8.8817842e-16,14.3904614 L8.8817842e-16,3.75 L14.5588235,3.75 L14.5588235,14.3904614 C14.5588235,14.8528585 14.1551471,15.2279412 13.6575,15.2279412 Z" id="Stroke-1"></path>
+                        <path d="M12.3123529,0 L2.24647059,0 C1.98044118,0 1.76470588,0.215735294 1.76470588,0.481764706 L0,3.52941176 L14.5588235,3.52941176 L12.7941176,0.481764706 C12.7941176,0.215735294 12.5783824,0 12.3123529,0 Z" id="Stroke-3"></path>
+                        <path d="M2.8125,12.4705882 L6.78308824,12.4705882" id="Stroke-5"></path>
+                        <polygon id="Stroke-7" points="10.4227941 9.26470588 7.55514706 7.05882353 4.6875 9.26470588 4.6875 0 10.4227941 0"></polygon>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
