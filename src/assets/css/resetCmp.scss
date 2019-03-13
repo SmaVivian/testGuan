@@ -1,11 +1,76 @@
 //暂时性解决diolag 问题 https://github.com/ElemeFE/element/issues/2461
 .el-dialog {
-  transform: none;
-  left: 0;
-  position: relative;
-  margin: 0 auto;
+  // transform: none;
+  // left: 0;
+  // position: relative;
+  // margin: 0 auto;
 }
 
 .el-card__body {
   padding: 0;
+}
+
+// 模态框
+.el-dialog__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.el-dialog {
+  margin-top: 0 !important;
+  padding: 30px;
+}
+
+.el-dialog__header {
+  padding: 0;
+  padding-bottom: 20px;
+}
+
+.el-dialog__body {
+  padding: 0;
+}
+
+// input框
+.el-input__inner {
+  border-radius:26px;
+  border:1px solid rgba(235,237,242,1);
+  height: 40px;
+  line-height: 40px;
+  color: #9699A2;
+  padding: 0 15px;
+}
+
+.el-form-item.is-success .el-input__inner, .el-form-item.is-success .el-input__inner:focus, .el-form-item.is-success .el-textarea__inner, .el-form-item.is-success .el-textarea__inner:focus {
+  border-color: $primary;
+}
+
+.el-select-dropdown__item.hover, .el-select-dropdown__item:hover {
+  background-color: $color4;
+}
+
+// button
+.el-button {
+  min-width: 100px;
+  border-radius:25px;
+  border:1px solid rgba(235,237,242,1);
+  color: #9699A2;
+  font-size:14px;
+}
+
+.el-button--primary {
+  color: #fff;
+}
+
+.el-button:hover, .el-button:focus {
+  color: #9699A2;
+  background:rgba(250,249,252,1);
+  border-radius:25px;
+  border:1px solid rgba(235,237,242,1);
+}
+
+.el-button--primary:hover, .el-button--primary:focus {
+  color: #fff;
+  background:rgba(121,195,253,1);
+  border: none;
 }

@@ -39,6 +39,7 @@ h1 {
   font-size: 18px;
   font-weight: bold;
   color: #575962;
+  margin-bottom: 30px;
 }
 
 // 二级标题
@@ -70,6 +71,7 @@ p {
 .m-btn {
   font-size: 14px;
   color: $primary;
+  cursor: pointer;
 }
 
 @mixin bg( $path, $width:'', $height:'', $size:'') {
