@@ -73,6 +73,7 @@ export default {
       display: inline-block;
       color: #fff;
       line-height: 50px;
+      margin-bottom: 0;
     }
   }
   .el-menu-top {

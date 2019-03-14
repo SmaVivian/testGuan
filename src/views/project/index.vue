@@ -120,7 +120,7 @@ export default {
         //   index: '/aa'
         // },
         {
-          name: '项目1',
+          name: '项目',
           icon: 'pro',
           children: [
             {
