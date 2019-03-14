@@ -40,6 +40,18 @@
 	text-align: center;
 }
 
+.pad {
+	padding: 30px;
+}
+
+.ml-30 {
+	margin-left: 30px;
+}
+
+.mr-10 {
+	margin-right: 10px;
+}
+
 .mt-20 {
 	margin-top: 20px;
 }
@@ -58,7 +70,8 @@
 
 .g-container {
 	position: relative;
-	min-width: 1440px;
+	min-width: 1200px;
+	// min-width: 1440px;
   min-height: 100%;
   padding-top: $headerHeight;
 	box-sizing: border-box;
@@ -71,6 +84,29 @@
 
 .g-wrap {
 	
+}
+
+.g-content {
+	padding: 30px;
+	box-sizing: border-box;
+}
+
+.g-content>div {
+	padding: 30px;
+	margin: 0 auto;
+	background-color: #fff;
+	box-shadow:0px 1px 10px 0px rgba(238,239,245,1);
+	border-radius:4px;
+}
+
+.g-sub-top {
+	padding: 0 30px;
+	height: $subHeight;
+	line-height: $subHeight;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: #fff;
 }
 
 

@@ -8,8 +8,8 @@ import store from './store'
 
 import '@/icons' // svg icon
 import {common} from '@/utils/util'
-// import request from '@/utils/request'
-
+import request from '@/utils/request'
+Vue.prototype.$http = request
 Vue.prototype.common = common
 
 Vue.use(ElementUI)

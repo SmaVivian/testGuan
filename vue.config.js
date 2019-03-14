@@ -26,10 +26,10 @@ module.exports = {
   // publicPath: process.env.NODE_ENV === 'production' ? './' : '/',
   // outputDir: 'demo',
   configureWebpack: {},
-  // transpileDependencies: [
-  //   'vue-echarts',
-  //   'resize-detector',
-  // ],
+  transpileDependencies: [
+    'vue-echarts',
+    'resize-detector',
+  ],
   chainWebpack: (config) => {
     config.resolve.alias
       .set('@', resolve('src'))

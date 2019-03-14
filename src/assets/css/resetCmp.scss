@@ -6,8 +6,14 @@
   margin: 0 auto;
 }
 
+
+// card卡片
 .el-card__body {
   padding: 0;
+}
+
+.el-card__header {
+  padding: 30px 20px 0;
 }
 
 // 模态框
@@ -71,6 +77,10 @@
   font-size:14px;
 }
 
+.el-button + .el-button {
+  margin-left: 20px;
+}
+
 .el-button--primary {
   background-color: #0590FF;
   color: #fff;
@@ -111,4 +121,55 @@
     line-height: 40px;
     flex: 1;
   }
+}
+
+// 分页
+.el-pagination {
+  margin-top: 30px;
+}
+
+.el-pagination__total {
+  margin-right: 20px;
+}
+
+.el-pagination.is-background .btn-prev, 
+.el-pagination.is-background .btn-next, 
+.el-pagination.is-background .el-pager li {
+  height: 30px;
+  background-color: #fff;
+  border:1px solid rgba(238,239,244,1);
+  border-radius: 100%;
+  color: #9699A2;
+  font-size: 14px;
+  font-weight:400;
+}
+
+// 自定义按钮
+
+// 主题色边框按钮
+.el-button.el-primary-border {
+  border-color: $primary;
+  color: $primary;
+}
+.el-button.el-primary-border:hover {
+  color: #fff;
+  background-color: $primary;
+}
+
+// 表格
+.el-table {
+  color: #575962;
+}
+
+.el-table th.is-leaf, .el-table td {
+  border-bottom: none;
+}
+
+.el-table th {
+  background-color: #EBEDF2;
+  padding: 13px 0;
+}
+
+.el-table td {
+  padding: 9px 0;
 }

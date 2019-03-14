@@ -125,7 +125,7 @@ export default {
     &:after {
       content: '';
       display: block;
-      @include bg(url('~@images/trangle.svg'), 26px, 6px);
+      @include bg(url('~@images/triangle.svg'), 26px, 6px);
       position: relative;
       left: 50%;
       margin-left: -13px;

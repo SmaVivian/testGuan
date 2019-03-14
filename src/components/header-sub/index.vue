@@ -63,6 +63,10 @@ export default {
   .el-menu.el-menu--horizontal {
     // border-bottom: none;
   }
+  /deep/ .el-tabs__item {
+    // margin: 0 20px;
+    // padding: 0 40px;
+  }
   /deep/ .el-tabs__header {
     margin: 0;
   }
@@ -70,8 +74,17 @@ export default {
     background-color: transparent;
   }
   /deep/ .el-tabs__active-bar {
+    // width: 28px !important;
     bottom: 10px;
   }
 }
 </style>
+
+<style lang="scss">
+.el-tabs__item {
+    // margin: 0 20px;
+    // padding: 0 40px;
+  }
+</style>
+
 

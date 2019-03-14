@@ -69,17 +69,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.g-wrap {
-  width: 100%;
-}
 .page-project-task {
-  .top {
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background-color: #f2f2f2;
-  }
   .content {
     padding: 30px;
     padding-bottom: 0;
