@@ -7,23 +7,21 @@
       @open="handleOpen"
       @close="handleClose"
       @select="handleSelect">
-      
 
-      <div class="menu-box" v-for="(item, index) in menuList">
-        <svg-icon :icon-class="item.icon" class-name="icon-menu" />
-        <!-- 有子菜单 -->
-        <el-menu-item :index="item.index" v-if="!item.children">
+      <div class="menu-box" v-for="(item, index) in menuList" :key="index">
+        <!-- 无子菜单 -->
+        <el-menu-item :index="item.index" v-if="!item.children" :class="{'hasicon': item.icon}">
           <!-- <i :class="item.icon"></i> -->
           <span slot="title">{{item.name}}</span>
         </el-menu-item>
 
-        <!-- 无子菜单 -->
+        <!-- 有子菜单 -->
         <el-submenu :index="item.name" v-if="item.children">
           <template slot="title">
             <i :class="item.icon"></i>
             <span>{{item.name}}</span>
           </template>
-          <div class="submenu-wrap" v-for="(v, i) in item.children">
+          <div class="submenu-wrap" v-for="(v, i) in item.children" :key="i">
             <div class="operate">
               <span class="icon-box">
                 <svg-icon icon-class="edit" class-name="icon icon-edit" />
@@ -37,6 +35,9 @@
           <el-menu-item index="add" v-if="item.hasBtn" @click="addGroup">
             <svg-icon icon-class="add" class-name="icon-add" /><span class="m-btn">新建分组</span></el-menu-item>
         </el-submenu>
+
+        <!-- 一级菜单图标 -->
+        <svg-icon :icon-class="item.icon" class-name="icon-menu"/>
       </div>
     </el-menu>
   </div>
@@ -52,7 +53,7 @@ export default {
     },
     activeIndex: {
       type: String,
-      default: '/project'
+      default: '/home'
     },
     // 默认展开的菜单 ['一级菜单index', '一级菜单index'...]
     openeds: {
@@ -62,7 +63,7 @@ export default {
   },
   data() {
     return {
-
+      currentSide: this.activeIndex
     }
   },
   methods: {
@@ -73,6 +74,7 @@ export default {
       console.log(key, keyPath)
     },
     handleSelect(key, keyPath) {
+      this.currentSide = key
       console.log(key, keyPath)
     },
     addGroup() {
@@ -97,12 +99,18 @@ export default {
   width: 200px;
   .menu-box {
     position: relative;
+    overflow: hidden;
     .icon-menu {
       font-size: 17px;
       position: absolute;
       top: 20px;
       left: 20px;
       z-index: 2;
+    }
+    // &.is-active .icon-menu,
+    &:hover .icon-menu {
+      filter: drop-shadow(#0590FF 0 40px);
+      top: -20px;
     }
     .icon-add {
       font-size: 14px;
@@ -139,9 +147,18 @@ export default {
   }
   .el-menu-item {
     @include menuNav;
+    &.hasicon {
+      padding-left: 40px !important;
+    }
   }
   .el-menu-item.is-active {
     @include menuNavActive;
+  }
+  // 下一个svg图标变色
+  .el-menu-item.is-active + svg.icon-menu,
+  .el-submenu.is-active + svg.icon-menu {
+    filter: drop-shadow(#0590FF 0 40px);
+    top: -20px;
   }
 }
 </style>

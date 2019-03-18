@@ -11,8 +11,8 @@
     @select="handleSelect"
     background-color="#404560">
       <el-menu-item class="m-menu-top" index="/home">首页</el-menu-item>
-      <el-menu-item class="m-menu-top" index="/project">项目</el-menu-item>
-      <el-menu-item class="m-menu-top" index="/collect">藏品</el-menu-item>
+      <el-menu-item class="m-menu-top" index="/project" >项目</el-menu-item>
+      <el-menu-item class="m-menu-top" index="/collect?type=manage">藏品</el-menu-item>
       <el-menu-item class="m-menu-top" index="/digital">数字资产</el-menu-item>
     </el-menu>
     <div class="operate">
@@ -44,7 +44,11 @@ export default {
   methods: {
     handleSelect(key, keyPath) {
       this.$router.push(key);
-    }
+    },
+
+    // onload() {
+    //   window.location.reload()
+    // }
   }
 }
 </script>

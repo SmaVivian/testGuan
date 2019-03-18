@@ -4,7 +4,7 @@
       <h1>抗联展览项目</h1>
       <div class="content">
         <ul>
-          <li class="clearfix" v-for="item in 6">
+          <li class="clearfix" v-for="item in 6" :key="item">
             <!-- 非自己 -->
             <div class="item item-other fl clearfix">
               <img class="fl" src="~@images/default-head.svg" alt="">

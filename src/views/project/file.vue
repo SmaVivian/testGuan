@@ -123,9 +123,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.page-file {
-  
-}
+
 </style>
 
 

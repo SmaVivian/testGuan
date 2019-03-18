@@ -2,14 +2,14 @@
   <div class="g-content">
     <div class="page-exhibits">
       <div class="btns-warap clearfix">
+        <!-- 侧边栏 -->
+          <sidebar :menuList="sidebarData" :activeIndex="`/collect`"></sidebar>
         <div class="left fl">
-          <el-button class="el-primary-border">添加藏品</el-button>
-          <el-button class="el-primary-border">从收藏夹导入</el-button>
           <el-button class="el-primary-border">导出</el-button>
-          <el-button class="el-primary-border">移除</el-button>
-          <el-button class="el-primary-border">搜索</el-button>
+          <el-button class="el-primary-border">公开商品</el-button>
+          <el-button class="el-primary-border">收藏</el-button>
         </div>
-        <a href="javascript:;" class="btn-view m-btn fr">查看管内藏品</a>
+        <a href="javascript:;" class="btn-view m-btn fr">选择公开字段</a>
         <!-- <el-button class="fr" type="primary">查看管内藏品</el-button> -->
       </div>
 
@@ -23,22 +23,22 @@
           type="selection"
           width="55">
         </el-table-column>
-        <el-table-column align="center" label="序号" width="95">
+        <el-table-column align="center" label="图片" width="95">
           <template slot-scope="scope">
             {{ scope.$index }}
           </template>
         </el-table-column>
-        <el-table-column label="分类号" width="110">
+        <el-table-column label="登记号" width="110">
           <template slot-scope="scope">
             {{ scope.row.title }}
           </template>
         </el-table-column>
-        <el-table-column label="藏品名称">
+        <el-table-column label="分类号">
           <template slot-scope="scope">
             {{ scope.row.title }}
           </template>
         </el-table-column>
-        <el-table-column label="质地" align="center">
+        <el-table-column label="藏品名称" align="center">
           <template slot-scope="scope">
             <span>{{ scope.row.name }}</span>
           </template>
@@ -48,13 +48,23 @@
             {{ scope.row.count }}
           </template>
         </el-table-column>
-        <el-table-column class-name="status-col" label="尺寸" width="200" align="center">
+        <el-table-column class-name="status-col" label="商品分类" width="200" align="center">
           <template slot-scope="scope">
             <i class="el-icon-time"/>
             <span>{{ scope.row.createTime }}</span>
           </template>
         </el-table-column>
-        <el-table-column align="center" prop="created_at" label="具体质量" width="110">
+        <el-table-column align="center" prop="created_at" label="质地" width="110">
+          <template slot-scope="scope">
+            <el-tag :type="scope.row.status | statusFilter">{{ scope.row.statusStr }}</el-tag>
+          </template>
+        </el-table-column>
+         <el-table-column align="center" prop="created_at" label="完残程度" width="110">
+          <template slot-scope="scope">
+            <el-tag :type="scope.row.status | statusFilter">{{ scope.row.statusStr }}</el-tag>
+          </template>
+        </el-table-column>
+         <el-table-column align="center" prop="created_at" label="数量" width="110">
           <template slot-scope="scope">
             <el-tag :type="scope.row.status | statusFilter">{{ scope.row.statusStr }}</el-tag>
           </template>
@@ -113,7 +123,7 @@ export default {
   },
   methods: {
     getDataList() {
-      this.listLoading = true
+      // this.listLoading = true
       this.$http.get('/list', {
         ...this.listQuery
       }).then(response => {

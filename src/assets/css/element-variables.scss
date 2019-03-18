@@ -4,4 +4,39 @@ $--color-primary: #0590FF;
 /* 改变 icon 字体路径变量，必需 */
 $--font-path: '~element-ui/lib/theme-chalk/fonts';
 
+// 重置element对话框样式
+.el-dialog__header {
+    text-align: center;
+    padding-bottom: 30px;
+    font-size: 18px;
+    font-weight: bold;
+}
+.dialog-footer {
+    text-align: center;
+}
+.el-select {
+    width: 100%;
+}
+// .el-dialog {
+//     padding: 20px !important;
+// }
+.el-dialog__footer {
+    padding-bottom: 0!important;
+}
+.el-table .cell {
+    font-size: 14px;
+}
+// 标签
+.labelTable {
+    display: flex;
+}
+.el-tag {
+    border-radius: 50%;
+}
+// input输入框
+.el-input {
+    width: 10%!important;
+    height: 40px;
+}
+
 @import "~element-ui/packages/theme-chalk/src/index";

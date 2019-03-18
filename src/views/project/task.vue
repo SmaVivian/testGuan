@@ -19,7 +19,10 @@
           <drag-list :list="item.arrList" :title="item.title"/>
         </el-col>
         <el-col :xs="6" :sm="6" :md="6" :xl="4">
-          <el-button plain>新建任务看板</el-button>
+          <el-card class="panel-add-wrap">
+            <p class="panel-add m-assist"><svg-icon icon-class="add" class-name="icon-add" />&nbsp;新建任务看板</p>
+            <!-- <el-button plain>新建任务看板</el-button> -->
+          </el-card>
         </el-col>
       </el-row>
     </div>
@@ -51,7 +54,12 @@ export default {
           arrList: [
             { name: "21列表", id: 5 },
             { name: "22列表", id: 6 },
-            { name: "23列表", id: 7 }
+            { name: "23列表", id: 7 },
+            { name: "23列表", id: 71 },
+            { name: "23列表", id: 72 },
+            { name: "23列表", id: 73 },
+            { name: "23列表", id: 74 },
+            { name: "23列表", id: 75 },
           ],
         },
         {
@@ -73,6 +81,18 @@ export default {
   .content {
     padding: 30px;
     padding-bottom: 0;
+    .panel-add-wrap {
+      padding: 20px;
+      height: 700px;
+      box-sizing: border-box;
+      .panel-add {
+        padding: 0 20px;
+        background:rgba(241,242,247,1);
+        border-radius:4px;
+        line-height: 54px;
+        cursor: pointer;
+      }
+    }
   }
 }
 </style>

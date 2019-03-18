@@ -1,7 +1,7 @@
 <template>
   <div class="g-wrap">
     <div class="page-project clearfix">
-      <sidebar :menuList="sidebarData" :openeds="openedsArr"></sidebar>
+      <sidebar :menuList="sidebarData" :activeIndex="`/project`" :openeds="openedsArr"></sidebar>
       <div class="content">
         <h1>全部项目</h1>
         <ul class="pro-list">
@@ -52,7 +52,7 @@
           </el-row>
         </ul>
         <div class="m-btn fr">
-          <svg-icon icon-class="add" class-name="icon-add" /><span class="m-btn">创建模板</span></el-menu-item>
+          <svg-icon icon-class="add" class-name="icon-add" /><span class="m-btn">创建模板</span> 
         </div>
       </div>
       <h1>项目信息</h1>
@@ -60,7 +60,7 @@
         <el-form-item class="mb-30" label="" prop="name">
           <el-input autofocus v-model="form.name" placeholder="项目名称"/>
         </el-form-item>
-
+    
         <!-- 下拉框静态 -->
         <el-form-item class="mb-20" label="" prop="region">
           <el-select v-model="form.region" placeholder="项目分组（可多选）" style="display:block;">
@@ -109,27 +109,27 @@ export default {
         },
       ],
       sidebarData: [
-        // {
-        //   name: '项目',
-        //   icon: 'el-icon-edit',
-        //   index: '/'
-        // },
-        // {
-        //   name: '测试2',
-        //   icon: 'el-icon-edit',
-        //   index: '/aa'
-        // },
+        {
+          name: '项目',
+          icon: 'pro',
+          index: '/project'
+        },
+        {
+          name: '测试2',
+          icon: 'pro',
+          index: '/aa'
+        },
         {
           name: '项目',
           icon: 'pro',
           children: [
             {
               name: '我参与的',
-              index: '22'
+              index: '/project?type=1'
             },
             {
               name: '已归档项目',
-              index: '/project/list?id=3'
+              index: '/project?type=2'
             }
           ]
         },
@@ -180,7 +180,7 @@ export default {
         },
       ],
       form: {
-        name: '',
+      name: '',
         region: ''
       },
       rules: {

@@ -6,7 +6,6 @@
           <div class="header-carg-item">22 <span>个</span></div>
           <p>全部任务</p>
         </el-col>
-        </el-col>
       </el-row>
     </el-card>
 
@@ -270,9 +269,6 @@ export default {
   .header-card {
     margin: 20px 0;
     text-align: center;
-    .header-carg-item {
-      // text-align: center;
-    }
   }
   .content {
     .content-item {

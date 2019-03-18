@@ -6,7 +6,7 @@
           <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
           <el-breadcrumb-item><a href="/">活动管理</a></el-breadcrumb-item>
         </el-breadcrumb>
-        <cmp-header-sub :tabList="tabs" :activeTab="currentTab" @projectEventTab="changeTab"></cmp-header-sub>
+        <cmp-header-sub :tabList="tabs" :activeTab="currentTab" :pageType="`project`" @projectEventTab="changeTab"></cmp-header-sub>
         <div class="menu-sub-right">
           <span>看板视图</span>
           <span>2</span>
@@ -68,22 +68,21 @@ export default {
   },
   computed: {
     currentTab() {
+      if(this.$route.path !== '/project/sub') return
       return this.$route.query.type
     },
     currentTabCmp() {
-      return this.currentTab + 'Project'
+      return this.currentTab && (this.currentTab + 'Project')
     }
   },
   methods: {
     changeTab(path) {
       this.$router.replace({path: '/project/sub', query: {type: path}})
     }
-  }
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-.page-project-sub {
-  
-}
+
 </style>

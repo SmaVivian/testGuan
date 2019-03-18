@@ -50,6 +50,11 @@ h2 {
   font-weight: bold;
   color: #575962;
 }
+// 三级标题
+h3 {
+  font-size: 14px;
+  color: #575962;
+}
 
 // 正文
 p {
@@ -85,14 +90,14 @@ p {
 
 @mixin scrollBar {
   &::-webkit-scrollbar-track-piece {
-    background: #d3dce6;
+    background: #EBEDF2;
   }
   &::-webkit-scrollbar {
-    width: 6px;
+    width: 8px;
   }
   &::-webkit-scrollbar-thumb {
-    background: #99a9bf;
-    border-radius: 20px;
+    background: #9699A2;
+    border-radius: 5px;
   }
 }
 

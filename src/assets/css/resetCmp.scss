@@ -70,10 +70,10 @@
 
 // button
 .el-button {
-  min-width: 100px;
+  // min-width: 100px;
   border-radius:25px;
-  border:1px solid rgba(235,237,242,1);
-  color: #9699A2;
+  // border:1px solid rgba(235,237,242,1);
+  color:#0590FF;
   font-size:14px;
 }
 
@@ -172,4 +172,10 @@
 
 .el-table td {
   padding: 9px 0;
+}
+
+// 数字
+.el-badge__content {
+  position: relative;
+  top: 1px;
 }

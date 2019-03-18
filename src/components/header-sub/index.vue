@@ -1,7 +1,8 @@
 <template>
   <div class="cmp-header-sub">
-    <el-tabs v-model="activeName" @tab-click="handleClick">
+    <el-tabs :stretch="true" v-model="activeName" @tab-click="handleClick">
       <el-tab-pane
+        class="my-aaa"
         v-for="(item, index) in tabList"
         :key="index"
         :label="item.name"
@@ -36,6 +37,10 @@ export default {
     activeTab: {
       type: String,
       default: ''
+    },
+    pageType: {
+      type: String,
+      default: 'project'
     }
   },
   watch: {
@@ -51,7 +56,14 @@ export default {
   },
   methods: {
     handleClick(tab, event) {
-      this.$emit('projectEventTab', this.activeName);
+      switch(this.pageType) {
+        case 'project':
+          this.$emit('projectEventTab', this.activeName)
+          break
+        case 'collect':
+          this.$emit('collectEventTab', this.activeName)
+          break
+      }
       console.log('activeName',this.activeName)
     },
   }
@@ -59,32 +71,66 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+</style>
+
+<style lang="scss">
 .cmp-header-sub {
   .el-menu.el-menu--horizontal {
     // border-bottom: none;
   }
-  /deep/ .el-tabs__item {
-    // margin: 0 20px;
-    // padding: 0 40px;
-  }
-  /deep/ .el-tabs__header {
+  .el-tabs__header {
     margin: 0;
   }
-  /deep/ .el-tabs__nav-wrap::after {
+
+  .el-tabs__nav-wrap::after {
     background-color: transparent;
   }
-  /deep/ .el-tabs__active-bar {
+
+  .el-tabs__active-bar {
     // width: 28px !important;
     bottom: 10px;
   }
-}
-</style>
 
-<style lang="scss">
-.el-tabs__item {
-    // margin: 0 20px;
-    // padding: 0 40px;
+  .el-tabs__nav.is-stretch > * {
+    flex: auto;
   }
+
+  .el-tabs__item {
+    box-sizing: border-box;
+    padding: 0 40px;
+  }
+
+  .el-tabs__active-bar {
+    display: none;
+  }
+
+  .el-tabs__item.is-active:after {
+    display: block;
+    content: '';
+    position: absolute;
+    width: 28px;
+    height: 2px;
+    background-color: #0590FF;
+    left: 50%;
+    bottom: 0;
+    margin-left: -14px;
+  }
+
+  .el-tabs--top .el-tabs__item.is-top:nth-child(2):after, 
+  .el-tabs--top .el-tabs__item.is-bottom:nth-child(2):after, 
+  .el-tabs--bottom .el-tabs__item.is-top:nth-child(2):after, 
+  .el-tabs--bottom .el-tabs__item.is-bottom:nth-child(2):after {
+    margin-left: -34px;
+  }
+
+  .el-tabs--top .el-tabs__item.is-top:last-child:after, 
+  .el-tabs--top .el-tabs__item.is-bottom:last-child:after, 
+  .el-tabs--bottom .el-tabs__item.is-top:last-child:after, 
+  .el-tabs--bottom .el-tabs__item.is-bottom:last-child:after {
+    margin-left: 6px;
+  }
+}
 </style>
 
 
