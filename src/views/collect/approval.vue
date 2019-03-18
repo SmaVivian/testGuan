@@ -136,9 +136,9 @@ export default {
       margin-right: 150px!important;
       padding: 0 0 100px 44px;
     }
-    .card-item {
-      border: 1px dashed blue;
-    }
+    // .card-item {
+    //   border: 1px dashed blue;
+    // }
   }
   padding: 25px 30px 40px 240px;
   .pro-list {
@@ -177,6 +177,11 @@ export default {
   .box {
     margin-bottom: 10px;
   }
+  // 侧边栏样式
+.cmp-sidebar[data-v-46eefe02] {
+  margin: 30px 30px 0 30px;
+  // float: none;
+}
 
 </style>
 

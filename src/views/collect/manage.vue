@@ -42,9 +42,9 @@
         <div class="table-content">
          <div class="button">
           <el-row>
-            <el-button round @click="onExport">导出</el-button>
-            <el-button round @click="dialogOpenctVisible = true">公开藏品</el-button>
-            <el-button round  @click="dialogCollectVisible = true">收藏</el-button>
+            <el-button class="el-primary-border" round @click="onExport">导出</el-button>
+            <el-button class="el-primary-border" round @click="dialogOpenctVisible = true">公开藏品</el-button>
+            <el-button class="el-primary-border" round  @click="dialogCollectVisible = true">收藏</el-button>
             <el-button style="float: right; padding: 35px 35px" type="text">选择公开字段</el-button>
           </el-row>
          </div>

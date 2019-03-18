@@ -20,7 +20,7 @@
         </div>
         <!-- 表格内容 -->
         <div class="table-content">
-            <div>
+            <div class="search-content">
                 <el-form ref="form" :model="form" label-width="80px">
                     <el-form-item label="计划名称">
                         <el-input v-model="form.name" placeholder="请输入"></el-input>
@@ -34,6 +34,7 @@
                         <el-option label="区域二" value="beijing"></el-option>
                         </el-select>
                     </el-form-item>
+                    
                      <el-form-item label="登记人">
                         <el-select v-model="form.region" placeholder="请选择">
                         <el-option label="登记一" value="shanghai"></el-option>
@@ -46,18 +47,15 @@
                         <el-option label="状态二" value="beijing"></el-option>
                         </el-select>
                     </el-form-item>
-                    <!-- <el-form-item>
-                        <el-button type="primary" @click="onSubmit">立即创建</el-button>
-                        <el-button>取消</el-button>
-                    </el-form-item> -->
+                    <el-button class="el-primary-border" round @click="onExport">查询</el-button>
                 </el-form>
             </div>
             <div class="button">
-            <el-row>
-                <el-button round @click="onExport">导出</el-button>
-                <el-button round @click="dialogOpenctVisible = true">创建计划</el-button>
-                <el-button round @click="onExport">导出</el-button>
-            </el-row>
+              <el-row>
+                <el-button class="el-primary-border" round @click="onExport">导出</el-button>
+                <el-button class="el-primary-border" round @click="dialogOpenctVisible = true">创建计划</el-button>
+                <el-button class="el-primary-border" round @click="onExport">导入征集藏品</el-button>
+              </el-row>
             </div>
             <!-- 表格 -->
             <div class="table">
@@ -246,6 +244,13 @@ export default {
   },
   data() {
     return {
+        // 时间选择器
+        //  pickerOptions1: {
+        //   disabledDate(time) {
+        //     return time.getTime() > Date.now();
+        //   }
+        // },
+        //  value1: '',
         // 搜索条件
         form: {
           name: '',
@@ -443,10 +448,11 @@ export default {
 
 
 <style lang="scss" scoped>
-
-    
-
-// 重置样式
+// input输入框
+.el-input {
+    width: 10%!important;
+    height: 40px;
+}
  .el-breadcrumb {
       height: 50px;
       line-height: 50px;
@@ -457,9 +463,7 @@ export default {
     .schedule {
         margin: 0 80px;
     }
-    .el-select-el-select-dropdown .el-popper {
-    width: 150px!important;
-}
+    
 
 
 
@@ -499,10 +503,10 @@ export default {
     .button {
       background-color: #fff;
       border-radius: 4px;
-      .el-button:last-child{
-           border: none;
-           background-color: #fff;
-         }
+      // .el-button:last-child{
+      //      border: none;
+      //      background-color: #fff;
+      //    }
     }
     // 分页样式
     .el-pagination {

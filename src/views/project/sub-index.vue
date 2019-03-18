@@ -8,9 +8,21 @@
         </el-breadcrumb>
         <cmp-header-sub :tabList="tabs" :activeTab="currentTab" :pageType="`project`" @projectEventTab="changeTab"></cmp-header-sub>
         <div class="menu-sub-right">
-          <span>看板视图</span>
-          <span>2</span>
-          <span>菜单</span>
+          <span class="mr-20">看板视图</span>
+          <span class="mr-20">2人</span>
+
+          <el-popover
+          class="pop-wrap mr-20"
+          placement="bottom-end"
+          trigger="click">
+          <div class="m-panel">
+            <h3 class="active">项目设置</h3>
+            <h3>项目归档</h3>
+          </div>
+          <span class="operate" slot="reference">菜单</span>
+        </el-popover>
+            
+          </div>
         </div>
       </div>
 
@@ -24,20 +36,20 @@
 </template>
 
 <script>
-import cmpHeaderSub from '@cmp/header-sub'
-import taskProject from './task'
-import exhibitsProject from './exhibits'
-import fileProject from './file'
-import discussProject from './discuss'
-import statisticProject from './statistic'
+import CmpHeaderSub from '@cmp/header-sub'
+import TaskProject from './task'
+import ExhibitsProject from './exhibits'
+import FileProject from './file'
+import DiscussProject from './discuss'
+import StatisticProject from './statistic'
 export default {
   components: {
-    cmpHeaderSub,
-    taskProject,
-    exhibitsProject,
-    fileProject,
-    discussProject,
-    statisticProject,
+    CmpHeaderSub,
+    TaskProject,
+    ExhibitsProject,
+    FileProject,
+    DiscussProject,
+    StatisticProject,
   },
   data() {
     return {
@@ -84,5 +96,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.g-sub-top {
+  .menu-sub-right {
+    .pop-wrap {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+    }
+  }
+}
 </style>

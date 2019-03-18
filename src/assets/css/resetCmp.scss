@@ -70,10 +70,10 @@
 
 // button
 .el-button {
-  // min-width: 100px;
+  min-width: 100px;
   border-radius:25px;
-  // border:1px solid rgba(235,237,242,1);
-  color:#0590FF;
+  border:1px solid rgba(235,237,242,1);
+  color: #9699A2;
   font-size:14px;
 }
 
@@ -178,4 +178,17 @@
 .el-badge__content {
   position: relative;
   top: 1px;
+}
+
+// popover弹出层
+.el-popper[x-placement^="bottom"] {
+  padding: 0;
+}
+
+.el-popper[x-placement^="bottom"] .popper__arrow::after {
+  display: none;
+}
+
+.el-popper[x-placement^="bottom"] .popper__arrow {
+  border: none;
 }

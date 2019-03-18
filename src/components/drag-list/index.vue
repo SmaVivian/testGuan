@@ -2,8 +2,39 @@
   <div class="cmp-drag">
     <el-card class="box-card drag-list">
       <div slot="header" class="header clearfix">
-        <h2 class="fl"><el-badge class="mark" :value="2" type="primary" />&nbsp;{{title}}</h2>
-        <div class="operate fr">...</div>
+        <h2><el-badge class="mark" :value="2" type="primary" />&nbsp;{{itemGroup.title}}</h2>
+
+        <el-popover
+          class="pop-wrap"
+          placement="bottom-start"
+          v-model="showPopover"
+          trigger="click">
+          <div class="operate-box">
+            <div class="m-panel" v-if="showMenu">
+              <h3 @click="handleOperate(itemGroup, 1)">修改项目名称</h3>
+              <!-- <el-popover
+                class="pop-wrap-search"
+                placement="left">
+                <div class="search-wrap">
+                  <h3>是的冯绍峰</h3>
+                  <h3>是的冯绍峰</h3>
+                  <h3>是的冯绍峰</h3>
+                  <h3>是的冯绍峰</h3>
+                  <h3>是的冯绍峰</h3>
+                </div>
+                <h3 slot="reference" @click="handleOperate(itemGroup, 2)">设置本看板所有任务负责人</h3>
+              </el-popover> -->
+              <h3 @click="handleOperate(itemGroup, 2)">设置本看板所有任务负责人</h3>
+              <h3 @click="handleOperate(itemGroup, 3)">设置本看板所有任务截至时间</h3>
+            </div>
+            <div class="search-wrap" v-if="!showMenu">
+              <h3 @click="handleChoose">是的冯绍峰</h3>
+              <h3 @click="handleChoose">是的冯绍峰</h3>
+              <h3 @click="handleChoose">是的冯绍峰</h3>
+            </div>
+          </div>
+          <span class="operate" slot="reference" @click="clickMenu">···</span>
+        </el-popover>
         <!-- <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button> -->
       </div>
       <div class="content">
@@ -49,17 +80,28 @@ export default {
         return []
       }
     },
-    title: {
-      type: String,
-      default: ''
-    }
+    itemGroup: Object
   },
   data() {
     return {
+      showPopover: false,
+      showMenu: true,  // 显示菜单面板
       checkedList: [1, 2, 5, 9]
     }
   },
   methods: {
+    clickMenu() {
+      this.showMenu = true
+    },
+    // 点击菜单面板
+    handleOperate(item, type) {
+      this.showMenu = false
+      console.log(type)
+    },
+    // 选择任务负责人
+    handleChoose() {
+      this.showPopover = false
+    },
     // 选择
     handleChange(a) {
 
@@ -85,7 +127,7 @@ export default {
   },
   created() {
     console.log(this.list)
-  }
+  },
 }
 </script>
 
@@ -96,10 +138,17 @@ export default {
     padding-right: 10px;
     box-sizing: border-box;
     margin-bottom: 20px;
+    overflow: initial;
     .header {
+      position: relative;
       padding-right: 10px;
-      .operate {
-        margin-top: -5px;
+      .pop-wrap {
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        top: 0;
+        right: 10px;
+        cursor: pointer;
       }
     }
     .content {

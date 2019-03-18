@@ -16,7 +16,7 @@
     <div class="content">
       <el-row :gutter="20">
         <el-col :xs="6" :sm="6" :md="6" :xl="4" v-for="(item, index) in list" :key="index">
-          <drag-list :list="item.arrList" :title="item.title"/>
+          <drag-list ref="drag" :list="item.arrList" :itemGroup="item"/>
         </el-col>
         <el-col :xs="6" :sm="6" :md="6" :xl="4">
           <el-card class="panel-add-wrap">
@@ -70,8 +70,24 @@ export default {
             { name: "33列表", id: 10 }
           ],
         },
-      ]
+      ],
+      // bodyClick: false
     }
+  },
+  methods: {
+    hidePanel() {
+      // debugger
+      // for(let i = 0; i < this.$refs.drag.length; i++) {
+      //   this.$refs.drag[i].hidePanel()
+      // }
+    }
+  },
+  mounted() {
+    document.addEventListener('click', this.hidePanel, false)
+  },
+  beforeDestroy() {
+    // this.$store.dispatch('ToggleBodyClick', false)
+    document.removeEventListener('click', this.hidePanel, false)
   }
 }
 </script>

@@ -56,7 +56,7 @@ h3 {
   color: #575962;
 }
 
-// 正文
+//  正文
 p {
   font-size: 14px;
   color: #666;
@@ -81,6 +81,21 @@ p {
   cursor: pointer;
 }
 
+// 悬浮面板
+.m-panel {
+  padding: 15px 0;
+  h3 {
+    padding: 0 30px;
+    line-height: 44px;
+    cursor: pointer;
+    &:hover,
+    &.active {
+      color: $primary;
+      background-color: $color4;
+    }
+  }
+}
+
 @mixin bg( $path, $width:'', $height:'', $size:'') {
   background: $path center center no-repeat;
   @if $width { width: $width; }
@@ -100,4 +115,5 @@ p {
     border-radius: 5px;
   }
 }
+
 
