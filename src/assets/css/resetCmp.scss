@@ -16,7 +16,7 @@
   padding: 30px 20px 0;
 }
 
-// 模态框
+// dialog 模态框、对话框
 .el-dialog__wrapper {
   text-align: center;
   // display: flex;
@@ -71,6 +71,7 @@
 // button 按钮
 .el-button {
   min-width: 100px;
+  padding: 12px 15px;
   border-radius:25px;
   border:1px solid rgba(235,237,242,1);
   color: #9699A2;
@@ -200,4 +201,10 @@
 
 .el-popper[x-placement^="bottom"] .popper__arrow {
   border: none;
+}
+
+// icon 图标
+.el-icon-more {
+  color: #9699A2;
+  font-size: 14px;
 }

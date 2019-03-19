@@ -68,7 +68,8 @@
               <h3 @click="handleOperate(2)">项目归档</h3>
             </div>
           </div>
-          <span class="operate" slot="reference">···</span>
+          <span class="operate" slot="reference"><i class="el-icon el-icon-more"></i></span>
+          <!-- <span class="operate" slot="reference">···</span> -->
         </el-popover>
             
           </div>
@@ -80,6 +81,50 @@
           <component :is="currentTabCmp"></component>
         </div>
       </div>
+
+      <el-dialog
+        class="dialog-pro"
+        title="项目设置"
+        :show-close="false"
+        :visible.sync="dialogVisible"
+        :width="'900px'"
+        :before-close="handleClose">
+        <!-- <span>这是一段信息</span> -->
+        <div class="clearfix">
+          <div class="pro-list g-dialog-pro tc">
+            <el-card class="box-card" style="width: 260px;display: inline-block;">
+              <router-link class="card-item" tag="div" :to="{path: '/project/sub?type=task'}">
+                <div class="card-pic card-pic-1"></div>
+                <p class="name tc">标准项目</p>
+              </router-link>
+            </el-card>
+          </div>
+          <div class="m-btn tc mb-30 mt-30">
+            <el-button class="el-primary-border">上传新封面</el-button>
+          </div>
+        </div>
+        <h1>项目信息</h1>
+        <el-form ref="form" :model="form" :rules="rules" label-width="0">
+          <el-form-item class="mb-30" label="" prop="name">
+            <el-input autofocus v-model="form.name" placeholder="项目名称"/>
+          </el-form-item>
+      
+          <!-- 下拉框静态 -->
+          <el-form-item class="mb-20" label="" prop="region">
+            <el-select v-model="form.region" placeholder="项目分组（可多选）" style="display:block;">
+              <el-option label="上海" value="shanghai"/>
+              <el-option label="北京" value="beijing"/>
+            </el-select>
+          </el-form-item>
+        </el-form>
+        <p class="m-assist">公开范围：仅项目组成员可见</p>
+        <span slot="footer" class="dialog-footer">
+
+          <el-button @click="dialogVisible = false">取 消</el-button>
+          <el-button type="primary" @click="onSubmit('form')">确 定</el-button>
+        </span>
+      </el-dialog>
+    
     </div>
   </div>
 </template>
@@ -102,6 +147,8 @@ export default {
   },
   data() {
     return {
+      dialogVisible: false,
+
       // currentTab: 'task',
       tabs: [
         {
@@ -128,6 +175,24 @@ export default {
       showTop: false,
       popMenu: false,  // 显示菜单面板
       key: '',
+
+      dialogData: [
+        {
+          name: '标准项目'
+        }
+      ],
+      form: {
+      name: '',
+        region: ''
+      },
+      rules: {
+        name: [
+          {required: true, message: '必填', trigger: 'blur'}
+        ],
+        region: [
+          {required: true, message: '请选择项目分组', trigger: 'change'}
+        ]
+      }
     }
   },
   computed: {
@@ -148,6 +213,9 @@ export default {
     handleOperate(type) {
       this.popMenu = false
       console.log(type)
+      if(type === 1) {
+        this.dialogVisible = true
+      }
     },
     // 添加
     handleAdd() {
@@ -155,7 +223,33 @@ export default {
     },
     changeTab(path) {
       this.$router.replace({path: '/project/sub', query: {type: path}})
-    }
+    },
+    handleClose() {
+      // this.$confirm('确认关闭？')
+      //     .then(_ => {
+      //       done();
+      //     })
+      //     .catch(_ => {});
+    },
+    onSubmit(formName) {
+      // this.$message('submit!')
+      this.$refs[formName].validate((valid) => {
+        if(valid) {
+          let forms = this.form;
+          console.log(111, { forms })
+          console.log(222, { ...this.form })
+          this.dialogVisible = false;
+        } else {
+          return false
+        }
+      })
+    },
+    onCancel() {
+      this.$message({
+        message: 'cancel!',
+        type: 'warning'
+      })
+    },
   },
 }
 </script>

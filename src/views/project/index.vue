@@ -39,7 +39,7 @@
       :before-close="handleClose">
       <!-- <span>这是一段信息</span> -->
       <div class="clearfix">
-        <ul class="pro-list">
+        <ul class="pro-list g-dialog-pro">
           <el-row :gutter="10">
             <el-col class="box" :span="8" v-for="(item, index) in menuData" :key="index">
               <el-card class="box-card">
@@ -306,46 +306,9 @@ export default {
     margin-bottom: 10px;
   }
   .pro-list {
-    margin-bottom: 10px;
-    .card-pic-1 {
-      @include bg(url(~@images/project/card-3.svg), '', '', contain)
-    }
-    .card-pic-2 {
-      @include bg(url(~@images/project/card-4.svg), '', '', contain)
-    }
-    .card-pic-3 {
-      @include bg(url(~@images/project/card-1.svg), '', '', contain)
-    }
-    .card-pic-4 {
-      @include bg(url(~@images/project/card-6.svg), '', '', contain)
-    }
-    .card-pic-5 {
-      @include bg(url(~@images/project/card-5.svg), '', '', contain)
-    }
-    .card-pic-6 {
-      @include bg(url(~@images/project/card-2.svg), '', '', contain)
-    }
+    
   }
-  .card-item {
-    position: relative;
-    width: 280px;
-    height: 170px;
-    padding: 10px;
-    box-sizing: border-box;
-    // background-color: #fdfdfe;
-    .card-pic {
-      background-color: #fff;
-      width: 260px;
-      height: 150px;
-      border-radius: 4px;
-    }
-    .name {
-      width: 100%;
-      position: absolute;
-      left: 0;
-      bottom: 10px;
-    }
-  }
+  
 }
 </style>
 

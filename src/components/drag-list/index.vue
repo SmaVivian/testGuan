@@ -49,7 +49,7 @@
               </ul>
             </div>
           </div>
-          <span class="operate" slot="reference" @click="clickMenu">···</span>
+          <span class="operate" slot="reference" @click="clickMenu"><i class="el-icon el-icon-more"></i></span>
         </el-popover>
       </div>
       <div class="content">

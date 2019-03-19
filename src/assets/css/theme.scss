@@ -142,5 +142,47 @@
 	background-color: #fff;
 }
 
+.g-dialog-pro {
+	margin-bottom: 10px;
+	.card-item {
+    position: relative;
+    width: 280px;
+    height: 170px;
+    padding: 10px;
+    box-sizing: border-box;
+    // background-color: #fdfdfe;
+    .card-pic {
+      background-color: #fff;
+      width: 260px;
+      height: 150px;
+      border-radius: 4px;
+    }
+    .name {
+      width: 100%;
+      position: absolute;
+      left: 0;
+      bottom: 10px;
+    }
+  }
+	.card-pic-1 {
+		@include bg(url(~@images/project/card-3.svg), '', '', contain)
+	}
+	.card-pic-2 {
+		@include bg(url(~@images/project/card-4.svg), '', '', contain)
+	}
+	.card-pic-3 {
+		@include bg(url(~@images/project/card-1.svg), '', '', contain)
+	}
+	.card-pic-4 {
+		@include bg(url(~@images/project/card-6.svg), '', '', contain)
+	}
+	.card-pic-5 {
+		@include bg(url(~@images/project/card-5.svg), '', '', contain)
+	}
+	.card-pic-6 {
+		@include bg(url(~@images/project/card-2.svg), '', '', contain)
+	}
+}
+
 
 
