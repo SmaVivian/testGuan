@@ -68,7 +68,7 @@
   background-color: $color4;
 }
 
-// button
+// button 按钮
 .el-button {
   min-width: 100px;
   border-radius:25px;
@@ -97,6 +97,15 @@
   color: #fff;
   background:rgba(121,195,253,1);
   border: none;
+}
+
+.el-button--small,
+.el-button--mini {
+  min-width: auto;
+}
+
+.el-button--mini {
+  padding: 4px 13px;
 }
 
 // confirm

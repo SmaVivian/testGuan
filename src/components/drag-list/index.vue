@@ -4,38 +4,53 @@
       <div slot="header" class="header clearfix">
         <h2><el-badge class="mark" :value="2" type="primary" />&nbsp;{{itemGroup.title}}</h2>
 
+        <!-- 操作 -->
         <el-popover
           class="pop-wrap"
           placement="bottom-start"
           v-model="showPopover"
           trigger="click">
           <div class="operate-box">
+            <!-- 菜单悬浮面板 -->
             <div class="m-panel" v-if="showMenu">
               <h3 @click="handleOperate(itemGroup, 1)">修改项目名称</h3>
-              <!-- <el-popover
-                class="pop-wrap-search"
-                placement="left">
-                <div class="search-wrap">
-                  <h3>是的冯绍峰</h3>
-                  <h3>是的冯绍峰</h3>
-                  <h3>是的冯绍峰</h3>
-                  <h3>是的冯绍峰</h3>
-                  <h3>是的冯绍峰</h3>
-                </div>
-                <h3 slot="reference" @click="handleOperate(itemGroup, 2)">设置本看板所有任务负责人</h3>
-              </el-popover> -->
               <h3 @click="handleOperate(itemGroup, 2)">设置本看板所有任务负责人</h3>
               <h3 @click="handleOperate(itemGroup, 3)">设置本看板所有任务截至时间</h3>
             </div>
-            <div class="search-wrap" v-if="!showMenu">
-              <h3 @click="handleChoose">是的冯绍峰</h3>
-              <h3 @click="handleChoose">是的冯绍峰</h3>
-              <h3 @click="handleChoose">是的冯绍峰</h3>
+
+            <!-- 搜索悬浮面板 -->
+            <div class="m-search-wrap" v-if="!showMenu">
+              <el-input class="input-block" 
+                v-model="key" 
+                suffix-icon="el-icon-search"
+                placeholder="输入姓名搜索">
+              </el-input>
+              <ul>
+                <!-- 是否有责任人 -->
+                <li @click="handleChoose">
+                  <img src="~@images/default-head.svg" alt="">
+                  <h3>冯绍峰</h3>
+                  <i class="el-icon el-icon-check"></i>
+                  <!-- <svg-icon icon-class="add" class-name="icon-add" /> -->
+                </li>
+
+                <!-- 最常协作 -->
+                <p class="m-tips mt-20">最常协作</p>
+                <li @click="handleChoose">
+                  <img src="~@images/default-head.svg" alt="">
+                  <h3>冯绍峰</h3>
+                  <i class="el-icon el-icon-check"></i>
+                </li>
+                <li @click="handleChoose">
+                  <img src="~@images/default-head.svg" alt="">
+                  <h3>冯绍峰</h3>
+                  <i class="el-icon el-icon-check"></i>
+                </li>
+              </ul>
             </div>
           </div>
           <span class="operate" slot="reference" @click="clickMenu">···</span>
         </el-popover>
-        <!-- <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button> -->
       </div>
       <div class="content">
         <el-checkbox-group v-model="checkedList" @change="handleChange">
@@ -84,6 +99,7 @@ export default {
   },
   data() {
     return {
+      key: '',
       showPopover: false,
       showMenu: true,  // 显示菜单面板
       checkedList: [1, 2, 5, 9]

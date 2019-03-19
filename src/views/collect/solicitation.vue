@@ -34,6 +34,14 @@
                         <el-option label="区域二" value="beijing"></el-option>
                         </el-select>
                     </el-form-item>
+                    <el-form-item label="选择日期">
+                    <el-date-picker
+                      v-model="value1"
+                      type="date"
+                      placeholder="选择日期">
+                    </el-date-picker>
+                    </el-form-item>
+
                     
                      <el-form-item label="登记人">
                         <el-select v-model="form.region" placeholder="请选择">
@@ -245,12 +253,7 @@ export default {
   data() {
     return {
         // 时间选择器
-        //  pickerOptions1: {
-        //   disabledDate(time) {
-        //     return time.getTime() > Date.now();
-        //   }
-        // },
-        //  value1: '',
+         value1: '',
         // 搜索条件
         form: {
           name: '',
@@ -449,8 +452,8 @@ export default {
 
 <style lang="scss" scoped>
 // input输入框
-.el-input {
-    width: 10%!important;
+.el-form-item {
+    width: 14%!important;
     height: 40px;
 }
  .el-breadcrumb {
@@ -492,6 +495,12 @@ export default {
   }
   
   .table-content {
+    // .search-content {
+    //   width: 40px;
+          .el-form-item {
+            float: left;
+          }
+    // }
       background-color: #fff;
     //    .el-button + .el-button {
     //       margin-left: 0;

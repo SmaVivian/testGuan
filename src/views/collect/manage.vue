@@ -9,9 +9,27 @@
           <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
             <el-breadcrumb-item><a href="javascript:;">藏品管理</a></el-breadcrumb-item>
+            <el-input
+              placeholder="请输入总登记号 / 藏品名称搜索"
+              v-model="searchName">
+              <i slot="prefix" class="el-input__icon el-icon-search"></i>
+            </el-input>
           </el-breadcrumb> 
           <!-- 搜索详情 -->
            <div>
+              <div class="sch">
+                  <div class="sch-type">全部结果 :</div>
+                  <div>
+                    <el-tag :key="tag" v-for="tag in dynamicTags" closable :disable-transitions="false" @close="handleClose(tag)">
+                    {{tag}}
+                    </el-tag>
+                    <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" size="small"
+                    @keyup.enter.native="handleInputConfirm"
+                    @blur="handleInputConfirm">
+                    </el-input>
+                  </div>
+                  <el-button class="reset" round @click="onExport">重置</el-button>
+              </div>
               <div class="sch">
                   <div class="sch-type">精品分类 :</div>
                   <div class="sch-content">
@@ -33,7 +51,47 @@
                       <span>更多</span>
                   </div>
               </div>
-            
+              <div class="sch">
+                  <div class="sch-type">高级选项 :</div>
+                  <div class="sch-content">
+                    <el-input class="lableSearch"
+                      placeholder="藏品标签搜索"
+                      v-model="searchName">
+                      <i slot="prefix" class="el-input__icon el-icon-search"></i>
+                    </el-input>
+                    <el-form ref="form" :model="form" label-width="80px">
+                      <el-form-item>
+                          <el-select v-model="form.region" placeholder="质地">
+                            <!-- <el-option v-for="item in textureCondition" :key="item.name">{{item.name}}{{item.value}}</el-option> -->
+                            <el-option label="说明" value="shanghai"></el-option>
+                            <el-option label="全部" value="beijing"></el-option>
+                          </el-select>
+                      </el-form-item>
+                     
+                      <el-form-item>
+                          <el-select v-model="form.region" placeholder="来源">
+                            <!-- <el-option v-for="item in textureCondition" :key="item.name">{{item.name}}{{item.value}}</el-option> -->
+                            <el-option label="说明" value="shanghai"></el-option>
+                            <el-option label="全部" value="beijing"></el-option>
+                          </el-select>
+                      </el-form-item>
+                       <el-form-item>
+                          <el-select v-model="form.region" placeholder="状态">
+                            <!-- <el-option v-for="item in textureCondition" :key="item.name">{{item.name}}{{item.value}}</el-option> -->
+                            <el-option label="说明" value="shanghai"></el-option>
+                            <el-option label="全部" value="beijing"></el-option>
+                          </el-select>
+                      </el-form-item>
+                       <el-form-item>
+                          <el-select v-model="form.region" placeholder="完残程度">
+                            <!-- <el-option v-for="item in textureCondition" :key="item.name">{{item.name}}{{item.value}}</el-option> -->
+                            <el-option label="说明" value="shanghai"></el-option>
+                            <el-option label="全部" value="beijing"></el-option>
+                          </el-select>
+                      </el-form-item>
+                    </el-form>
+                  </div>
+            </div>
             
          
         </div>     
@@ -130,8 +188,8 @@
                 label="操作"
                 width="300">
                 <template>
-                  <el-button @click="dialogLablectVisible = true" type="text" size="small">标签</el-button>
-                  <el-button type="text" size="small">移库</el-button>
+                  <a class="m-btn" @click="dialogLablectVisible = true" type="text" size="small">标签</a>
+                  <a class="m-btn" type="text" size="small" @click="dialogMoveVisible = true">移库</a>
                 </template>
               </el-table-column>
               </el-table>
@@ -221,6 +279,33 @@
         <el-button type="primary" @click="addCollection">确 定</el-button>
       </div>
     </el-dialog>
+
+     <el-dialog title="藏品移库" :visible.sync="dialogMoveVisible" width="460px" class="MoveLibrary">
+       <div class="storageRoom">
+         <h3>原库房</h3> <h3>书画库房</h3>
+         <h3>原库位</h3> <h3>库位1</h3>
+       </div>
+        <el-form ref="form" :model="form">
+          <el-form-item label="现库房" >
+            <el-select v-model="form.region" placeholder="状态" class="nowRoom">
+              <!-- <el-option v-for="item in textureCondition" :key="item.name">{{item.name}}{{item.value}}</el-option> -->
+              <el-option label="说明" value="shanghai"></el-option>
+              <el-option label="全部" value="beijing"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="现库房" >
+            <el-select v-model="form.region" placeholder="状态" class="nowRoom">
+              <!-- <el-option v-for="item in textureCondition" :key="item.name">{{item.name}}{{item.value}}</el-option> -->
+              <el-option label="说明" value="shanghai"></el-option>
+              <el-option label="全部" value="beijing"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="dialogMoveVisible = false">取 消</el-button>
+          <el-button type="primary" @click="dialogMoveVisible = false">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -235,6 +320,8 @@ export default {
   },
   data() {
     return {
+       // 搜索条件
+        searchName: "",
         // 弹框标签
         dynamicTags: ['陶器', '东周'],
         inputVisible: false,
@@ -248,7 +335,11 @@ export default {
         formTag: {
             collection: ''
         },
-
+      // 搜索条件
+      // textureCondition: [
+      //   {name: '说明'},
+      //   {name: '全部'}
+      // ],
         searchTag:[
             {name: '全部 ', number:'23543'},
             {name: '书法/绘画 ', number:'12351'},
@@ -291,6 +382,7 @@ export default {
         dialogOpenctVisible: false,
         dialogTableVisible: false,
         dialogCollectVisible: false,
+        dialogMoveVisible: false,
         form: {
           name: '',
           region: '',
@@ -451,8 +543,6 @@ export default {
 
 <style lang="scss" scoped>
 
-    
-
 // 重置样式
 
 .content[data-v-22c69cfa] {
@@ -469,12 +559,30 @@ export default {
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
     border-radius: 4px;
     // height: 200px;
+    .el-form {
+        float: right;
+      }
+    .el-form-item {
+      float: right;
+    }
     .el-breadcrumb {
       padding: 0 20px;
       line-height: 56px;
       background: #fff;
+      .el-input {
+        width: 17.5%;
+        margin: 1% 3%;
+      }
     }
   }
+  
+    
+.m-btn {
+  margin-right: 15px;
+}
+
+
+ 
   .sch{
     display: flex;
     padding: 0 20px;
@@ -486,6 +594,23 @@ export default {
         width: 75px;
         color: #B5B1DD;
     }
+    .reset {
+      height: 38px;
+      margin-left: 2%;
+      border: 1px solid #0590FF;
+    }
+    .reset:hover {
+      color: #fff;
+      background-color: $primary;
+    }
+      .sch-content {
+        width: 100%;
+        float: left;
+        .lableSearch {
+          width: 18%;
+          float: left;
+        }
+      }
      .sch-content span {
          padding: 0 15px;
          color: #575962;
@@ -502,6 +627,7 @@ export default {
     margin-top: 20px;
     border-radius: 4px;
     // border: 1px solid blue;
+  
     .button {
       background-color: #fff;
       border-radius: 4px;
@@ -527,6 +653,7 @@ export default {
 }
 // 按钮点击事件样式
 .el-dialog__footer {
+  // padding: 0!important;
   text-align: center;
 }
 .el-dialog__title {
@@ -536,6 +663,36 @@ export default {
 .el-table::before {
     height: 0;
     content:'';
+}
+
+
+.dialog-footer {
+  padding: 35px;
+}
+
+
+
+
+
+
+
+
+
+ h3 {
+    float: left;
+    display: block;
+    
+}
+h3:nth-of-type(even) {
+  margin-left: 20px;
+}
+h3:nth-child(3) {
+  margin-left: 25%;
+}
+.MoveLibrary {
+  .nowRoom {
+  width: 48%;
+  }
 }
 
 </style>
