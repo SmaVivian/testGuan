@@ -133,6 +133,7 @@
 <script>
 import CmpHeaderSub from '@cmp/header-sub'
 import TaskProject from './task'
+import TaskListProject from './task-list'
 import ExhibitsProject from './exhibits'
 import FileProject from './file'
 import DiscussProject from './discuss'
@@ -141,6 +142,7 @@ export default {
   components: {
     CmpHeaderSub,
     TaskProject,
+    TaskListProject,
     ExhibitsProject,
     FileProject,
     DiscussProject,
@@ -202,6 +204,9 @@ export default {
       return this.$route.query.type
     },
     currentTabCmp() {
+      if(this.currentTab === 'task') {
+        return 'taskListProject'  // 列表视图
+      }
       return this.currentTab && (this.currentTab + 'Project')
     }
   },

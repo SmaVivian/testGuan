@@ -2,7 +2,7 @@
   <div class="cmp-drag">
     <el-card class="box-card drag-list">
       <div slot="header" class="header clearfix">
-        <h2><el-badge class="mark" :value="2" type="primary" />&nbsp;{{itemGroup.title}}</h2>
+        <h2><el-badge class="g-mark" :value="234" type="primary" />&nbsp;{{itemGroup.title}}</h2>
 
         <!-- 操作 -->
         <el-popover

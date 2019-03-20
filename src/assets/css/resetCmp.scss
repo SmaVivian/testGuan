@@ -166,6 +166,20 @@
   background-color: $primary;
 }
 
+// 危险边框按钮
+.el-button--danger.is-plain {
+  border-color: $danger;
+  color: $danger;
+  background: #fff;
+}
+
+// 紧急边框按钮
+.el-button--warning.is-plain {
+  border-color: $warning;
+  color: $warning;
+  background: #fff;
+}
+
 // 表格
 .el-table {
   color: #575962;
@@ -207,4 +221,16 @@
 .el-icon-more {
   color: #9699A2;
   font-size: 14px;
+}
+
+// 自定义 类似图片交互的 checkbox
+.my-checkbox {
+  cursor: pointer;
+  .el-checkbox__inner {
+    top:-1px;
+    vertical-align: middle;
+  }
+  &.is-checked + .title {
+    text-decoration: line-through;
+  }
 }

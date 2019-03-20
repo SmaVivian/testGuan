@@ -61,12 +61,28 @@
 	float: left;
 }
 
+.tl {
+	text-align: left;
+}
+
+.tr {
+	text-align: right;
+}
+
 .tc {
 	text-align: center;
 }
 
 .pad {
 	padding: 30px;
+}
+
+.ml-10 {
+	margin-left: 10px;
+}
+
+.ml-20 {
+	margin-left: 20px;
 }
 
 .ml-30 {
@@ -149,6 +165,17 @@
 .g-pic {
 	width: 40px;
 	height: 40px;
+	vertical-align: middle;
+}
+
+.g-pic.small {
+	width: 32px;
+	height: 32px;
+}
+
+// 通知
+.g-mark {
+	top: 1px;
 }
 
 // 分割线
