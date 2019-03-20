@@ -88,9 +88,7 @@ export default {
     border: 1px dashed #0590FF;
     margin: 30px;
     .m-btn {
-      margin: 0 auto;
-      // text-align: center;
-      // line-height:
+     text-align: center;
     }
   }
 </style>

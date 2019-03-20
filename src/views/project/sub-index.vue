@@ -1,6 +1,7 @@
 <template>
   <div class="g-wrap">
     <div class="page-project-sub">
+      <!-- 面包屑 -->
       <div class="g-sub-top">
         <el-breadcrumb separator="/">
           <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>

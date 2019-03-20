@@ -2,6 +2,7 @@ $primary: #0590FF;
 $color2: #F2F3F8;
 $color3: #E6F3FF;
 $color4: #F2F9FF;
+$color5: #575962;
 $border: #EBEDF2;
 $paddingWidth: 30px;
 $headerHeight: 80px;  // 头部高度
@@ -79,12 +80,18 @@ p {
   font-size: 14px;
   color: $primary;
   cursor: pointer;
+  font-weight: normal;
 }
 
 // 备注文字
 .m-tips {
   font-size: 12px;
   color: #9699A2;
+}
+
+.m-des {
+  font-size: 14px;
+  color: $color5;
 }
 
 // 悬浮面板

@@ -2,7 +2,7 @@
   <div class="g-wrap">
     <div class="page-collect clearfix">
        <!-- 侧边栏 -->
-      <sidebar :menuList="sidebarData" :activeIndex="`/collect`"></sidebar>
+      <sidebar :menuList="sidebarData" :activeIndex="`/plan`" class="sidebarCont"></sidebar>
       <div class="content">
           <!-- 进度内容 -->
         <div class="schedule-content">
@@ -317,7 +317,7 @@ export default {
         {
           name: '征集计划',
           icon: 'pro',
-          index: '/1'
+          index: '/plan'
         },
         {
           name: '藏品入馆',
@@ -452,6 +452,19 @@ export default {
 
 <style lang="scss" scoped>
 // input输入框
+/deep/ .el-dialog__footer {
+    padding-bottom: 0!important;
+    padding: 0!important;
+}
+/deep/ .dialog-footer {
+    text-align: center;
+}
+/deep/ .el-dialog__header {
+    text-align: center;
+    padding-bottom: 30px;
+    font-size: 18px;
+    font-weight: bold;
+}
 .el-form-item {
     width: 14%!important;
     height: 40px;
@@ -474,10 +487,10 @@ export default {
     
 .content[data-v-22c69cfa] {
   background-color: #F2F3F8;
-  padding: 30px 30px 61px 260px;
+  padding: 30px 30px 61px 240px;
 }
 .content {
-  padding: 30px 30px 30px 240px;
+  padding: 30px 30px 30px 270px;
   .table {
       padding: 0 25px;
       background-color: #fff;
@@ -497,9 +510,6 @@ export default {
   .table-content {
     // .search-content {
     //   width: 40px;
-          .el-form-item {
-            float: left;
-          }
     // }
       background-color: #fff;
     //    .el-button + .el-button {

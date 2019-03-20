@@ -81,6 +81,10 @@
 	margin-right: 20px;
 }
 
+.mr-30 {
+	margin-right: 30px;
+}
+
 .mt-10 {
 	margin-top: 10px;
 }
@@ -140,6 +144,20 @@
 	justify-content: space-between;
 	align-items: center;
 	background-color: #fff;
+}
+
+.g-pic {
+	width: 40px;
+	height: 40px;
+}
+
+// 分割线
+.g-line-split {
+	display: inline-block;
+	width: 1px;
+	height: 16px;
+	background-color: $primary;
+	vertical-align: middle;
 }
 
 .g-dialog-pro {

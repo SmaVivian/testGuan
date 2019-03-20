@@ -16,7 +16,7 @@
     <div class="content">
       <el-row :gutter="20">
         <el-col :xs="6" :sm="6" :md="6" :xl="4" v-for="(item, index) in list" :key="index">
-          <drag-list ref="drag" :list="item.arrList" :itemGroup="item"/>
+          <drag-list ref="drag" :list="item.arrList" :itemGroup="item" @showProDialog="showDialog"/>
         </el-col>
         <el-col :xs="6" :sm="6" :md="6" :xl="4">
           <el-card class="panel-add-wrap">
@@ -26,16 +26,20 @@
         </el-col>
       </el-row>
     </div>
+
+    <cmp-dialog-pro ref="dialogPro" :dialogData="dialogData"></cmp-dialog-pro>
   </div>
 </template>
 
 <script>
 import cmpHeaderSub from '@cmp/header-sub'
 import DragList from '@cmp/drag-list'
+import cmpDialogPro from './dialog-pro'
 export default {
   components: {
     cmpHeaderSub,
-    DragList
+    DragList,
+    cmpDialogPro
   },
   data() {
     return {
@@ -71,7 +75,7 @@ export default {
           ],
         },
       ],
-      // bodyClick: false
+      dialogData: {}
     }
   },
   methods: {
@@ -80,6 +84,9 @@ export default {
       // for(let i = 0; i < this.$refs.drag.length; i++) {
       //   this.$refs.drag[i].hidePanel()
       // }
+    },
+    showDialog() {
+      this.$refs.dialogPro.initDialogData()
     }
   },
   mounted() {

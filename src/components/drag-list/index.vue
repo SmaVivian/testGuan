@@ -52,16 +52,19 @@
           <span class="operate" slot="reference" @click="clickMenu"><i class="el-icon el-icon-more"></i></span>
         </el-popover>
       </div>
+      
       <div class="content">
         <el-checkbox-group v-model="checkedList" @change="handleChange">
           <draggable class="list-group" :list="list" :options="{group:'task'}" @change="log">
               <div class="list-group-item"
                 :class="{'tip waning': item.id === 1, 'tip rush': item.id === 2}"
+                @click="showDetailDialog(item)"
                 v-for="(item, index) in list"
                 :key="item.id">
                 <div class="group-item">
                   <p>
                     <el-checkbox :label="item.id" :key="item.id" @change="handleSelect(item, $event)">{{item.name}}</el-checkbox>
+                    <span class="title">{{item.name}}</span>&nbsp;&nbsp;
                     <svg-icon icon-class="add" class-name="icon-add" v-if="item.id === 1"/>  
                   </p>
                   <p>
@@ -106,6 +109,10 @@ export default {
     }
   },
   methods: {
+    // 弹框详情
+    showDetailDialog(item) {
+      this.$emit('showProDialog', item)
+    },
     clickMenu() {
       this.showMenu = true
     },
@@ -124,6 +131,7 @@ export default {
       console.log(a)
     },
     handleSelect(item, isCheck) {
+      // debugger
       console.log(isCheck, item)
     },
     add: function() {
@@ -208,6 +216,10 @@ export default {
         padding: 20px;
         background-color: #F1F2F7;
         border-radius:4px;
+        .title {
+          color: #9699A2;
+          // text-decoration: line-through;
+        }
       }
       .person {
         display: inline-block;
@@ -221,8 +233,9 @@ export default {
 
     .list-group-item.sortable-chosen {
       .group-item {
-        background-color: #9699A2;
-        opacity: .5;
+        background-color: #fff;
+        // background-color: #9699A2;
+        // opacity: .5;
       }
     }
     
@@ -232,9 +245,14 @@ export default {
       }
     }
 
-    /deep/ .el-checkbox__input.is-checked + .el-checkbox__label {
-      color: #9699A2;
-      text-decoration: line-through;
+    .el-checkbox {
+      margin-right: 10px;
+      &.is-checked + .title {
+        text-decoration: line-through;
+      }
+    }
+    /deep/ .el-checkbox__label {
+      display: none;
     }
   }
   .panel-add {

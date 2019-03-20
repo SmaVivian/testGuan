@@ -2,7 +2,7 @@
   <div class="g-wrap">
     <div class="page-collect clearfix">
        <!-- 侧边栏 -->
-      <sidebar :menuList="sidebarData" :activeIndex="`/collect`"></sidebar>
+         <sidebar :menuList="sidebarData" :activeIndex="`/collect`" class="sidebarCont"></sidebar>
       <div class="content">
           <!-- 搜索内容 -->
         <div class="search-content">
@@ -17,18 +17,15 @@
           </el-breadcrumb> 
           <!-- 搜索详情 -->
            <div>
+             
               <div class="sch">
                   <div class="sch-type">全部结果 :</div>
                   <div>
-                    <el-tag :key="tag" v-for="tag in dynamicTags" closable :disable-transitions="false" @close="handleClose(tag)">
-                    {{tag}}
+                    <el-tag :key="tag" v-for="tag in dynamicTags" closable :disable-transitions="false" @close="handleClose(tag)" ref="dynamicTags">
+                      {{tag}}
                     </el-tag>
-                    <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" size="small"
-                    @keyup.enter.native="handleInputConfirm"
-                    @blur="handleInputConfirm">
-                    </el-input>
                   </div>
-                  <el-button class="reset" round @click="onExport">重置</el-button>
+                    <el-button class="reset" round>重置</el-button>
               </div>
               <div class="sch">
                   <div class="sch-type">精品分类 :</div>
@@ -59,7 +56,7 @@
                       v-model="searchName">
                       <i slot="prefix" class="el-input__icon el-icon-search"></i>
                     </el-input>
-                    <el-form ref="form" :model="form" label-width="80px">
+                    <el-form ref="form" :model="form" label-width="">
                       <el-form-item>
                           <el-select v-model="form.region" placeholder="质地">
                             <!-- <el-option v-for="item in textureCondition" :key="item.name">{{item.name}}{{item.value}}</el-option> -->
@@ -111,26 +108,25 @@
             <el-table
               :data="tableData3"
               stripe
-              style="width: 100%"
               >
               <el-table-column
                 type="selection"
-                width="55">
+                width="50" align="center">
               </el-table-column>
               <el-table-column
                 prop="image"
                 label="图片"
-                width="55">
+                width="100">
               </el-table-column>
               <el-table-column
                 label="登记号"
-                width="100">
+                width="100" align="center">
                 <template slot-scope="scope">{{ scope.row.date }}</template>
               </el-table-column>
               <el-table-column
                 prop="classi-fication"
                 label="分类号"
-                width="70">
+                width="100">
               </el-table-column>
               <el-table-column
                 prop="name"
@@ -140,53 +136,53 @@
               <el-table-column
                 prop="name"
                 label="年代"
-                 width="50">
+                 width="100">
               </el-table-column>
               <el-table-column
                 prop="name"
                 label="商品分类"
-                 width="80">
+                 width="100">
               </el-table-column>
               <el-table-column
                 prop="texture"
                 label="质地"
-                 width="50">
+                 width="120">
               </el-table-column>
               <el-table-column
                 prop="degree"
                 label="完残程度"
-                 width="80">
+                 width="120">
               </el-table-column>
               <el-table-column
                 prop="number"
                 label="数量"
-                 width="50">
+                 width="120">
               </el-table-column>
               <el-table-column
                 prop="company"
                 label="单位"
-                 width="50">
+                 width="120">
               </el-table-column>
               <el-table-column
                 prop="storehouse"
                 label="库房名称"
-                 width="80">
+                 width="120">
               </el-table-column>
-              <!-- <el-table-column
+              <el-table-column
                 prop="open"
                 label="是否公开"
-                 width="80">
-              </el-table-column> -->
+                 width="100">
+              </el-table-column>
               <el-table-column
                 prop="open"
                 label=" 藏品状态"
-                 width="400">
+                 width="100">
               </el-table-column>
               <el-table-column
                 fixed="right"
                 align="center"
                 label="操作"
-                width="300">
+                width="100">
                 <template>
                   <a class="m-btn" @click="dialogLablectVisible = true" type="text" size="small">标签</a>
                   <a class="m-btn" type="text" size="small" @click="dialogMoveVisible = true">移库</a>
@@ -228,7 +224,7 @@
      <el-dialog title="藏品公开属性设置" :visible.sync="dialogOpenctVisible" width="300px">
       <el-table :data="attribute" >
         <el-table-column property="number" label="序号" width="50"></el-table-column>
-        <el-table-column property="name" label="属性名称" width="120"></el-table-column>
+        <el-table-column property="name" label="属性名称" width="100"></el-table-column>
         <el-table-column type="selection"  width="60"></el-table-column>
       </el-table>
       <div slot="footer" class="dialog-footer">
@@ -237,17 +233,18 @@
       </div>
     </el-dialog>
      <!-- 表格标签按钮点击事件 -->
-     <el-dialog title="藏品标签" :visible.sync="dialogLablectVisible" width="300px">
-      <div class="labelTable">已选标签
-          <div>
-        <el-tag :key="tag" v-for="tag in dynamicTags" closable :disable-transitions="false" @close="handleClose(tag)">
-        {{tag}}
-        </el-tag>
-        <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" size="small"
-        @keyup.enter.native="handleInputConfirm"
-        @blur="handleInputConfirm">
-        </el-input>
-      </div>
+     <el-dialog title="藏品标签" :visible.sync="dialogLablectVisible" width="435px">
+      <div class="labelTable">
+        <h3 class="collectLable">已选标签</h3>
+        <div>
+          <el-tag :key="tag" v-for="tag in dynamicTags" closable :disable-transitions="false" @close="handleClose(tag)" style="margin-bottom:30px">
+          {{tag}}
+          </el-tag>
+          <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" size="small"
+          @keyup.enter.native="handleInputConfirm"
+          @blur="handleInputConfirm">
+          </el-input>
+        </div>
       </div>
       
       <el-form :model="form">
@@ -301,6 +298,9 @@
             </el-select>
           </el-form-item>
         </el-form>
+        <div class="storageTime">
+         <h3>移库时间</h3> <h3>2018 / 06 / 20</h3>
+       </div>
         <div slot="footer" class="dialog-footer">
           <el-button @click="dialogMoveVisible = false">取 消</el-button>
           <el-button type="primary" @click="dialogMoveVisible = false">确 定</el-button>
@@ -322,8 +322,9 @@ export default {
     return {
        // 搜索条件
         searchName: "",
+        
         // 弹框标签
-        dynamicTags: ['陶器', '东周'],
+        dynamicTags: ['陶器', '东周', '未定级'],
         inputVisible: false,
         inputValue: '',
 
@@ -457,6 +458,16 @@ export default {
           date: '2016-05-07',
           name: '王小',
           address: '上海市普陀区金沙江路 1518 弄'
+        },
+        {
+          date: '2016-05-07',
+          name: '王小',
+          address: '上海市普陀区金沙江路 1518 弄'
+        },
+        {
+          date: '2016-05-07',
+          name: '王小',
+          address: '上海市普陀区金沙江路 1518 弄'
         }],
 
         
@@ -465,7 +476,12 @@ export default {
   created() {
     this.getDataList()
   },
+
    methods: {
+    //   onReset() {
+    //     this.$refs.ruleForm.resetFields()
+    // },
+
     //    标签方法
        handleClose(tag) {
         this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
@@ -544,6 +560,19 @@ export default {
 <style lang="scss" scoped>
 
 // 重置样式
+/deep/ .el-dialog__footer {
+    padding-bottom: 0!important;
+    padding: 0!important;
+}
+/deep/ .dialog-footer {
+    text-align: center;
+}
+/deep/ .el-dialog__header {
+    text-align: center;
+    padding-bottom: 30px;
+    font-size: 18px;
+    font-weight: bold;
+}
 
 .content[data-v-22c69cfa] {
   background-color: #F2F3F8;
@@ -554,16 +583,22 @@ export default {
   .table {
       padding: 0 25px;
       background-color: #fff;
+    .m-btn {
+      margin-right: 10px;
+    }
   }
   .search-content {
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
     border-radius: 4px;
     // height: 200px;
     .el-form {
-        float: right;
+        float: left;
+        // margin-top: 20px;
+        // padding: 20px 0!important;
       }
     .el-form-item {
-      float: right;
+      float: left;
+      margin: 0 10px;
     }
     .el-breadcrumb {
       padding: 0 20px;
@@ -571,17 +606,11 @@ export default {
       background: #fff;
       .el-input {
         width: 17.5%;
-        margin: 1% 3%;
+        margin: 1% 0 0 70%
       }
     }
   }
   
-    
-.m-btn {
-  margin-right: 15px;
-}
-
-
  
   .sch{
     display: flex;
@@ -596,8 +625,8 @@ export default {
     }
     .reset {
       height: 38px;
-      margin-left: 2%;
-      border: 1px solid #0590FF;
+      margin: -4px 15px;
+      // border: 1px solid #0590FF;
     }
     .reset:hover {
       color: #fff;
@@ -605,7 +634,6 @@ export default {
     }
       .sch-content {
         width: 100%;
-        float: left;
         .lableSearch {
           width: 18%;
           float: left;
@@ -652,6 +680,9 @@ export default {
   }
 }
 // 按钮点击事件样式
+.el-dialog {
+  border: 1px blue;
+}
 .el-dialog__footer {
   // padding: 0!important;
   text-align: center;
@@ -665,23 +696,16 @@ export default {
     content:'';
 }
 
-
-.dialog-footer {
-  padding: 35px;
+.el-dialog__body {
+    padding: 15px 0 20px 0!important;
 }
-
-
-
-
-
 
 
 
 
  h3 {
     float: left;
-    display: block;
-    
+    display: block;  
 }
 h3:nth-of-type(even) {
   margin-left: 20px;
@@ -691,8 +715,34 @@ h3:nth-child(3) {
 }
 .MoveLibrary {
   .nowRoom {
-  width: 48%;
+  width: 27%;
   }
 }
-
+.el-tag {
+  margin: 0 10px;
+}
+.storageRoom {
+  height: 20px;
+  margin-bottom: 40px;
+}
+.storageTime {
+  height: 20px;
+  margin-bottom: 5px;
+}
+.dialog-footer {
+  margin-bottom: 15px;
+}
+.collectLable {
+  width: 75px;
+  line-height: 35px;
+}
+// .collectionLabel {
+//   .el-form {
+//         float: left;
+//         margin-top: 20px;
+//       }
+// }
+.labelTable {
+  margin-bottom: 20px;
+}
 </style>
