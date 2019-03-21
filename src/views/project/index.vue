@@ -85,7 +85,7 @@
 
 <script>
 import sidebar from '@cmp/sidebar'
-import cmpProModel from './dialog-model'
+import cmpProModel from './dialog/dialog-model'
 export default {
   components: {
     sidebar,

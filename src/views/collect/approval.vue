@@ -10,8 +10,10 @@
             <el-breadcrumb-item><a href="javascript:;">藏品管理</a></el-breadcrumb-item>
           </el-breadcrumb>
           <!-- 内容 -->
-          <h3 class="addTit m-btn" @click="dialogEnterVisible = true">新增商品</h3>
-          <h3 class="addTit m-btn" @click="dialogEnterVisible = true">新增商品</h3>
+          <h3 class="addTit m-btn" @click="dialogEnterVisible = true">藏品入馆审批表格</h3>
+          <h3 class="addTit m-btn" @click="dialogOutVisible = true">出库类型</h3>
+          <h3 class="addTit m-btn" @click="dialogCollectVisible = true">选择出库藏品</h3>
+          <h3 class="addTit m-btn" @click="dialogRejectVisible = true">驳回原因</h3>
           <ul class="pro-list">
             <el-row :gutter="50">
               <el-col class="box" :xs="6" :sm="8" :md="8" :xl="8" v-for="(item, index) in menuData" :key="index">
@@ -26,6 +28,62 @@
         </div>
       </div>
     </div>
+
+    <el-dialog title="驳回原因" :visible.sync="dialogRejectVisible" width="420px" class="rejectTit">
+          <el-input type="textarea" v-model="ruleForm.shape" style="resize:none"></el-input>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="dialogOpenctVisible = false">提交</el-button>
+      </div>
+    </el-dialog>
+
+    <el-dialog title="选择出库藏品" :visible.sync="dialogCollectVisible" width="900px">
+      <el-input
+              placeholder="请输入"
+              v-model="searchName">
+              <i slot="prefix" class="el-input__icon el-icon-search"></i>
+            </el-input>
+      <el-table :data="attribute" >
+        <el-table-column type="selection" width="40" align="center"></el-table-column>
+        <el-table-column property="name" label="图片" width="80">
+          <template slot-scope="scope">
+                  <a class="m-btn" @click="dialogPhotosVisible = true" type="text" size="small">
+                    <img :src="scope.row.head_pic" width="40" height="40" class="head_pic"/>
+                  </a>
+                </template>
+        </el-table-column>
+        <el-table-column property="name" label="登记号" width="80"></el-table-column>
+        <el-table-column property="name" label="藏品名称" width="80"></el-table-column>
+        <el-table-column property="name" label="年代" width="80"></el-table-column>
+        <el-table-column property="name" label="藏品分类" width="80"></el-table-column>
+        <el-table-column property="name" label="级别" width="80"></el-table-column>
+        <el-table-column property="name" label="质地" width="80"></el-table-column>
+        <el-table-column property="name" label="完残程度" width="80"></el-table-column>
+        <el-table-column property="name" label="数量" width="80"></el-table-column>
+        <el-table-column property="name" label="库房名称" width="80"></el-table-column>
+      </el-table>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="dialogOpenctVisible = false">提交</el-button>
+      </div>
+    </el-dialog>
+
+    <el-dialog title="出库类型" :visible.sync="dialogOutVisible" width="300px">
+      <el-form :model="form">
+        <el-form-item a:label-width="formLabelWidth">
+          <el-select v-model="formTag.collection" placeholder="出库类型" >
+            <el-option label="借展出库" value="1"></el-option>
+            <el-option label="陈列出库" value="2"></el-option>
+            <el-option label="藏品观摩" value="3"></el-option>
+            <el-option label="修复出库" value="4" ></el-option>
+            <el-option label="调拨出库" value="5" ></el-option>
+            <el-option label="其他出库" value="6" ></el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogCollectVisible = false">取 消</el-button>
+        <el-button type="primary" @click="fromCollection">确 定</el-button>
+      </div>
+    </el-dialog>
 
 <!-- 点击图片上传图片 -->
     <el-dialog title="上传藏品照片" :visible.sync="dialogPhotosVisible" width="470px">
@@ -213,70 +271,24 @@
               :data="tableData3"
               stripe
               >
-              <el-table-column
-                type="selection"
-                width="50" align="center">
-              </el-table-column>
-              <el-table-column
-                prop="image"
-                label="编号"
-                width="60">
-              </el-table-column>
-              <el-table-column
-                label="图片"
-                width="60" align="center">
+              <el-table-column type="selection" width="50" align="center"></el-table-column>
+              <el-table-column prop="image" label="编号" width="60"></el-table-column>
+              <el-table-column label="图片" width="60" align="center">
                 <template slot-scope="scope">
                   <a class="m-btn" @click="dialogPhotosVisible = true" type="text" size="small">
                     <img :src="scope.row.head_pic" width="40" height="40" class="head_pic"/>
                   </a>
                 </template>
               </el-table-column>
-              <el-table-column
-                prop="classi-fication"
-                label="藏品名称"
-                width="80">
-              </el-table-column>
-              <el-table-column
-                prop="name"
-                label="年代"
-                 width="60">
-              </el-table-column>
-              <el-table-column
-                prop="name"
-                label="藏品分类"
-                 width="80">
-              </el-table-column>
-              <el-table-column
-                prop="name"
-                label="数量"
-                 width="60">
-              </el-table-column>
-              <el-table-column
-                prop="texture"
-                label="单位"
-                 width="60">
-              </el-table-column>
-              <el-table-column
-                prop="degree"
-                label="级别"
-                 width="60">
-              </el-table-column>
-              <el-table-column
-                prop="number"
-                label="质地"
-                 width="60">
-              </el-table-column>
-              <el-table-column
-                prop="company"
-                label="完残程度"
-                 width="80">
-              </el-table-column>
-              <el-table-column
-                fixed="right"
-                align="center"
-                label="操作"
-                width="100">
-                <template>
+              <el-table-column prop="classi-fication" label="藏品名称" width="80"></el-table-column>
+              <el-table-column prop="name" label="年代"  width="60"></el-table-column>
+              <el-table-column prop="name" label="藏品分类" width="80"></el-table-column>
+              <el-table-column prop="name" label="数量" width="60"></el-table-column>
+              <el-table-column prop="texture" label="单位" width="60"></el-table-column>
+              <el-table-column prop="degree" label="级别" width="60"></el-table-column>
+              <el-table-column prop="number" label="质地" width="60"></el-table-column>
+              <el-table-column prop="company" label="完残程度"  width="80"></el-table-column>
+              <el-table-column fixed="right" align="center"  label="操作" width="100"><template>
                   <a class="m-btn" @click="dialogLablectVisible = true" type="text" size="small">标签</a>
                 </template>
               </el-table-column>
@@ -302,6 +314,24 @@ export default {
   },
   data() {
     return {
+      // 搜索条件
+        searchName: "",
+      // 选择出库藏品表格数据
+        attribute: [{
+          number: '1',
+          name: '总登记号',
+          address: '上'
+        },
+        {
+          number: '1',
+          name: '总登记号',
+          address: '上'
+        },
+        {
+          number: '1',
+          name: '总登记号',
+          address: '上'
+        }],
       
       // 表格数据
        tableData3: [{
@@ -351,6 +381,9 @@ export default {
       dialogApprovalVisible: false,
       dialogEnterVisible: false,
       dialogPhotosVisible: false,
+      dialogOutVisible: false,
+      dialogCollectVisible: false,
+      dialogRejectVisible: false,
       menuData: [
         {
           name: ''
@@ -467,12 +500,15 @@ export default {
   .condition {
   // border-bottom: 1px solid #000;
   margin: 55px 0 0 109px;
+  
   }
 }
-
+.el-table {
+  margin-top: 30px;
+}
 
  /deep/ .el-dialog__header {
-    text-align: center;
+    text-align: left;
     padding-bottom: 30px;
     font-size: 18px;
     font-weight: bold;
@@ -540,15 +576,16 @@ export default {
    .personName {
      margin-top: -33px;
    }
- .el-textarea {
+ 
    .el-textarea__inner {
       width: 560px;
       height: 100px;
    }
   
- }
- .el-input {
+ 
+  .el-input {
    width: 90%;
+   margin-bottom: 30px;
  }
 }
 
@@ -615,7 +652,22 @@ export default {
 .view {
    text-align: center;
 }
-
+// 侧边栏样式
+.cmp-sidebar {
+  margin: 30px;
+}
+/deep/ .dialog-footer {
+    text-align: center;
+}
+/deep/ .el-dialog__footer {
+    padding-bottom: 0!important;
+    padding: 0!important;
+    margin-top: 20px;
+}
+/deep/ .el-input__prefix {
+  text-align: right;
+    right: 10px;
+}
 </style>
 
 

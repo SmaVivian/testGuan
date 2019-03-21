@@ -48,9 +48,7 @@
             <router-link :to="{path: '/list/detail', query: {id: scope.row.id}}">
               <a class="btn-opera m-btn mr-10">详情</a>
             </router-link>
-            <router-link :to="{path: '/list/edit', query: {id: scope.row.id}}">
-              <a class="btn-opera m-btn mr-10" icon="el-icon-edit">编辑</a>
-            </router-link>
+            <a href="javascript:;" class="btn-opera m-btn mr-10" icon="el-icon-edit" @click="move()">移动</a>
             <router-link :to="{path: '/list/edit', query: {id: scope.row.id}}">
               <a class="btn-opera m-btn mr-10" icon="el-icon-edit">编辑</a>
             </router-link>
@@ -64,12 +62,19 @@
         <el-button @click="toggleSelection([tableData3[1], tableData3[2]])">切换第二、第三行的选中状态</el-button>
         <el-button @click="toggleSelection()">取消选择</el-button>
       </div>
+
+      <cmp-file-move ref="fileDialog"></cmp-file-move>
+
     </div>
   </div>
 </template>
 
 <script>
+import cmpFileMove from './dialog/dialog-file-move'
 export default {
+  components: {
+    cmpFileMove
+  },
   data() {
     return {
       tableData3: [{
@@ -106,6 +111,11 @@ export default {
   },
 
   methods: {
+    // 移动
+    move(item) {
+      this.$refs.fileDialog.init()
+      console.log(item)
+    },
     toggleSelection(rows) {
       if (rows) {
         rows.forEach(row => {

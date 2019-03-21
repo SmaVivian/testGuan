@@ -34,7 +34,7 @@
 <script>
 import cmpHeaderSub from '@cmp/header-sub'
 import DragList from '@cmp/drag-list'
-import cmpDialogPro from './dialog-pro'
+import cmpDialogPro from './dialog/dialog-pro'
 export default {
   components: {
     cmpHeaderSub,

@@ -7,7 +7,7 @@
           <!-- 搜索内容 -->
         <div class="search-content">
           <el-breadcrumb separator="/">
-            <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+           <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
             <el-breadcrumb-item><a href="javascript:;">藏品管理</a></el-breadcrumb-item>
             <el-input
               placeholder="请输入总登记号 / 藏品名称搜索"
@@ -89,8 +89,6 @@
                     </el-form>
                   </div>
             </div>
-            
-         
         </div>     
         </div>
         <!-- 表格内容 -->
@@ -100,89 +98,29 @@
             <el-button class="el-primary-border" round @click="onExport">导出</el-button>
             <el-button class="el-primary-border" round @click="dialogOpenctVisible = true">公开藏品</el-button>
             <el-button class="el-primary-border" round  @click="dialogCollectVisible = true">收藏</el-button>
-            <el-button style="float: right; padding: 35px 35px" type="text">选择公开字段</el-button>
+            <el-button style="float: right; padding: 35px 35px" type="text" @click="dialogOpenctVisible = true">选择公开字段</el-button>
           </el-row>
          </div>
           <!-- 表格 -->
           <div class="table">
-            <el-table
-              :data="tableData3"
-              stripe
-              >
-              <el-table-column
-                type="selection"
-                width="50" align="center">
-              </el-table-column>
-              <el-table-column
-                prop="image"
-                label="图片"
-                width="100">
-              </el-table-column>
-              <el-table-column
-                label="登记号"
-                width="100" align="center">
+            <el-table :data="tableData3" stripe>
+              <el-table-column type="selection" width="50" align="center"></el-table-column>
+              <el-table-column prop="image" label="图片" width="100"></el-table-column>
+              <el-table-column label="登记号" width="100" align="center">
                 <template slot-scope="scope">{{ scope.row.date }}</template>
               </el-table-column>
-              <el-table-column
-                prop="classi-fication"
-                label="分类号"
-                width="100">
-              </el-table-column>
-              <el-table-column
-                prop="name"
-                label="藏品名称"
-                 width="100">
-              </el-table-column>
-              <el-table-column
-                prop="name"
-                label="年代"
-                 width="100">
-              </el-table-column>
-              <el-table-column
-                prop="name"
-                label="商品分类"
-                 width="100">
-              </el-table-column>
-              <el-table-column
-                prop="texture"
-                label="质地"
-                 width="120">
-              </el-table-column>
-              <el-table-column
-                prop="degree"
-                label="完残程度"
-                 width="120">
-              </el-table-column>
-              <el-table-column
-                prop="number"
-                label="数量"
-                 width="120">
-              </el-table-column>
-              <el-table-column
-                prop="company"
-                label="单位"
-                 width="120">
-              </el-table-column>
-              <el-table-column
-                prop="storehouse"
-                label="库房名称"
-                 width="120">
-              </el-table-column>
-              <el-table-column
-                prop="open"
-                label="是否公开"
-                 width="100">
-              </el-table-column>
-              <el-table-column
-                prop="open"
-                label=" 藏品状态"
-                 width="100">
-              </el-table-column>
-              <el-table-column
-                fixed="right"
-                align="center"
-                label="操作"
-                width="100">
+              <el-table-column prop="classi-fication" label="分类号" width="100"></el-table-column>
+              <el-table-column prop="name" label="藏品名称"  width="100"></el-table-column>
+              <el-table-column prop="name" label="年代" width="100"></el-table-column>
+              <el-table-column prop="name" label="商品分类" width="100"></el-table-column>
+              <el-table-column prop="texture" label="质地" width="120"></el-table-column>
+              <el-table-column prop="degree" label="完残程度" width="120"></el-table-column>
+              <el-table-column prop="number" label="数量" width="120"></el-table-column>
+              <el-table-column prop="company" label="单位" width="120"></el-table-column>
+              <el-table-column prop="storehouse" label="库房名称" width="120"></el-table-column>
+              <el-table-column prop="open" label="是否公开" width="100"></el-table-column>
+              <el-table-column prop="open" label=" 藏品状态" width="100"></el-table-column>
+              <el-table-column fixed="right" align="center" label="操作" width="100">
                 <template>
                   <a class="m-btn" @click="dialogLablectVisible = true" type="text" size="small">标签</a>
                   <a class="m-btn" type="text" size="small" @click="dialogMoveVisible = true">移库</a>
@@ -415,36 +353,6 @@ export default {
           index: '/collect'
         },
       ],
-      tabs: [
-        {
-          name: '藏品管理',
-          path: 'mange'
-        },
-        {
-          name: '审批',
-          path: 'approval'
-        },
-        {
-          name: '藏品征集',
-          path: 'solicitation'
-        },
-        {
-          name: '出库管理',
-          path: 'library'
-        },
-        {
-          name: '藏品修复',
-          path: 'repair'
-        },
-        {
-          name: '藏品调拨',
-          path: 'allocation'
-        },
-        {
-          name: '库房管理',
-          path: 'store-house'
-        }
-      ],
       // 表格数据
        tableData3: [{
           date: '2016-05-03',
@@ -563,6 +471,7 @@ export default {
 /deep/ .el-dialog__footer {
     padding-bottom: 0!important;
     padding: 0!important;
+    margin-top: 20px;
 }
 /deep/ .dialog-footer {
     text-align: center;
@@ -742,9 +651,9 @@ h3:nth-child(3) {
 //         margin-top: 20px;
 //       }
 // }
-.labelTable {
-  margin-bottom: 20px;
-}
+// .labelTable {
+//   margin-bottom: 20px;
+// }
 
 // 侧边栏样式
 .cmp-sidebar {

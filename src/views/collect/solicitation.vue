@@ -174,81 +174,7 @@
         </div>
       </div>
     </div>
-     <!-- 藏品按钮点击事件 -->
-    <el-dialog title="选择收藏夹" :visible.sync="dialogCollectVisible" width="300px">
-      <el-form :model="form">
-        <el-form-item a:label-width="formLabelWidth">
-          <el-select v-model="formTag.collection" placeholder="请选择收藏夹" >
-            <el-option label="收藏夹一" value="1"></el-option>
-            <el-option label="收藏夹二" value="2"></el-option>
-            <el-option label="收藏夹三" value="3"></el-option>
-            <el-option label="新建收藏夹" value="4" ></el-option>
-          </el-select>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogCollectVisible = false">取 消</el-button>
-        <el-button type="primary" @click="fromCollection">确 定</el-button>
-      </div>
-    </el-dialog>
-     <!-- 公开藏品按钮点击事件 -->
-     <el-dialog title="藏品公开属性设置" :visible.sync="dialogOpenctVisible" width="300px">
-      <el-table :data="attribute" >
-        <el-table-column property="number" label="序号" width="50"></el-table-column>
-        <el-table-column property="name" label="属性名称" width="120"></el-table-column>
-        <el-table-column type="selection"  width="60"></el-table-column>
-      </el-table>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogOpenctVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogOpenctVisible = false">确 定</el-button>
-      </div>
-    </el-dialog>
-     <!-- 表格标签按钮点击事件 -->
-     <el-dialog title="藏品标签" :visible.sync="dialogLablectVisible" width="300px">
-      <div class="labelTable">已选标签
-          <div>
-        <el-tag :key="tag" v-for="tag in dynamicTags" closable :disable-transitions="false" @close="handleClose(tag)">
-        {{tag}}
-        </el-tag>
-        <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" size="small"
-        @keyup.enter.native="handleInputConfirm"
-        @blur="handleInputConfirm">
-        </el-input>
-      </div>
-      </div>
-      
-      <el-form :model="form">
-        <el-form-item a:label-width="formLabelWidth">
-          <el-select v-model="formTag.collection" placeholder="选择标签">
-            <el-option label="标签一" value="1"></el-option>
-            <el-option label="标签二" value="2"></el-option>
-            <el-option label="标签三" value="3"></el-option>
-            <el-option label="新建标签" value="4" @click="newlyBuild"></el-option>
-          </el-select>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogLablectVisible = false">取 消</el-button>
-        <el-button type="primary">确 定</el-button>
-      </div>
-    </el-dialog>
-
-    <!-- 藏品新建事件 -->
-     <el-dialog title="新建收藏夹" :visible.sync="addDialogLablectVisible" width="350px">
-      <!-- <span：</span> -->
-      <el-form :model="addformTag">
-        <el-form-item a:label-width="formLabelWidth">
-          <el-input v-model="addformTag.collection"></el-input>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="addDialogLablectVisible = false">取 消</el-button>
-        <el-button type="primary" @click="addCollection">确 定</el-button>
-      </div>
-    </el-dialog>
-
-
-
+  
     <el-dialog title="征集计划审批"  class="approval" :visible.sync="dialogNameDetailsVisible" width="900px" >
       <div class="timeLine">
         <el-timeline>
@@ -451,7 +377,7 @@ export default {
         {
           name: '藏品入馆',
           icon: 'pro',
-          index: '/2'
+          index: '/collect/outGoing'
         },
         {
           name: '藏品建账',
@@ -818,4 +744,9 @@ export default {
    width: 90%;
  }
 }
+// 侧边栏样式
+.cmp-sidebar {
+  margin: 30px;
+}
+
 </style>
