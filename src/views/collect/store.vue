@@ -10,8 +10,11 @@
             <el-breadcrumb-item><a href="javascript:;">基本信息</a></el-breadcrumb-item>
           </el-breadcrumb>
           <!-- 内容 -->
-         <div class="add">
-           <a class="m-btn" @click="dialogLablectVisible = true" type="text" size="small">标签</a>
+         <div class="add ">
+           <a class="m-btn" @click="dialogLablectVisible = true" type="text" size="small">新增库房</a>
+         </div>
+         <div class="add ">
+           <a class="m-btn" @click="dialogLablectVisible = true" type="text" size="small">新增库房</a>
          </div>
         </div>
       </div>
@@ -63,7 +66,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.content {
+ .content {
+  padding: 25px 30px 40px 270px!important;
   .approvalContent {
     background-color: #fff;
     .el-breadcrumb {
@@ -88,7 +92,8 @@ export default {
     border: 1px dashed #0590FF;
     margin: 30px;
     .m-btn {
-     text-align: center;
+     line-height: 156px;
+     margin-left: 35%;
     }
   }
 </style>

@@ -4,6 +4,7 @@
       <el-tab-pane
         class="my-aaa"
         v-for="(item, index) in tabList"
+        :disabled="item.isDisabled"
         :key="index"
         :label="item.name"
         :name="item.path">
@@ -40,8 +41,9 @@ export default {
     },
     pageType: {
       type: String,
-      default: 'project'
-    }
+      default: ''
+    },
+    isDisabled: false
   },
   watch: {
     // active() {

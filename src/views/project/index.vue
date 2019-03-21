@@ -38,52 +38,58 @@
       :width="'900px'"
       :before-close="handleClose">
       <!-- <span>这是一段信息</span> -->
-      <div class="clearfix">
-        <ul class="pro-list g-dialog-pro">
-          <el-row :gutter="10">
-            <el-col class="box" :span="8" v-for="(item, index) in menuData" :key="index">
-              <el-card class="box-card">
-                <router-link class="card-item" tag="div" :to="{path: '/project/sub?type=task'}">
-                  <div :class="'card-pic card-pic-' + (index+1)"></div>
-                  <p class="name tc">{{item.name}}</p>
-                </router-link>
-              </el-card>
-            </el-col>
-          </el-row>
-        </ul>
-        <div class="m-btn fr">
-          <svg-icon icon-class="add" class-name="icon-add" /><span class="m-btn">创建模板</span> 
+      <div class="dialog-pro-wrap">
+        <div class="clearfix">
+          <ul class="pro-list g-dialog-pro">
+            <el-row :gutter="10">
+              <el-col class="box" :span="8" v-for="(item, index) in menuData" :key="index">
+                <el-card class="box-card">
+                  <div class="card-item">
+                    <div :class="'card-pic card-pic-' + (index+1)"></div>
+                    <p class="name tc">{{item.name}}</p>
+                  </div>
+                </el-card>
+              </el-col>
+            </el-row>
+          </ul>
+          <div class="m-btn fr" @click="addProModel">
+            <svg-icon icon-class="add" class-name="icon-add" /><span class="m-btn">创建模板</span> 
+          </div>
+        </div>
+        <h1>项目信息</h1>
+        <el-form ref="form" :model="form" :rules="rules" label-width="0">
+          <el-form-item class="mb-30" label="" prop="name">
+            <el-input autofocus v-model="form.name" placeholder="项目名称"/>
+          </el-form-item>
+      
+          <!-- 下拉框静态 -->
+          <el-form-item class="mb-20" label="" prop="region">
+            <el-select v-model="form.region" placeholder="项目分组（可多选）" style="display:block;">
+              <el-option label="上海" value="shanghai"/>
+              <el-option label="北京" value="beijing"/>
+            </el-select>
+          </el-form-item>
+        </el-form>
+        <p class="m-assist">公开范围：仅项目组成员可见</p>
+        <div class="dialog-footer tr mt-30">
+
+          <el-button @click="dialogVisible = false">取 消</el-button>
+          <el-button type="primary" @click="onSubmit('form')">确 定</el-button>
         </div>
       </div>
-      <h1>项目信息</h1>
-      <el-form ref="form" :model="form" :rules="rules" label-width="0">
-        <el-form-item class="mb-30" label="" prop="name">
-          <el-input autofocus v-model="form.name" placeholder="项目名称"/>
-        </el-form-item>
-    
-        <!-- 下拉框静态 -->
-        <el-form-item class="mb-20" label="" prop="region">
-          <el-select v-model="form.region" placeholder="项目分组（可多选）" style="display:block;">
-            <el-option label="上海" value="shanghai"/>
-            <el-option label="北京" value="beijing"/>
-          </el-select>
-        </el-form-item>
-      </el-form>
-      <p class="m-assist">公开范围：仅项目组成员可见</p>
-      <span slot="footer" class="dialog-footer">
-
-        <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="onSubmit('form')">确 定</el-button>
-      </span>
     </el-dialog>
+
+    <cmp-pro-model ref="dialogProModel"></cmp-pro-model>
   </div>
 </template>
 
 <script>
 import sidebar from '@cmp/sidebar'
+import cmpProModel from './dialog-model'
 export default {
   components: {
-    sidebar
+    sidebar,
+    cmpProModel
   },
   data() {
     return {
@@ -103,6 +109,9 @@ export default {
         },
         {
           name: '抗联展览项目5'
+        },
+        {
+          name: '抗联展览项目6'
         },
         {
           name: '抗联展览项目6'
@@ -194,6 +203,10 @@ export default {
     }
   },
   methods: {
+    // 创建项目模板
+    addProModel() {
+      this.$refs.dialogProModel.init()
+    },
     getNavData() {
       this.sidebarData.splice(1, 1)
     },
@@ -296,6 +309,11 @@ export default {
   }
 }
 .dialog-pro {
+  .dialog-pro-wrap {
+    padding: 10px;
+    max-height: 600px;
+    overflow-y: auto;
+  }
   .el-card.is-always-shadow {
     box-shadow: 0 10px 10px 0 #EEEFF5;
   }

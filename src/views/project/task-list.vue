@@ -15,71 +15,81 @@
       <!-- 一级 -->
       <div class="item mt-20" v-for="(item, index) in listData">
         <!-- <h2><span class="g-mark mr-10">23</span>展览策划</h2> -->
-        <h2><el-badge class="g-mark mr-10" :value="234" type="primary" />展览策划</h2>
+        <h2>
+          <el-badge class="g-mark mr-10" :value="234" type="primary" />
+          <span class="g-pointer" @click="item.showMore=!item.showMore">
+            展览策划
+            <i class="el-icon primary" :class="{'el-icon-arrow-down': !item.showMore, 'el-icon-arrow-up': item.showMore}"></i>
+          </span>
+          
+          <!-- <i class="el-icon el-icon-arrow-up primary"></i> -->
+        </h2>
 
         <!-- 二级 -->
-        <div class="item-child mt-20 mb-20" v-for="(v, i) in item.arrList">
-          <!-- 判断状态 todo -->
-          <el-row class="tc" :class="{'underline': v.selectVal === '3'}">
-            <el-col :span="6" class="tl">
-              <label class="my-checkbox el-checkbox__input" 
-                :class="{'is-checked': v.selectVal === '3'}"
-                @click="toggleCheck(v)">
-                <span class="el-checkbox__inner"></span>
-              </label>
-              <!-- <el-checkbox @change="toggleCheck(v)"></el-checkbox> -->
-              <span class="title ml-10">输出展览计划(0/3)</span>
-            </el-col>
+        <div v-if="item.showMore">
+          <div class="item-child mt-20 mb-20" v-for="(v, i) in item.arrList">
+            <!-- 判断状态 todo -->
+            <el-row class="tc" :class="{'underline': v.selectVal === '3'}">
+              <el-col :span="6" class="tl">
+                <label class="my-checkbox el-checkbox__input" 
+                  :class="{'is-checked': v.selectVal === '3'}"
+                  @click="toggleCheck(v)">
+                  <span class="el-checkbox__inner"></span>
+                </label>
+                <!-- <el-checkbox @change="toggleCheck(v)"></el-checkbox> -->
+                <span class="title">输出展览计划(0/3)</span>
+              </el-col>
 
-            <!-- 截止时间 -->
-            <el-col :span="4">2018/12/20</el-col>
+              <!-- 截止时间 -->
+              <el-col :span="4">2018/12/20</el-col>
 
-            <!-- 剩余天数 -->
-            <el-col :span="4">20天</el-col>
+              <!-- 剩余天数 -->
+              <el-col :span="4">20天</el-col>
 
-            <!-- 负责人 -->
-            <el-col :span="4">
-              <img class="g-pic small mr-10" src="~@images/default-head.svg" alt="">
-              <span>路远</span>
-            </el-col>
+              <!-- 负责人 -->
+              <el-col :span="4">
+                <img class="g-pic small mr-10" src="~@images/default-head.svg" alt="">
+                <span>路远</span>
+              </el-col>
 
-            <!-- 优先级 -->
-            <el-col :span="3">
-              <!-- 勿删 -->
-              <template v-if="!v.showDropdown">
-                <!-- <el-button type="danger" size="mini" plain>非常紧急</el-button>
-                <el-button type="warning" size="mini" plain>紧急</el-button> -->
-                <!-- <span class="m-btn">添加标签</span> -->
-                <!-- <span>普通</span> -->
+              <!-- 优先级 -->
+              <el-col :span="3">
+                <!-- 勿删 -->
+                <template v-if="!v.showDropdown">
+                  <!-- <el-button type="danger" size="mini" plain>非常紧急</el-button>
+                  <el-button type="warning" size="mini" plain>紧急</el-button> -->
+                  <!-- <span class="m-btn">添加标签</span> -->
+                  <!-- <span>普通</span> -->
 
-                <span class="m-btn">{{v.selectStr}}</span>
-              </template>
-              
-              <!-- 下拉框 -->
-              <div v-if="v.showDropdown">
-                <el-select 
-                  v-model="v.val" 
-                  @change="addLabel(v)"
-                  placeholder="添加标签">
-                  <el-option
-                    v-for="item in options"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
-                  </el-option>
-                </el-select>
-              </div>
-            </el-col>
+                  <span class="m-btn">{{v.selectStr}}</span>
+                </template>
+                
+                <!-- 下拉框 -->
+                <div v-if="v.showDropdown">
+                  <el-select 
+                    v-model="v.val" 
+                    @change="addLabel(v)"
+                    placeholder="添加标签">
+                    <el-option
+                      v-for="item in options"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value">
+                    </el-option>
+                  </el-select>
+                </div>
+              </el-col>
 
-            <!-- 状态 -->
-            <el-col :span="3">
-              <span><i class="m-circle-dot"></i>&nbsp;&nbsp;未完成</span>
-              <!-- 勿删 -->
-              <!-- <span class="m-primary"><i class="m-circle-dot primary"></i>&nbsp;&nbsp;进行中</span>
-              <span class="m-done"><i class="m-circle-dot done"></i>&nbsp;&nbsp;已完成</span>
-              <span class="m-danger"><i class="m-circle-dot danger"></i>&nbsp;&nbsp;已延期</span> -->
-            </el-col>
-          </el-row>
+              <!-- 状态 -->
+              <el-col :span="3">
+                <span><i class="m-circle-dot"></i>&nbsp;&nbsp;未完成</span>
+                <!-- 勿删 -->
+                <!-- <span class="m-primary"><i class="m-circle-dot primary"></i>&nbsp;&nbsp;进行中</span>
+                <span class="m-done"><i class="m-circle-dot done"></i>&nbsp;&nbsp;已完成</span>
+                <span class="m-danger"><i class="m-circle-dot danger"></i>&nbsp;&nbsp;已延期</span> -->
+              </el-col>
+            </el-row>
+          </div>
         </div>
 
         <span class="m-btn"><svg-icon icon-class="add" class-name="icon-add" />&nbsp;添加新任务</span>
@@ -95,6 +105,7 @@ export default {
       listData: [
         {
           title: '标题1',
+          // showMore: true,
           arrList: [
             { name: "1列表", id: 1,
               showDropdown: true,
@@ -156,8 +167,19 @@ export default {
     toggleCheck(item) {
       console.log(item)
       item.selectVal = '3';
-    }
+    },
   },
+  activated() {
+    console.log('activated')
+  },
+  mounted() {
+    // todo ajax listData每个添加 showMore
+    console.log('mounted')
+    this.listData.forEach(item => {
+      this.$set(item, 'showMore', true)
+      // item.showMore = true
+    })
+  }
 }
 </script>
 
@@ -170,15 +192,6 @@ export default {
     box-shadow:0px 1px 10px 0px rgba(238,239,245,1);
     border-radius:4px;
     line-height: 30px;
-    .header {
-
-    }
-    .item-child {
-      .underline {
-
-      }
-    }
-
     // 重写下拉框样式
     /deep/ .el-select {
       .el-input__inner {
@@ -204,26 +217,6 @@ export default {
       }
       :-ms-input-placeholder { /* Internet Explorer 10-11 */
         color: $primary;
-      }
-    }
-  }
-}
-.pop-wrap-dropdown.m-search-wrap {
-  width: 200px;
-  padding: 15px 0;
-  ul {
-    padding-right: 0;
-    li {
-      padding: 0 30px;
-      margin-top: 0;
-      line-height: 46px;
-      h2 {
-        font-weight: normal;
-      }
-      &:hover,
-      &.active {
-        color: $primary;
-        background-color: $color4;
       }
     }
   }

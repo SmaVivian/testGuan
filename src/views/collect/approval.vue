@@ -77,7 +77,7 @@
     <div class="right">
       <h3>2018 / 01 / 11</h3>
       <h3 class="personName fr">贾军</h3>
-       <el-form ref="form" :model="form" label-width="80px" class="fl">
+       <el-form ref="form" :model="form" label-width="100px" class="fl">
          <el-row>
           <el-col :span="12">
             <el-form-item label="计划名称 :">
@@ -107,7 +107,7 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-form-item label="活动形式 :" prop="shape"  >
+        <el-form-item label="活动形式 :" prop="shape">
           <el-input type="textarea" v-model="ruleForm.shape" style="resize:none"></el-input>
         </el-form-item>
         <el-form-item label="正文内容 :" prop="content">
@@ -484,7 +484,8 @@ export default {
       color: #9699A2;
         }
       .el-dialog__footer {
-        padding-bottom: 0;
+        text-align: center!important;
+        padding-top: 20px!important;
         padding: 0;
         // border-top: 1px solid blue;
           }
@@ -504,6 +505,7 @@ export default {
   }
  }
  .timeLine {
+   margin-top: 30px;
    float: left;
    width: 140px;
    border-right: 1px solid #EBEDF2;
@@ -511,6 +513,7 @@ export default {
  .right {
    margin-left: 25px;
    padding-left: 140px;
+   padding-top: 30px;
    .el-form-item {
      margin-left: -23px;
    }
@@ -564,6 +567,7 @@ export default {
       font-size: 18px;
     }
     .el-row {
+      margin-left: -55px!important;
       margin-right: 150px!important;
       padding: 0 0 100px 44px;
     }

@@ -54,29 +54,31 @@
       </div>
       
       <div class="content">
-        <el-checkbox-group v-model="checkedList" @change="handleChange">
-          <draggable class="list-group" :list="list" :options="{group:'task'}" @change="log">
-              <div class="list-group-item"
-                :class="{'tip waning': item.id === 1, 'tip rush': item.id === 2}"
-                @click="showDetailDialog(item)"
-                v-for="(item, index) in list"
-                :key="item.id">
-                <div class="group-item">
-                  <p>
-                    <el-checkbox :label="item.id" :key="item.id" @change="handleSelect(item, $event)">{{item.name}}</el-checkbox>
-                    <span class="title">{{item.name}}</span>&nbsp;&nbsp;
-                    <svg-icon icon-class="add" class-name="icon-add" v-if="item.id === 1"/>  
-                  </p>
-                  <p>
-                    <label class="person m-assist">胡强&nbsp;&nbsp;20180803</label>
-                  </p>
-                </div>
-                <!-- <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
-                  <el-checkbox v-for="city in cities" :label="city" :key="city">{{city}}</el-checkbox>
-                </el-checkbox-group> -->
+        <!-- <el-checkbox-group v-model="checkedList" @change="handleChange"> -->
+        <draggable class="list-group" :list="list" :options="{group:'task'}" @change="log">
+            <div class="list-group-item"
+              :class="{'tip waning': item.id === 1, 'tip rush': item.id === 2}"
+              @click="showDetailDialog(item)"
+              v-for="(item, index) in list"
+              :key="index">
+              <div class="group-item">
+                <p>
+                  <label class="my-checkbox el-checkbox__input" 
+                    :class="{'is-checked': item.id === 1}"
+                    @click.stop="toggleCheck(item)">
+                    <span class="el-checkbox__inner"></span>
+                  </label>
+                  <!-- <el-checkbox :label="item.id" :key="item.id" @change="handleSelect(item, $event)">{{item.name}}</el-checkbox> -->
+                  <span class="title">{{item.name}}</span>&nbsp;&nbsp;
+                  <svg-icon icon-class="add" class-name="icon-add" v-if="item.id === 1"/>  
+                </p>
+                <p>
+                  <label class="person m-assist">胡强&nbsp;&nbsp;20180803</label>
+                </p>
               </div>
-          </draggable>
-        </el-checkbox-group>
+            </div>
+        </draggable>
+        <!-- </el-checkbox-group> -->
 
         <p class="panel-add m-assist"><svg-icon icon-class="add" class-name="icon-add" />&nbsp;添加新任务</p>
       </div>
@@ -109,6 +111,11 @@ export default {
     }
   },
   methods: {
+    // 完成任务
+    toggleCheck(item) {
+      console.log(item)
+      item.id = 2;
+    },
     // 弹框详情
     showDetailDialog(item) {
       this.$emit('showProDialog', item)

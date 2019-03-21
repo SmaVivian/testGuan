@@ -25,7 +25,7 @@
                       {{tag}}
                     </el-tag>
                   </div>
-                    <el-button class="reset" round>重置</el-button>
+                    <el-button class="reset" round >重置</el-button>
               </div>
               <div class="sch">
                   <div class="sch-type">精品分类 :</div>
@@ -283,14 +283,14 @@
          <h3>原库位</h3> <h3>库位1</h3>
        </div>
         <el-form ref="form" :model="form">
-          <el-form-item label="现库房" >
+          <el-form-item label="现库房" class="fl">
             <el-select v-model="form.region" placeholder="状态" class="nowRoom">
               <!-- <el-option v-for="item in textureCondition" :key="item.name">{{item.name}}{{item.value}}</el-option> -->
               <el-option label="说明" value="shanghai"></el-option>
               <el-option label="全部" value="beijing"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="现库房" >
+          <el-form-item label="现库房">
             <el-select v-model="form.region" placeholder="状态" class="nowRoom">
               <!-- <el-option v-for="item in textureCondition" :key="item.name">{{item.name}}{{item.value}}</el-option> -->
               <el-option label="说明" value="shanghai"></el-option>
@@ -745,4 +745,11 @@ h3:nth-child(3) {
 .labelTable {
   margin-bottom: 20px;
 }
+
+// 侧边栏样式
+.cmp-sidebar {
+  margin: 30px;
+}
+
+
 </style>

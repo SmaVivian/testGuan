@@ -223,12 +223,17 @@
   font-size: 14px;
 }
 
+.el-icon.primary {
+  color: $primary;
+}
+
 // 自定义 类似图片交互的 checkbox
 .my-checkbox {
   cursor: pointer;
   .el-checkbox__inner {
-    top:-1px;
+    top:-2px;
     vertical-align: middle;
+    margin-right: 10px;
   }
   &.is-checked + .title {
     text-decoration: line-through;

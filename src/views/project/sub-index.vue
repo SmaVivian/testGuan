@@ -1,8 +1,8 @@
 <template>
   <div class="g-wrap">
     <div class="page-project-sub">
-      <!-- 面包屑 -->
       <div class="g-sub-top">
+        <!-- 面包屑 -->
         <el-breadcrumb separator="/">
           <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
           <el-breadcrumb-item>
@@ -27,7 +27,11 @@
             </el-popover>
           </el-breadcrumb-item>
         </el-breadcrumb>
+
+        <!-- 导航 -->
         <cmp-header-sub :tabList="tabs" :activeTab="currentTab" :pageType="`project`" @projectEventTab="changeTab"></cmp-header-sub>
+
+        <!-- 操作 -->
         <div class="menu-sub-right">
           <span class="mr-20">看板视图</span>
 
@@ -204,9 +208,9 @@ export default {
       return this.$route.query.type
     },
     currentTabCmp() {
-      if(this.currentTab === 'task') {
-        return 'taskListProject'  // 列表视图
-      }
+      // if(this.currentTab === 'task') {
+      //   return 'taskListProject'  // 列表视图
+      // }
       return this.currentTab && (this.currentTab + 'Project')
     }
   },
