@@ -1,6 +1,9 @@
 <template>
   <div class="g-wrap">
     <div class="page-project clearfix">
+       <div class="g-collect-top">
+        <cmp-header-sub :tabList="tabs" :activeTab="currentTab"  :callFun="changeTab"></cmp-header-sub>
+      </div>
       <sidebar :menuList="sidebarData" :activeIndex="`/project`" class="sidebarCont"></sidebar>
       <div class="content">
         <div class="approvalContent">
@@ -307,13 +310,47 @@
 </template>
 
 <script>
+import cmpHeaderSub from '@cmp/header-sub'
 import sidebar from '@cmp/sidebar'
 export default {
   components: {
-    sidebar
+    sidebar,
+    cmpHeaderSub,
   },
   data() {
     return {
+       // 顶部导航栏数据
+       currentTab: 'approval',
+        tabs: [
+         {
+          name: '藏品管理',
+          path: 'manage'
+        },
+        {
+          name: '审批',
+          path: 'approval'
+        },
+        {
+          name: '藏品征集',
+          path:'solicitation'
+        },
+        {
+          name: '出库管理',
+          path: 'outGoing'
+        },
+        {
+          name: '藏品修复',
+          path: 'repair'
+        },
+         {
+          name: '藏品调拨',
+          path: 'allocation'
+        },
+        {
+          name: '库房管理',
+          path: 'store'
+        },
+      ],
       // 搜索条件
         searchName: "",
       // 选择出库藏品表格数据
@@ -422,6 +459,10 @@ export default {
     }
   },
   methods: {
+     //  顶部导航栏
+     changeTab(path) {
+      this.$router.push({path: '/collect/' + path})
+    },
     // 点击上传
     handleRemove(file, fileList) {
         console.log(file, fileList);

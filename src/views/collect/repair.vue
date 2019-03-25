@@ -1,8 +1,12 @@
 <template>
   <div class="g-wrap">
     <div class="page-collect clearfix">
+       <!-- 顶部导航 -->
+       <div class="g-collect-top">
+        <cmp-header-sub :tabList="tabs" :activeTab="currentTab"  :callFun="changeTab"></cmp-header-sub>
+      </div>
        <!-- 侧边栏 -->
-         <sidebar :menuList="sidebarData" :activeIndex="`/collect`" class="sidebarCont"></sidebar>
+         <sidebar :menuList="sidebarData" :activeIndex="`/repair`" class="sidebarCont"></sidebar>
       <div class="content">
           <!-- 搜索内容 -->
         <div class="search-content">
@@ -204,6 +208,37 @@ export default {
   },
   data() {
     return {
+      currentTab: 'repair',
+      tabs: [
+         {
+          name: '藏品管理',
+          path: 'manage'
+        },
+        {
+          name: '审批',
+          path: 'approval'
+        },
+        {
+          name: '藏品征集',
+          path:'solicitation'
+        },
+        {
+          name: '出库管理',
+          path: 'outGoing'
+        },
+        {
+          name: '藏品修复',
+          path: 'repair'
+        },
+         {
+          name: '藏品调拨',
+          path: 'allocation'
+        },
+        {
+          name: '库房管理',
+          path: 'store'
+        },
+      ],
        // 搜索条件
         searchName: "",
         
@@ -294,7 +329,7 @@ export default {
         {
           name: '修护管理',
           icon: 'pro',
-          index: '/collect'
+          index: '/repair'
         },
       ],
      
@@ -331,6 +366,10 @@ export default {
   },
 
    methods: {
+     //  顶部导航栏
+     changeTab(path) {
+      this.$router.push({path: '/collect/' + path})
+    },
     //   onReset() {
     //     this.$refs.ruleForm.resetFields()
     // },

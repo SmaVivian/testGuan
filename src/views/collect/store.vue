@@ -1,6 +1,10 @@
 <template>
   <div class="g-wrap">
     <div class="page-project clearfix">
+       <!-- 顶部导航 -->
+       <div class="g-collect-top">
+        <cmp-header-sub :tabList="tabs" :activeTab="currentTab"  :callFun="changeTab"></cmp-header-sub>
+      </div>
       <sidebar :menuList="sidebarData" :activeIndex="`/project`"></sidebar>
       <div class="content">
         <div class="approvalContent">
@@ -13,8 +17,11 @@
          <div class="add ">
            <a class="m-btn" @click="dialogLablectVisible = true" type="text" size="small">新增库房</a>
          </div>
-         <div class="add ">
-           <a class="m-btn" @click="dialogLablectVisible = true" type="text" size="small">新增库房</a>
+         <div class="add">           
+           <h4>青铜器库房</h4>
+            <h3>存放藏品 : 34件</h3>
+            <a class="m-btn" @click="dialogLablectVisible = true" type="text" size="small">查看</a>
+            <a class="m-btn" @click="dialogLablectVisible = true" type="text" size="small">删除</a>
          </div>
         </div>
       </div>
@@ -24,33 +31,72 @@
 </template>
 
 <script>
+import cmpHeaderSub from '@cmp/header-sub'
 import sidebar from '@cmp/sidebar'
 export default {
   components: {
+    cmpHeaderSub,
     sidebar
   },
   data() {
     return {
+    
+      currentTab: 'store',
+      // 顶部导航栏数据
+      tabs: [
+         {
+          name: '藏品管理',
+          path: 'manage'
+        },
+        {
+          name: '审批',
+          path: 'approval'
+        },
+        {
+          name: '藏品征集',
+          path:'solicitation'
+        },
+        {
+          name: '出库管理',
+          path: 'outGoing'
+        },
+        {
+          name: '藏品修复',
+          path: 'repair'
+        },
+         {
+          name: '藏品调拨',
+          path: 'allocation'
+        },
+        {
+          name: '库房管理',
+          path: 'store'
+        },
+      ],
       sidebarData: [
         {
           name: '基本信息',
           icon: 'pro',
-          index: '/project'
+          index: '/basic'
         },
         {
           name: '库房盘点',
           icon: 'pro',
-          index: '/aa'
+          index: '/inventory'
         },
          {
           name: '温度记录',
           icon: 'pro',
-          index: '/bb'
+          index: '/temperature'
         },
       ],
     }
   },
   methods: {
+    //  顶部导航栏
+     changeTab(path) {
+      this.$router.push({path: '/collect/' + path})
+    },
    
   },
   created() {

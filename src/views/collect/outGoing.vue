@@ -1,6 +1,9 @@
 <template>
   <div class="g-wrap">
     <div class="page-collect clearfix">
+       <div class="g-collect-top">
+        <cmp-header-sub :tabList="tabs" :activeTab="currentTab" :pageType="`collect`" :callFun="changeTab"></cmp-header-sub>
+      </div>
        <!-- 侧边栏 -->
       <sidebar :menuList="sidebarData" :activeIndex="`/plan`" class="sidebarCont"></sidebar>
       <div class="content">
@@ -467,6 +470,38 @@ export default {
   },
   data() {
     return {
+        // 顶部导航栏数据
+       currentTab: 'outGoing',
+        tabs: [
+         {
+          name: '商品管理',
+          path: 'manage'
+        },
+        {
+          name: '审批',
+          path: 'approval'
+        },
+        {
+          name: '藏品征集',
+          path:'solicitation'
+        },
+        {
+          name: '出库管理',
+          path: 'outGoing'
+        },
+        {
+          name: '藏品修复',
+          path: 'repair'
+        },
+         {
+          name: '藏品调拨',
+          path: 'allocation'
+        },
+        {
+          name: '库房管理',
+          path: 'store'
+        },
+      ],
          // 点击上传
       fileList: [{name: '概念设计文档', url: ''}],
        ruleForm: {
@@ -564,7 +599,7 @@ export default {
       currentPage: 5,
       sidebarData: [
         {
-          name: '出库管理',
+          name: '藏品管理',
           icon: 'pro',
           index: '/plan'
         },
@@ -577,7 +612,7 @@ export default {
       tabs: [
         {
           name: '藏品管理',
-          path: 'mange'
+          path: 'manage'
         },
         {
           name: '审批',
@@ -589,7 +624,7 @@ export default {
         },
         {
           name: '出库管理',
-          path: 'library'
+          path: 'outGoing'
         },
         {
           name: '藏品修复',
@@ -601,7 +636,7 @@ export default {
         },
         {
           name: '库房管理',
-          path: 'store-house'
+          path: 'store'
         }
       ],
       // 表格数据
@@ -626,6 +661,10 @@ export default {
     this.getDataList()
   },
    methods: {
+     //  顶部导航栏
+     changeTab(path) {
+      this.$router.push({path: '/collect/' + path})
+    },
     //  点击删除
      handleDelete(index, row) {
         // console.log(index, row);

@@ -3,8 +3,8 @@
     <div class="page-exhibits">
       <div class="btns-warap clearfix">
         <div class="left fl">
-          <el-button class="el-primary-border">添加藏品</el-button>
-          <el-button class="el-primary-border">从收藏夹导入</el-button>
+          <el-button class="el-primary-border" @click="addCollect">添加藏品</el-button>
+          <el-button class="el-primary-border" @click="importCollect">从收藏夹导入</el-button>
           <el-button class="el-primary-border">导出</el-button>
           <el-button class="el-primary-border">移除</el-button>
           <el-button class="el-primary-border">搜索</el-button>
@@ -56,7 +56,8 @@
         </el-table-column>
         <el-table-column align="center" prop="created_at" label="具体质量" width="110">
           <template slot-scope="scope">
-            <el-tag :type="scope.row.status | statusFilter">{{ scope.row.statusStr }}</el-tag>
+            {{ scope.row.count }}
+            <!-- <el-tag :type="scope.row.status | statusFilter">{{ scope.row.statusStr }}</el-tag> -->
           </template>
         </el-table-column>
 
@@ -81,12 +82,21 @@
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"/>
       </div>
+
+      <cmp-add-collect ref="addCollectDialog"></cmp-add-collect>
+      <cmp-import-collect ref="importCollectDialog"></cmp-import-collect>
     </div>
   </div>
 </template>
 
 <script>
+import cmpAddCollect from './dialog/dialog-add-collect'
+import cmpImportCollect from './dialog/dialog-import-collect'
 export default {
+  components: {
+    cmpAddCollect,
+    cmpImportCollect
+  },
   filters: {
     statusFilter(status) {
       const statusMap = {
@@ -108,10 +118,14 @@ export default {
       }
     }
   },
-  created() {
-    this.getDataList()
-  },
   methods: {
+    addCollect() {
+      this.$refs.addCollectDialog.init()
+    },
+    // 导入藏品
+    importCollect() {
+      this.$refs.importCollectDialog.init()
+    },
     getDataList() {
       this.listLoading = true
       this.$http.get('/list', {
@@ -130,7 +144,10 @@ export default {
       this.listQuery.currentPage = val
       this.getDataList()
     }
-  }
+  },
+  created() {
+    this.getDataList()
+  },
 }
 </script>
 

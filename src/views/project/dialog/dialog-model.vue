@@ -138,7 +138,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .dialog-pro-model {
   .header {
     background-color: #fff;
@@ -187,7 +187,7 @@ export default {
     }
   }
   // 重写
-  .el-dialog {
+  /deep/ .el-dialog {
     padding: 0;
     background-color: #F2F3F8;
   }

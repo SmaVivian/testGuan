@@ -113,6 +113,10 @@
 	margin-top: 30px;
 }
 
+.mb-10 {
+	margin-bottom: 10px;
+}
+
 .mb-20 {
 	margin-bottom: 20px;
 }
@@ -189,6 +193,10 @@
 	height: 16px;
 	background-color: $primary;
 	vertical-align: middle;
+}
+// 灰色
+.g-line-split.gray {
+	background-color: #9699A2;
 }
 
 .g-dialog-pro {

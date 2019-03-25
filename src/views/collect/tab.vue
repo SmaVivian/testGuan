@@ -2,9 +2,9 @@
   <div class="g-wrap">
     <div class="page-project-sub">
         <!-- 顶部导航 -->
-      <div class="g-collect-top">
+      <!-- <div class="g-collect-top">
         <cmp-header-sub :tabList="tabs" :activeTab="currentTab" :pageType="`collect`" :callFun="changeTab"></cmp-header-sub>
-      </div>
+      </div> -->
       <div class="sub-content">
         <div class="sub-content-wrap">
           <component :is="current"></component>
@@ -74,7 +74,7 @@ export default {
         },
         {
           name: '库房管理',
-          path: 'storage'
+          path: 'store'
         },
       ],
 

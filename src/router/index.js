@@ -69,11 +69,51 @@ export const constantRouterMap = [
         meta: {title: '项目二级菜单', rank: 2 }
       },
       {
-        path: '/collect',
+        path: '/collect/manage',
         name: 'collect',
-        component: () => import('@/views/collect/index'),
-        meta: {title: '藏品', rank: 1 }
+        component: () => import('@/views/collect/manage'),
+        meta: {title: '藏品管理' }
       },
+      {
+        path: '/collect/approval',
+        name: 'collectapproval',
+        component: () => import('@/views/collect/approval'),
+        meta: {title: '审批' }
+      },
+      {
+        path: '/collect/solicitation',
+        name: 'collesolicitation',
+        component: () => import('@/views/collect/solicitation'),
+        meta: {title: '藏品征集' }
+      },
+      {
+        path: '/collect/outGoing',
+        name: 'collesolioutGoing',
+        component: () => import('@/views/collect/outGoing'),
+        meta: {title: '出库管理' }
+      },
+     
+
+
+
+
+
+
+      // {
+      //   path: '/collect',
+      //   name: 'collect',
+      //   component: () => import('@/views/collect/manage'),
+      //   meta: {title: '藏品', rank: 1 },
+      //   children: [
+      //     { path: 'manage', component: '@/views/collect/manage/sidebar' },
+      //   ]
+      // },
+     
+
+
+
+
+
       {
         path: '/digital',
         name: 'digital',

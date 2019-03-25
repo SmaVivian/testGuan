@@ -12,7 +12,7 @@
     background-color="#404560">
       <el-menu-item class="m-menu-top" index="/home">首页</el-menu-item>
       <el-menu-item class="m-menu-top" index="/project" >项目</el-menu-item>
-      <el-menu-item class="m-menu-top" index="/collect?type=manage">藏品</el-menu-item>
+      <el-menu-item class="m-menu-top" index="/collect/manage?type=manage">藏品</el-menu-item>
       <el-menu-item class="m-menu-top" index="/digital">数字资产</el-menu-item>
     </el-menu>
     <div class="operate">
@@ -30,9 +30,8 @@
 export default {
   name: 'Header',
   data() {
-    console.log(this.$route.path.split('/')[1])
     return {
-      activeMenu: '/' + this.$route.path.split('/')[1]
+      activeMenu: '/' + (this.$route.path.split('/')[1] === 'collect' ? 'collect/manage?type=manage': this.$route.path.split('/')[1])
       // activeMenu: [this.$route.meta.menuPath || this.$route.path]
     }
   },

@@ -1,3 +1,102 @@
+// start 自定义样式（element-ui基础上） .cus- 开头
+// 主题色边框按钮 ex:<el-button class="el-primary-border"></el-button>
+.el-button.el-primary-border {
+  border-color: $primary;
+  color: $primary;
+}
+.el-button.el-primary-border:hover {
+  color: #fff;
+  background-color: $primary;
+}
+
+// 图标
+.el-icon.primary {
+  color: $primary;
+}
+
+// 警告提示的文案
+.cus-alert.el-alert--warning {
+  background-color: #FFF7E5;
+  color: #FFB822;
+  border: solid 1px #FFB822;
+  line-height: 30px;
+  padding: 0 10px;
+  .el-alert__content {
+    padding: 0 5px;
+  }
+  .el-alert__title {
+    font-size: 14px;
+  }
+  .el-alert__icon {
+    font-size: 14px;
+  }
+}
+
+// 头部横向tabs ex:<div class="m-tabs center"><el-tabs></el-tabs></div>
+.cus-tabs {
+  &.center .el-tabs__header {
+    display: flex;
+    justify-content: center;
+  }
+
+  .el-tabs__header {
+    margin: 0;
+    line-height: 60px;
+    background-color: #fff;
+  }
+
+  .el-tabs__nav-wrap::after {
+    background-color: transparent;
+  }
+
+  .el-tabs__active-bar {
+    // width: 28px !important;
+    bottom: 10px;
+  }
+
+  .el-tabs__nav.is-stretch > * {
+    flex: auto;
+  }
+
+  .el-tabs__item {
+    box-sizing: border-box;
+    padding: 0 40px;
+  }
+
+  .el-tabs__active-bar {
+    display: none;
+  }
+
+  .el-tabs__item.is-active:after {
+    display: block;
+    content: '';
+    position: absolute;
+    width: 28px;
+    height: 2px;
+    background-color: #0590FF;
+    left: 50%;
+    bottom: 0;
+    margin-left: -14px;
+  }
+
+  .el-tabs--top .el-tabs__item.is-top:nth-child(2):after, 
+  .el-tabs--top .el-tabs__item.is-bottom:nth-child(2):after, 
+  .el-tabs--bottom .el-tabs__item.is-top:nth-child(2):after, 
+  .el-tabs--bottom .el-tabs__item.is-bottom:nth-child(2):after {
+    margin-left: -34px;
+  }
+
+  .el-tabs--top .el-tabs__item.is-top:last-child:after, 
+  .el-tabs--top .el-tabs__item.is-bottom:last-child:after, 
+  .el-tabs--bottom .el-tabs__item.is-top:last-child:after, 
+  .el-tabs--bottom .el-tabs__item.is-bottom:last-child:after {
+    margin-left: 6px;
+  }
+}
+
+// end 自定义样式（element-ui基础上）
+
+// start 重写element-ui
 //暂时性解决diolag 问题 https://github.com/ElemeFE/element/issues/2461
 .el-dialog {
   transform: none;
@@ -5,7 +104,6 @@
   position: relative;
   margin: 0 auto;
 }
-
 
 // card卡片
 .el-card__body {
@@ -109,6 +207,20 @@
   padding: 4px 13px;
 }
 
+// 危险边框按钮
+.el-button--danger.is-plain {
+  border-color: $danger;
+  color: $danger;
+  background: #fff;
+}
+
+// 紧急边框按钮
+.el-button--warning.is-plain {
+  border-color: $warning;
+  color: $warning;
+  background: #fff;
+}
+
 // confirm
 .el-message-box {
   width: auto;
@@ -154,32 +266,6 @@
   font-weight:400;
 }
 
-// 自定义按钮
-
-// 主题色边框按钮
-.el-button.el-primary-border {
-  border-color: $primary;
-  color: $primary;
-}
-.el-button.el-primary-border:hover {
-  color: #fff;
-  background-color: $primary;
-}
-
-// 危险边框按钮
-.el-button--danger.is-plain {
-  border-color: $danger;
-  color: $danger;
-  background: #fff;
-}
-
-// 紧急边框按钮
-.el-button--warning.is-plain {
-  border-color: $warning;
-  color: $warning;
-  background: #fff;
-}
-
 // 表格
 .el-table {
   color: #575962;
@@ -191,11 +277,15 @@
 
 .el-table th {
   background-color: #EBEDF2;
+}
+
+.el-table th,
+.el-table td {
   padding: 13px 0;
 }
 
-.el-table td {
-  padding: 9px 0;
+.el-table .cell {
+  line-height: 24px;
 }
 
 // 数字
@@ -223,10 +313,6 @@
   font-size: 14px;
 }
 
-.el-icon.primary {
-  color: $primary;
-}
-
 // 自定义 类似图片交互的 checkbox
 .my-checkbox {
   cursor: pointer;
@@ -239,3 +325,4 @@
     text-decoration: line-through;
   }
 }
+// end 重写element-ui

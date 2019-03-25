@@ -6,6 +6,7 @@ $color5: #575962;
 $warning: #F5A623;
 $danger: #F25151;
 $border: #EBEDF2;
+$minWidth: 1440px;
 $paddingWidth: 30px;
 $headerHeight: 80px;  // 头部高度
 $subHeight: 60px;  // 二级导航高度
@@ -57,6 +58,12 @@ h2 {
 h3 {
   font-size: 14px;
   color: #9699A2;
+}
+// 四级标题
+h4 {
+  font-size: 14px;
+  font-weight: bold;
+  color: #575962;
 }
 
 //  正文

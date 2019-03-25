@@ -1,6 +1,10 @@
 <template>
   <div class="g-wrap">
     <div class="page-collect clearfix">
+      <!-- 顶部导航 -->
+       <div class="g-collect-top">
+        <cmp-header-sub :tabList="tabs" :activeTab="currentTab"  :callFun="changeTab"></cmp-header-sub>
+      </div>
        <!-- 侧边栏 -->
          <sidebar :menuList="sidebarData" :activeIndex="`/collect`" class="sidebarCont"></sidebar>
       <div class="content">
@@ -251,10 +255,12 @@
 <script>
 import cmpHeaderSub from '@cmp/header-sub'
 import sidebar from '@cmp/sidebar'
+// import tab from './tab'
 export default {
   components: {
     cmpHeaderSub,
     sidebar,
+    // tab
   },
   data() {
     return {
@@ -346,6 +352,38 @@ export default {
         }],
       // 当前选中页面
       currentPage: 5,
+      // 顶部导航栏数据
+       currentTab: 'manage',
+        tabs: [
+         {
+          name: '藏品管理',
+          path: 'manage'
+        },
+        {
+          name: '审批',
+          path: 'approval'
+        },
+        {
+          name: '藏品征集',
+          path:'solicitation'
+        },
+        {
+          name: '出库管理',
+          path: 'outGoing'
+        },
+        {
+          name: '藏品修复',
+          path: 'repair'
+        },
+         {
+          name: '藏品调拨',
+          path: 'allocation'
+        },
+        {
+          name: '库房管理',
+          path: 'store'
+        },
+      ],
       sidebarData: [
         {
           name: '藏品管理',
@@ -386,6 +424,10 @@ export default {
   },
 
    methods: {
+    //  顶部导航栏
+     changeTab(path) {
+      this.$router.push({path: '/collect/' + path})
+    },
     //   onReset() {
     //     this.$refs.ruleForm.resetFields()
     // },

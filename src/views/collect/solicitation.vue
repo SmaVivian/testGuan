@@ -1,6 +1,10 @@
 <template>
   <div class="g-wrap">
     <div class="page-collect clearfix">
+       <!-- 顶部导航 -->
+       <div class="g-collect-top">
+        <cmp-header-sub :tabList="tabs" :activeTab="currentTab" :pageType="`collect`" :callFun="changeTab"></cmp-header-sub>
+      </div>
        <!-- 侧边栏 -->
       <sidebar :menuList="sidebarData" :activeIndex="`/plan`" class="sidebarCont"></sidebar>
       <div class="content">
@@ -368,6 +372,7 @@ export default {
         }],
       // 当前选中页面
       currentPage: 5,
+      currentTab:'solicitation',
       sidebarData: [
         {
           name: '征集计划',
@@ -377,7 +382,7 @@ export default {
         {
           name: '藏品入馆',
           icon: 'pro',
-          index: '/collect/outGoing'
+          index: '/enter'
         },
         {
           name: '藏品建账',
@@ -406,7 +411,7 @@ export default {
       tabs: [
         {
           name: '藏品管理',
-          path: 'mange'
+          path: 'manage'
         },
         {
           name: '审批',
@@ -418,7 +423,7 @@ export default {
         },
         {
           name: '出库管理',
-          path: 'library'
+          path: 'outGoing'
         },
         {
           name: '藏品修复',
@@ -430,7 +435,7 @@ export default {
         },
         {
           name: '库房管理',
-          path: 'store-house'
+          path: 'store'
         }
       ],
       // 表格数据
@@ -455,6 +460,10 @@ export default {
     this.getDataList()
   },
    methods: {
+      //  顶部导航栏
+     changeTab(path) {
+      this.$router.push({path: '/collect/' + path})
+    },
     //  点击删除
      handleDelete(index, row) {
         // console.log(index, row);

@@ -29,7 +29,7 @@
         </el-breadcrumb>
 
         <!-- 导航 -->
-        <cmp-header-sub :tabList="tabs" :activeTab="currentTab" :pageType="`project`" @projectEventTab="changeTab"></cmp-header-sub>
+        <cmp-header-sub :tabList="tabs" :activeTab="currentTab" :pageType="`project`" :callFun="changeTab"></cmp-header-sub>
 
         <!-- 操作 -->
         <div class="menu-sub-right">
