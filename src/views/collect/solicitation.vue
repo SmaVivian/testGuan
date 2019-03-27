@@ -26,29 +26,18 @@
         <div class="table-content">
             <div class="search-content">
                 <el-form ref="form" :model="form" label-width="80px">
-                  <el-row>
-                    <el-col :span="5">
                       <el-form-item label="计划名称">
                           <el-input v-model="form.name" placeholder="请输入"></el-input>
                       </el-form-item>
-                    </el-col>
-                    <el-col :span="5">
                       <el-form-item label="计划编号">
                           <el-input v-model="form.name" placeholder="请输入"></el-input>
                       </el-form-item>
-                    </el-col>
-                    <el-col :span="5">
                       <el-form-item label="计划年度">
                           <el-select v-model="form.region" placeholder="请选择">
                           <el-option label="年度计划" value="shanghai"></el-option>
                           <el-option label="区域二" value="beijing"></el-option>
                           </el-select>
                       </el-form-item>
-                    </el-col>
-                  </el-row>
-
-                  <el-row>
-                    <el-col :span="8">
                       <el-form-item label="选择日期">
                       <el-date-picker class="fl"
                         v-model="value1"
@@ -61,30 +50,19 @@
                         placeholder="选择日期">
                       </el-date-picker>
                       </el-form-item>   
-                    </el-col>    
-
-                    <el-col :span="5">
                      <el-form-item label="登记人">
                         <el-select v-model="form.region" placeholder="请选择">
                         <el-option label="登记一" value="shanghai"></el-option>
                         <el-option label="登记二" value="beijing"></el-option>
                         </el-select>
                       </el-form-item>
-                    </el-col>
-
-                    <el-col :span="5">
                       <el-form-item label="状态选择">
                           <el-select v-model="form.region" placeholder="请选择">
                           <el-option label="状态一" value="shanghai"></el-option>
                           <el-option label="状态二" value="beijing"></el-option>
                           </el-select>
                       </el-form-item>
-                    </el-col>
-                  </el-row>
-                    <!-- <el-col :span="5"> -->
                       <el-button class="el-primary-border fr" round @click="onExport">查询</el-button>
-                    <!-- </el-col> -->
-                  
                 </el-form>
             </div>
             <div class="button">
@@ -104,18 +82,18 @@
                 <el-table-column
                     align="center" 
                     type="selection"
-                    width="100">
+                    >
                 </el-table-column>
                 <el-table-column
                     align="center" 
                     prop="image"
                     label="计划编号"
-                    width="200">
+                    >
                 </el-table-column>
                 <el-table-column
                     label="计划名称"
                     align="center"
-                    width="200">
+                    >
                      <template slot-scope="scope">
                       <!-- <a class="m-btn" style="color:#0590FF;text-decoration:underline;cursor:pointer;" type="text" size="small" @click="getMore(scope.row)">{{ scope.row.date }}</a> -->
                       <a class="m-btn" style="color:#0590FF;text-decoration:underline;cursor:pointer;" type="text" size="small" @click="getNameDetails(scope.row)">{{ scope.row.date }}</a>
@@ -127,37 +105,37 @@
                     align="center" 
                     prop="classi-fication"
                     label="计划年度"
-                    width="200">
+                    >
                 </el-table-column>
                 <el-table-column
                     align="center" 
                     prop="name"
                     label="预计经费(万元)"
-                    width="200">
+                    >
                 </el-table-column>
                 <el-table-column
                     align="center" 
                     prop="name"
                     label="登记人"
-                    width="150">
+                    >
                 </el-table-column>
                 <el-table-column
                     align="center" 
                     prop="name"
                     label="登记时间"
-                    width="150">
+                    >
                 </el-table-column>
                 <el-table-column
                     align="center" 
                     prop="texture"
                     label="计划状态"
-                    width="150">
+                    >
                 </el-table-column>
                 <el-table-column
                     fixed="right"
                     align="center"
                     label="操作"
-                    width="200">
+                   >
                     <template slot-scope="scope">
                     <a class="m-btn" @click="dialogLablectVisible = true" type="text" size="small">关闭</a>
                     <a class="m-btn"  @click="handleDelete(scope.$index, scope.row)" type="text" size="small">删除</a>

@@ -75,7 +75,8 @@ export default {
     },
     handleSelect(key, keyPath) {
       this.currentSide = key
-      console.log(key, keyPath)
+      this.$router.push(key)
+      // console.log(key, keyPath)
     },
     addGroup() {
       console.log('add')

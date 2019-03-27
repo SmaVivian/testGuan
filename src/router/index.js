@@ -42,6 +42,7 @@ Vue.mixin({
 // 不区分用户角色
 export const constantRouterMap = [
   { path: '/login', component: () => import('@views/login/index') },
+  { path: '/register', component: () => import('@views/login/register') },
   {
     path: '/',
     name: 'index',
@@ -76,44 +77,61 @@ export const constantRouterMap = [
       },
       {
         path: '/collect/approval',
-        name: 'collectapproval',
+        name: 'collectApproval',
         component: () => import('@/views/collect/approval'),
         meta: {title: '审批' }
       },
       {
         path: '/collect/solicitation',
-        name: 'collesolicitation',
-        component: () => import('@/views/collect/solicitation'),
-        meta: {title: '藏品征集' }
+        redirect: '/collect/solicitation/plan',
+        component: () => import('@/views/collect/solicitation/index'),
+        name: 'collectSolicitation',
+        meta: {title: '藏品征集' },
+        children: [
+          {
+            path: '/collect/solicitation/plan',
+            name: 'solicitationPlan',
+            component: () => import('@/views/collect/solicitation/plan'),
+            meta: { title: '征集计划' },
+          },
+          {
+            path: '/collect/solicitation/ruguan',
+            name: 'solicitationRuguan',
+            component: () => import('@/views/collect/solicitation/ruguan'),
+            meta: { title: '藏品入馆' },
+          },
+        ]
       },
+      // {
+      //   path: '/collect/solicitation',
+      //   name: 'collesolicitation',
+      //   component: () => import('@/views/collect/solicitation'),
+      //   meta: {title: '藏品征集' }
+      // },
       {
         path: '/collect/outGoing',
-        name: 'collesolioutGoing',
+        name: 'collectOutGoing',
         component: () => import('@/views/collect/outGoing'),
         meta: {title: '出库管理' }
       },
-     
-
-
-
-
-
-
-      // {
-      //   path: '/collect',
-      //   name: 'collect',
-      //   component: () => import('@/views/collect/manage'),
-      //   meta: {title: '藏品', rank: 1 },
-      //   children: [
-      //     { path: 'manage', component: '@/views/collect/manage/sidebar' },
-      //   ]
-      // },
-     
-
-
-
-
-
+      {
+        path: '/collect/repair',
+        name: 'collectRepair',
+        component: () => import('@/views/collect/repair'),
+        meta: {title: '藏品修复' }
+      },
+      {
+        path: '/collect/allocation',
+        name: 'collectAllocation',
+        component: () => import('@/views/collect/allocation'),
+        meta: {title: '藏品调拨' }
+      },
+      {
+        path: '/collect/store',
+        name: 'collectStore',
+        component: () => import('@/views/collect/store'),
+        meta: {title: '库房管理' }
+      },
       {
         path: '/digital',
         name: 'digital',

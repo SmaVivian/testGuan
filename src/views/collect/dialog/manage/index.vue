@@ -10,6 +10,8 @@
         <el-button @click="dialogOpenctVisible = false">取 消</el-button>
         <el-button type="primary" @click="dialogOpenctVisible = false">确 定</el-button>
       </div>
+    <div>   
+</div>
 </div>
       
 </template>
@@ -40,12 +42,6 @@ export default {
   }
 };
 </script>
-<style lang="scss">
-  .dialog-footer {
-    margin: 20px 0 0 0;
-  }
-</style>
-
 
 
 

@@ -32,6 +32,14 @@
   }
 }
 
+// 顶部对齐的form
+.cus-form-top {
+  .el-form-item__label {
+    line-height: 14px;
+    color: #9699A2;
+  }
+}
+
 // 头部横向tabs ex:<div class="m-tabs center"><el-tabs></el-tabs></div>
 .cus-tabs {
   &.center .el-tabs__header {
@@ -195,7 +203,7 @@
 .el-button--primary:hover, .el-button--primary:focus {
   color: #fff;
   background:rgba(121,195,253,1);
-  border: none;
+  border-color: transparent;
 }
 
 .el-button--small,

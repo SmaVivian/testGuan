@@ -1,7 +1,7 @@
 <template>
   <div class="g-wrap">
     <div class="page-project clearfix">
-       <div class="g-collect-top">
+      <div class="g-collect-top">
         <cmp-header-sub :tabList="tabs" :activeTab="currentTab"  :callFun="changeTab"></cmp-header-sub>
       </div>
       <sidebar :menuList="sidebarData" :activeIndex="`/project`" class="sidebarCont"></sidebar>
@@ -13,16 +13,23 @@
             <el-breadcrumb-item><a href="javascript:;">藏品管理</a></el-breadcrumb-item>
           </el-breadcrumb>
           <!-- 内容 -->
-          <h3 class="addTit m-btn" @click="dialogEnterVisible = true">藏品入馆审批表格</h3>
-          <h3 class="addTit m-btn" @click="dialogOutVisible = true">出库类型</h3>
-          <h3 class="addTit m-btn" @click="dialogCollectVisible = true">选择出库藏品</h3>
           <h3 class="addTit m-btn" @click="dialogRejectVisible = true">驳回原因</h3>
+          <h3 class="addTit m-btn" @click="dialogCollectVisible = true">选择出库藏品</h3>
           <ul class="pro-list">
-            <el-row :gutter="50">
-              <el-col class="box" :xs="6" :sm="8" :md="8" :xl="8" v-for="(item, index) in menuData" :key="index">
-                <el-card class="box-card">                 
-                  <div class="card-item" @click="dialogApprovalVisible = true">
-                    <div :class="'card-pic card-pic-' + (index+1)"></div>
+
+            <el-row :gutter="50" v-for="(item, index) in menuData" :key="index">
+              <el-col class="box" :xs="6" :sm="8" :md="8" :xl="8" >
+                <el-card class="box-card" >                 
+                  <div class="card-item" @click="handleDialog(index + 1)">
+                    <div :class="'card-pic card-pic-' + (index+1) + '1'"></div>
+                  </div>
+                </el-card>
+                
+              </el-col>
+              <el-col class="box" :xs="6" :sm="8" :md="8" :xl="8" >
+                 <el-card class="box-card">                 
+                  <div class="card-item" @click="handleDialog(index + 2)">
+                    <div :class="'card-pic card-pic-' + (index+1) + '2'"></div>
                   </div>
                 </el-card>
               </el-col>
@@ -31,14 +38,12 @@
         </div>
       </div>
     </div>
-
     <el-dialog title="驳回原因" :visible.sync="dialogRejectVisible" width="420px" class="rejectTit">
-          <el-input type="textarea" v-model="ruleForm.shape" style="resize:none"></el-input>
+        <el-input type="textarea" v-model="ruleForm.shape" style="resize:none"></el-input>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="dialogOpenctVisible = false">提交</el-button>
       </div>
     </el-dialog>
-
     <el-dialog title="选择出库藏品" :visible.sync="dialogCollectVisible" width="900px">
       <el-input
               placeholder="请输入"
@@ -49,10 +54,10 @@
         <el-table-column type="selection" width="40" align="center"></el-table-column>
         <el-table-column property="name" label="图片" width="80">
           <template slot-scope="scope">
-                  <a class="m-btn" @click="dialogPhotosVisible = true" type="text" size="small">
-                    <img :src="scope.row.head_pic" width="40" height="40" class="head_pic"/>
-                  </a>
-                </template>
+            <a class="m-btn" @click="dialogPhotosVisible = true" type="text" size="small">
+              <img :src="scope.row.head_pic" width="40" height="40" class="head_pic"/>
+            </a>
+          </template>
         </el-table-column>
         <el-table-column property="name" label="登记号" width="80"></el-table-column>
         <el-table-column property="name" label="藏品名称" width="80"></el-table-column>
@@ -68,8 +73,7 @@
         <el-button type="primary" @click="dialogOpenctVisible = false">提交</el-button>
       </div>
     </el-dialog>
-
-    <el-dialog title="出库类型" :visible.sync="dialogOutVisible" width="300px">
+    <el-dialog title="出库类型" :visible.sync="dialogTypeVisible" width="300px">
       <el-form :model="form">
         <el-form-item a:label-width="formLabelWidth">
           <el-select v-model="formTag.collection" placeholder="出库类型" >
@@ -83,12 +87,11 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogCollectVisible = false">取 消</el-button>
-        <el-button type="primary" @click="fromCollection">确 定</el-button>
+        <el-button @click="dialogTypeVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogEnterVisible = true">确 定</el-button>
       </div>
     </el-dialog>
-
-<!-- 点击图片上传图片 -->
+    <!-- 点击图片上传图片 -->
     <el-dialog title="上传藏品照片" :visible.sync="dialogPhotosVisible" width="470px">
       <div class="labelTable clearfix">
         <h3 class="collectLable">上传照片</h3>
@@ -111,211 +114,34 @@
           </el-col>
         </el-row>
       </div>
-       <h3 class="condition">( 最少上传一种类型的图片 )</h3>
-      
-    
+       <h3 class="condition">( 最少上传一种类型的图片 )</h3>   
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogLablectVisible = false">取 消</el-button>
         <el-button type="primary">确 定</el-button>
       </div>
     </el-dialog>
-
-<!-- 审批计划 -->
-  <el-dialog title="征集计划审批"  class="approval" :visible.sync="dialogApprovalVisible" width="900px" >
-    <div class="timeLine">
-      <el-timeline>
-        <el-timeline-item
-          v-for="(activity, index) in activities2" :key="index"
-          :icon="activity.icon"
-          :type="activity.type"
-          :color="activity.color"
-          :size="activity.size">
-          {{activity.name}}
-          {{activity.state}}
-        </el-timeline-item>
-      </el-timeline>
-    </div>
-    <div class="right">
-      <h3>2018 / 01 / 11</h3>
-      <h3 class="personName fr">贾军</h3>
-       <el-form ref="form" :model="form" label-width="100px" class="fl">
-         <el-row>
-          <el-col :span="12">
-            <el-form-item label="计划名称 :">
-              <el-input v-model="form.name" placeholder="计划一"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="计划编号 :">
-              <el-input v-model="form.name" placeholder="计划一"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="8">
-            <el-form-item label="征集目的 :">
-              <el-input v-model="form.name" placeholder="计划一"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="预计经费 :">
-              <el-input v-model="form.name" placeholder="万元"></el-input>
-            </el-form-item>
-            </el-col>
-            <el-col :span="8"> 
-            <el-form-item label="年度计划 :">
-              <el-date-picker v-model="value1" type="date"></el-date-picker>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-form-item label="活动形式 :" prop="shape">
-          <el-input type="textarea" v-model="ruleForm.shape" style="resize:none"></el-input>
-        </el-form-item>
-        <el-form-item label="正文内容 :" prop="content">
-          <el-input type="textarea" v-model="form.content"></el-input>
-        </el-form-item>
-      </el-form>
-      <h3>上传附件 :</h3>
-      <el-upload
-        class="upload-demo"
-        action="https://jsonplaceholder.typicode.com/posts/"
-        :on-preview="handlePreview"
-        :on-remove="handleRemove"
-        :before-remove="beforeRemove"
-        multiple
-        :limit="3"
-        :on-exceed="handleExceed"
-        :file-list="fileList">
-        <el-button size="small" type="primary">点击上传</el-button>
-        <div slot="tip" class="el-upload__tip">支持扩展名: .rar .zip .doc .pdf .jpg</div>
-      </el-upload>
-    </div>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogApprovalVisible = false">取 消</el-button>
-        <el-button type="primary" @click="fromCollection">确 定</el-button>
-      </div>
+    <!-- 审批计划 -->
+    <el-dialog title="征集计划审批"  class="approval" :visible.sync="dialogSolicitationVisible" width="900px" >
+      <solicitationDialog />
     </el-dialog>
-    
     <!-- 藏品入馆 -->
     <el-dialog title="藏品入馆审批"  class="approval" :visible.sync="dialogEnterVisible" width="900px" >
-    <div class="timeLine">
-      <el-timeline >
-        <el-timeline-item
-          v-for="(activity, index) in activities2" :key="index"
-          :icon="activity.icon"
-          :type="activity.type"
-          :color="activity.color"
-          :size="activity.size">
-          {{activity.name}}
-          {{activity.state}}
-        </el-timeline-item>
-      </el-timeline>
-    </div>
-    <div class="right">
-      <h3>2018 / 01 / 11</h3>
-      <h3 class="personName fr">贾军</h3>
-       <el-form ref="form" :model="form" label-width="104px"  class="fl">
-         <el-row>
-          <el-col :span="9" class="voucher">
-            <h3 class="fl">入馆凭证号 :</h3>
-            <span class="fl" >RGLS-2018-13</span>
-          </el-col>
-          <el-col :span="15">
-            <el-form-item label="入馆凭证名称 :">
-              <el-input v-model="form.name"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="8">
-            <el-form-item label="收据号 :">
-              <el-input v-model="form.name"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="单位或个人 :">
-              <el-input v-model="form.name"></el-input>
-            </el-form-item>
-            </el-col>
-            <el-col :span="8"> 
-            <el-form-item label="来源 :">
-              <el-date-picker v-model="value1" type="date"></el-date-picker>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-form-item label="入馆备注 :" prop="shape"  >
-          <el-input type="textarea" v-model="ruleForm.shape" style="resize:none"></el-input>
-        </el-form-item>
-      </el-form>
-      <h3>上传附件 :</h3>
-      <el-upload
-        class="upload-demo"
-        action="https://jsonplaceholder.typicode.com/posts/"
-        :on-preview="handlePreview"
-        :on-remove="handleRemove"
-        :before-remove="beforeRemove"
-        multiple
-        :limit="3"
-        :on-exceed="handleExceed"
-        :file-list="fileList">
-        <el-button size="small" type="primary">点击上传</el-button>
-        <div slot="tip" class="el-upload__tip">支持扩展名: .rar .zip .doc .pdf .jpg</div>
-      </el-upload>
-    </div>
-    
-    <div class="table">
-      <div class="operation">
-        <a class="m-btn fl" @click="dialogLablectVisible = true" type="text" size="small">精品明细</a>
-        <a class="m-btn fr" @click="dialogLablectVisible = true" type="text" size="small">添加</a>
-        <a class="m-btn fr" @click="dialogLablectVisible = true" type="text" size="small">批量导入</a>
-        <a class="m-btn fr" @click="dialogLablectVisible = true" type="text" size="small">删除</a>
-      </div>
-            <el-table
-              :data="tableData3"
-              stripe
-              >
-              <el-table-column type="selection" width="50" align="center"></el-table-column>
-              <el-table-column prop="image" label="编号" width="60"></el-table-column>
-              <el-table-column label="图片" width="60" align="center">
-                <template slot-scope="scope">
-                  <a class="m-btn" @click="dialogPhotosVisible = true" type="text" size="small">
-                    <img :src="scope.row.head_pic" width="40" height="40" class="head_pic"/>
-                  </a>
-                </template>
-              </el-table-column>
-              <el-table-column prop="classi-fication" label="藏品名称" width="80"></el-table-column>
-              <el-table-column prop="name" label="年代"  width="60"></el-table-column>
-              <el-table-column prop="name" label="藏品分类" width="80"></el-table-column>
-              <el-table-column prop="name" label="数量" width="60"></el-table-column>
-              <el-table-column prop="texture" label="单位" width="60"></el-table-column>
-              <el-table-column prop="degree" label="级别" width="60"></el-table-column>
-              <el-table-column prop="number" label="质地" width="60"></el-table-column>
-              <el-table-column prop="company" label="完残程度"  width="80"></el-table-column>
-              <el-table-column fixed="right" align="center"  label="操作" width="100"><template>
-                  <a class="m-btn" @click="dialogLablectVisible = true" type="text" size="small">标签</a>
-                </template>
-              </el-table-column>
-              </el-table>
-             <div class="pagination-container">
-            </div>
-          </div>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogEnterlVisible = false">取 消</el-button>
-        <el-button type="primary" @click="fromCollection">提 交</el-button>
-        
-      </div>
+      <enterDialog/>
     </el-dialog>
-
   </div>
 </template>
 
 <script>
 import cmpHeaderSub from '@cmp/header-sub'
 import sidebar from '@cmp/sidebar'
+import enterDialog from './dialog/approval/enter'
+import solicitationDialog from './dialog/approval/solicitation'
 export default {
   components: {
     sidebar,
     cmpHeaderSub,
+    enterDialog,
+    solicitationDialog
   },
   data() {
     return {
@@ -369,65 +195,25 @@ export default {
           name: '总登记号',
           address: '上'
         }],
-      
-      // 表格数据
-       tableData3: [{
-          head_pic: '<img src="" alt="">',
-          name: '王小',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }],
-      // 点击上传
-      fileList: [{name: '概念设计文档', url: ''}],
        ruleForm: {
           shape: '',
           content: ''
         },
       // 时间选择器
          value1: '',
-       activities2: [{
-          name: '将明',
-          state: '待审核',
-          size: 'large',
-          type: 'primary',
-          icon: 'el-icon-more',
-        },
-        {
-          name: '冯桂英',
-          state: '待审核',
-          size: 'large',
-          type: 'primary',
-          icon: 'el-icon-more',
-        },
-        {
-          name: '将明',
-          state: '待审核',
-          size: 'large',
-          type: 'primary',
-          icon: 'el-icon-more',
-        },
-        {
-          name: '将明',
-          state: '待审核',
-          size: 'large',
-          type: 'primary',
-          icon: 'el-icon-more',
-        }],
+       
        formTag: {
             collection: ''
         },
-      dialogApprovalVisible: false,
-      dialogEnterVisible: false,
       dialogPhotosVisible: false,
-      dialogOutVisible: false,
-      dialogCollectVisible: false,
+      dialogTypeVisible: false,
+      dialogSolicitationVisible: false,
       dialogRejectVisible: false,
+      dialogEnterVisible: false,
+      dialogCollectVisible: false,
+      dialog: [  
+      ],
       menuData: [
-        {
-          name: ''
-        },
-        {
-          name: ''
-        },
         {
           name: ''
         },
@@ -459,66 +245,23 @@ export default {
     }
   },
   methods: {
+    // 弹框循环事件
+    handleDialog(index){
+      if (index === 1) {
+        this.dialogSolicitationVisible = true
+      } else if (index === 2) {
+        this.dialogEnterVisible = true
+      } else if (index === 3) {
+        this.dialogTypeVisible = true
+      } else if (index === 4) {
+        this.dialogRejectVisible = true
+      }
+    },
      //  顶部导航栏
      changeTab(path) {
       this.$router.push({path: '/collect/' + path})
     },
-    // 点击上传
-    handleRemove(file, fileList) {
-        console.log(file, fileList);
-      },
-      handlePreview(file) {
-        console.log(file);
-      },
-      handleExceed(files, fileList) {
-        this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
-      },
-      beforeRemove(file, fileList) {
-        return this.$confirm(`确定移除 ${ file.name }？`);
-      },
-     fromCollection(){
-        //    alert(this.formTag.collection)
-           if(this.formTag.collection == 4) {
-            //    alert(1)
-               this.addDialogLablectVisible = true;
-               return;
-           }
-
-           this.dialogApprovalVisible = false
-       },
-
-    getNavData() {
-      this.sidebarData.splice(1, 1)
-    },
-    onSubmit(formName) {
-      // this.$message('submit!')
-      this.$refs[formName].validate((valid) => {
-        if(valid) {
-          let forms = this.form;
-          console.log(111, { forms })
-          console.log(222, { ...this.form })
-          this.dialogVisible = false;
-        } else {
-          return false
-        }
-      })
-    },
-    onCancel() {
-      this.$message({
-        message: 'cancel!',
-        type: 'warning'
-      })
-    },
   },
-  created() {
-    // setTimeout(this.getNavData, 1000)
-  },
-  activated() {
-    // this.$store.dispatch('changeBodyBg', 'bg1')
-  },
-  deactivated() {
-    // this.$store.dispatch('changeBodyBg', '')
-  }
 }
 </script>
 
@@ -661,17 +404,17 @@ export default {
     .card-pic {
       height: 160px;
     }
-    .card-pic-1 {
-      @include bg(url(~@images/approval/collect-1.svg), '', '', contain)
+    .card-pic-11 {
+      @include bg(url(~@images/approval/collect-4.svg), '', '', contain)
     }
-    .card-pic-2 {
-      @include bg(url(~@images/approval/collect-2.svg), '', '', contain)
-    }
-    .card-pic-3 {
+    .card-pic-12 {
       @include bg(url(~@images/approval/collect-3.svg), '', '', contain)
     }
-    .card-pic-4 {
-      @include bg(url(~@images/approval/collect-4.svg), '', '', contain)
+    .card-pic-21 {
+      @include bg(url(~@images/approval/collect-2.svg), '', '', contain)
+    }
+    .card-pic-22 {
+      @include bg(url(~@images/approval/collect-1.svg), '', '', contain)
     }
     .box-card {
       border:4px solid transparent;
