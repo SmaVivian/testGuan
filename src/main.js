@@ -10,7 +10,7 @@ import '@/icons' // svg icon
 import {common} from '@/utils/util'
 import request from '@/utils/request'
 Vue.prototype.$http = request
-Vue.prototype.common = common
+Vue.prototype.$common = common
 
 Vue.use(ElementUI)
 Vue.config.productionTip = false

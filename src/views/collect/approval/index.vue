@@ -1,4 +1,4 @@
-<!-- 藏品征集 -->
+<!-- 藏品审批 -->
 <template>
   <div class="g-wrap">
     <div class="page-collect clearfix">
@@ -26,48 +26,31 @@ export default {
     // 左侧导航
     currentTabSide() {
       let arr = this.$route.path.split('/');
-      console.log('/collect/solicitation/' + arr[arr.length-1])
-      return '/collect/solicitation/' + arr[arr.length-1]
+      console.log('/collect/approval/' + arr[arr.length-1])
+      return '/collect/approval/' + arr[arr.length-1]
     }
   },
   data() {
     return {
-      currentTab: 'solicitation',
+      currentTab: 'approval',
       sidebarData: [
         {
-          name: '征集计划',
+          name: '发起审批',
           icon: 'pro',
-          index: '/collect/solicitation/plan'
+          index: '/collect/approval/lanch'
         },
         {
-          name: '藏品入馆',
+          name: '我发起的',
           icon: 'pro',
-          index: '/collect/solicitation/enter'
+          index: '/collect/approval/myLanch'
         },
         {
-          name: '藏品建账',
+          name: '待我审批的',
           icon: 'pro',
-          children: [
-            {
-              name: '藏品总账',
-              index: '/plan?type=1'
-            },
-            {
-              name: '藏品分类账',
-              index: '/plan?type=2'
-            },
-            {
-              name: '藏品辅助账',
-              index: '/plan?type=3'
-            }
-          ]
-        },
-        {
-          name: '藏品入库',
-          icon: 'pro',
-          index: '/collect/solicitation/enterStore'
+          index: '/collect/approval/wait'
         },
       ],
+
       tabs: [
         {
           name: '藏品管理',

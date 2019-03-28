@@ -6,7 +6,7 @@
         <top/>
       </div>
       <!-- 侧边栏 -->
-        <sidebar :menuList="sidebarData" :activeIndex="`/collect`" class="sidebarCont"></sidebar>
+        <sidebar :menuList="sidebarData" :activeIndex="`/collect/manage`" class="sidebarCont"></sidebar>
       <div class="content">
       <!-- 搜索内容 -->
         <div class="search-content">
@@ -19,22 +19,25 @@
           </el-input>
           <!-- 搜索详情 -->
           <div>
+
             <div class="sch">
               <div class="sch-type">全部结果 :</div>
               <div>
-                <el-tag :key="tag" v-for="tag in dynamicTags" closable :disable-transitions="false" @close="handleClose(tag)" ref="dynamicTags">
+                <el-tag :key="tag" v-for="tag in dynamicTags" closable :disable-transitions="false" @close="handleClose(tag)">
                   {{tag}}
                 </el-tag>
               </div>
-                <el-button class="reset" round >重置</el-button>
+              <el-button type="primary" class="reset" size="mini" style="width:20px">重置</el-button>
             </div>
+
             <div class="sch">
               <div class="sch-type">精品分类 :</div>
               <div class="sch-content">
-                  <span v-for="item in searchTag" :key="item.name">{{item.name}}&nbsp;({{item.number}})</span>
-                  <span @click="handleClick" ref="span">收起</span>
+                <span v-for="item in searchTag" :key="item.name">{{item.name}}&nbsp;({{item.number}})</span>
+                <span @click="handleClick" ref="span">收起</span>
               </div>
             </div>
+
             <div class="sch">
               <div class="sch-type">所属年代 :</div>
               <div class="sch-content">
@@ -42,13 +45,15 @@
                 <span>收起 ></span>
               </div>
             </div>
-              <div class="sch">
-                <div class="sch-type">文物级别 :</div>
-                <div class="sch-content">
-                  <span v-for="item in searchLeve" :key="item.name">{{item.name}}&nbsp;({{item.number}})</span>
-                  <span>更多</span>
-                </div>
+
+            <div class="sch">
+              <div class="sch-type">文物级别 :</div>
+              <div class="sch-content">
+                <span v-for="item in searchLeve" :key="item.name">{{item.name}}&nbsp;({{item.number}})</span>
+                <span>更多</span>
+              </div>
             </div>
+
             <div class="sch">
               <div class="sch-type">高级选项 :</div>
               <div class="sch-content">
@@ -84,48 +89,48 @@
                   </el-form-item>
                 </el-form>
               </div>
-          </div>
-        </div>     
+            </div>
+          </div>     
         </div>
         <!-- 表格内容 -->
         <div class="table-content">
-        <div class="button">
-          <el-row>
-            <el-button class="el-primary-border" round @click="onExport">导出</el-button>
-            <el-button class="el-primary-border" round @click="dialogOpenctVisible = true">公开藏品</el-button>
-            <el-button class="el-primary-border" round  @click="dialogCollectVisible = true">收藏</el-button>
-            <el-button style="float: right; padding: 35px 35px" type="text" @click="dialogOpenctVisible = true">选择公开字段</el-button>
-          </el-row>
-        </div>
-          <!-- 表格 -->
-        <div class="table">
-          <el-table :data="tableData3" stripe>
-            <el-table-column type="selection" width="50" align="center"></el-table-column>
-            <el-table-column prop="image" label="图片" width="100"></el-table-column>
-            <el-table-column label="登记号" width="100" align="center">
-              <template slot-scope="scope">{{ scope.row.date }}</template>
-            </el-table-column>
-            <el-table-column prop="classi-fication" label="分类号" width="100"></el-table-column>
-            <el-table-column prop="name" label="藏品名称"  width="100"></el-table-column>
-            <el-table-column prop="name" label="年代" width="100"></el-table-column>
-            <el-table-column prop="name" label="商品分类" width="100"></el-table-column>
-            <el-table-column prop="texture" label="质地" width="120"></el-table-column>
-            <el-table-column prop="degree" label="完残程度" width="120"></el-table-column>
-            <el-table-column prop="number" label="数量" width="120"></el-table-column>
-            <el-table-column prop="company" label="单位" width="120"></el-table-column>
-            <el-table-column prop="storehouse" label="库房名称" width="120"></el-table-column>
-            <el-table-column prop="open" label="是否公开" width="100"></el-table-column>
-            <el-table-column prop="open" label=" 藏品状态" width="100"></el-table-column>
-            <el-table-column fixed="right" align="center" label="操作" width="100">
-              <template>
-                <a class="m-btn" @click="dialogLablectVisible = true" type="text" size="small">标签</a>
-                <a class="m-btn" type="text" size="small" @click="dialogMoveVisible = true">移库</a>
-              </template>
-            </el-table-column>
-          </el-table>
-          <div class="pagination-container">
-            <el-pagination :current-page="listQuery.currentPage" :page-size="listQuery.size" :total="total" background layout="total, prev, pager, next"  @size-change="handleSizeChange" @current-change="handleCurrentChange"/>
+          <div class="button">
+            <el-row>
+              <el-button class="el-primary-border" round @click="onExport">导出</el-button>
+              <el-button class="el-primary-border" round @click="dialogOpenctVisible = true">公开藏品</el-button>
+              <el-button class="el-primary-border" round  @click="dialogCollectVisible = true">收藏</el-button>
+              <el-button style="float: right; padding: 35px 35px" type="text" @click="dialogOpenctVisible = true">选择公开字段</el-button>
+            </el-row>
           </div>
+            <!-- 表格 -->
+          <div class="table">
+            <el-table :data="tableData3" stripe>
+              <el-table-column type="selection" width="50" align="center"></el-table-column>
+              <el-table-column prop="image" label="图片" width="100"></el-table-column>
+              <el-table-column label="登记号" width="100" align="center">
+                <template slot-scope="scope">{{ scope.row.date }}</template>
+              </el-table-column>
+              <el-table-column prop="classi-fication" label="分类号" width="100"></el-table-column>
+              <el-table-column prop="name" label="藏品名称"  width="100"></el-table-column>
+              <el-table-column prop="name" label="年代" width="100"></el-table-column>
+              <el-table-column prop="name" label="商品分类" width="100"></el-table-column>
+              <el-table-column prop="texture" label="质地" width="120"></el-table-column>
+              <el-table-column prop="degree" label="完残程度" width="120"></el-table-column>
+              <el-table-column prop="number" label="数量" width="120"></el-table-column>
+              <el-table-column prop="company" label="单位" width="120"></el-table-column>
+              <el-table-column prop="storehouse" label="库房名称" width="120"></el-table-column>
+              <el-table-column prop="open" label="是否公开" width="100"></el-table-column>
+              <el-table-column prop="open" label=" 藏品状态" width="100"></el-table-column>
+              <el-table-column fixed="right" align="center" label="操作" width="100">
+                <template>
+                  <a class="m-btn" @click="dialogLablectVisible = true" type="text" size="small">标签</a>
+                  <a class="m-btn" type="text" size="small" @click="dialogMoveVisible = true">移库</a>
+                </template>
+              </el-table-column>
+            </el-table>
+            <div class="pagination-container">
+              <el-pagination :current-page="listQuery.currentPage" :page-size="listQuery.size" :total="total" background layout="total, prev, pager, next"  @size-change="handleSizeChange" @current-change="handleCurrentChange"/>
+            </div>
           </div>
         </div>
       </div>
@@ -154,7 +159,7 @@
     <!-- 藏品新建事件 -->
      <el-dialog title="新建收藏夹" :visible.sync="addDialogLablectVisible" width="350px">
       <el-form :model="addformTag">
-        <el-form-item a:label-width="formLabelWidth">
+        <el-form-item a:label-width="formLabelWidth" placeholder="收藏夹名称">
           <el-input v-model="addformTag.collection"></el-input>
         </el-form-item>
       </el-form>
@@ -163,7 +168,6 @@
         <el-button type="primary" @click="addCollection">确 定</el-button>
       </div>
     </el-dialog>
-    <!-- 新建标签 -->
     
      <el-dialog title="藏品移库" :visible.sync="dialogMoveVisible" width="460px" class="MoveLibrary">
        <moveStoreDialog/>
@@ -180,6 +184,7 @@ import sidebar from '@cmp/sidebar'
 import attributeDialog from './dialog/manage/publicAttribute'
 import moveStoreDialog from './dialog/manage/moveStore'
 import lableDialog from './dialog/manage/lable'
+ 
 export default {
   components: {
     sidebar,
@@ -229,7 +234,7 @@ export default {
             {name: '未定级 ', number:'143'},
         ],       
       // 表格分页
-       list: null,
+      list: null,
       total: 0,
       listLoading: true,
       listQuery: {
@@ -239,7 +244,6 @@ export default {
       // 藏品弹出事件
         dialogLablectVisible: false,
         dialogOpenctVisible: false,
-
         dialogTableVisible: false,
         dialogCollectVisible: false,
         dialogMoveVisible: false,
@@ -252,12 +256,11 @@ export default {
        
       // 当前选中页面
       currentPage: 5,
-      
       sidebarData: [
         {
           name: '藏品管理',
           icon: 'pro',
-          index: '/collect'
+          index: '/collect/manage'
         },
       ],
       // 表格数据
@@ -341,15 +344,14 @@ export default {
       this.getDataList()
     },
     handleClick(){
-        if(this.$refs.span.innerHTML == '收起') {
-            this.searchTag = this.searchTag.splice(0,3)
-            this.$refs.span.innerHTML = '展开'
-        } else{
-            // this.getTag()
-            // this.searchTag = this.searchTag.splice(0,3)
-            this.$refs.span.innerHTML = '收起'
-        }
-       
+      if(this.$refs.span.innerHTML == '收起') {
+        this.searchTag = this.searchTag.splice(0,3)
+        this.$refs.span.innerHTML = '展开'
+      } else{
+        // this.getTag()
+        // this.searchTag = this.searchTag.splice(0,3)
+        this.$refs.span.innerHTML = '收起'
+      }
     }  
   },
 }
@@ -378,6 +380,12 @@ export default {
 .g-container {
   .content {
     padding: 30px 30px 30px 270px;
+    .titSearch {
+      width: 21.5%;
+      background-color: #fff;
+      margin: -40px 3%;
+      float: right;
+    }
     .table {
       padding: 0 25px;
       background-color: #fff;
@@ -395,12 +403,7 @@ export default {
           line-height: 86px;
           background: #fff;
         }
-        .titSearch {
-          width: 21.5%;
-          background-color: #fff;
-          margin: -40px 3%;
-          float: right;
-        }
+        
     }
   .is-link {
     font-size: 18px;
@@ -411,21 +414,32 @@ export default {
   font-size: 14px;
   background-color: #fff;
   .sch-type {
-    margin-top: 8px;
+    line-height: 13px;
     width: 75px;
     color: #B5B1DD;
   }
+  .sch-type:first-child {
+    margin-top: 3px;
+  }
+  
   .el-tag {
     margin-left: 5px;
     height: 25px;
     line-height: 24px;
     border-radius: 15px;
-  }
-  .reset {
     border: 1px solid #0590FF;
+    background-color: #fff;
+  }
+  .el-tag:hover {
+    background-color: #0590FF;
+    color: #fff;
+  }
+.reset {
+    border: 1px solid #0590FF;
+    width: 59px !important;
     height: 20px;
     line-height: 2px;
-    margin: 0px 15px;
+    margin: 3px 15px;
   }
   .reset:hover {
     color: #fff;
@@ -492,4 +506,10 @@ export default {
 height: 0;
 content:'';
 }
+.el-button {
+  margin-left: 5px;
+}
+.sch-type:last-child {
+    line-height: 27px;
+  }
 </style>

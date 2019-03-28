@@ -6,7 +6,7 @@
         <top/>
       </div>
       <!-- 侧边栏 -->
-        <sidebar :menuList="sidebarData" :activeIndex="`/repair`" class="sidebarCont"></sidebar>
+        <sidebar :menuList="sidebarData" :activeIndex="`/collect/repair`" class="sidebarCont"></sidebar>
       <div class="content">
         <!-- 搜索内容 -->
         <div class="search-content">
@@ -225,7 +225,7 @@ export default {
         {
           name: '修护管理',
           icon: 'pro',
-          index: '/repair'
+          index: '/collect/repair'
         },
       ],
       // 表格数据

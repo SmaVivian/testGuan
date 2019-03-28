@@ -1,7 +1,9 @@
 <template>
   <div class="g-wrap">
+
+    <sidebar :menuList="sidebarData" :activeIndex="`/project`" :openeds="openedsArr"></sidebar>
+
     <div class="page-project clearfix">
-      <sidebar :menuList="sidebarData" :activeIndex="`/project`" :openeds="openedsArr"></sidebar>
       <div class="content">
         <h1>全部项目</h1>
         <ul class="pro-list">
@@ -17,7 +19,7 @@
 
             <el-col class="box" :xs="6" :sm="6" :md="6" :xl="4">
               <el-card class="box-card box-card-add">
-                <div class="card-add" @click="dialogVisible = true">
+                <div class="card-add" @click="showProAdd">
                   <div class="icon-add-box tc">
                     <svg-icon icon-class="add" class-name="icon-add" />
                   </div>
@@ -30,66 +32,25 @@
       </div>
     </div>
 
-    <el-dialog
-      class="dialog-pro"
-      title="新建项目"
-      :show-close="false"
-      :visible.sync="dialogVisible"
-      :width="'900px'"
-      :before-close="handleClose">
-      <!-- <span>这是一段信息</span> -->
-      <div class="dialog-pro-wrap">
-        <div class="clearfix">
-          <ul class="pro-list g-dialog-pro">
-            <el-row :gutter="10">
-              <el-col class="box" :span="8" v-for="(item, index) in menuData" :key="index">
-                <el-card class="box-card">
-                  <div class="card-item">
-                    <div :class="'card-pic card-pic-' + (index+1)"></div>
-                    <p class="name tc">{{item.name}}</p>
-                  </div>
-                </el-card>
-              </el-col>
-            </el-row>
-          </ul>
-          <div class="m-btn fr" @click="addProModel">
-            <svg-icon icon-class="add" class-name="icon-add" /><span class="m-btn">创建模板</span> 
-          </div>
-        </div>
-        <h1>项目信息</h1>
-        <el-form ref="form" :model="form" :rules="rules" label-width="0">
-          <el-form-item class="mb-30" label="" prop="name">
-            <el-input autofocus v-model="form.name" placeholder="项目名称"/>
-          </el-form-item>
-      
-          <!-- 下拉框静态 -->
-          <el-form-item class="mb-20" label="" prop="region">
-            <el-select v-model="form.region" placeholder="项目分组（可多选）" style="display:block;">
-              <el-option label="上海" value="shanghai"/>
-              <el-option label="北京" value="beijing"/>
-            </el-select>
-          </el-form-item>
-        </el-form>
-        <p class="m-assist">公开范围：仅项目组成员可见</p>
-        <div class="dialog-footer tr mt-30">
-
-          <el-button @click="dialogVisible = false">取 消</el-button>
-          <el-button type="primary" @click="onSubmit('form')">确 定</el-button>
-        </div>
-      </div>
-    </el-dialog>
-
-    <cmp-pro-model ref="dialogProModel"></cmp-pro-model>
+    <!-- 新建项目 -->
+    <cmp-pro-add ref="dialogProAdd"></cmp-pro-add>
+    
   </div>
 </template>
 
 <script>
 import sidebar from '@cmp/sidebar'
-import cmpProModel from './dialog/dialog-model'
+import cmpProAdd from './dialog/dialog-pro-add'  // 新建项目
 export default {
   components: {
     sidebar,
-    cmpProModel
+    cmpProAdd,
+  },
+  watch: {
+    $route() {
+      console.log('change', this.$route)
+      this.getNavData()
+    }
   },
   data() {
     return {
@@ -121,16 +82,6 @@ export default {
         {
           name: '项目',
           icon: 'pro',
-          index: '/project'
-        },
-        {
-          name: '测试2',
-          icon: 'pro',
-          index: '/aa'
-        },
-        {
-          name: '项目',
-          icon: 'pro',
           children: [
             {
               name: '我参与的',
@@ -144,189 +95,120 @@ export default {
         },
         {
           name: '分组',
-          // icon: 'el-icon-edit',
           icon: 'group',
           hasBtn: true,  // 新建分组按钮
           children: [
             {
               name: '展览项目',
               index: '11',
+              isEdit: true  // 编辑 删除按钮
             },
             {
               name: '活动项目',
               index: '12',
+              isEdit: true
             },
             {
               name: '活动项目1',
               index: '13',
+              isEdit: true
             },
             {
               name: '活动项目2',
               index: '14',
+              isEdit: true
+            },
+            {
+              name: '活动项目',
+              index: '12',
+              isEdit: true
             }
           ]
         },
       ],
       openedsArr: ['项目', '分组'],
-      dialogData: [
-        {
-          name: '标准项目'
-        },
-        {
-          name: '公众号运营'
-        },
-        {
-          name: '临时展览项目'
-        },
-        {
-          name: '学术研究项目'
-        },
-        {
-          name: '文创产品开发项目'
-        },
-        {
-          name: '社教课程策划项目'
-        },
-      ],
-      form: {
-      name: '',
-        region: ''
-      },
-      rules: {
-        name: [
-          {required: true, message: '必填', trigger: 'blur'}
-        ],
-        region: [
-          {required: true, message: '请选择项目分组', trigger: 'change'}
-        ]
-      }
     }
   },
   methods: {
-    // 创建项目模板
-    addProModel() {
-      this.$refs.dialogProModel.init()
-    },
     getNavData() {
+      // todo ajax
       this.sidebarData.splice(1, 1)
     },
-    handleClose() {
-      // this.$confirm('确认关闭？')
-      //     .then(_ => {
-      //       done();
-      //     })
-      //     .catch(_ => {});
+    // 新建项目
+    showProAdd() {
+      this.$refs.dialogProAdd.init()
     },
-    onSubmit(formName) {
-      // this.$message('submit!')
-      this.$refs[formName].validate((valid) => {
-        if(valid) {
-          let forms = this.form;
-          console.log(111, { forms })
-          console.log(222, { ...this.form })
-          this.dialogVisible = false;
-        } else {
-          return false
-        }
-      })
-    },
-    onCancel() {
-      this.$message({
-        message: 'cancel!',
-        type: 'warning'
-      })
-    },
-  },
-  created() {
-    // setTimeout(this.getNavData, 1000)
-  },
-  activated() {
-    // this.$store.dispatch('changeBodyBg', 'bg1')
-  },
-  deactivated() {
-    // this.$store.dispatch('changeBodyBg', '')
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.content {
-  padding: 30px 30px 30px 240px;
-  .pro-list {
-    .box {
-      margin-top: 30px;
-    }
-    .card-pic {
-      height: 215px;
-    }
-    h2 {
-      height: 55px;
-      line-height: 55px;
-    }
-    .card-pic-1 {
-      @include bg(url(~@images/project/card-1.svg), '', '', contain)
-    }
-    .card-pic-2 {
-      @include bg(url(~@images/project/card-2.svg), '', '', contain)
-    }
-    .card-pic-3 {
-      @include bg(url(~@images/project/card-3.svg), '', '', contain)
-    }
-    .card-pic-4 {
-      @include bg(url(~@images/project/card-4.svg), '', '', contain)
-    }
-    .card-pic-5 {
-      @include bg(url(~@images/project/card-5.svg), '', '', contain)
-    }
-    .card-pic-6 {
-      @include bg(url(~@images/project/card-6.svg), '', '', contain)
-    }
-    .box-card {
-      border:4px solid transparent;
-    }
-    .box-card:hover {
-      box-shadow:0px 1px 10px 0px rgba(238,239,245,1);
-      border-radius:4px;
-      border:4px solid rgba(5,144,255,1);
-    }
-    .card-item {
-      cursor: pointer;
-    }
-    .box-card-add {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 270px;
-      .card-add {
-        cursor: pointer;
+.g-wrap {
+  display: flex;
+  .cmp-sidebar {
+    background: #fff;
+  }
+  .page-project {
+    flex: 1;
+    .content {
+      padding: 30px;
+      .pro-list {
+        .box {
+          margin-top: 30px;
+        }
+        .card-pic {
+          height: 215px;
+        }
+        h2 {
+          height: 55px;
+          line-height: 55px;
+        }
+        .card-pic-1 {
+          @include bg(url(~@images/project/card-1.svg), '', '', '')
+        }
+        .card-pic-2 {
+          @include bg(url(~@images/project/card-2.svg), '', '', '')
+        }
+        .card-pic-3 {
+          @include bg(url(~@images/project/card-3.svg), '', '', '')
+        }
+        .card-pic-4 {
+          @include bg(url(~@images/project/card-4.svg), '', '', '')
+        }
+        .card-pic-5 {
+          @include bg(url(~@images/project/card-5.svg), '', '', '')
+        }
+        .card-pic-6 {
+          @include bg(url(~@images/project/card-6.svg), '', '', '')
+        }
+        .box-card {
+          border:4px solid transparent;
+        }
+        .box-card:hover {
+          box-shadow:0px 1px 10px 0px rgba(238,239,245,1);
+          border-radius:4px;
+          border:4px solid rgba(5,144,255,1);
+        }
+        .card-item {
+          cursor: pointer;
+        }
+        .box-card-add {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 270px;
+          .card-add {
+            cursor: pointer;
+          }
+        }
+      }
+      .icon-add-box {
+        .icon-add {
+          font-size: 62px;
+        }
       }
     }
   }
-  .icon-add-box {
-    .icon-add {
-      font-size: 62px;
-    }
-  }
-}
-.dialog-pro {
-  .dialog-pro-wrap {
-    padding: 10px;
-    max-height: 600px;
-    overflow-y: auto;
-  }
-  .el-card.is-always-shadow {
-    box-shadow: 0 10px 10px 0 #EEEFF5;
-  }
-  .el-card {
-    border: none;
-  }
-  .box {
-    margin-bottom: 10px;
-  }
-  .pro-list {
-    
-  }
-  
 }
 </style>
 

@@ -38,7 +38,9 @@
               </el-col>
               <el-col :xs="6" :sm="6" :md="6" :xl="4">
                 <el-card class="box-card panel-add-wrap">
-                  <p class="panel-add m-assist"><svg-icon icon-class="add" class-name="icon-add" />&nbsp;新建任务看板</p>
+                  <p class="panel-add m-assist" @click="addTaskPanel">
+                    <svg-icon icon-class="add" class-name="icon-add" />&nbsp;新建任务看板
+                  </p>
                   <!-- <el-button plain>新建任务看板</el-button> -->
                 </el-card>
               </el-col>
@@ -48,34 +50,22 @@
       </div>
     </el-dialog>
 
-    <!-- 模板设置 -->
-    <el-dialog
-      class="dialog-setting"
-      title="模板设置"
-      :visible.sync="dialogSettingShow"
-      :show-close="false">
-      <div class="wrap-setting">
-        <h1>模板封面</h1>
-        <h1>板块设置</h1>
-        <div class="btns fr mt-30">
-          <el-button @click="dialogSettingShow=false">取消</el-button>
-          <el-button type="primary" @click="sureSetting">确定</el-button>
-        </div>
-      </div>
-    </el-dialog>
+    <cmp-dialog-pro-setting ref="dialogProSetting" @eventSetting="eventSetting"></cmp-dialog-pro-setting>
   </div>
 </template>
 
 <script>
 import cmpHeaderSub from '@cmp/header-sub'
+import cmpDialogProSetting from './dialog-pro-model-setting'
 export default {
   components: {
     cmpHeaderSub,
+    cmpDialogProSetting,  // 模板设置
   },
   data() {
     return {
       dialogShow: false,
-      dialogSettingShow: false,  // 模板设置
+      settingData: '',  // 项目设置弹窗数据
       form: {
         name: ''
       },
@@ -124,11 +114,35 @@ export default {
       this.dialogShow = true
     },
     showModelSetting() {
-      this.dialogSettingShow = true
+      this.$refs.dialogProSetting.init()
     },
-    // 模板设置-确定
-    sureSetting() {
-      this.dialogSettingShow = false
+    // 获取项目设置弹窗数据
+    eventSetting(setData) {
+      this.settingData = setData
+      console.log('传入', this.settingData)
+    },
+    // 新建任务看板
+    addTaskPanel() {
+      this.$prompt('', '新建任务看板', {
+        showClose: true,
+        showCancelButton: false,
+        confirmButtonText: '确定',
+        inputPlaceholder: '看板名称',
+        inputPattern: /^[\S]{2,6}$/,
+        inputErrorMessage: '请输入2到5位非空字符',
+        // center: true
+      }).then(({ value }) => {
+        console.log(value)
+        // this.$message({
+        //   type: 'success',
+        //   message: '你的邮箱是: ' + value
+        // });
+      }).catch(() => {
+        // this.$message({
+        //   type: 'info',
+        //   message: '取消输入'
+        // });       
+      });
     },
     save() {
       console.log('ajax', this.form)

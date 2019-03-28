@@ -131,21 +131,20 @@
 
 .g-container {
 	position: relative;
-	min-width: 1200px;
-	// min-width: 1440px;
+	min-width: $minWidth;
   min-height: 100%;
   padding-top: $headerHeight;
 	box-sizing: border-box;
 	background-color: #F2F3F8;
 }
 
+.g-wrap {
+	min-height: calc( 100vh - 80px );
+}
+
 .g-container.header-no {
 	padding-top: 0;
 }
-
-// .g-wrap {
-	
-// }
 
 .g-content {
 	padding: 30px;
@@ -199,26 +198,38 @@
 	background-color: #9699A2;
 }
 
+.g-no-data  {
+	// margin-top: 60px;
+	// .no-data-bg {
+	// 	margin: auto;
+	// 	width: 300px;
+	// 	height: 200px;
+	// 	background: url(~@images/no-data.png) center center no-repeat;
+	// 	background-size: contain;
+	// }
+}
+
 .g-dialog-pro {
 	margin-bottom: 10px;
 	.card-item {
     position: relative;
-    width: 280px;
-    height: 170px;
-    padding: 10px;
+    width: 260px;
+    height: 150px;
+    padding-bottom: 44px;
     box-sizing: border-box;
     // background-color: #fdfdfe;
     .card-pic {
       background-color: #fff;
-      width: 260px;
-      height: 150px;
-      border-radius: 4px;
+      width: 123px;
+      height: 106px;
+			border-radius: 4px;
+			margin: auto;
     }
     .name {
       width: 100%;
       position: absolute;
       left: 0;
-      bottom: 10px;
+      bottom: 15px;
     }
   }
 	.card-pic-1 {
@@ -240,6 +251,9 @@
 		@include bg(url(~@images/project/card-2.svg), '', '', contain)
 	}
 }
-
+// 侧导航栏圆角
+.el-menu {
+	border-radius: 5px;
+}
 
 

@@ -77,9 +77,30 @@ export const constantRouterMap = [
       },
       {
         path: '/collect/approval',
+        component: () => import('@/views/collect/approval/index'),
+        redirect: '/collect/approval/lanch',
         name: 'collectApproval',
-        component: () => import('@/views/collect/approval'),
-        meta: {title: '审批' }
+        meta: {title: '审批' },
+        children: [
+          {
+            path: '/collect/approval/lanch',
+            name: 'approvalLanch',
+            component: () => import('@/views/collect/approval/lanch'),
+            meta: { title: '发起审批' },
+          },
+          {
+            path: '/collect/approval/myLanch',
+            name: 'approvalMyLanch',
+            component: () => import('@/views/collect/approval/myLanch'),
+            meta: { title: '我发起的' },
+          },
+          {
+            path: '/collect/approval/wait',
+            name: 'approvalMyLanch',
+            component: () => import('@/views/collect/approval/wait'),
+            meta: { title: '待审批' },
+          },
+        ]
       },
       {
         path: '/collect/solicitation',
@@ -95,24 +116,40 @@ export const constantRouterMap = [
             meta: { title: '征集计划' },
           },
           {
-            path: '/collect/solicitation/ruguan',
-            name: 'solicitationRuguan',
-            component: () => import('@/views/collect/solicitation/ruguan'),
+            path: '/collect/solicitation/enter',
+            name: 'solicitationEnter',
+            component: () => import('@/views/collect/solicitation/enter'),
             meta: { title: '藏品入馆' },
+          },
+          
+          {
+            path: '/collect/solicitation/enterStore',
+            name: 'solicitationEnterStore',
+            component: () => import('@/views/collect/solicitation/enterStore'),
+            meta: { title: '藏品入库' },
           },
         ]
       },
-      // {
-      //   path: '/collect/solicitation',
-      //   name: 'collesolicitation',
-      //   component: () => import('@/views/collect/solicitation'),
-      //   meta: {title: '藏品征集' }
-      // },
       {
         path: '/collect/outGoing',
+        component: () => import('@/views/collect/outGoing/index'),
+        redirect: '/collect/outGoing/outLibrary',
         name: 'collectOutGoing',
-        component: () => import('@/views/collect/outGoing'),
-        meta: {title: '出库管理' }
+        meta: {title: '出库管理' },
+        children: [
+          {
+            path: '/collect/outGoing/outLibrary',
+            name: 'collectEnter',
+            component: () => import('@/views/collect/outGoing/outLibrary'),
+            meta: { title: '出库管理' },
+          },
+          {
+            path: '/collect/outGoing/enterLibrary',
+            name: 'collectEnter',
+            component: () => import('@/views/collect/outGoing/enterLibrary'),
+            meta: { title: '出库管理' },
+          }
+        ]
       },
       {
         path: '/collect/repair',
@@ -128,10 +165,25 @@ export const constantRouterMap = [
       },
       {
         path: '/collect/store',
+        component: () => import('@/views/collect/store/index'),
+        redirect: '/collect/store/basic',
         name: 'collectStore',
-        component: () => import('@/views/collect/store'),
-        meta: {title: '库房管理' }
+        meta: {title: '基本信息' },
+        // children: [
+        //   {
+        //     path: '/collect/store/basic',
+        //     name: 'storeBasic',
+        //     component: () => import('@/views/collect/store/basic'),
+        //     meta: { title: '征集计划' },
+        //   }
+        // ]
       },
+      // {
+      //   path: '/collect/store',
+      //   name: 'collectStore',
+      //   component: () => import('@/views/collect/store/inventory'),
+      //   meta: {title: '基本信息' }
+      // },
       {
         path: '/digital',
         name: 'digital',

@@ -37,6 +37,7 @@ export default {
   data() {
     return {
       inputVisible: false,
+      dialogLablectVisible: false,
       dynamicTags: ['陶器', '东周', '未定级'],
       form: {
           name: '',
@@ -70,6 +71,15 @@ export default {
       }
       .el-tag {
         margin: 0 5px;
+        height: 25px;
+        line-height: 24px;
+        border-radius: 15px;
+        border: 1px solid #0590FF;
+        background-color: #fff;
+      }
+      .el-tag:hover {
+        background-color: #0590FF;
+        color: #fff;
       }
     }
     .content {

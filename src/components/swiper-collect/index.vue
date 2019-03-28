@@ -20,7 +20,7 @@
         <swiper :options="swiperOptionTop" class="gallery-top" ref="swiperTop" style="width:500px;">
           <swiper-slide v-for="(item, index) in dataList" :key="index">
             <img class="pic-view" :src="item.url" alt="">
-            <a href="javascript:;" class="m-btn">查看原图</a>
+            <a :href="item.url" target="_blank" class="m-btn">查看原图</a>
             
           </swiper-slide>
         </swiper>

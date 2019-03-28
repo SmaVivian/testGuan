@@ -83,19 +83,19 @@
           @current-change="handleCurrentChange"/>
       </div>
 
-      <cmp-add-collect ref="addCollectDialog"></cmp-add-collect>
-      <cmp-import-collect ref="importCollectDialog"></cmp-import-collect>
+      <cmp-collect-add ref="addCollectDialog"></cmp-collect-add>
+      <cmp-collect-import ref="importCollectDialog"></cmp-collect-import>
     </div>
   </div>
 </template>
 
 <script>
-import cmpAddCollect from './dialog/dialog-add-collect'
-import cmpImportCollect from './dialog/dialog-import-collect'
+import cmpCollectAdd from './dialog/dialog-collect-add'
+import cmpCollectImport from './dialog/dialog-collect-import'
 export default {
   components: {
-    cmpAddCollect,
-    cmpImportCollect
+    cmpCollectAdd,
+    cmpCollectImport
   },
   filters: {
     statusFilter(status) {

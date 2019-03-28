@@ -122,6 +122,11 @@
   padding: 30px 20px 0;
 }
 
+.el-dialog__title {
+  color: $color5;
+  font-weight: bold;
+}
+
 // dialog 模态框、对话框
 .el-dialog__wrapper {
   text-align: center;
@@ -193,17 +198,26 @@
   color: #fff;
 }
 
-.el-button:hover, .el-button:focus {
+.el-button:hover {
   color: #9699A2;
   background:rgba(250,249,252,1);
   border-radius:25px;
   border:1px solid rgba(235,237,242,1);
 }
+.el-button:focus {
+  background-color: #fff;
+  border: 1px solid $border;
+  color: #9699A2;
+}
 
-.el-button--primary:hover, .el-button--primary:focus {
+.el-button--primary:hover {
   color: #fff;
   background:rgba(121,195,253,1);
   border-color: transparent;
+}
+.el-button--primary:focus {
+  background-color: #0590FF;
+  color: #fff;
 }
 
 .el-button--small,
@@ -232,14 +246,28 @@
 // confirm
 .el-message-box {
   width: auto;
+  min-width: 270px;
+}
+.el-message-box__header {
+  padding: 30px;
+  padding-bottom: 0;
+  text-align: center;
 }
 .el-message-box__title {
   color: #575962;
   font-size:18px;
   font-weight: bold;
 }
+
+.el-message-box__content {
+  padding: 15px 30px 10px;
+}
 .el-message-box__message p {
   color: #9699A2;
+}
+
+.cus-confirm .el-message-box__content {
+  padding: 30px;
 }
 
 .el-message-box__btns {
@@ -284,7 +312,7 @@
 }
 
 .el-table th {
-  background-color: #EBEDF2;
+  background-color: $border;
 }
 
 .el-table th,
@@ -294,6 +322,30 @@
 
 .el-table .cell {
   line-height: 24px;
+}
+
+// 数据为空
+.el-table__empty-block {
+  position: relative;
+  padding-top: 20px;
+  padding-bottom: 50px;
+  &:before {
+    content: '';
+    display: block;
+    // margin: auto;
+    width: 300px;
+    height: 200px;
+    background: url(~@images/no-data.png) center center no-repeat;
+    background-size: contain;
+  }
+  .el-table__empty-text {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    bottom: 0;
+    left: 0;
+    line-height: 50px;
+  }
 }
 
 // 数字

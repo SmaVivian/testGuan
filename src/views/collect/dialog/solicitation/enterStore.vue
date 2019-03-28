@@ -2,7 +2,7 @@
   <div>
     <div class="timeLine">
       <el-timeline >
-        <el-timeline-item
+        <el-timeline-item 
           v-for="(activity, index) in activities2" :key="index"
           :icon="activity.icon"
           :type="activity.type"
@@ -40,8 +40,11 @@
             </el-form-item>
             </el-col>
             <el-col :span="8"> 
-            <el-form-item label="来源 :">
-              <el-date-picker v-model="value1" type="date"></el-date-picker>
+            <el-form-item label="来源">
+              <el-select v-model="form.region" placeholder="请选择">
+              <el-option label="登记一" value="shanghai"></el-option>
+              <el-option label="登记二" value="beijing"></el-option>
+              </el-select>
             </el-form-item>
           </el-col>
         </el-row>
@@ -70,34 +73,37 @@
         <a class="m-btn fl" @click="dialogLablectVisible = true" type="text" size="small">精品明细</a>
         <a class="m-btn fr" @click="dialogLablectVisible = true" type="text" size="small">添加</a>
         <a class="m-btn fr" @click="dialogLablectVisible = true" type="text" size="small">批量导入</a>
-        <a class="m-btn fr" @click="dialogLablectVisible = true" type="text" size="small">删除</a>
+        <a class="m-btn fr" @click="dialogLablectVisible = true" type="text" size="small">添加</a>
       </div>
-            <el-table :data="tableData3" stripe>
-              <el-table-column type="selection" width="50" align="center"></el-table-column>
-              <el-table-column prop="image" label="编号" width="60"></el-table-column>
-              <el-table-column label="图片" width="60" align="center">
-                <template slot-scope="scope">
-                  <a class="m-btn" @click="dialogPhotosVisible = true" type="text" size="small">
-                    <img :src="scope.row.head_pic" width="40" height="40" class="head_pic"/>
-                  </a>
-                </template>
-              </el-table-column>
-              <el-table-column prop="classi-fication" label="藏品名称" width="80"></el-table-column>
-              <el-table-column prop="name" label="年代"  width="60"></el-table-column>
-              <el-table-column prop="name" label="藏品分类" width="80"></el-table-column>
-              <el-table-column prop="name" label="数量" width="60"></el-table-column>
-              <el-table-column prop="texture" label="单位" width="60"></el-table-column>
-              <el-table-column prop="degree" label="级别" width="60"></el-table-column>
-              <el-table-column prop="number" label="质地" width="60"></el-table-column>
-              <el-table-column prop="company" label="完残程度"  width="80"></el-table-column>
-              <el-table-column fixed="right" align="center"  label="操作" width="100"><template>
-                  <a class="m-btn" @click="dialogLablectVisible = true" type="text" size="small">标签</a>
-                </template>
-              </el-table-column>
-              </el-table>
-             <div class="pagination-container">
-            </div>
-          </div>
+        <el-table :data="tableData3" stripe>
+          <el-table-column type="selection" width="50" align="center"></el-table-column>
+          <el-table-column prop="image" label="编号" width="60"></el-table-column>
+          <el-table-column label="图片" width="60" align="center">
+            <template slot-scope="scope">
+              <a class="m-btn" @click="dialogPhotosVisible = true" type="text" size="small">
+                <img :src="scope.row.head_pic" width="40" height="40" class="head_pic"/>
+              </a>
+            </template>
+          </el-table-column>
+          <el-table-column prop="classi-fication" label="藏品名称" width="80"></el-table-column>
+          <el-table-column prop="name" label="年代"  width="60"></el-table-column>
+          <el-table-column prop="name" label="藏品分类" width="80"></el-table-column>
+          <el-table-column prop="name" label="数量" width="60"></el-table-column>
+          <el-table-column prop="texture" label="单位" width="60"></el-table-column>
+          <el-table-column prop="degree" label="级别" width="60"></el-table-column>
+          <el-table-column prop="number" label="质地" width="60"></el-table-column>
+          <el-table-column prop="company" label="完残程度"  width="80"></el-table-column>
+          <el-table-column fixed="right" align="center"  label="操作" width="200"><template>
+             <template>
+                <a class="m-btn" @click="dialogLablectVisible = true" type="text" size="small">标签</a>
+                <a class="m-btn" type="text" size="small" @click="dialogMoveVisible = true">移库</a>
+              </template>
+          </template>
+        </el-table-column>
+        </el-table>
+          <div class="pagination-container">
+        </div>
+        </div>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogEnterlVisible = false">取 消</el-button>
         <el-button type="primary" @click="fromCollection">提 交</el-button>
@@ -110,77 +116,74 @@ export default {
   data() {
     return {
       activities2: [{
-          name: '将明',
+        name: '张主管',
+        state: '待审核',
+        size: 'large',
+        type: 'primary',
+        icon: 'el-icon-more',
+        },
+        {
+          name: '刘部长',
           state: '待审核',
           size: 'large',
           type: 'primary',
           icon: 'el-icon-more',
         },
         {
-          name: '冯桂英',
-          state: '待审核',
-          size: 'large',
-          type: 'primary',
-          icon: 'el-icon-more',
-        },
-        {
-          name: '将明',
-          state: '待审核',
-          size: 'large',
-          type: 'primary',
-          icon: 'el-icon-more',
-        },
-        {
-          name: '将明',
+          name: '李馆长',
           state: '待审核',
           size: 'large',
           type: 'primary',
           icon: 'el-icon-more',
         }],
-      fileList: [{name: '概念设计文档', url: ''}],
       form: {
         name: '',
         region: ''
       },
       ruleForm: {
-          shape: '',
-          content: ''
-        },
+        shape: '',
+        content: ''
+      },
       // 时间选择器
-        value1: '',
-    };
-  },
-  methods: {
-      handlePreview(file) {
-        console.log(file);
-      },
-      // 点击上传
-      handleRemove(file, fileList) {
-        console.log(file, fileList);
-      },
-      beforeRemove(file, fileList) {
-        return this.$confirm(`确定移除 ${ file.name }？`);
-      },
-      handleExceed(files, fileList) {
-        this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
-      },
+      value1: '',
+      fileList: [{name: '概念设计文档', url: ''}],
       // 表格数据
       tableData3: [{
         head_pic: '<img src="" alt="">',
         name: '王小',
         address: '上海市普陀区金沙江路 1518 弄'
+      },
+      {
+        head_pic: '<img src="" alt="">',
+        name: '王小',
+        address: '上海市普陀区金沙江路 1518 弄'
       }],
-      fromCollection(){
-        //    alert(this.formTag.collection)
-           if(this.formTag.collection == 4) {
-            //    alert(1)
-               this.addDialogLablectVisible = true;
-               return;
-           }
-
-           this.dialogApprovalVisible = false
-       },
-    }
+    };
+  },
+  methods: {
+    handlePreview(file) {
+      console.log(file);
+    },
+    // 点击上传
+    handleRemove(file, fileList) {
+      console.log(file, fileList);
+    },
+    beforeRemove(file, fileList) {
+      return this.$confirm(`确定移除 ${ file.name }？`);
+    },
+    handleExceed(files, fileList) {
+      this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+    },
+    fromCollection(){
+      //    alert(this.formTag.collection)
+      if(this.formTag.collection == 4) {
+      //    alert(1)
+        this.addDialogLablectVisible = true;
+        return;
+      }
+      this.dialogApprovalVisible = false
+    },
+  }
 };
 </script>
 <style lang="scss">

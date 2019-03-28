@@ -545,10 +545,6 @@ export default {
     font-size: 18px;
     font-weight: bold;
 }
-// .el-form-item {
-//     // width: 14%!important;
-//     height: 40px;
-// }
  .el-breadcrumb {
       height: 50px;
       line-height: 50px;
@@ -694,7 +690,7 @@ export default {
    margin-left: 25px;
    padding-left: 140px;
    padding-top: 30px;
-   .el-form-item {
+   {
      margin-left: -23px;
    }
    .voucher {

@@ -8,7 +8,7 @@
       @close="handleClose"
       @select="handleSelect">
 
-      <div class="menu-box" v-for="(item, index) in menuList" :key="index">
+      <div class="menu-box" v-for="(item, index) in renderMenuList" :key="index">
         <!-- 无子菜单 -->
         <el-menu-item :index="item.index" v-if="!item.children" :class="{'hasicon': item.icon}">
           <!-- <i :class="item.icon"></i> -->
@@ -22,11 +22,11 @@
             <span>{{item.name}}</span>
           </template>
           <div class="submenu-wrap" v-for="(v, i) in item.children" :key="i">
-            <div class="operate">
-              <span class="icon-box">
+            <div class="operate" v-if="v.isEdit">
+              <span class="icon-box" @click="handleEdit(v)">
                 <svg-icon icon-class="edit" class-name="icon icon-edit" />
               </span>
-              <span class="icon-box">
+              <span class="icon-box" @click="handleDele(v)">
                 <svg-icon icon-class="dele" class-name="icon icon-dele" />
               </span>
             </div>
@@ -61,6 +61,11 @@ export default {
       default: () => []
     }
   },
+  computed: {
+    renderMenuList() {
+      return this.menuList
+    }
+  },
   data() {
     return {
       currentSide: this.activeIndex
@@ -73,22 +78,54 @@ export default {
     handleClose(key, keyPath) {
       console.log(key, keyPath)
     },
+    // 选中菜单
     handleSelect(key, keyPath) {
+      if(key === 'add') return
+      
       this.currentSide = key
       this.$router.push(key)
-      // console.log(key, keyPath)
+      // debugger
+      console.log(key, keyPath)
     },
-    addGroup() {
+    // 新建分组
+    addGroup(item, title) {
       console.log('add')
-      this.common.prompt(() => {
-        console.log('aaaaaaaa')
-        // this.$router.push({path: '/login'});
-      }, () =>{}, '新建分组', '所有内容', true, true)
+      this.$prompt('', title || '新建分组', {
+        showClose: true,
+        showCancelButton: false,
+        confirmButtonText: '确定',
+        inputValue: item && item.name,
+        inputPlaceholder: '分组名称',
+        inputPattern: /^[\S]{2,6}$/,
+        inputErrorMessage: '请输入2到5位非空字符',
+        // center: true
+      }).then(({ value }) => {
+        console.log(value)
+        // this.$message({
+        //   type: 'success',
+        //   message: '你的邮箱是: ' + value
+        // });
+      }).catch(() => {
+        // this.$message({
+        //   type: 'info',
+        //   message: '取消输入'
+        // });       
+      });
+    },
+    // 编辑分组
+    handleEdit(item) {
+      this.addGroup(item, '重命名项目分组')
+      console.log(item)
+    },
+    // 删除分组
+    handleDele(item) {
+      console.log(item)
+      this.$common.confirm({
+        title: '删除项目分组',
+        content: '所有内容将无法找回，请谨慎操作',
+      }, () => {
 
-      // this.common.confirm(() => {
-      //   console.log('aaaaaaaa')
-      //   // this.$router.push({path: '/login'});
-      // }, () =>{}, '新建分组', '所有内容')
+      })
     }
   }
 }
@@ -102,7 +139,8 @@ export default {
     position: relative;
     overflow: hidden;
     .icon-menu {
-      font-size: 17px;
+      width: 17px;
+      height: 17px;
       position: absolute;
       top: 20px;
       left: 20px;
@@ -110,8 +148,7 @@ export default {
     }
     // &.is-active .icon-menu,
     &:hover .icon-menu {
-      filter: drop-shadow(#0590FF 0 40px);
-      top: -20px;
+      // fill: $primary;
     }
     .icon-add {
       font-size: 14px;
@@ -156,18 +193,11 @@ export default {
     @include menuNavActive;
   }
   // 下一个svg图标变色
-  .el-menu-item.is-active + svg.icon-menu,
-  .el-submenu.is-active + svg.icon-menu {
-    filter: drop-shadow(#0590FF 0 40px);
-    top: -20px;
+  .el-menu-item.is-active + svg.icon-menu {
+    fill: $primary;
   }
-}
-</style>
-
-<style lang="scss">
-.cmp-sidebar {
-  .el-menu {
-    // border-right: none;
+  .el-submenu.is-active + svg.icon-menu {
+    // fill: $primary;
   }
 }
 </style>

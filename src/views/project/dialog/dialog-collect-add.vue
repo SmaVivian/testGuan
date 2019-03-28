@@ -72,6 +72,7 @@
     <el-table
       v-loading="listLoading"
       :data="list"
+      :empty-text="emptyText"
       @selection-change="handleSelectionChange"
       element-loading-text="Loading"
       stripe
@@ -174,6 +175,7 @@ export default {
   data() {
     return {
       dialogShow: false,
+      emptyText: '请搜索您要添加的藏品',
       queryParam: {},
       form: {
         date1: '',
@@ -183,7 +185,7 @@ export default {
       multipleSelection: [], // 已选择
       list: null,
       total: 0,
-      listLoading: true,
+      listLoading: false,
       listQuery: {
         currentPage: 1,
         size: 5
@@ -208,9 +210,12 @@ export default {
       this.$http.get('/list', {
         ...this.listQuery
       }).then(response => {
-        this.list = response.data.list
-        this.total = response.data.page.allRow
+        this.list = []
+        this.total = 0
+        // this.list = response.data.list
+        // this.total = response.data.page.allRow
         this.listLoading = false
+        // this.emptyText = '暂无数据'
       })
     },
     handleSizeChange(val) {

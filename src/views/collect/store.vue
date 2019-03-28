@@ -5,7 +5,7 @@
       <div class="g-collect-top">
         <top/>
       </div>
-      <sidebar :menuList="sidebarData" :activeIndex="`/project`"></sidebar>
+      <sidebar :menuList="sidebarData" :activeIndex="`/collect/basic`"></sidebar>
       <div class="content">
         <div class="approvalContent">
           <!-- 面包屑导航 -->
@@ -49,7 +49,7 @@ export default {
         {
           name: '基本信息',
           icon: 'pro',
-          index: '/basic'
+          index: '/collect/basic'
         },
         {
           name: '库房盘点',

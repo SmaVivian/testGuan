@@ -87,14 +87,13 @@
         </div>
       </div>
 
-      <el-dialog
+      <!-- <el-dialog
         class="dialog-pro"
         title="项目设置"
         :show-close="false"
         :visible.sync="dialogVisible"
         :width="'900px'"
         :before-close="handleClose">
-        <!-- <span>这是一段信息</span> -->
         <div class="clearfix">
           <div class="pro-list g-dialog-pro tc">
             <el-card class="box-card" style="width: 260px;display: inline-block;">
@@ -114,7 +113,6 @@
             <el-input autofocus v-model="form.name" placeholder="项目名称"/>
           </el-form-item>
       
-          <!-- 下拉框静态 -->
           <el-form-item class="mb-20" label="" prop="region">
             <el-select v-model="form.region" placeholder="项目分组（可多选）" style="display:block;">
               <el-option label="上海" value="shanghai"/>
@@ -128,29 +126,31 @@
           <el-button @click="dialogVisible = false">取 消</el-button>
           <el-button type="primary" @click="onSubmit('form')">确 定</el-button>
         </span>
-      </el-dialog>
-    
+      </el-dialog> -->
+      <cmp-dialog-pro-setting ref="dialogProSetting"></cmp-dialog-pro-setting>
     </div>
   </div>
 </template>
 
 <script>
-import CmpHeaderSub from '@cmp/header-sub'
-import TaskProject from './task'
-import TaskListProject from './task-list'
-import ExhibitsProject from './exhibits'
-import FileProject from './file'
-import DiscussProject from './discuss'
-import StatisticProject from './statistic'
+import cmpDialogProSetting from './dialog/dialog-pro-setting'
+import cmpHeaderSub from '@cmp/header-sub'
+import taskProject from './task'
+import taskListProject from './task-list'
+import exhibitsProject from './exhibits'
+import fileProject from './file'
+import discussProject from './discuss'
+import statisticProject from './statistic'
 export default {
   components: {
-    CmpHeaderSub,
-    TaskProject,
-    TaskListProject,
-    ExhibitsProject,
-    FileProject,
-    DiscussProject,
-    StatisticProject,
+    cmpDialogProSetting,
+    cmpHeaderSub,
+    taskProject,
+    taskListProject,
+    exhibitsProject,
+    fileProject,
+    discussProject,
+    statisticProject,
   },
   data() {
     return {
@@ -188,18 +188,18 @@ export default {
           name: '标准项目'
         }
       ],
-      form: {
-      name: '',
-        region: ''
-      },
-      rules: {
-        name: [
-          {required: true, message: '必填', trigger: 'blur'}
-        ],
-        region: [
-          {required: true, message: '请选择项目分组', trigger: 'change'}
-        ]
-      }
+      // form: {
+      //   name: '',
+      //   region: ''
+      // },
+      // rules: {
+      //   name: [
+      //     {required: true, message: '必填', trigger: 'blur'}
+      //   ],
+      //   region: [
+      //     {required: true, message: '请选择项目分组', trigger: 'change'}
+      //   ]
+      // }
     }
   },
   computed: {
@@ -224,7 +224,8 @@ export default {
       this.popMenu = false
       console.log(type)
       if(type === 1) {
-        this.dialogVisible = true
+        // this.dialogVisible = true
+        this.$refs.dialogProSetting.init()
       }
     },
     // 添加
@@ -233,13 +234,6 @@ export default {
     },
     changeTab(path) {
       this.$router.replace({path: '/project/sub', query: {type: path}})
-    },
-    handleClose() {
-      // this.$confirm('确认关闭？')
-      //     .then(_ => {
-      //       done();
-      //     })
-      //     .catch(_ => {});
     },
     onSubmit(formName) {
       // this.$message('submit!')

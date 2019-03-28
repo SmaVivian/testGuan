@@ -70,7 +70,7 @@
     </div>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogSolicitationVisible = false">取 消</el-button>
-        <el-button type="primary" @click="fromCollection">确 定</el-button>
+        <el-button type="primary" @click="dialogSolicitationVisible = false">确 定</el-button>
       </div>
   </div>      
 </template>
@@ -130,16 +130,6 @@ export default {
       handleExceed(files, fileList) {
         this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
       },
-      fromCollection(){
-        //    alert(this.formTag.collection)
-           if(this.formTag.collection == 4) {
-            //    alert(1)
-               this.addDialogLablectVisible = true;
-               return;
-           }
-
-           this.dialogCollectVisible = false
-       },
     };
   }
 };

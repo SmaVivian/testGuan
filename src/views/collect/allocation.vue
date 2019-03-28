@@ -6,13 +6,13 @@
         <top/>
       </div>
       <!-- 侧边栏 -->
-        <sidebar :menuList="sidebarData" :activeIndex="`/repair`" class="sidebarCont"></sidebar>
+        <sidebar :menuList="sidebarData" :activeIndex="`/collect/allocation`" class="sidebarCont"></sidebar>
       <div class="content">
         <!-- 搜索内容 -->
         <div class="search-content">
           <el-breadcrumb separator="/">
-           <el-breadcrumb-item :to="{ path: '/' }">藏品修护</el-breadcrumb-item>
-            <el-breadcrumb-item><a href="javascript:;">修护管理</a></el-breadcrumb-item>
+           <el-breadcrumb-item :to="{ path: '/' }">藏品调拨</el-breadcrumb-item>
+            <el-breadcrumb-item><a href="javascript:;">调拨管理</a></el-breadcrumb-item>
             <el-input placeholder="请输入总登记号 / 藏品名称搜索" v-model="searchName">
               <i slot="prefix" class="el-input__icon el-icon-search"></i>
             </el-input>
@@ -223,9 +223,9 @@ export default {
       currentPage: 5,
       sidebarData: [
         {
-          name: '修护管理',
+          name: '藏品调拨管理',
           icon: 'pro',
-          index: '/repair'
+          index: '/collect/allocation'
         },
       ],
       // 表格数据
