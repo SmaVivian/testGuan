@@ -26,23 +26,28 @@ export default {
     // 左侧导航
     currentTabSide() {
       let arr = this.$route.path.split('/');
-      console.log('/collect/outGoing/' + arr[arr.length-1])
-      return '/collect/outGoing/' + arr[arr.length-1]
+      console.log('/collect/store/' + arr[arr.length-1])
+      return '/collect/store/' + arr[arr.length-1]
     }
   },
   data() {
     return {
-      currentTab: 'outGoing',
+      currentTab: '/store',
       sidebarData: [
         {
-          name: '出库管理',
+          name: '基本信息',
           icon: 'pro',
-          index: '/collect/outGoing/outLibrary'
+          index: '/collect/store/basic'
         },
         {
-          name: '回库管理',
+          name: '库房盘点',
           icon: 'pro',
-          index: '/collect/outGoing/enterLibrary'
+          index: '/collect/store/inventory'
+        },
+        {
+          name: '温度记录',
+          icon: 'pro',
+          index: '/collect/store/temperature'
         }
       ],
 
@@ -90,12 +95,12 @@ export default {
 
 <style lang="scss" scoped>
 .content {
-  padding: 30px 30px 30px 270px;
+  padding: 30px 30px 30px 265px;
 }
 
 // 侧边栏样式
 .cmp-sidebar {
-  margin: 30px;
+  margin: 30px 20px 0 30px;
 }
 
 </style>

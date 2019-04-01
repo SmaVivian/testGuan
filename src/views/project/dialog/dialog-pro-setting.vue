@@ -72,6 +72,19 @@ export default {
       //     })
       //     .catch(_ => {});
     },
+    onSubmit(formName) {
+      this.$refs[formName].validate((valid) => {
+        if(valid) {
+          let forms = this.form;
+          console.log(111, { forms })
+
+          console.log(222, { ...this.form })
+          this.dialogVisible = false;
+        } else {
+          return false
+        }
+      })
+    },
   }
 }
 </script>

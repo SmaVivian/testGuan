@@ -90,14 +90,12 @@
                 </el-form>
               </div>
             </div>
-          
+            
       </div>
       
      
       <!-- 表格内容 -->
       <div class="table-content">
-        <div class="search-content">
-        </div>
         <div class="button">
           <el-row>
             <el-button class="el-primary-border" round @click="onExport">导出</el-button>       
@@ -296,20 +294,22 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped> 
+<style lang="scss" scoped>
+.el-form-item {
+  margin: 0 10px;
+  margin-right: 0!important;
+}
 .content {
   .el-breadcrumb {
     height: 50px;
     line-height: 50px;
-    padding: 0px 0 0px 30px;
     font-size: 18px;
-    margin-bottom:20px;
   }
   .schedule {
-    margin: 0 80px;
+    margin: 0 50px;
   }
   .table {
-    padding: 0 25px;
+    padding: 0 30px;
     background-color: #fff;
   }
   .schedule-content {
@@ -318,7 +318,7 @@ export default {
     border-radius: 4px;
     background-color: #fff;
       .el-breadcrumb {
-        line-height: 56px;
+        line-height: 20px;
         background: #fff;
       }
   }
@@ -346,7 +346,7 @@ export default {
 .search-content {
   border-radius: 4px;
   margin-top: 30px;
-  padding: 20px 0 0px 0px;
+  padding: 30px;
   background-color: #fff;
   .titSearch {
     width: 21.5%;
@@ -357,11 +357,11 @@ export default {
 }
 .sch{
   display: flex;
-  padding: 10px 20px;
+  padding: 10px 0;
   font-size: 14px;
   background-color: #fff;
   .sch-type {
-    line-height: 13px;
+    height: 20px;
     width: 75px;
     color: #B5B1DD;
   }

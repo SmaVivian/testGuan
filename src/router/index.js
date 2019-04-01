@@ -121,6 +121,27 @@ export const constantRouterMap = [
             component: () => import('@/views/collect/solicitation/enter'),
             meta: { title: '藏品入馆' },
           },
+          {
+            path: '/collect/solicitation/totalLedger',
+            redirect: '',
+            name: 'solicitationEnter',
+            component: () => import('@/views/collect/solicitation/totalLedger'),
+            meta: { title: '藏品总账' },
+          },
+          {
+            path: '/collect/solicitation/typeAccount',
+            redirect: '',
+            name: 'solicitationEnter',
+            component: () => import('@/views/collect/solicitation/typeAccount'),
+            meta: { title: '藏品分类账' },
+          },
+          {
+            path: '/collect/solicitation/auxiliaryAccount',
+            redirect: '',
+            name: 'solicitationEnter',
+            component: () => import('@/views/collect/solicitation/auxiliaryAccount'),
+            meta: { title: '藏品辅助账' },
+          },
           
           {
             path: '/collect/solicitation/enterStore',
@@ -169,21 +190,27 @@ export const constantRouterMap = [
         redirect: '/collect/store/basic',
         name: 'collectStore',
         meta: {title: '基本信息' },
-        // children: [
-        //   {
-        //     path: '/collect/store/basic',
-        //     name: 'storeBasic',
-        //     component: () => import('@/views/collect/store/basic'),
-        //     meta: { title: '征集计划' },
-        //   }
-        // ]
+        children: [
+          {
+            path: '/collect/store/basic',
+            name: 'storeBasic',
+            component: () => import('@/views/collect/store/basic'),
+            meta: { title: '征集计划' },
+          },
+          {
+            path: '/collect/store/inventory',
+            name: 'storeBasic',
+            component: () => import('@/views/collect/store/inventory'),
+            meta: { title: '征集计划' },
+          },
+          {
+            path: '/collect/store/temperature',
+            name: 'storeBasic',
+            component: () => import('@/views/collect/store/temperature'),
+            meta: { title: '征集计划' },
+          }
+        ]
       },
-      // {
-      //   path: '/collect/store',
-      //   name: 'collectStore',
-      //   component: () => import('@/views/collect/store/inventory'),
-      //   meta: {title: '基本信息' }
-      // },
       {
         path: '/digital',
         name: 'digital',

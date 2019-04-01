@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="19px" height="19px" viewBox="0 0 19 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+    <title>任务看板-拖拽_看板视图</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="任务看板-拖拽" transform="translate(-1278.000000, -101.000000)" stroke="#575962">
+            <g id="任务看板-拖拽_看板视图" transform="translate(1278.000000, 100.000000)">
+                <rect id="矩形" x="0.5" y="2.5" width="7" height="7" rx="2"></rect>
+                <rect id="矩形-copy" x="0.5" y="12.5" width="7" height="7" rx="2"></rect>
+                <rect id="矩形-copy-2" x="10.5" y="12.5" width="7" height="7" rx="2"></rect>
+                <rect id="矩形-copy-3" transform="translate(14.000000, 6.000000) rotate(-45.000000) translate(-14.000000, -6.000000) " x="10.5" y="2.5" width="7" height="7" rx="2"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

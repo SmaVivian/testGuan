@@ -149,36 +149,46 @@ p {
 
 // 搜索悬浮面板
 .m-search-wrap {
-  padding: 30px;
-  padding-right: 20px;
+  // padding: 30px;
+  // padding-right: 20px;
   width: 240px;
   box-sizing: border-box;
-  .input-block {
-    display: block;
-    margin-bottom: 10px;
-    // padding-right: 15px;
-    .el-icon-search {
-      font-size: 18px;
-      color: $primary
-    }
-    .el-input__suffix {
-      right: 10px;
+  .input-box {
+    padding: 30px;
+    padding-bottom: 0;
+    .input-block {
+      display: block;
+      margin-bottom: 10px;
+      // padding-right: 15px;
+      .el-icon-search {
+        font-size: 18px;
+        color: $primary
+      }
+      .el-input__suffix {
+        right: 10px;
+      }
     }
   }
   .el-icon-check {
     color: $primary;
   }
   ul {
-    padding-right: 10px;
+    padding-bottom: 30px;
     max-height: 450px;
     overflow-y: auto;
+    .m-tips {
+      padding: 0 30px;
+    }
     li {
       display: flex;
       justify-content: space-between;
       align-items: center;
       line-height: 40px;
-      margin-top: 20px;
+      padding: 10px 30px;
       cursor: pointer;
+      &.lists:hover {
+        background-color: #F2F9FF;
+      }
       img {
         width: 40px;
         height: 40px;

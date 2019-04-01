@@ -1,5 +1,4 @@
 <template>
-  
 <div class="right">
         <h3>2018 / 01 / 11</h3>
         <h3 class="personName fr">贾军</h3>

@@ -6,7 +6,7 @@
         <el-breadcrumb separator="/">
           <el-breadcrumb-item :to="{ path: '/' }">藏品征集</el-breadcrumb-item>
           <el-breadcrumb-item><a href="javascript:;">藏品建账</a></el-breadcrumb-item>
-          <el-breadcrumb-item><a href="javascript:;">藏品总账</a></el-breadcrumb-item>
+          <el-breadcrumb-item><a href="javascript:;">藏品辅助账</a></el-breadcrumb-item>
         </el-breadcrumb>
         <el-steps class="schedule" :active="active" finish-status="success"  align-left>
           <el-step title="征集计划"></el-step>
@@ -122,19 +122,20 @@
               <template slot-scope="scope">{{ scope.row.date }}</template>
             </el-table-column>
             <el-table-column prop="classi-fication" label="分类号" width="100"></el-table-column>
-            <el-table-column prop="name" label="分类别"  width="100"></el-table-column>
-            <el-table-column prop="name" label="藏品名称" width="100"></el-table-column>
+            <el-table-column prop="name" label="藏品名称"  width="100"></el-table-column>
             <el-table-column prop="name" label="年代" width="100"></el-table-column>
+            <el-table-column prop="name" label="藏品分类" width="100"></el-table-column>
             <el-table-column prop="texture" label="来源" width="120"></el-table-column>
             <el-table-column prop="degree" label="级别" width="120"></el-table-column>
             <el-table-column prop="number" label="质地" width="120"></el-table-column>
             <el-table-column prop="company" label="完残程度" width="120"></el-table-column>
             <el-table-column prop="storehouse" label="状态" width="120"></el-table-column>
-            <el-table-column fixed="right" align="center" label="操作" width="100">
-                <template>
-                  <a class="m-btn" @click="dialogEnterVisible = true" type="text" size="small">编辑</a>
-                </template>
-              </el-table-column>
+            <el-table-column fixed="right" align="center" label="操作">
+              <template slot-scope="scope">
+                <a class="m-btn" @click="dialogLablectVisible = true" type="text" size="small">建账</a>
+                <a class="m-btn"  @click="handleDelete(scope.$index, scope.row)" type="text" size="small">转总账</a>
+              </template>
+            </el-table-column>
           </el-table>
           <div class="pagination-container">
             <el-pagination :current-page="listQuery.currentPage" :page-size="listQuery.size" :total="total" background layout="total, prev, pager, next"  @size-change="handleSizeChange" @current-change="handleCurrentChange"/>
@@ -142,17 +143,12 @@
         </div>
       </div>
     </div>
-    <el-dialog title="藏品入馆审批"  class="approval" :visible.sync="dialogEnterVisible" width="900px" >
-      <enterTotalDialog/>
-    </el-dialog>
   </div>
 </template>
 
 <script>
-import enterTotalDialog from '../dialog/solicitation/enterTotal'
 export default {
   components: {
-    enterTotalDialog
   },
   data() {
     return {
@@ -189,13 +185,13 @@ export default {
         ],
       searchYear:[
         {name: '全部 ', number:'2637'},
-        {name: '中华人民共和国 ', number:'1251'},
-        {name: '明国 ', number:'2151'},
-        {name: '清 ', number:'125'},
-        {name: '明 ', number:'122'},
-        {name: '元 ', number:'143'},
-        {name: '宋 ', number:'324'},
-        {name: '唐宋 ', number:'23553'},
+        {name: '新时期时代 ', number:'1251'},
+        {name: '商 ', number:'2151'},
+        {name: '周 ', number:'125'},
+        {name: '西周 ', number:'122'},
+        {name: '东周 ', number:'143'},
+        {name: '西汉 ', number:'324'},
+        {name: '唐 ', number:'23553'},
         {name: '东汉 ', number:'342'},
       ],
       searchLeve:[
@@ -211,7 +207,6 @@ export default {
         currentPage: 1,
         size: 5
       },
-      dialogEnterVisible: false,
     }
   },
   methods: {
@@ -252,6 +247,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.m-btn:nth-last-child(2) {
+     margin: 0 20px;
+   }
 .el-form-item {
   margin: 0 10px;
   margin-right: 0!important;

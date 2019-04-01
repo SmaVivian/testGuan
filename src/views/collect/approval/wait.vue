@@ -156,7 +156,7 @@ export default {
       }
     }
     .el-button {
-      margin: 15px 0 30px 30px;
+      margin: 0px 0 30px 30px;
     }
   }
  

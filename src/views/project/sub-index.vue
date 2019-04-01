@@ -3,7 +3,7 @@
     <div class="page-project-sub">
       <div class="g-sub-top">
         <!-- 面包屑 -->
-        <el-breadcrumb separator="/">
+        <el-breadcrumb class="cus-breadcrumb-pro" separator="/">
           <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
           <el-breadcrumb-item>
             <!-- 头部菜单面板 -->
@@ -14,16 +14,17 @@
               trigger="click">
               <div class="pop-wrap-top m-search-wrap">
                 <ul>
-                  <li class="active" @click="clickTop">
-                    <h2>烈火展项目</h2>
-                    <i class="el-icon el-icon-check"></i>
-                  </li>
-                  <li @click="clickTop">
-                    <h2>文创研发项目</h2>
+                  <li
+                    v-for="(item, index) in topProList"
+                    :key="index"
+                    :class="{'active': item.id === topProActive.id}"
+                    @click="clickTop(item)">
+                    <h2>{{item.name}}</h2>
+                    <i class="el-icon el-icon-check" v-if="item.id === topProActive.id"></i>
                   </li>
                 </ul>
               </div>
-              <a class="top-menu-current" href="javascript:;" slot="reference">活动管理&nbsp;<i class="el-icon el-icon-arrow-down"></i></a>
+              <a class="top-menu-current" href="javascript:;" slot="reference">{{topProActive.name}}&nbsp;<i class="el-icon el-icon-arrow-down"></i></a>
             </el-popover>
           </el-breadcrumb-item>
         </el-breadcrumb>
@@ -33,7 +34,14 @@
 
         <!-- 操作 -->
         <div class="menu-sub-right">
-          <span class="mr-20">看板视图</span>
+          <label class="mr-20">
+            <span class="icon-menu-sub" v-if="showPanel" @click="showPanel=false">
+              <svg-icon icon-class="menu-panel" class-name="icon-panel g-pointer" style="font-size: 20px;"/>
+            </span>
+            <span class="icon-menu-sub" v-if="!showPanel" @click="showPanel=true">
+              <svg-icon icon-class="menu-list" class-name="icon-panel g-pointer" style="font-size: 17px;" />
+            </span>
+          </label>
 
           <!-- 成员 -->
           <el-popover
@@ -41,8 +49,10 @@
           placement="bottom-end"
           trigger="click">
             <div class="pop-wrap-search m-search-wrap">
-              <el-input class="input-block" v-model="key" placeholder="输入姓名搜索"></el-input>
-              <p class="m-tips mt-20">最近</p>
+              <div class="input-box">
+                <el-input class="input-block" v-model="key" placeholder="输入姓名搜索"></el-input>
+                <p class="m-tips mt-20 mb-10">最近</p>
+              </div>
               <ul>
                 <li>
                   <img src="~@images/default-head.svg" alt="">
@@ -57,7 +67,9 @@
                 </li>
               </ul>
             </div>
-            <span class="mr-20" slot="reference">2人</span>
+            <span slot="reference">
+              <svg-icon icon-class="chengyuan" class-name="icon-chengyuan" style="font-size: 20px;"/>
+            </span>
           </el-popover>
 
           <!-- 菜单 -->
@@ -87,53 +99,14 @@
         </div>
       </div>
 
-      <!-- <el-dialog
-        class="dialog-pro"
-        title="项目设置"
-        :show-close="false"
-        :visible.sync="dialogVisible"
-        :width="'900px'"
-        :before-close="handleClose">
-        <div class="clearfix">
-          <div class="pro-list g-dialog-pro tc">
-            <el-card class="box-card" style="width: 260px;display: inline-block;">
-              <router-link class="card-item" tag="div" :to="{path: '/project/sub?type=task'}">
-                <div class="card-pic card-pic-1"></div>
-                <p class="name tc">标准项目</p>
-              </router-link>
-            </el-card>
-          </div>
-          <div class="m-btn tc mb-30 mt-30">
-            <el-button class="el-primary-border">上传新封面</el-button>
-          </div>
-        </div>
-        <h1>项目信息</h1>
-        <el-form ref="form" :model="form" :rules="rules" label-width="0">
-          <el-form-item class="mb-30" label="" prop="name">
-            <el-input autofocus v-model="form.name" placeholder="项目名称"/>
-          </el-form-item>
-      
-          <el-form-item class="mb-20" label="" prop="region">
-            <el-select v-model="form.region" placeholder="项目分组（可多选）" style="display:block;">
-              <el-option label="上海" value="shanghai"/>
-              <el-option label="北京" value="beijing"/>
-            </el-select>
-          </el-form-item>
-        </el-form>
-        <p class="m-assist">公开范围：仅项目组成员可见</p>
-        <span slot="footer" class="dialog-footer">
-
-          <el-button @click="dialogVisible = false">取 消</el-button>
-          <el-button type="primary" @click="onSubmit('form')">确 定</el-button>
-        </span>
-      </el-dialog> -->
+      <!-- 项目设置 -->
       <cmp-dialog-pro-setting ref="dialogProSetting"></cmp-dialog-pro-setting>
     </div>
   </div>
 </template>
 
 <script>
-import cmpDialogProSetting from './dialog/dialog-pro-setting'
+import cmpDialogProSetting from './dialog/dialog-pro-setting'   // 项目设置
 import cmpHeaderSub from '@cmp/header-sub'
 import taskProject from './task'
 import taskListProject from './task-list'
@@ -154,8 +127,23 @@ export default {
   },
   data() {
     return {
+      showPanel: true,  // 显示面板视图
       dialogVisible: false,
-
+      // 顶部项目选择
+      topProActive: {
+        name: '烈火展项目',
+        id: '1'
+      },
+      topProList: [
+        {
+          name: '烈火展项目',
+          id: '1'
+        },
+        {
+          name: '文创研发项目',
+          id: '2'
+        }
+      ],
       // currentTab: 'task',
       tabs: [
         {
@@ -179,27 +167,14 @@ export default {
           path: 'statistic'
         },
       ],
-      showTop: false,
+      showTop: false,   // 顶部项目选择面板
       popMenu: false,  // 显示菜单面板
       key: '',
-
       dialogData: [
         {
           name: '标准项目'
         }
       ],
-      // form: {
-      //   name: '',
-      //   region: ''
-      // },
-      // rules: {
-      //   name: [
-      //     {required: true, message: '必填', trigger: 'blur'}
-      //   ],
-      //   region: [
-      //     {required: true, message: '请选择项目分组', trigger: 'change'}
-      //   ]
-      // }
     }
   },
   computed: {
@@ -208,15 +183,16 @@ export default {
       return this.$route.query.type
     },
     currentTabCmp() {
-      // if(this.currentTab === 'task') {
-      //   return 'taskListProject'  // 列表视图
-      // }
+      if(this.currentTab === 'task' && !this.showPanel) {
+        return 'taskListProject'  // 列表视图
+      }
       return this.currentTab && (this.currentTab + 'Project')
     }
   },
   methods: {
-    // 面包屑菜单
-    clickTop() {
+    // 选择项目
+    clickTop(item) {
+      this.topProActive = item
       this.showTop = false
     },
     // 点击菜单面板
@@ -235,25 +211,6 @@ export default {
     changeTab(path) {
       this.$router.replace({path: '/project/sub', query: {type: path}})
     },
-    onSubmit(formName) {
-      // this.$message('submit!')
-      this.$refs[formName].validate((valid) => {
-        if(valid) {
-          let forms = this.form;
-          console.log(111, { forms })
-          console.log(222, { ...this.form })
-          this.dialogVisible = false;
-        } else {
-          return false
-        }
-      })
-    },
-    onCancel() {
-      this.$message({
-        message: 'cancel!',
-        type: 'warning'
-      })
-    },
   },
 }
 </script>
@@ -265,6 +222,11 @@ export default {
     cursor: pointer !important;
   }
   .menu-sub-right {
+    .icon-menu-sub {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+    }
     .pop-wrap {
       position: relative;
       display: inline-block;
@@ -284,10 +246,12 @@ export default {
       h2 {
         font-weight: normal;
       }
-      &:hover,
-      &.active {
+      &:hover {
         color: $primary;
         background-color: $color4;
+      }
+      &.active h2 {
+        font-weight:bold;
       }
     }
   }

@@ -50,15 +50,15 @@ export default {
           children: [
             {
               name: '藏品总账',
-              index: '/plan?type=1'
+              index: '/collect/solicitation/totalLedger'
             },
             {
               name: '藏品分类账',
-              index: '/plan?type=2'
+              index: '/collect/solicitation/typeAccount'
             },
             {
               name: '藏品辅助账',
-              index: '/plan?type=3'
+              index: '/collect/solicitation/auxiliaryAccount'
             }
           ]
         },
@@ -112,11 +112,12 @@ export default {
 
 <style lang="scss" scoped>
 .content {
-  padding: 30px 30px 30px 270px;
+  padding: 30px 30px 30px 240px;
 }
 
 // 侧边栏样式
 .cmp-sidebar {
+  width: 180px;
   margin: 30px;
 }
 

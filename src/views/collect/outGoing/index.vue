@@ -32,7 +32,7 @@ export default {
   },
   data() {
     return {
-      currentTab: 'outGoing',
+      currentTab: '/outGoing/outLibrary',
       sidebarData: [
         {
           name: '出库管理',

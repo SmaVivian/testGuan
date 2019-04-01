@@ -334,7 +334,7 @@ export default {
   }
   .search-content {
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
+    border-radius: 5px!important;
     .el-form {
         float: left;
       }
@@ -466,5 +466,9 @@ h3:nth-child(3) {
 }
 .cmp-sidebar {
   margin: 30px;
+  border-radius: 4px;
+}
+.content {
+  border-radius: 4px;
 }
 </style>

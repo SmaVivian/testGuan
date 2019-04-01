@@ -4,7 +4,7 @@
       <div slot="header" class="header clearfix">
         <h2><el-badge class="g-mark" :value="234" type="primary" />&nbsp;{{itemGroup.title}}</h2>
 
-        <!-- 操作 -->
+        
         <el-popover
           class="pop-wrap"
           placement="bottom-start"
@@ -13,38 +13,46 @@
           <div class="operate-box">
             <!-- 菜单悬浮面板 -->
             <div class="m-panel" v-if="showMenu">
-              <h3 @click="handleOperate(itemGroup, 1)">修改项目名称</h3>
+              <h3 @click="handleOperate(itemGroup, 1)">修改看板名称</h3>
               <h3 @click="handleOperate(itemGroup, 2)">设置本看板所有任务负责人</h3>
-              <h3 @click="handleOperate(itemGroup, 3)">设置本看板所有任务截至时间</h3>
+              <!-- <h3 @click="handleOperate(itemGroup, 3)">设置本看板所有任务截至时间</h3> -->
+
+              <h3>
+                <el-date-picker
+                  class="cus-btn-date"
+                  v-model="chooseDate"
+                  @change="handleOperate(itemGroup, 3)"
+                  type="date"
+                  placeholder="设置本看板所有任务截止时间">
+                </el-date-picker>
+              </h3>
+              <h3 @click="handleOperate(itemGroup, 4)">删除看板</h3>
             </div>
 
             <!-- 搜索悬浮面板 -->
             <div class="m-search-wrap" v-if="!showMenu">
-              <el-input class="input-block" 
-                v-model="key" 
-                suffix-icon="el-icon-search"
-                placeholder="输入姓名搜索">
-              </el-input>
+              <div class="input-box">
+                <el-input class="input-block" 
+                  v-model="key" 
+                  suffix-icon="el-icon-search"
+                  placeholder="输入姓名搜索">
+                </el-input>
+              </div>
               <ul>
                 <!-- 是否有责任人 -->
-                <li @click="handleChoose">
+                <li>
                   <img src="~@images/default-head.svg" alt="">
-                  <h3>冯绍峰</h3>
-                  <i class="el-icon el-icon-check"></i>
+                  <h3>{{currentItem.leader || '待认领'}}</h3>
+                  <i class="el-icon el-icon-check" v-if="currentItem.leader"></i>
                   <!-- <svg-icon icon-class="add" class-name="icon-add" /> -->
                 </li>
 
                 <!-- 最常协作 -->
-                <p class="m-tips mt-20">最常协作</p>
-                <li @click="handleChoose">
+                <p class="m-tips mt-20 mb-10">最常协作</p>
+                <li class="lists" v-for="(item, index) in personList" :key="index" @click="handleChoose(item)">
                   <img src="~@images/default-head.svg" alt="">
-                  <h3>冯绍峰</h3>
-                  <i class="el-icon el-icon-check"></i>
-                </li>
-                <li @click="handleChoose">
-                  <img src="~@images/default-head.svg" alt="">
-                  <h3>冯绍峰</h3>
-                  <i class="el-icon el-icon-check"></i>
+                  <h3>{{item.name}}</h3>
+                  <!-- <i class="el-icon el-icon-check"></i> -->
                 </li>
               </ul>
             </div>
@@ -100,14 +108,30 @@ export default {
         return []
       }
     },
+    // 最常协作列表
+    lastPersonList: {
+      type: Array,
+      default() {
+        return []
+      }
+    },
     itemGroup: Object
+  },
+  computed: {
+    currentItem() {
+      return this.itemGroup
+    },
+    personList() {
+      return this.lastPersonList
+    }
   },
   data() {
     return {
       key: '',
       showPopover: false,
       showMenu: true,  // 显示菜单面板
-      checkedList: [1, 2, 5, 9]
+      checkedList: [1, 2, 5, 9],
+      chooseDate: ''
     }
   },
   methods: {
@@ -125,11 +149,50 @@ export default {
     },
     // 点击菜单面板
     handleOperate(item, type) {
-      this.showMenu = false
+      switch(type) {
+        case 1:
+          this.showPopover = false
+          this.addTaskPanel('修改看板名称')
+          break
+        case 2:
+          this.showMenu = false  // 任务负责人
+          break
+        case 3:
+          console.log(this.chooseDate && this.$common.parseTime(this.chooseDate, '{y}-{m}-{d}'))
+          this.showPopover = false
+          break
+        case 4:
+          this.showPopover = false
+          break
+      }
       console.log(type)
     },
+    // 新建、修改任务看板
+    addTaskPanel(title) {
+      this.$prompt('', title || '新建任务看板', {
+        showClose: true,
+        showCancelButton: false,
+        confirmButtonText: '确定',
+        inputPlaceholder: '看板名称',
+        inputPattern: /^[\S]{2,6}$/,
+        inputErrorMessage: '请输入2到5位非空字符',
+        // center: true
+      }).then(({ value }) => {
+        console.log(value)
+        // this.$message({
+        //   type: 'success',
+        //   message: '你的邮箱是: ' + value
+        // });
+      }).catch(() => {
+        // this.$message({
+        //   type: 'info',
+        //   message: '取消输入'
+        // });       
+      });
+    },
     // 选择任务负责人
-    handleChoose() {
+    handleChoose(item) {
+      this.currentItem.leader = item.name
       this.showPopover = false
     },
     // 选择
@@ -158,11 +221,26 @@ export default {
   },
   created() {
     console.log(this.list)
+    
   },
 }
 </script>
 
 <style lang="scss" scoped>
+.cus-btn-date {
+  ::-webkit-input-placeholder { /* WebKit browsers */
+    color: #9699A2;
+  }
+  :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #9699A2;
+  }
+  ::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #9699A2;
+  }
+  :-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: #9699A2;
+  }
+}
 .cmp-drag {
   .drag-list {
     padding: 20px;
@@ -170,6 +248,7 @@ export default {
     box-sizing: border-box;
     margin-bottom: 20px;
     overflow: initial;
+    
     .header {
       position: relative;
       padding-right: 10px;

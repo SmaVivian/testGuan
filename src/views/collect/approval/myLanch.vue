@@ -6,7 +6,7 @@
           <!-- 面包屑导航 -->
           <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item><a href="javascript:;">藏品管理</a></el-breadcrumb-item>
+            <el-breadcrumb-item><a href="javascript:;">我发起的</a></el-breadcrumb-item>
           </el-breadcrumb>
 
           <div class="search">
@@ -36,8 +36,18 @@
           <el-table :data="tableData3" stripe>
             <el-table-column align="center" type="selection"></el-table-column>
             <el-table-column align="center" prop="image" label="序号"></el-table-column>
-            <el-table-column align="center" prop="image" label="描述"></el-table-column>
-            <el-table-column align="center" prop="classi-fication" label="审批类型"></el-table-column>
+            <el-table-column align="center" prop="image" label="描述">
+              <template slot-scope="scope">
+                <a class="m-btn" style="color:#0590FF;cursor:pointer;" type="text" size="small" @click="getNameDetails(scope.row)">{{ scope.row.dis }}</a>
+              </template>
+            </el-table-column>
+
+            <el-table-column align="center" prop="classi-fication" label="审批类型">
+              <template slot-scope="scope">
+                <a class="m-btn" style="color:#0590FF;cursor:pointer;" type="text" size="small" @click="getOut(scope.out)">{{ scope.row.out }}</a>
+              </template>
+            </el-table-column>
+
             <el-table-column align="center" prop="name" label="审批摘要"></el-table-column>
             <el-table-column align="center" prop="name" label="发起时间"></el-table-column>
             <el-table-column align="center" prop="name" label="审批状态"></el-table-column>
@@ -62,13 +72,24 @@
           </div>
         </div>
       </div>
+
+      <el-dialog title="藏品入馆审批"  class="approval" :visible.sync="dialogEnterVisible" width="900px" >
+        <enterDialog/>
+      </el-dialog>
+
+      <el-dialog title="藏品出库审批"  class="approval" :visible.sync="dialogOutVisible" width="900px" >
+        <outDialog/>
+      </el-dialog>
     </div>
-  </div>
 </template>
 
 <script>
+import enterDialog from '../dialog/approval/mylanch/enterStore'
+import outDialog from '../dialog/approval/mylanch/outStore'
 export default {
   components: {
+    enterDialog,
+    outDialog
   },
   data() {
     return {
@@ -81,16 +102,22 @@ export default {
       tableData3: [{
         date: '2016-05-03',
         name: '王小',
-        address: '上海市普陀区金沙江路 1518 弄'
+        address: '上海市普陀区金沙江路 1518 弄',
+        dis: '清明上河图修复出库',
+        out: '藏品出库'
       }, {
         date: '2016-05-02',
         name: '王小',
-        address: '上海市普陀区金沙江路 1518 弄'
+        address: '上海市普陀区金沙江路 1518 弄',
+        dis: '清明上河图修复入馆'
       }, {
         date: '2016-05-07',
         name: '王小',
-        address: '上海市普陀区金沙江路 1518 弄'
+        address: '上海市普陀区金沙江路 1518 弄',
+        dis: '清明上河图修复征集计划'
       }],
+      dialogEnterVisible: false,
+      dialogOutVisible: false,
       total: 10,
       listQuery: {
         currentPage: 1,
@@ -102,7 +129,14 @@ export default {
     onExport(){
       console.log('点我')
     },
-    //  表格分页
+    // 获取表格事件
+    getNameDetails () { 
+      console.log('css')
+        this.dialogEnterVisible = true
+    },
+    getOut () {
+      this.dialogOutVisible = true
+    },
     getDataList() {
       // this.listLoading = true
       this.$http.get('/list', {
@@ -127,8 +161,8 @@ export default {
 
 <style lang="scss" scoped>
   .approvalContent {
-    margin-left: 10px;
     background-color: #fff;
+    border-radius: 5px;
     .el-breadcrumb {
       height: 50px;
       line-height: 70px!important;
@@ -136,10 +170,11 @@ export default {
       padding: 0px 0 0px 30px;
       font-size: 18px;
       margin-bottom:20px;
+      border-radius: 5px;
       background: #fff;
     }
     .table {
-      margin: 0 30px;
+      padding: 0 30px 30px 30px;
       .m-btn {
         margin-left: 10px;
       }
@@ -160,10 +195,18 @@ export default {
       }
     }
     .el-button {
-      margin: 15px 0 30px 30px;
+      margin: 0 0 30px 30px;
     }
   }
  
+ .content {
+   .el-dialog {
+     .el-dialog__header {
+     margin-top: 300px;
+   }
+   }
+   
+ }
 </style>
 
 

@@ -16,7 +16,7 @@
     <div class="content">
       <el-row :gutter="20">
         <el-col :xs="6" :sm="6" :md="6" :xl="4" v-for="(item, index) in list" :key="index">
-          <drag-list ref="drag" :list="item.arrList" :itemGroup="item" @showProDialog="showDialog"/>
+          <drag-list ref="drag" :list="item.arrList" :itemGroup="item" :lastPersonList="lastPersonList" @showProDialog="showDialog"/>
         </el-col>
         <el-col :xs="6" :sm="6" :md="6" :xl="4">
           <el-card class="panel-add-wrap">
@@ -27,25 +27,27 @@
       </el-row>
     </div>
 
-    <cmp-dialog-pro ref="dialogPro" :dialogData="dialogData"></cmp-dialog-pro>
+    <cmp-task-detail ref="dialogPro" :dialogData="dialogData"></cmp-task-detail>
   </div>
 </template>
 
 <script>
 import cmpHeaderSub from '@cmp/header-sub'
 import DragList from '@cmp/drag-list'
-import cmpDialogPro from './dialog/dialog-pro'
+import cmpTaskDetail from './dialog/dialog-task-detail'
 export default {
   components: {
     cmpHeaderSub,
     DragList,
-    cmpDialogPro
+    cmpTaskDetail
   },
   data() {
     return {
       list: [
         {
           title: '标题1',
+          leader: '胡强',
+          id: 1111,
           arrList: [
             { name: "1列表", id: 1 },
             { name: "12列表", id: 2 },
@@ -55,6 +57,7 @@ export default {
         },
         {
           title: '标题2',
+          leader: '',
           arrList: [
             { name: "21列表", id: 5 },
             { name: "22列表", id: 6 },
@@ -68,11 +71,35 @@ export default {
         },
         {
           title: '标题3',
+          leader: '',
           arrList: [
             { name: "31列表", id: 8 },
             { name: "32列表", id: 9 },
             { name: "33列表", id: 10 }
           ],
+        },
+      ],
+      // 最常协作列表
+      lastPersonList: [
+        {
+          name: '冯绍峰',
+          id: 1
+        },
+        {
+          name: '冯绍峰2',
+          id: 2
+        },
+        {
+          name: '冯绍峰3',
+          id: 3
+        },
+        {
+          name: '冯绍峰4',
+          id: 4
+        },
+        {
+          name: '冯绍峰5',
+          id: 6
         },
       ],
       dialogData: {}

@@ -218,12 +218,10 @@ export default {
   .el-breadcrumb {
     height: 50px;
     line-height: 50px;
-    padding: 0px 0 0px 30px;
     font-size: 18px;
-    margin-bottom:20px;
   }
   .schedule {
-    margin: 0 80px;
+    margin: 0 50px;
   }
   .table {
     padding: 0 25px;
@@ -235,7 +233,7 @@ export default {
     border-radius: 4px;
     background-color: #fff;
       .el-breadcrumb {
-        line-height: 56px;
+        line-height: 20px;
         background: #fff;
       }
   }

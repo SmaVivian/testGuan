@@ -12,7 +12,7 @@
           <el-step title="藏品入馆"></el-step>
           <el-step title="藏品建账"></el-step>
           <el-step title="藏品入库"></el-step>
-      </el-steps>
+        </el-steps>
 <!-- <el-button style="margin-top: 12px;" @click="next">下一步</el-button> -->
       </div>
       <!-- 表格内容 -->
@@ -403,12 +403,10 @@ export default {
   .el-breadcrumb {
     height: 50px;
     line-height: 50px;
-    padding: 0px 0 0px 30px;
     font-size: 18px;
-    margin-bottom:20px;
   }
   .schedule {
-    margin: 0 80px;
+    margin: 0 50px;
   }
   .table {
     padding: 0 25px;
@@ -420,7 +418,7 @@ export default {
     border-radius: 4px;
     background-color: #fff;
       .el-breadcrumb {
-        line-height: 56px;
+        line-height: 20px;
         background: #fff;
       }
   }
@@ -429,7 +427,6 @@ export default {
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
     margin-top: 20px;
     border-radius: 4px;
-    // border: 1px solid blue;
     .search-content {
       padding: 30px 30px 0 30px;
         .el-form-item {

@@ -8,7 +8,7 @@
       <!-- 侧边栏 -->
         <sidebar :menuList="sidebarData" :activeIndex="`/collect/manage`" class="sidebarCont"></sidebar>
       <div class="content">
-      <!-- 搜索内容 -->
+        <!-- 搜索内容 -->
         <div class="search-content">
           <el-breadcrumb separator="/">
            <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
@@ -206,32 +206,32 @@ export default {
             collection: ''
         },
         searchTag:[
-            {name: '全部 ', number:'23543'},
-            {name: '书法/绘画 ', number:'12351'},
-            {name: '陶器 ', number:'12452'},
-            {name: '瓷器 ', number:'12452'},
-            {name: '铜器 ', number:'12452'},
-            {name: '玉石器 ', number:'122'},
-            {name: '金银器 ', number:'122'},
+          {name: '全部 ', number:'23543'},
+          {name: '书法/绘画 ', number:'12351'},
+          {name: '陶器 ', number:'12452'},
+          {name: '瓷器 ', number:'12452'},
+          {name: '铜器 ', number:'12452'},
+          {name: '玉石器 ', number:'122'},
+          {name: '金银器 ', number:'122'},
         ],
         searchYear:[
-            {name: '全部 ', number:'2637'},
-            {name: '中华人民共和国 ', number:'1251'},
-            {name: '明国 ', number:'2151'},
-            {name: '清 ', number:'125'},
-            {name: '明 ', number:'122'},
-            {name: '元 ', number:'143'},
-            {name: '宋 ', number:'324'},
-            {name: '唐宋 ', number:'23553'},
-            {name: '东汉 ', number:'342'},
+          {name: '全部 ', number:'2637'},
+          {name: '中华人民共和国 ', number:'1251'},
+          {name: '明国 ', number:'2151'},
+          {name: '清 ', number:'125'},
+          {name: '明 ', number:'122'},
+          {name: '元 ', number:'143'},
+          {name: '宋 ', number:'324'},
+          {name: '唐宋 ', number:'23553'},
+          {name: '东汉 ', number:'342'},
         ],
         searchLeve:[
-            {name: '全部 ', number:'23543'},
-            {name: '珍贵文物 ', number:'12351'},
-            {name: '一级文物 ', number:'12343'},
-            {name: '二级文物 ', number:'125'},
-            {name: '三级文物 ', number:'122'},
-            {name: '未定级 ', number:'143'},
+          {name: '全部 ', number:'23543'},
+          {name: '珍贵文物 ', number:'12351'},
+          {name: '一级文物 ', number:'12343'},
+          {name: '二级文物 ', number:'125'},
+          {name: '三级文物 ', number:'122'},
+          {name: '未定级 ', number:'143'},
         ],       
       // 表格分页
       list: null,
@@ -387,41 +387,39 @@ export default {
       float: right;
     }
     .table {
-      padding: 0 25px;
+      padding: 0 30px;
       background-color: #fff;
         .m-btn {
           margin-right: 10px;
         }
     }
     .search-content {
+      padding: 30px;
       background-color: #fff;
       box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
       border-radius: 4px;
         .el-breadcrumb {
           font-size: 18px;
-          padding: 0 20px;
-          line-height: 86px;
+          line-height: 20px;
           background: #fff;
-        }
-        
-    }
+        } 
+      }
   .is-link {
     font-size: 18px;
   }
   .sch{
-  display: flex;
-  padding: 10px 20px;
-  font-size: 14px;
-  background-color: #fff;
-  .sch-type {
-    line-height: 13px;
-    width: 75px;
-    color: #B5B1DD;
-  }
-  .sch-type:first-child {
-    margin-top: 3px;
-  }
-  
+    display: flex;
+    padding: 10px 0;
+    font-size: 14px;
+    background-color: #fff;
+      .sch-type {
+        height: 20px;
+        width: 75px;
+        color: #B5B1DD;
+      }
+      .sch-type:first-child {
+        margin-top: 3px;
+      }
   .el-tag {
     margin-left: 5px;
     height: 25px;
@@ -435,16 +433,16 @@ export default {
     color: #fff;
   }
 .reset {
-    border: 1px solid #0590FF;
-    width: 59px !important;
-    height: 20px;
-    line-height: 2px;
-    margin: 3px 15px;
-  }
-  .reset:hover {
-    color: #fff;
-    background-color: $primary;
-  }
+  border: 1px solid #0590FF;
+  width: 59px !important;
+  height: 20px;
+  line-height: 2px;
+  margin: 3px 15px;
+}
+.reset:hover {
+  color: #fff;
+  background-color: $primary;
+}
   .sch-content {
     width: 100%;
       .lableSearch {
@@ -479,7 +477,7 @@ export default {
       background-color: #fff;
     }
     .el-button.is-round {
-      margin: 25px 20px;
+      margin: 30px 5px 30px 30px;
       padding: 10px 23px;
       }
   }
@@ -509,7 +507,5 @@ content:'';
 .el-button {
   margin-left: 5px;
 }
-.sch-type:last-child {
-    line-height: 27px;
-  }
+
 </style>

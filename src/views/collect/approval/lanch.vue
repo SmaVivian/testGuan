@@ -6,7 +6,7 @@
           <!-- 面包屑导航 -->
           <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item><a href="javascript:;">藏品管理</a></el-breadcrumb-item>
+            <el-breadcrumb-item><a href="javascript:;">发起审批</a></el-breadcrumb-item>
           </el-breadcrumb>
           <!-- 内容 -->
           <h3 class="addTit m-btn" @click="dialogRejectVisible = true">驳回原因</h3>
@@ -47,22 +47,22 @@
       </el-input>
       <el-table :data="attribute" >
         <el-table-column type="selection" width="40" align="center"></el-table-column>
-        <el-table-column property="name" label="图片" width="80">
+        <el-table-column property="name" label="图片">
           <template slot-scope="scope">
             <a class="m-btn" @click="dialogPhotosVisible = true" type="text" size="small">
               <img :src="scope.row.head_pic" width="40" height="40" class="head_pic"/>
             </a>
           </template>
         </el-table-column>
-        <el-table-column property="name" label="登记号" width="80"></el-table-column>
-        <el-table-column property="name" label="藏品名称" width="80"></el-table-column>
-        <el-table-column property="name" label="年代" width="80"></el-table-column>
-        <el-table-column property="name" label="藏品分类" width="80"></el-table-column>
-        <el-table-column property="name" label="级别" width="80"></el-table-column>
-        <el-table-column property="name" label="质地" width="80"></el-table-column>
-        <el-table-column property="name" label="完残程度" width="80"></el-table-column>
-        <el-table-column property="name" label="数量" width="80"></el-table-column>
-        <el-table-column property="name" label="库房名称" width="80"></el-table-column>
+        <el-table-column property="name" label="登记号" ></el-table-column>
+        <el-table-column property="name" label="藏品名称"></el-table-column>
+        <el-table-column property="name" label="年代"></el-table-column>
+        <el-table-column property="name" label="藏品分类"></el-table-column>
+        <el-table-column property="name" label="级别"></el-table-column>
+        <el-table-column property="name" label="质地" ></el-table-column>
+        <el-table-column property="name" label="完残程度"></el-table-column>
+        <el-table-column property="name" label="数量"></el-table-column>
+        <el-table-column property="name" label="库房名称"></el-table-column>
       </el-table>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="dialogOpenctVisible = false">提交</el-button>
@@ -130,8 +130,8 @@
 import top from '@cmp/topbar'
 import cmpHeaderSub from '@cmp/header-sub'
 import sidebar from '@cmp/sidebar'
-import enterDialog from '../dialog/approval/enter'
-import solicitationDialog from '../dialog/approval/solicitation'
+import enterDialog from '../dialog/approval/lanch/enter'
+import solicitationDialog from '../dialog/approval/lanch/solicitation'
 export default {
   components: {
     sidebar,
@@ -231,7 +231,6 @@ export default {
 }
 .el-dialog__body {
   .condition {
-  // border-bottom: 1px solid #000;
   margin: 55px 0 0 109px;
   
   }
@@ -256,7 +255,6 @@ export default {
         text-align: center!important;
         padding-top: 20px!important;
         padding: 0;
-        // border-top: 1px solid blue;
           }
       .dialog-footer {
         text-align: center;
@@ -274,17 +272,19 @@ export default {
   }
  }
  .timeLine {
-   margin-top: 30px;
+   padding-top: 30px;
    float: left;
    width: 140px;
    border-right: 1px solid #EBEDF2;
  }
  .right {
    margin-left: 25px;
-   padding-left: 140px;
+   padding-left: 145px;
    padding-top: 30px;
+  //  border-bottom: 1px solid #EBEDF2;
    .el-form-item {
      margin-left: -23px;
+     margin-bottom: 0;
    }
    .voucher {
      line-height: 45px;
@@ -309,7 +309,6 @@ export default {
    .personName {
      margin-top: -33px;
    }
- 
    .el-textarea__inner {
       width: 560px;
       height: 100px;
@@ -323,6 +322,7 @@ export default {
 .content {
   padding: 0!important;
   .approvalContent {
+    padding: 30px;
     margin-left: 10px;
     background-color: #fff;
     .addTit {
@@ -332,7 +332,6 @@ export default {
     .el-breadcrumb {
       height: 50px;
       line-height: 50px;
-      padding: 10px 0 0px 30px;
       font-size: 18px;
     }
     .el-row {
@@ -389,7 +388,9 @@ export default {
   margin: 30px;
 }
 /deep/ .dialog-footer {
+    border-top: 1px solid #EBEDF2;
     text-align: center;
+    padding-top: 30px;
 }
 /deep/ .el-dialog__footer {
     padding-bottom: 0!important;

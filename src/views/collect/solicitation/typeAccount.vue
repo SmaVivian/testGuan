@@ -6,7 +6,7 @@
         <el-breadcrumb separator="/">
           <el-breadcrumb-item :to="{ path: '/' }">藏品征集</el-breadcrumb-item>
           <el-breadcrumb-item><a href="javascript:;">藏品建账</a></el-breadcrumb-item>
-          <el-breadcrumb-item><a href="javascript:;">藏品总账</a></el-breadcrumb-item>
+          <el-breadcrumb-item><a href="javascript:;">藏品分类账</a></el-breadcrumb-item>
         </el-breadcrumb>
         <el-steps class="schedule" :active="active" finish-status="success"  align-left>
           <el-step title="征集计划"></el-step>
@@ -130,11 +130,6 @@
             <el-table-column prop="number" label="质地" width="120"></el-table-column>
             <el-table-column prop="company" label="完残程度" width="120"></el-table-column>
             <el-table-column prop="storehouse" label="状态" width="120"></el-table-column>
-            <el-table-column fixed="right" align="center" label="操作" width="100">
-                <template>
-                  <a class="m-btn" @click="dialogEnterVisible = true" type="text" size="small">编辑</a>
-                </template>
-              </el-table-column>
           </el-table>
           <div class="pagination-container">
             <el-pagination :current-page="listQuery.currentPage" :page-size="listQuery.size" :total="total" background layout="total, prev, pager, next"  @size-change="handleSizeChange" @current-change="handleCurrentChange"/>
@@ -142,17 +137,12 @@
         </div>
       </div>
     </div>
-    <el-dialog title="藏品入馆审批"  class="approval" :visible.sync="dialogEnterVisible" width="900px" >
-      <enterTotalDialog/>
-    </el-dialog>
   </div>
 </template>
 
 <script>
-import enterTotalDialog from '../dialog/solicitation/enterTotal'
 export default {
   components: {
-    enterTotalDialog
   },
   data() {
     return {
@@ -211,7 +201,6 @@ export default {
         currentPage: 1,
         size: 5
       },
-      dialogEnterVisible: false,
     }
   },
   methods: {
