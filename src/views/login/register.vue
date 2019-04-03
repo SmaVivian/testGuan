@@ -44,8 +44,8 @@
 </template>
 
 <script>
-import { validate } from '@/utils/util';
-import md5 from 'js-md5';
+import { validate } from '@/utils/util'
+import md5 from 'js-md5'
 import cmpLoginPic from './components/login-pic'
 export default {
   components: {

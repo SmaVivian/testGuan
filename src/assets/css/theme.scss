@@ -293,9 +293,15 @@
 		@include bg(url(~@images/project/card-2.svg), '', '', contain)
 	}
 }
-// 侧导航栏圆角
+// 侧边栏菜单样式
 .el-menu {
-	border-radius: 5px;
+	border-right: none;
 }
-
-
+.con {
+  width: 200px;
+  height: 94px;
+  position:absolute;
+  margin: 30px;
+  border-radius: 5px;
+  background-color: #fff;
+}

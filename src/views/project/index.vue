@@ -1,7 +1,7 @@
 <template>
   <div class="g-wrap">
 
-    <sidebar :menuList="sidebarData" :activeIndex="`/project`" :openeds="openedsArr"></sidebar>
+    <sidebar :menuList="sidebarData" :activeIndex="`/project`" :openeds="openedsArr" :callFun="clickTab"></sidebar>
 
     <div class="page-project clearfix">
       <div class="content">
@@ -100,27 +100,27 @@ export default {
           children: [
             {
               name: '展览项目',
-              index: '11',
+              index: '/noJump?type=1',
               isEdit: true  // 编辑 删除按钮
             },
             {
               name: '活动项目',
-              index: '12',
+              index: '/noJump?type=2',
               isEdit: true
             },
             {
               name: '活动项目1',
-              index: '13',
+              index: '/noJump?type=3',
               isEdit: true
             },
             {
               name: '活动项目2',
-              index: '14',
+              index: '/noJump?type=4',
               isEdit: true
             },
             {
               name: '活动项目',
-              index: '12',
+              index: '/noJump?type=5',
               isEdit: true
             }
           ]
@@ -130,6 +130,9 @@ export default {
     }
   },
   methods: {
+    clickTab(item) {
+      console.log(this.$common.getStrParam(item, 'type'))
+    },
     getNavData() {
       // todo ajax
       this.sidebarData.splice(1, 1)
@@ -203,8 +206,14 @@ export default {
         }
       }
       .icon-add-box {
+        width: 62px;
+        height: 62px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         .icon-add {
-          font-size: 62px;
+          font-size: 32px;
+          color: $primary;
         }
       }
     }

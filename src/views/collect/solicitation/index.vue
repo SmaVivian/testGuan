@@ -119,6 +119,7 @@ export default {
 .cmp-sidebar {
   width: 180px;
   margin: 30px;
+  border-radius: 5px;
 }
 
 </style>

@@ -54,7 +54,13 @@ export default {
 };
 </script>
 <style lang="scss">
-  
+  .el-tabs__header {
+    height: 60px;
+  }
+  .el-tabs__item {
+    height: 50px;
+    line-height: 60px;
+  }
 </style>
 
 

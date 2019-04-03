@@ -345,6 +345,19 @@
   margin-left: 20px;
 }
 
+.el-pagination .el-select .el-input .el-input__inner {
+  border-radius: 26px;
+  line-height: 30px;
+  height: 30px;
+}
+
+.el-pagination__editor.el-input {
+  margin: 0 8px;
+  width: 60px;
+  height: 30px;
+  line-height: 30px;
+}
+
 .el-pagination.is-background .btn-prev, 
 .el-pagination.is-background .btn-next, 
 .el-pagination.is-background .el-pager li {
@@ -436,9 +449,9 @@
     vertical-align: middle;
     margin-right: 10px;
   }
-  &.is-checked + .title {
-    text-decoration: line-through;
-  }
+}
+.my-check-title.is-checked {
+  text-decoration: line-through;
 }
 
 // 取消表格下划线

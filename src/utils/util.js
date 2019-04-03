@@ -55,6 +55,12 @@ export const common = {
     })
     return time_str
   },
+  getStrParam: function(str, name){ 
+    var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)"); 
+    var r = str.split('?')[1].match(reg);
+    if (r!=null) return unescape(r[2]); return null; 
+  },
+  // 手动打开日期
   openDate: function(ele) {
     document.getElementById(ele || 'openDate').focus()
   }

@@ -22,7 +22,7 @@
 
         <!-- 最常协作 -->
         <p class="m-tips mt-20 mb-10">最常协作</p>
-        <li class="lists" v-for="(item, index) in personList" :key="index" @click="handleChoose(item)">
+        <li class="lists" v-for="(item, index) in newDataList" :key="index" @click="handleChoose(item)">
           <img src="~@images/default-head.svg" alt="">
           <h3>{{item.name}}</h3>
           <!-- <i class="el-icon el-icon-check"></i> -->
@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import PinyinMatch from 'pinyin-match'
 export default {
   props: {
     // 最常协作列表
@@ -52,7 +53,19 @@ export default {
     },
     personList() {
       return this.lastPersonList
-    }
+    },
+    // 模糊匹配
+    newDataList() {
+      var newDataList = [];
+      this.lastPersonList.map((item) => {
+        if ((item.name && PinyinMatch.match(item.name, this.key))) {
+        // if (item.name.search(_this.key) != -1) {
+          newDataList.push(item);
+        }
+      })
+      console.log('newDataList', newDataList)
+      return newDataList
+    },
   },
   data() {
     return {
@@ -65,11 +78,11 @@ export default {
           id: 1
         },
         {
-          name: '冯绍峰2',
+          name: '赵丽颖2',
           id: 2
         },
         {
-          name: '冯绍峰3',
+          name: '张杰3',
           id: 3
         },
         {

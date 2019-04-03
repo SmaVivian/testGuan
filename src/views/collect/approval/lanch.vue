@@ -69,23 +69,18 @@
         <el-button type="primary" @click="dialogOpenctVisible = false">提交</el-button>
       </div>
     </el-dialog>
-    
-    <el-dialog title="出库类型" :visible.sync="dialogTypeVisible" width="300px">
+  
+    <el-dialog title="出库类型" :visible.sync="dialogTypeVisible" width="300px" class="outTit">
       <el-form :model="form">
         <el-form-item a:label-width="formLabelWidth">
           <el-select v-model="formTag.collection" placeholder="出库类型" >
-            <el-option label="借展出库" value="1"></el-option>
-            <el-option label="陈列出库" value="2"></el-option>
-            <el-option label="藏品观摩" value="3"></el-option>
-            <el-option label="修复出库" value="4" ></el-option>
-            <el-option label="调拨出库" value="5" ></el-option>
-            <el-option label="其他出库" value="6" ></el-option>
+            <el-option v-for="(item, index) in list" :value="item.name" :key="index"></el-option>
           </el-select>
         </el-form-item>
       </el-form>
-      <div slot="footer" class="dialog-footer">
+      <div slot="footer" class="dialogFooter">
         <el-button @click="dialogTypeVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogEnterVisible = true">确 定</el-button>
+        <el-button type="primary" @click="collectType(value)">确 定</el-button>
       </div>
     </el-dialog>
     
@@ -124,8 +119,14 @@
     </el-dialog>
 
     <el-dialog title="藏品入馆审批"  class="approval" :visible.sync="dialogEnterVisible" width="900px" >
-      <enterDialog/>
+      <enterDialog />
     </el-dialog>
+
+    <el-dialog title="藏品标签" :visible.sync="dialogEnterVisible">
+       <lableDialog :callFun = "buliLable"/>
+     </el-dialog>
+
+
   </div>
 </template>
 
@@ -135,16 +136,26 @@ import cmpHeaderSub from '@cmp/header-sub'
 import sidebar from '@cmp/sidebar'
 import enterDialog from '../dialog/approval/lanch/enter'
 import solicitationDialog from '../dialog/approval/lanch/solicitation'
+import lableDialog from '../dialog/manage/lable'
 export default {
   components: {
     sidebar,
     cmpHeaderSub,
     enterDialog,
     solicitationDialog,
-    top
+    top,
+    lableDialog
   },
   data() {
     return {
+      list: [
+        {name:"借展出库", value: 1},
+        {name:"陈列出库", value: 2}, 
+        {name:"藏品观摩", value: 3}, 
+        {name:"修复出库", value: 4}, 
+        {name:"调拨出库", value: 5},
+        {name:"藏品注销出库", value: 6},    
+      ],
       // 顶部导航栏数据
       currentTab: 'approval',
       // 搜索条件
@@ -197,6 +208,13 @@ export default {
     }
   },
   methods: {
+    // 入馆审批表格标签弹框
+    buliLable () {
+      
+    },
+    collectType(value) {
+      this.dialogEnterVisible = true;
+    },
     // 弹框循环事件
     handleDialog(index){
       if (index === 1) {
@@ -207,6 +225,11 @@ export default {
         this.dialogTypeVisible = true
       } else if (index === 4) {
         this.dialogRejectVisible = true
+      }
+    },
+    typeDilogVisible(value) {
+      if( value === 1) {
+        this.dialogEnterVisible = true
       }
     },
      //  顶部导航栏
@@ -243,7 +266,7 @@ export default {
 }
 
  /deep/ .el-dialog__header {
-    text-align: left;
+    text-align: center;
     padding-bottom: 30px;
     font-size: 18px;
     font-weight: bold;
@@ -323,7 +346,7 @@ export default {
 }
 
 .content {
-  padding: 0!important;
+    padding: 0!important;
   .approvalContent {
     padding: 30px;
     margin-left: 10px;
@@ -346,7 +369,6 @@ export default {
   
     // }
   }
-  padding: 25px 30px 40px 240px;
   .pro-list {
     .box {
       margin-top: 50px;
@@ -403,6 +425,10 @@ export default {
 /deep/ .el-input__prefix {
   text-align: right;
     right: 10px;
+}
+.el-select {
+  width: 100%;
+  margin-bottom: 5px;
 }
 </style>
 

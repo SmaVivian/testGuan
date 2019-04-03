@@ -9,18 +9,22 @@
             <el-breadcrumb-item><a href="javascript:;">基本信息</a></el-breadcrumb-item>
           </el-breadcrumb>
           <!-- 内容 -->
-         <div class="add ">
-           <a class="m-btn" @click="dialogLablectVisible = true" type="text" size="small">新增库房</a>
-         </div>
-        
-          <div class="add" v-for="(item, index) in 11" :key="index">           
-           <h4>青铜器库房</h4>
+          
+          <div class="www">
+            <div class="add">
+            <a class="m-btn" @click="dialogLablectVisible = true" type="text" size="small">新增库房</a>
+          </div>
+           
+
+           <div class="addContent" v-for="(item, index) in 11" :key="index">           
+            <h4>青铜器库房</h4>
             <h3>存放藏品 : 34件</h3>
             <a class="m-btn" @click="dialogLablectVisible = true" type="text" size="small">查看</a>
             <a class="m-btn" @click="dialogLablectVisible = true" type="text" size="small">删除</a>
+          </div>
+          </div>
+          
          </div>
-         
-
         </div>
       </div>
     </div>
@@ -79,6 +83,7 @@ export default {
    padding: 0px!important;
    padding: 25px 30px 40px 240px;
     .approvalContent {
+      // display: flex;
       border-radius: 5px;
       background-color: #fff;
         .el-breadcrumb {
@@ -99,12 +104,41 @@ export default {
   height: 155px;
   border: 1px dashed #0590FF;
   margin: 30px;
+  // float: left;
     .m-btn {
       line-height: 156px;
       margin-left: 35%;
     }
   }
- 
+ .contentList {
+   width: 80%;
+   background-color: #fff;
+   
+   .addContent:hover {
+     border: 1px solid #0590FF;
+   }
+ }
+
+ .addContent {
+      width: 255px; 
+      height: 156px;
+      border: 1px solid #EBEDF2;
+      margin: 30px;
+      h4 {
+        margin: 30px;
+      }
+      h3 {
+        margin: 0 0 30px 30px;
+      }
+      m-btn:first-child {
+        margin: 0 0 20px 47px;
+      }
+   }
+   .www {
+     width: 20%;
+     display: flex;
+     height: 20%;
+   }
 </style>
 
 

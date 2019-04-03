@@ -6,7 +6,9 @@
         <top/>
       </div>
       <!-- 侧边栏 -->
+      <div class="con">
         <sidebar :menuList="sidebarData" :activeIndex="`/collect/repair`" class="sidebarCont"></sidebar>
+      </div>
       <div class="content">
         <!-- 搜索内容 -->
         <div class="search-content">
@@ -465,6 +467,6 @@ h3:nth-child(3) {
   margin-bottom: 20px;
 }
 .cmp-sidebar {
-  margin: 30px;
+  margin-top: 20px;
 }
 </style>

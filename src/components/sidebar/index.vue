@@ -32,9 +32,13 @@
             </div>
             <el-menu-item :index="v.index">{{v.name}}</el-menu-item>
           </div>
-          <el-menu-item index="add" v-if="item.hasBtn" @click="addGroup">
-            <svg-icon icon-class="add" class-name="icon-add" /><span class="m-btn">新建分组</span></el-menu-item>
+          <!-- <el-menu-item index="/noJump?type=add" v-if="item.hasBtn" @click="addGroup">
+            <svg-icon icon-class="add" class-name="icon-add" />&nbsp;<span class="m-btn">新建分组</span>
+          </el-menu-item> -->
         </el-submenu>
+        <li class="el-menu-item el-menu-add" v-if="item.hasBtn" @click="addGroup">
+          <span><svg-icon icon-class="add" class-name="icon-add" />&nbsp;新建分组</span>
+        </li>
 
         <!-- 一级菜单图标 -->
         <svg-icon :icon-class="item.icon" class-name="icon-menu"/>
@@ -59,7 +63,8 @@ export default {
     openeds: {
       type: Array,
       default: () => []
-    }
+    },
+    callFun: Function
   },
   computed: {
     renderMenuList() {
@@ -80,7 +85,11 @@ export default {
     },
     // 选中菜单
     handleSelect(key, keyPath) {
-      if(key === 'add') return
+      //不跳转页面
+      if(key.split('?')[0] === '/noJump') {
+        this.callFun && this.callFun(key)
+        return
+      }
       
       this.currentSide = key
       this.$router.push(key)
@@ -136,6 +145,7 @@ export default {
   float: left;
   width: 200px;
   .menu-box {
+    // height: 94px;
     position: relative;
     overflow: hidden;
     .icon-menu {
@@ -151,7 +161,8 @@ export default {
       // fill: $primary;
     }
     .icon-add {
-      font-size: 14px;
+      font-size: 12px;
+      color: $primary;
     }
     .submenu-wrap {
       position: relative;
@@ -179,6 +190,9 @@ export default {
         display: block;
       }
     }
+    .el-menu-add {
+      padding-left: 23px;
+    }
   }
   /deep/ .el-submenu__title {
     padding-left: 49px !important;
@@ -190,6 +204,7 @@ export default {
     }
   }
   .el-menu-item.is-active {
+    // margin-top: 20px;
     @include menuNavActive;
   }
   // 下一个svg图标变色
@@ -200,6 +215,7 @@ export default {
     // fill: $primary;
   }
 }
+
 </style>
 
 

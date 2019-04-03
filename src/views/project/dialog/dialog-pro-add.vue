@@ -23,7 +23,7 @@
             </el-row>
           </ul>
           <div class="m-btn fr" @click="addProModel">
-            <svg-icon icon-class="add" class-name="icon-add" /><span class="m-btn">创建模板</span> 
+            <svg-icon icon-class="add" class-name="icon-add" />&nbsp;<span class="m-btn">创建模板</span> 
           </div>
         </div>
         <h1>项目信息</h1>
@@ -49,16 +49,16 @@
       </div>
     </el-dialog>
 
-    <!-- 创建项目模板 -->
-    <cmp-pro-model ref="dialogProModel"></cmp-pro-model>
+    <!-- 项目模板设置 -->
+    <cmp-dialog-pro-setting ref="dialogProSetting"></cmp-dialog-pro-setting>
   </div>
 </template>
 
 <script>
-import cmpProModel from './dialog-pro-model-add'  // 创建项目模板
+import cmpDialogProSetting from './dialog-pro-model-setting'
 export default {
   components: {
-    cmpProModel,
+    cmpDialogProSetting,
   },
   data() {
     return {
@@ -114,7 +114,7 @@ export default {
     },
     // 创建项目模板
     addProModel() {
-      this.$refs.dialogProModel.init()
+      this.$refs.dialogProSetting.init()
     },
     // 选中项目
     handleSelect(item) {
@@ -175,6 +175,7 @@ export default {
   }
   .box {
     margin-bottom: 10px;
+    cursor: pointer;
   }
 }
 </style>

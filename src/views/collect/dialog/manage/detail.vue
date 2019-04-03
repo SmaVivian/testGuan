@@ -423,8 +423,8 @@ export default {
     }
     .icon-collect {
       position: absolute;
-      top: 445px;
-      left: 325px;
+      top: 340px;
+      left: 338px;
       font-size: 30px;
       z-index: 2;
     }

@@ -100,6 +100,7 @@ export default {
 
 // 侧边栏样式
 .cmp-sidebar {
+  border-radius: 5px;
   margin: 30px;
 }
 

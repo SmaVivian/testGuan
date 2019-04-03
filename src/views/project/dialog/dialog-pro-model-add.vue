@@ -49,18 +49,14 @@
         </div>
       </div>
     </el-dialog>
-
-    <cmp-dialog-pro-setting ref="dialogProSetting" @eventSetting="eventSetting"></cmp-dialog-pro-setting>
   </div>
 </template>
 
 <script>
 import cmpHeaderSub from '@cmp/header-sub'
-import cmpDialogProSetting from './dialog-pro-model-setting'
 export default {
   components: {
     cmpHeaderSub,
-    cmpDialogProSetting,  // 模板设置
   },
   data() {
     return {
@@ -110,16 +106,13 @@ export default {
     }
   },
   methods: {
-    init() {
+    init(setData) {
       this.dialogShow = true
+      setData && (this.settingData = setData)
     },
+    // 显示设置弹框
     showModelSetting() {
-      this.$refs.dialogProSetting.init()
-    },
-    // 获取项目设置弹窗数据
-    eventSetting(setData) {
-      this.settingData = setData
-      console.log('传入', this.settingData)
+      this.$emit('eventShow', '')
     },
     // 新建任务看板
     addTaskPanel() {

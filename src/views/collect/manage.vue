@@ -6,7 +6,10 @@
         <top/>
       </div>
       <!-- 侧边栏 -->
+      <div class="con">
         <sidebar :menuList="sidebarData" :activeIndex="`/collect/manage`" class="sidebarCont"></sidebar>
+      </div>
+        
       <div class="content">
         <!-- 搜索内容 -->
         <div class="search-content">
@@ -14,7 +17,7 @@
            <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
             <el-breadcrumb-item><a href="javascript:;">藏品管理</a></el-breadcrumb-item>
           </el-breadcrumb> 
-          <el-input placeholder="请输入总登记号 / 藏品名称搜索" v-model="searchName" class="titSearch">
+          <el-input placeholder="请输入总登记号 / 藏品名称搜索" v-model="search" class="titSearch">
             <i slot="prefix" class="el-input__icon el-icon-search"></i>
           </el-input>
           <!-- 搜索详情 -->
@@ -23,11 +26,12 @@
             <div class="sch">
               <div class="sch-type">全部结果 :</div>
               <div>
-                <el-tag :key="tag" v-for="tag in dynamicTags" closable :disable-transitions="false" @close="handleClose(tag)">
+                <el-tag :key="tag" v-for="tag in dynamicTags" closable :disable-transitions="false" @close="handleClose(tag)" ref="tag">
                   {{tag}}
                 </el-tag>
               </div>
-              <el-button type="primary" class="reset" size="mini" style="width:20px">重置</el-button>
+              <!-- <el-button type="primary" class="reset" size="mini" style="width:20px" @click="dynamicTags = []">重置</el-button> -->
+              <el-button type="primary" class="reset" size="mini" style="width:20px" @click="restTag(dynamicTags)">重置</el-button>
             </div>
 
             <div class="sch">
@@ -159,9 +163,21 @@
 
      <!-- 表格标签按钮点击事件 -->
      <el-dialog title="藏品标签" :visible.sync="dialogLablectVisible">
-       <lableDialog/>
+       <lableDialog :callFun = "buliLable"/>
      </el-dialog>
      
+    <el-dialog title="新建标签" :visible.sync="addLableVisible" width="350px">
+      <el-form :model="addformTag">
+        <el-form-item a:label-width="formLabelWidth" placeholder="标签名称">
+          <el-input v-model="addformTag.collection"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="addLableVisible = false">取 消</el-button>
+        <el-button type="primary" @click="addLableVisible = false">确 定</el-button>
+      </div>
+    </el-dialog>
+
      <el-dialog title="新建收藏夹" :visible.sync="addDialogLablectVisible" width="350px">
       <el-form :model="addformTag">
         <el-form-item a:label-width="formLabelWidth" placeholder="收藏夹名称">
@@ -222,9 +238,11 @@ export default {
   data() {
     return {
        // 搜索条件
+        search: "",
         searchName: "",
         inputValue: '',
         addDialogLablectVisible: false,
+        addLableVisible: false,
         addformTag:{
             collection: ''
         },
@@ -312,7 +330,6 @@ export default {
         {
           date: '2016-05-07',
           name: '翠卧牛',
-          address: '上海市普陀区金沙江路 1518 弄'
         }],
        dynamicTags: ['陶器', '东周', '未定级'],
     }
@@ -322,13 +339,22 @@ export default {
   },
 
    methods: {
-    //   onReset() {
-    //     this.$refs.ruleForm.resetFields()
-    // },
+     restTag (dynamicTags) {
+      //  this.$refs[dynamicTags].restFields;
+      this.dynamicTags = [];
+     },
+    
     handleClose(tag) {
       this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
     },
     // 弹框新建标签方法
+     buliLable() {
+      this.addLableVisible = true;
+      return;
+      this.dialogLablectVisible = false;
+    },
+    
+    // 弹框收藏夹新建方法
     fromCollection(){
       if(this.formTag.collection == 4) {
           this.addDialogLablectVisible = true;
@@ -338,7 +364,14 @@ export default {
     },
     addCollection(){
         this.addDialogLablectVisible = false;
+        this.$message({
+          message: '居中的文字',
+          center: true,
+          duration: 0,
+          colorblue,
+        });
         this.dialogCollectVisible = false;
+        this.addLableVisible = false;
     },
     // 获取商品详情
     getDetails () {
@@ -430,6 +463,7 @@ export default {
         .el-breadcrumb {
           font-size: 18px;
           line-height: 20px;
+          margin-bottom: 30px;
           background: #fff;
         } 
       }
@@ -464,9 +498,9 @@ export default {
 .reset {
   border: 1px solid #0590FF;
   width: 59px !important;
-  height: 20px;
-  line-height: 2px;
-  margin: 3px 15px;
+  height: 24px;
+  line-height: 17px;
+  margin: 0 15px;
 }
 .reset:hover {
   color: #fff;
@@ -526,7 +560,7 @@ export default {
     }
   }
   .cmp-sidebar {
-    margin: 30px;
+    margin-top: 20px;
   }
 }
 .el-table::before {
@@ -536,5 +570,4 @@ content:'';
 .el-button {
   margin-left: 5px;
 }
-
 </style>

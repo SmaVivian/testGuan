@@ -5,7 +5,31 @@
       width="900px">
       <svg-icon icon-class="dele-red" class-name="icon-dele" />
       <!-- 显示状态 -->
-      <h1 class="title" v-if="!showTitleEdit" @click="showTitleEdit=true">组织展览主题文档评审<span class="m-btn">（ 展览策划<i class="el-icon el-icon-arrow-down"></i> ）</span></h1>
+      <h1 class="title" v-if="!showTitleEdit">
+        <span @click="showTitleEdit=true">组织展览主题文档评审</span>
+
+        <el-popover
+          class="pop-wrap"
+          v-model="showTopProList"
+          placement="bottom-start"
+          trigger="click">
+          <div class="pop-wrap-top m-search-wrap">
+            <ul>
+              <li
+                v-for="(item, index) in topProList"
+                :key="index"
+                :class="{'active': item.id === topProActive.id}"
+                @click="clickTop(item)">
+                <h2>{{item.name}}</h2>
+                <i class="el-icon el-icon-check" v-if="item.id === topProActive.id"></i>
+              </li>
+            </ul>
+          </div>
+          <!-- <a class="top-menu-current" href="javascript:;" slot="reference">{{topProActive.name}}&nbsp;<i class="el-icon el-icon-arrow-down"></i></a> -->
+          <span class="m-btn" slot="reference" @click="showProList">（ {{topProActive.name}}<i class="el-icon el-icon-arrow-down"></i> ）</span>
+        </el-popover>
+        <!-- <span class="m-btn" @click="showProList">（ 展览策划<i class="el-icon el-icon-arrow-down"></i> ）</span> -->
+      </h1>
       <!-- 编辑状态 -->
       <h1 class="title" v-if="showTitleEdit" style="width: 800px;">
         <el-input v-model="form.name" style="width: 500px;"></el-input>
@@ -71,17 +95,22 @@
           </el-form-item>
 
           <el-form-item label="子任务">
-            <span class="m-btn" v-if="!showSub" @click="showSub=true;showSubInput=true;"><svg-icon icon-class="add" class-name="icon-add" />添加子任务</span>
+            <span class="m-btn" v-if="!showSub" @click="showSub=true;showSubInput=true;"><svg-icon icon-class="add" class-name="icon-add" />&nbsp;添加子任务</span>
 
             <!-- 子任务 -->
             <div class="sub-pro" v-if="showSub">
               <!-- 子任务列表 -->
               <ul class="sub-pro-list">
                 <li class="clearfix" v-for="(item, index) in subList" :key="index">
-                  <el-checkbox></el-checkbox>
+                  <label class="my-checkbox el-checkbox__input" 
+                    :class="{'is-checked': item.active}"
+                    @click.stop="toggleCheck(item)">
+                    <span class="el-checkbox__inner"></span>
+                  </label>
+                  <!-- <el-checkbox></el-checkbox> -->
                   <!-- <svg-icon icon-class="add" class-name="icon-add" /> -->
                   <img class="g-pic ml-10" src="~@images/default-head.svg" alt="">
-                  <span class="m-des ml-10">{{item.name}}</span>
+                  <span class="my-check-title m-des ml-10" :class="{'is-checked': item.active}">{{item.name}}</span>
                   <span class="time fr">{{item.date}} <i class="el-icon-close" @click="deleSubTask(item, index)"></i></span>
                 </li>
               </ul>
@@ -102,7 +131,7 @@
                 </div>
               </div>
               <!-- 子任务添加 -->
-              <span class="m-btn" v-if="!showSubInput" @click="showSubInput=true"><svg-icon icon-class="add" class-name="icon-add" />添加子任务</span>
+              <span class="m-btn" v-if="!showSubInput" @click="showSubInput=true"><svg-icon icon-class="add" class-name="icon-add" />&nbsp;添加子任务</span>
             </div>
           </el-form-item>
 
@@ -229,6 +258,22 @@ export default {
           date: '20180231 1.30'
         }
       ],
+      showTopProList: false, // 头部项目列表
+      // 顶部项目选择
+      topProActive: {
+        name: '烈火展项目',
+        id: '1'
+      },
+      topProList: [
+        {
+          name: '烈火展项目',
+          id: '1'
+        },
+        {
+          name: '文创研发项目',
+          id: '2'
+        }
+      ],
       // 子任务
       formSub: {
         info: '',
@@ -264,9 +309,22 @@ export default {
     }
   },
   methods: {
+    // 选择项目
+    clickTop(item) {
+      this.topProActive = item
+      this.showTopProList = false
+    },
+    // 完成子任务
+    toggleCheck(item) {
+      this.$set(item, 'active', !item.active)
+    },
     // 弹出子任务日期
     showSubTaskDate() {
       this.$common.openDate()
+    },
+    // 弹出项目列表
+    showProList() {
+
     },
     initDialogData() {
       this.dialogShow = true
@@ -409,6 +467,7 @@ export default {
       .time {
         color: $color6;
       }
+      
       .sub-pro-list {
         li {
           margin-bottom: 15px;
@@ -565,6 +624,29 @@ export default {
   /deep/ .el-tabs--bottom .el-tabs__item.is-top:last-child:after, 
   /deep/ .el-tabs--bottom .el-tabs__item.is-bottom:last-child:after {
     margin-left: -4px;
+  }
+}
+
+.pop-wrap-top.m-search-wrap {
+  width: 200px;
+  padding: 15px 0;
+  ul {
+    padding-right: 0;
+    li {
+      padding: 0 30px;
+      margin-top: 0;
+      line-height: 46px;
+      h2 {
+        font-weight: normal;
+      }
+      &:hover {
+        color: $primary;
+        background-color: $color4;
+      }
+      &.active h2 {
+        font-weight:bold;
+      }
+    }
   }
 }
 </style>

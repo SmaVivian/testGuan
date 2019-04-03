@@ -53,7 +53,7 @@
                   <span class="el-checkbox__inner"></span>
                 </label>
                 <!-- <el-checkbox :label="item.id" :key="item.id" @change="handleSelect(item, $event)">{{item.name}}</el-checkbox> -->
-                <span class="title">{{item.name}}</span>&nbsp;&nbsp;
+                <span class="my-check-title" :class="{'is-checked': item.id===1}">{{item.name}}</span>&nbsp;&nbsp;
                 <svg-icon icon-class="fujian" class-name="icon-add" v-if="item.id === 1" style="font-size: 16px;"/>  
               </p>
               <p>
@@ -70,7 +70,7 @@
           <el-input class="task-area" type="textarea" v-model="form.newTask" placeholder="请输入任务名称"></el-input>
           <h4>
             <span>
-              <svg-icon icon-class="add" class-name="icon-item"/>
+              <svg-icon icon-class="date" class-name="icon-item"/>&nbsp;
               <el-date-picker
                 class="cus-btn-date"
                 v-model="form.deadline"
@@ -89,7 +89,7 @@
               <cmp-leader-list ref="cmpLeaderList1" :itemGroup="itemGroup" :lastPersonList="lastPersonList" :callFun="handleChooseAdd"></cmp-leader-list>
 
               <span class="operate ml-20" slot="reference" @click="showLeaderList">
-                <svg-icon icon-class="add" class-name="icon-item"/>
+                <svg-icon icon-class="chengyuan" class-name="icon-item icon-chengyuan"/>
                 {{form.leader || '负责人'}}
               </span>
             </el-popover>
@@ -275,6 +275,10 @@ export default {
     color: #9699A2;
   }
 }
+.icon-chengyuan {
+  color: $primary;
+  font-size: 14px;
+}
 .cmp-drag {
   .drag-list {
     padding: 20px;
@@ -365,12 +369,6 @@ export default {
       }
     }
 
-    .el-checkbox {
-      margin-right: 10px;
-      &.is-checked + .title {
-        text-decoration: line-through;
-      }
-    }
     /deep/ .el-checkbox__label {
       display: none;
     }

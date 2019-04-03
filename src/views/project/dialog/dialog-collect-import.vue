@@ -17,10 +17,10 @@
 
           <!-- 已选择 -->
           <h3>
-            <svg-icon icon-class="add" class-name="icon-info" />
-            已选择2项
+            <svg-icon icon-class="info" style="font-size:13px;" />
+            已选择{{this.selectList.length}}项
             <i class="g-line-split gray ml-20 mr-20"></i>
-            <span class="m-btn">清空</span>
+            <span class="m-btn" @click="clickClear">清空</span>
           </h3>
 
           <!-- 操作 -->
@@ -32,32 +32,42 @@
 
         <div class="content-box">
           <!-- 侧边栏 -->
-          <sidebar :menuList="sidebarData" :activeIndex="`/project`"></sidebar>
+          <div class="menu-box fl">
+            <!-- <span>我的收藏夹</span> -->
+            <li class="el-menu-item el-menu-title" style="padding-left: 20px;"><span>我的收藏夹</span></li>
+            <sidebar :menuList="sidebarData" :activeIndex="`/noJump?type=1`" :callFun="handleTab"></sidebar>
+          </div>
 
           <!-- 列表 -->
           <div class="content">
             <div class="collect-list-box">
               <div class="total-box"><h3><strong>20</strong>件藏品</h3></div>
               <h1 class="title">明清书画</h1>
-              <h3>2018-6-11 18:10创建<span class="m-btn fr">全选</span></h3>
+              <h3>
+                2018-6-11 18:10创建
+                <span class="m-btn fr" @click="allSelect">{{hasAllSelect ? '取消全选': '全选'}}</span>
+              </h3>
 
-              <el-row class="collect-list">
-                <el-col :span="4" class="it" v-for="item in 10">
-                  <label class="my-checkbox el-checkbox__input" 
-                    :class="{'is-checked': item === 1}"
-                    @click.stop="toggleCheck(item)">
-                    <span class="el-checkbox__inner"></span>
-                  </label>
-                  <img src="~@images/default-pic.svg" alt="" @click="showDetail">
-                  <h4 class="tc ell">唐玛瑙花瓣盆</h4>
-                  <!-- <el-checkbox-group v-model="checkList">
-                    <el-checkbox label="复选框 A"></el-checkbox>
-                    <el-checkbox label="复选框 B"></el-checkbox>
-                    <el-checkbox label="复选框 C"></el-checkbox>
-                    <el-checkbox label="禁用" disabled></el-checkbox>
-                    <el-checkbox label="选中且禁用" disabled></el-checkbox>
-                  </el-checkbox-group> -->
-                </el-col>
+              <el-row :gutter="30" class="collect-list">
+                <el-col :span="4" 
+                  v-for="(item, index) in dataList"
+                  @click.native="toggleCheck(item)">
+                  <div class="it" :class="{'is-checked': item.active}">
+                    <label class="my-checkbox el-checkbox__input" 
+                      :class="{'is-checked': item.active}">
+                      <span class="el-checkbox__inner"></span>
+                    </label>
+                    <img src="~@images/default-pic.svg" alt="">
+                    <h4 class="tc ell">唐玛瑙花瓣盆</h4>
+                    <!-- <el-checkbox-group v-model="checkList">
+                      <el-checkbox label="复选框 A"></el-checkbox>
+                      <el-checkbox label="复选框 B"></el-checkbox>
+                      <el-checkbox label="复选框 C"></el-checkbox>
+                      <el-checkbox label="禁用" disabled></el-checkbox>
+                      <el-checkbox label="选中且禁用" disabled></el-checkbox>
+                    </el-checkbox-group> -->
+                  </div>
+                  </el-col>
               </el-row>
             </div>
           </div>
@@ -65,55 +75,123 @@
       </div>
     </el-dialog>
 
-    <cmp-swiper-collect ref="swiperModel"></cmp-swiper-collect>
+    <!-- <cmp-swiper-collect ref="swiperModel"></cmp-swiper-collect> -->
   </div>
 </template>
 
 <script>
 import sidebar from '@cmp/sidebar'
-import cmpSwiperCollect from '@cmp/swiper-collect'
+// import cmpSwiperCollect from '@cmp/swiper-collect'
 export default {
   components: {
     sidebar,
-    cmpSwiperCollect,
+    // cmpSwiperCollect,
   },
   data() {
     return {
-      checkList: ['选中且禁用','复选框 A'],
+      // checkList: ['选中且禁用','复选框 A'],
       dialogShow: false,
+      hasAllSelect: false,  // 是否已全选
       sidebarData: [
         {
-          name: '我的收藏夹',
+          name: '明清书画（20）',
           icon: '',
-          index: '/project',
+          index: '/noJump?type=1',
+          type: '1'
+        },
+        {
+          name: '明清书画（21）',
+          icon: '',
+          index: '/noJump?type=2',
+          type: '2'
         },
         {
           name: '明清书画（20）',
-          icon: 'pro',
-          index: '/aa1'
-        },
-        {
-          name: '明清书画（20）',
-          icon: 'pro',
-          index: '/aa'
+          icon: '',
+          index: '/noJump?type=3',
+          type: '3'
         },
       ],
+      dataList: [
+        {
+          num: 1,
+          id: 123
+        },
+        {
+          num: 1,
+          id: 12
+        },
+        {
+          num: 1,
+          id: 124
+        },
+        {
+          num: 1,
+          id: 125
+        },
+        {
+          num: 1,
+          id: 126
+        },
+        {
+          num: 1,
+          id: 127
+        },
+        {
+          num: 1,
+          id: 1266
+        },
+        {
+          num: 1,
+          id: 1274
+        },
+      ],
+      selectList: []
     }
   },
   methods: {
     init() {
       this.dialogShow = true
     },
+    handleTab(item) {
+      console.log('类型', this.$common.getStrParam(item, 'type'))
+    },
     // 选择
     toggleCheck(item) {
-      console.log(item)
-      item = 2;
+      if(item.active) {
+        let index = this.selectList.findIndex(it => it.id === item.id)
+        this.selectList.splice(index, 1)
+      } else {
+        this.selectList.push(item)
+      }
+      
+      this.$set(item, 'active', !item.active)
     },
-    showDetail() {
-      this.$refs.swiperModel.init()
-    },
-    add() {
+    // 全选、取消全选
+    allSelect() {
+      this.dataList.forEach(item => {
+        this.$set(item, 'active', !this.hasAllSelect)
+      })
+      this.hasAllSelect = !this.hasAllSelect
+      this.selectList = this.hasAllSelect ? JSON.parse(JSON.stringify(this.dataList)) : []
 
+      console.log(this.selectList)
+    },
+    // 清空
+    clickClear() {
+      this.dataList.forEach(item => {
+        this.$set(item, 'active', false)
+      })
+      this.hasAllSelect = false
+      this.selectList = []
+    },
+    // 藏品详情 暂不要
+    // showDetail() {
+    //   this.$refs.swiperModel.init()
+    // },
+    // 添加藏品
+    add() {
+      console.log(this.selectList)
     }
   }
 }
@@ -139,6 +217,24 @@ export default {
   }
   .content-box {
     padding: $paddingWidth;
+    .menu-box {
+      /deep/ .el-menu {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+      } 
+      /deep/ .el-menu-item {
+        padding-left: 35px !important;
+      }
+      .el-menu-title.el-menu-item {
+        padding-left: 40px !important;
+        font-size:18px;
+        color: $color5;
+        font-weight: bold;
+        background-color: #fff;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+      }
+    }
     .content {
       padding-left: 230px;
       .collect-list-box {
@@ -161,8 +257,22 @@ export default {
         .collect-list {
           margin-top: 30px;
           .it {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
             position: relative;
             padding: 35px;
+            margin-bottom: 30px;
+            cursor: pointer;
+            border-radius:4px;
+            border:2px solid transparent;
+            &.is-checked {
+              border:2px solid $primary;
+            }
+            &:hover {
+              background: $color3;
+            }
             .my-checkbox {
               position: absolute;
               top: 10px;
@@ -174,9 +284,10 @@ export default {
             }
             h4 {
               width: 115px;
-              position: absolute;
-              left: 25px;
-              bottom: 0;
+              // position: absolute;
+              // left: 25px;
+              // bottom: 0;
+              line-height: 35px;
             }
           }
         }

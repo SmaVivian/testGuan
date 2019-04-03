@@ -43,7 +43,7 @@
             <el-table-column align="center" prop="name" label="审批状态"></el-table-column>
             <el-table-column fixed="right" align="center" label="操作">
               <template>
-                <a class="m-btn" @click="dialogLablectVisible = true" type="text" size="small">审批</a>
+                <a class="m-btn" @click="dialogEnterVisible = true" type="text" size="small">审批</a>
               </template>
             </el-table-column>
             </el-table>
@@ -58,19 +58,25 @@
               @current-change="handleCurrentChange"/>
             </div>
         </div>
-          </div>
         </div>
       </div>
     </div>
+
+    <el-dialog title="藏品入馆审批"  class="approval" :visible.sync="dialogEnterVisible" width="900px" >
+      <outDialog />
+    </el-dialog>
   </div>
 </template>
 
 <script>
+import outDialog from '../dialog/approval/wait/outDialog'
 export default {
   components: {
+    outDialog
   },
   data() {
     return {
+      dialogEnterVisible: false,
       form: {
         name: '',
         region: '',

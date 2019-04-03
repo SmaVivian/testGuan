@@ -34,6 +34,9 @@
 
 <script>
 export default {
+   props: {
+    callFun: Function
+  },
   data() {
     return {
       inputVisible: false,
@@ -53,20 +56,12 @@ export default {
     handleClose(tag) {
       this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
     },
-     fromCollection(){
-          //  alert(this.formTag.collection)
-           if(this.formTag.collection == 4) {
-              //  alert(1)
-               this.addDialogLablectVisible = true;
-               return;
-           }
-           this.dialogCollectVisible = false
-       },
-       addCollection(){
-        this.addDialogLablectVisible = false;
-        this.dialogCollectVisible = false;
-      },
-    }
+    fromCollection(){
+      if(this.formTag.collection == 4) {
+        this.callFun && this.callFun()
+      }
+    },
+  }
 };
 </script>
 <style lang="scss">

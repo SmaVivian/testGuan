@@ -17,7 +17,6 @@
          <div class="add ">
            <a class="m-btn" @click="dialogLablectVisible = true" type="text" size="small">新增库房</a>
          </div>
-        
           <div class="add" v-for="(item, index) in 11" :key="index">           
            <h4>青铜器库房</h4>
             <h3>存放藏品 : 34件</h3>
@@ -96,8 +95,6 @@ export default {
     }
   }
   padding: 25px 30px 40px 240px;
- 
-  
 }
   // 侧边栏样式
 .cmp-sidebar[data-v-46eefe02] {
@@ -109,6 +106,7 @@ export default {
   height: 155px;
   border: 1px dashed #0590FF;
   margin: 30px;
+
     .m-btn {
       line-height: 156px;
       margin-left: 35%;
