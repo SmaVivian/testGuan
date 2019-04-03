@@ -54,6 +54,9 @@ export const common = {
       return value || 0
     })
     return time_str
+  },
+  openDate: function(ele) {
+    document.getElementById(ele || 'openDate').focus()
   }
 }
 

@@ -6,6 +6,7 @@
     width="700px"
     title="移动至">
     <el-row>
+      <el-input class="search g-search-box" suffix-icon="el-icon-search" v-model="key" placeholder="搜索项目文档"></el-input>
       <!-- <el-col :span="8" class="picker">
         <ul>
           <li v-for="(item, index) in dataList" :key="index" @click="clickPicker(item, $event)">{{item.name}}</li>
@@ -126,7 +127,8 @@ export default {
       viewList: [],
       leftList: [],  // 左侧选项
       rightList: [],  // 右侧文件夹
-      moveId: ''
+      moveId: '',
+      key: ''
     }
   },
   watch: {
@@ -207,6 +209,12 @@ export default {
 
 <style lang="scss" scoped>
 .modal-file {
+  .search {
+    position: absolute;
+    top: -60px;
+    width: 200px;
+    right: 0;
+  }
   /deep/ .el-dialog__header {
     padding-bottom: 30px;
     border-bottom: solid 1px $border;

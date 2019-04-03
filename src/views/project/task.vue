@@ -16,11 +16,11 @@
     <div class="content">
       <el-row :gutter="20">
         <el-col :xs="6" :sm="6" :md="6" :xl="4" v-for="(item, index) in list" :key="index">
-          <drag-list ref="drag" :list="item.arrList" :itemGroup="item" :lastPersonList="lastPersonList" @showProDialog="showDialog"/>
+          <drag-list ref="drag" :list="item.arrList" :itemGroup="item" :lastPersonList="lastPersonList" @showProDialog="showDialog" :callFun="addTaskPanel"/>
         </el-col>
         <el-col :xs="6" :sm="6" :md="6" :xl="4">
           <el-card class="panel-add-wrap">
-            <p class="panel-add m-assist"><svg-icon icon-class="add" class-name="icon-add" />&nbsp;新建任务看板</p>
+            <p class="panel-add m-assist" @click="addTaskPanel()"><svg-icon icon-class="add" class-name="icon-add" />&nbsp;新建任务看板</p>
             <!-- <el-button plain>新建任务看板</el-button> -->
           </el-card>
         </el-col>
@@ -114,7 +114,30 @@ export default {
     },
     showDialog() {
       this.$refs.dialogPro.initDialogData()
-    }
+    },
+    // 新建、修改任务看板
+    addTaskPanel(title) {
+      this.$prompt('', title || '新建任务看板', {
+        showClose: true,
+        showCancelButton: false,
+        confirmButtonText: '确定',
+        inputPlaceholder: '看板名称',
+        inputPattern: /^[\S]{2,6}$/,
+        inputErrorMessage: '请输入2到5位非空字符',
+        // center: true
+      }).then(({ value }) => {
+        console.log(value)
+        // this.$message({
+        //   type: 'success',
+        //   message: '你的邮箱是: ' + value
+        // });
+      }).catch(() => {
+        // this.$message({
+        //   type: 'info',
+        //   message: '取消输入'
+        // });       
+      });
+    },
   },
   mounted() {
     document.addEventListener('click', this.hidePanel, false)

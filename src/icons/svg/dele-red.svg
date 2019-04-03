@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+    <title>弹窗1_删除任务</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="弹窗1" transform="translate(-1099.000000, -117.000000)">
+            <g id="弹窗1_删除任务" transform="translate(1100.000000, 118.000000)">
+                <path d="M6.25,2.29724324 L3.75,2.29724324 L3.75,1.21616216 C3.75,0.619135135 4.19775,0.135081081 4.75,0.135081081 L5.25,0.135081081 C5.80225,0.135081081 6.25,0.619135135 6.25,1.21616216 L6.25,2.29724324 Z" id="Stroke-1" stroke="#EB0101"></path>
+                <path d="M7.25,9.86481083 L2.75,9.86481083 C2.19775,9.86481083 1.75,9.38075675 1.75,8.78372975 L1.75,2.29724324 L8.25,2.29724324 L8.25,8.78372975 C8.25,9.38075675 7.80225,9.86481083 7.25,9.86481083 Z" id="Stroke-3" stroke="#EB0101"></path>
+                <path d="M0.125,2.29724324 L9.875,2.29724324" id="Stroke-5" stroke="#F25151"></path>
+            </g>
+        </g>
+    </g>
+</svg>

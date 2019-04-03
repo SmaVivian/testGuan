@@ -1,21 +1,31 @@
 <template>
   <div class="g-content">
     <div class="page-exhibits">
+      <!-- 操作 -->
       <div class="btns-warap clearfix">
         <div class="left fl">
-          <el-button class="el-primary-border" @click="addCollect">添加藏品</el-button>
-          <el-button class="el-primary-border" @click="importCollect">从收藏夹导入</el-button>
-          <el-button class="el-primary-border">导出</el-button>
-          <el-button class="el-primary-border">移除</el-button>
-          <el-button class="el-primary-border">搜索</el-button>
+          <el-button class="el-primary-border" @click="addCollect"><svg-icon icon-class="add" class-name="icon-add" />&nbsp;添加藏品</el-button>
+          <el-button class="el-primary-border" @click="importCollect"><svg-icon icon-class="daoru" />&nbsp;从收藏夹导入</el-button>
+          <el-button class="el-primary-border" @click="exportItem"><svg-icon icon-class="daochu" />&nbsp;导出</el-button>
+          <el-button class="el-primary-border" @click="dele"><i class="el-icon-close"></i>&nbsp;移除</el-button>
+
+          <el-button class="el-primary-border" v-if="!showSearch" @click="showSearch=true"><i class="el-icon-search"></i>&nbsp;搜索</el-button>
+          <el-input class="input-block ml-20" suffix-icon="el-icon-search g-icon-search" 
+            style="width:300px;" 
+            placeholder="输入关键字" 
+            @keyup.enter.native="getDataList"
+            v-if="showSearch" 
+            v-model="listQuery.key">
+          </el-input>
         </div>
-        <a href="javascript:;" class="btn-view m-btn fr">查看管内藏品</a>
-        <!-- <el-button class="fr" type="primary">查看管内藏品</el-button> -->
+        <!-- <a href="javascript:;" class="btn-view m-btn fr">查看管内藏品</a> -->
       </div>
 
+      <!-- 列表 -->
       <el-table
       v-loading="listLoading"
       :data="list"
+      @selection-change="handleSelectionChange"
       element-loading-text="Loading"
       stripe
       highlight-current-row>
@@ -23,12 +33,17 @@
           type="selection"
           width="55">
         </el-table-column>
-        <el-table-column align="center" label="序号" width="95">
+        <el-table-column align="center" label="序号" width="70">
           <template slot-scope="scope">
             {{ scope.$index }}
           </template>
         </el-table-column>
-        <el-table-column label="分类号" width="110">
+        <el-table-column v-for="(item, index) in titleList" :label="item.name">
+          <template slot-scope="scope">
+            {{ scope.row.title }}
+          </template>
+        </el-table-column>
+        <!-- <el-table-column label="分类号" width="110">
           <template slot-scope="scope">
             {{ scope.row.title }}
           </template>
@@ -56,10 +71,9 @@
         </el-table-column>
         <el-table-column align="center" prop="created_at" label="具体质量" width="110">
           <template slot-scope="scope">
-            {{ scope.row.count }}
-            <!-- <el-tag :type="scope.row.status | statusFilter">{{ scope.row.statusStr }}</el-tag> -->
+            <el-tag :type="scope.row.status | statusFilter">{{ scope.row.statusStr }}</el-tag>
           </template>
-        </el-table-column>
+        </el-table-column> -->
 
         <!-- <el-table-column align="center" label="操作" width="200">
           <template slot-scope="scope">
@@ -72,13 +86,15 @@
           </template>
         </el-table-column> -->
       </el-table>
+
+      <!-- 分页 -->
       <div class="pagination-container">
         <el-pagination
           :current-page="listQuery.currentPage"
           :page-size="listQuery.size"
           :total="total"
           background
-          layout="total, prev, pager, next"
+          layout="total, prev, pager, next, sizes, jumper"
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"/>
       </div>
@@ -109,13 +125,36 @@ export default {
   },
   data() {
     return {
+      showSearch: false,
       list: null,
       total: 0,
       listLoading: true,
       listQuery: {
+        key: '',
         currentPage: 1,
-        size: 5
-      }
+        size: 10
+      },
+      titleList: [
+        {
+          name: '分类号'
+        },
+        {
+          name: '藏品名称'
+        },
+        {
+          name: '质地'
+        },
+        {
+          name: '年代'
+        },
+        {
+          name: '尺寸'
+        },
+        {
+          name: '具体质量'
+        },
+      ],
+      multipleSelection: []
     }
   },
   methods: {
@@ -125,6 +164,32 @@ export default {
     // 导入藏品
     importCollect() {
       this.$refs.importCollectDialog.init()
+    },
+    // 导出
+    exportItem() {
+      if(!this.multipleSelection.length) {
+        this.$message({
+          message: '请选择藏品',
+          type: 'warning'
+        })
+        return
+      }
+      console.log(this.multipleSelection)
+    },
+    // 移除
+    dele() {
+      if(!this.multipleSelection.length) {
+        this.$message({
+          message: '请选择藏品',
+          type: 'warning'
+        })
+        return
+      }
+      console.log(this.multipleSelection)
+    },
+    // 勾选复选框
+    handleSelectionChange(val) {
+      this.multipleSelection = val
     },
     getDataList() {
       this.listLoading = true

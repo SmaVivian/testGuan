@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="15px" viewBox="0 0 12 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+    <title>藏品系统首页_公开藏品</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="藏品系统首页" transform="translate(-405.000000, -573.000000)" stroke="#0590FF">
+            <g id="藏品系统首页_公开藏品" transform="translate(406.000000, 574.000000)">
+                <path d="M5.83333333,7.15 L5.83333333,10.4953206" id="直线" stroke-linecap="round"></path>
+                <ellipse id="椭圆形" cx="5.83333333" cy="8.66666667" rx="4.16666667" ry="4.33333333"></ellipse>
+                <path d="M0,4.33333333 L0,2.70722389 C0,1.21206542 1.30583615,0 2.91666667,0 C4.52749719,0 5.83333333,1.21206542 5.83333333,2.70722389 L5.83333333,4.33333333" id="路径" stroke-linecap="round"></path>
+            </g>
+        </g>
+    </g>
+</svg>

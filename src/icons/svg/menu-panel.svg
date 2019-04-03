@@ -1,16 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="19px" height="19px" viewBox="0 0 19 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
-    <title>任务看板-拖拽_看板视图</title>
-    <desc>Created with Sketch.</desc>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="任务看板-拖拽" transform="translate(-1278.000000, -101.000000)" stroke="#575962">
-            <g id="任务看板-拖拽_看板视图" transform="translate(1278.000000, 100.000000)">
-                <rect id="矩形" x="0.5" y="2.5" width="7" height="7" rx="2"></rect>
-                <rect id="矩形-copy" x="0.5" y="12.5" width="7" height="7" rx="2"></rect>
-                <rect id="矩形-copy-2" x="10.5" y="12.5" width="7" height="7" rx="2"></rect>
-                <rect id="矩形-copy-3" transform="translate(14.000000, 6.000000) rotate(-45.000000) translate(-14.000000, -6.000000) " x="10.5" y="2.5" width="7" height="7" rx="2"></rect>
-            </g>
-        </g>
-    </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.83 19.8"><defs><style>.cls-1{ }</style></defs><title>资源 63</title><g id="图层_2" data-name="图层 2"><g id="图层_1-2" data-name="图层 1"><path class="cls-1" d="M6.5,9.8h-4A2.5,2.5,0,0,1,0,7.3v-4A2.51,2.51,0,0,1,2.5.8h4A2.51,2.51,0,0,1,9,3.3v4A2.5,2.5,0,0,1,6.5,9.8Zm-4-8A1.5,1.5,0,0,0,1,3.3v4A1.5,1.5,0,0,0,2.5,8.8h4A1.5,1.5,0,0,0,8,7.3v-4A1.5,1.5,0,0,0,6.5,1.8Z"/><path class="cls-1" d="M6.5,19.8h-4A2.5,2.5,0,0,1,0,17.3v-4a2.51,2.51,0,0,1,2.5-2.5h4A2.51,2.51,0,0,1,9,13.3v4A2.5,2.5,0,0,1,6.5,19.8Zm-4-8A1.5,1.5,0,0,0,1,13.3v4a1.5,1.5,0,0,0,1.5,1.5h4A1.5,1.5,0,0,0,8,17.3v-4a1.5,1.5,0,0,0-1.5-1.5Z"/><path class="cls-1" d="M16.5,19.8h-4A2.5,2.5,0,0,1,10,17.3v-4a2.51,2.51,0,0,1,2.5-2.5h4A2.51,2.51,0,0,1,19,13.3v4A2.5,2.5,0,0,1,16.5,19.8Zm-4-8A1.5,1.5,0,0,0,11,13.3v4a1.5,1.5,0,0,0,1.5,1.5h4A1.5,1.5,0,0,0,18,17.3v-4a1.5,1.5,0,0,0-1.5-1.5Z"/><path class="cls-1" d="M14.5,10.63a2.49,2.49,0,0,1-1.77-.73L9.9,7.07a2.5,2.5,0,0,1,0-3.53L12.73.71a2.55,2.55,0,0,1,3.54,0L19.1,3.54a2.5,2.5,0,0,1,0,3.53L16.27,9.9A2.49,2.49,0,0,1,14.5,10.63ZM10.61,4.24a1.51,1.51,0,0,0,0,2.13l2.83,2.82a1.53,1.53,0,0,0,2.12,0l2.83-2.82a1.51,1.51,0,0,0,0-2.13L15.56,1.42a1.53,1.53,0,0,0-2.12,0Z"/></g></g></svg>

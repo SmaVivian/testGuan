@@ -39,6 +39,7 @@
         <el-button type="primary" @click="dialogOpenctVisible = false">提交</el-button>
       </div>
     </el-dialog>
+
     <el-dialog title="选择出库藏品" :visible.sync="dialogCollectVisible" width="900px">
       <el-input
         placeholder="请输入"
@@ -68,6 +69,7 @@
         <el-button type="primary" @click="dialogOpenctVisible = false">提交</el-button>
       </div>
     </el-dialog>
+    
     <el-dialog title="出库类型" :visible.sync="dialogTypeVisible" width="300px">
       <el-form :model="form">
         <el-form-item a:label-width="formLabelWidth">
@@ -86,6 +88,7 @@
         <el-button type="primary" @click="dialogEnterVisible = true">确 定</el-button>
       </div>
     </el-dialog>
+    
     <!-- 点击图片上传图片 -->
     <el-dialog title="上传藏品照片" :visible.sync="dialogPhotosVisible" width="470px">
       <div class="labelTable clearfix">
@@ -115,11 +118,11 @@
         <el-button type="primary">确 定</el-button>
       </div>
     </el-dialog>
-    <!-- 审批计划 -->
+   
     <el-dialog title="征集计划审批"  class="approval" :visible.sync="dialogSolicitationVisible" width="900px" >
       <solicitationDialog />
     </el-dialog>
-    <!-- 藏品入馆 -->
+
     <el-dialog title="藏品入馆审批"  class="approval" :visible.sync="dialogEnterVisible" width="900px" >
       <enterDialog/>
     </el-dialog>

@@ -29,33 +29,9 @@
               <h3 @click="handleOperate(itemGroup, 4)">删除看板</h3>
             </div>
 
-            <!-- 搜索悬浮面板 -->
-            <div class="m-search-wrap" v-if="!showMenu">
-              <div class="input-box">
-                <el-input class="input-block" 
-                  v-model="key" 
-                  suffix-icon="el-icon-search"
-                  placeholder="输入姓名搜索">
-                </el-input>
-              </div>
-              <ul>
-                <!-- 是否有责任人 -->
-                <li>
-                  <img src="~@images/default-head.svg" alt="">
-                  <h3>{{currentItem.leader || '待认领'}}</h3>
-                  <i class="el-icon el-icon-check" v-if="currentItem.leader"></i>
-                  <!-- <svg-icon icon-class="add" class-name="icon-add" /> -->
-                </li>
+            <!-- 搜索负责人列表 悬浮面板 -->
+            <cmp-leader-list ref="cmpLeaderList" :itemGroup="itemGroup" :lastPersonList="lastPersonList" :callFun="handleChoose"></cmp-leader-list>
 
-                <!-- 最常协作 -->
-                <p class="m-tips mt-20 mb-10">最常协作</p>
-                <li class="lists" v-for="(item, index) in personList" :key="index" @click="handleChoose(item)">
-                  <img src="~@images/default-head.svg" alt="">
-                  <h3>{{item.name}}</h3>
-                  <!-- <i class="el-icon el-icon-check"></i> -->
-                </li>
-              </ul>
-            </div>
           </div>
           <span class="operate" slot="reference" @click="clickMenu"><i class="el-icon el-icon-more"></i></span>
         </el-popover>
@@ -64,31 +40,62 @@
       <div class="content">
         <!-- <el-checkbox-group v-model="checkedList" @change="handleChange"> -->
         <draggable class="list-group" :list="list" :options="{group:'task'}" @change="log">
-            <div class="list-group-item"
-              :class="{'tip waning': item.id === 1, 'tip rush': item.id === 2}"
-              @click="showDetailDialog(item)"
-              v-for="(item, index) in list"
-              :key="index">
-              <div class="group-item">
-                <p>
-                  <label class="my-checkbox el-checkbox__input" 
-                    :class="{'is-checked': item.id === 1}"
-                    @click.stop="toggleCheck(item)">
-                    <span class="el-checkbox__inner"></span>
-                  </label>
-                  <!-- <el-checkbox :label="item.id" :key="item.id" @change="handleSelect(item, $event)">{{item.name}}</el-checkbox> -->
-                  <span class="title">{{item.name}}</span>&nbsp;&nbsp;
-                  <svg-icon icon-class="add" class-name="icon-add" v-if="item.id === 1"/>  
-                </p>
-                <p>
-                  <label class="person m-assist">胡强&nbsp;&nbsp;20180803</label>
-                </p>
-              </div>
+          <div class="list-group-item"
+            :class="{'tip waning': item.id === 1, 'tip rush': item.id === 2}"
+            @click="showDetailDialog(item)"
+            v-for="(item, index) in list"
+            :key="index">
+            <div class="group-item">
+              <p>
+                <label class="my-checkbox el-checkbox__input" 
+                  :class="{'is-checked': item.id === 1}"
+                  @click.stop="toggleCheck(item)">
+                  <span class="el-checkbox__inner"></span>
+                </label>
+                <!-- <el-checkbox :label="item.id" :key="item.id" @change="handleSelect(item, $event)">{{item.name}}</el-checkbox> -->
+                <span class="title">{{item.name}}</span>&nbsp;&nbsp;
+                <svg-icon icon-class="fujian" class-name="icon-add" v-if="item.id === 1" style="font-size: 16px;"/>  
+              </p>
+              <p>
+                <label class="person m-assist">胡强&nbsp;&nbsp;2018/08/03</label>
+              </p>
             </div>
+          </div>
         </draggable>
         <!-- </el-checkbox-group> -->
 
-        <p class="panel-add m-assist"><svg-icon icon-class="add" class-name="icon-add" />&nbsp;添加新任务</p>
+        <!-- 添加新任务 -->
+        <p class="panel-add m-assist" v-if="!showAddTask" @click="showAddTask=true"><svg-icon icon-class="add" class-name="icon-add" />&nbsp;添加新任务</p>
+        <div class="task-add-box" v-if="showAddTask">
+          <el-input class="task-area" type="textarea" v-model="form.newTask" placeholder="请输入任务名称"></el-input>
+          <h4>
+            <span>
+              <svg-icon icon-class="add" class-name="icon-item"/>
+              <el-date-picker
+                class="cus-btn-date"
+                v-model="form.deadline"
+                @change="handleOperate(itemGroup, 3)"
+                type="date"
+                placeholder="截止时间">
+              </el-date-picker>
+            </span>
+
+            <el-popover
+            class="pop-wrap"
+            placement="top-start"
+            v-model="addLeaderPopover"
+            trigger="click">
+              <!-- 搜索负责人列表 悬浮面板 -->
+              <cmp-leader-list ref="cmpLeaderList1" :itemGroup="itemGroup" :lastPersonList="lastPersonList" :callFun="handleChooseAdd"></cmp-leader-list>
+
+              <span class="operate ml-20" slot="reference" @click="showLeaderList">
+                <svg-icon icon-class="add" class-name="icon-item"/>
+                {{form.leader || '负责人'}}
+              </span>
+            </el-popover>
+          </h4>
+          <el-button class="mg-20 mb-10" type="primary" @click="submitAddTask">确定</el-button>
+        </div>
       </div>
 
     </el-card>
@@ -97,10 +104,11 @@
 
 <script>
 import draggable from 'vuedraggable'
+import cmpLeaderList from '@cmp/leader-list'
 
 export default {
   name: 'DragList',
-  components: { draggable },
+  components: { draggable, cmpLeaderList },
   props: {
     list: {
       type: Array,
@@ -115,6 +123,8 @@ export default {
         return []
       }
     },
+    // 回调
+    callFun: Function,
     itemGroup: Object
   },
   computed: {
@@ -129,9 +139,16 @@ export default {
     return {
       key: '',
       showPopover: false,
+      addLeaderPopover: false, // 添加任务负责人面板
       showMenu: true,  // 显示菜单面板
       checkedList: [1, 2, 5, 9],
-      chooseDate: ''
+      chooseDate: '',
+      showAddTask: false,
+      form: {
+        newTask: '',  //新任务名称
+        deadline: '',  //截止时间
+        leader: ''
+      }
     }
   },
   methods: {
@@ -146,16 +163,22 @@ export default {
     },
     clickMenu() {
       this.showMenu = true
+      this.$refs.cmpLeaderList.init()
+    },
+    showLeaderList() {
+      this.$refs.cmpLeaderList1.showList()
     },
     // 点击菜单面板
     handleOperate(item, type) {
       switch(type) {
         case 1:
           this.showPopover = false
-          this.addTaskPanel('修改看板名称')
+          this.callFun && this.callFun('修改看板名称')
+          // this.addTaskPanel('修改看板名称')
           break
         case 2:
           this.showMenu = false  // 任务负责人
+          this.$refs.cmpLeaderList.showList()  // 负责人列表
           break
         case 3:
           console.log(this.chooseDate && this.$common.parseTime(this.chooseDate, '{y}-{m}-{d}'))
@@ -168,55 +191,66 @@ export default {
       console.log(type)
     },
     // 新建、修改任务看板
-    addTaskPanel(title) {
-      this.$prompt('', title || '新建任务看板', {
-        showClose: true,
-        showCancelButton: false,
-        confirmButtonText: '确定',
-        inputPlaceholder: '看板名称',
-        inputPattern: /^[\S]{2,6}$/,
-        inputErrorMessage: '请输入2到5位非空字符',
-        // center: true
-      }).then(({ value }) => {
-        console.log(value)
-        // this.$message({
-        //   type: 'success',
-        //   message: '你的邮箱是: ' + value
-        // });
-      }).catch(() => {
-        // this.$message({
-        //   type: 'info',
-        //   message: '取消输入'
-        // });       
-      });
-    },
-    // 选择任务负责人
+    // addTaskPanel(title) {
+    //   this.$prompt('', title || '新建任务看板', {
+    //     showClose: true,
+    //     showCancelButton: false,
+    //     confirmButtonText: '确定',
+    //     inputPlaceholder: '看板名称',
+    //     inputPattern: /^[\S]{2,6}$/,
+    //     inputErrorMessage: '请输入2到5位非空字符',
+    //     // center: true
+    //   }).then(({ value }) => {
+    //     console.log(value)
+    //     // this.$message({
+    //     //   type: 'success',
+    //     //   message: '你的邮箱是: ' + value
+    //     // });
+    //   }).catch(() => {
+    //     // this.$message({
+    //     //   type: 'info',
+    //     //   message: '取消输入'
+    //     // });       
+    //   });
+    // },
+    // 选择本看板所有任务负责人
     handleChoose(item) {
       this.currentItem.leader = item.name
       this.showPopover = false
     },
+    // 添加任务-选择任务负责人
+    handleChooseAdd(item) {
+      this.form.leader = item.name
+      this.addLeaderPopover = false
+    },
+    // 添加新任务
+    submitAddTask() {
+      console.log(this.form)
+      this.showAddTask = false
+      this.form.newTask = ''
+      this.form.deadline = ''
+      this.form.leader = ''
+    },
     // 选择
-    handleChange(a) {
-
-      console.log(a)
-    },
-    handleSelect(item, isCheck) {
-      // debugger
-      console.log(isCheck, item)
-    },
-    add: function() {
-      this.list.push({ name: "Juan" });
-    },
-    replace: function() {
-      this.list = [{ name: "Edgard" }];
-    },
-    clone: function(el) {
-      return {
-        name: el.name + " cloned"
-      };
-    },
+    // handleChange(a) {
+    //   console.log(a)
+    // },
+    // handleSelect(item, isCheck) {
+    //   console.log(isCheck, item)
+    // },
+    // add: function() {
+    //   this.list.push({ name: "Juan" });
+    // },
+    // replace: function() {
+    //   this.list = [{ name: "Edgard" }];
+    // },
+    // clone: function(el) {
+    //   return {
+    //     name: el.name + " cloned"
+    //   };
+    // },
     log: function(evt) {
-      window.console.log(evt);
+      console.log(evt);
     }
   },
   created() {
@@ -343,10 +377,44 @@ export default {
   }
   .panel-add {
     padding: 0 20px;
-    background:rgba(241,242,247,1);
+    background:#F1F2F7;
     border-radius:4px;
     line-height: 54px;
     cursor: pointer;
+  }
+  .task-add-box {
+    padding: 10px;
+    background-color: #F1F2F7;
+    /deep/ .task-area.el-textarea {
+      textarea {
+        height: 80px;
+      }
+    }
+    h4 {
+      font-weight: normal;
+      cursor: pointer;
+    }
+    .cus-btn-date {
+      width: 100px;
+      /deep/ .el-input__inner {
+        padding-right: 20px;
+      }
+      /deep/ .el-input__suffix {
+        right: 0;
+      }
+      ::-webkit-input-placeholder { /* WebKit browsers */
+        color: $color5;
+      }
+      :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        color: $color5;
+      }
+      ::-moz-placeholder { /* Mozilla Firefox 19+ */
+        color: $color5;
+      }
+      :-ms-input-placeholder { /* Internet Explorer 10+ */
+        color: $color5;
+      }
+    }
   }
 }
 // .drag {

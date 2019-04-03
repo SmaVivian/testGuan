@@ -3,6 +3,7 @@ $color2: #F2F3F8;
 $color3: #E6F3FF;
 $color4: #F2F9FF;
 $color5: #575962;
+$color6: #9699A2;
 $warning: #F5A623;
 $danger: #F25151;
 $border: #EBEDF2;
@@ -65,7 +66,24 @@ h4 {
   font-weight: bold;
   color: #575962;
 }
-
+h5 {
+  font-size: 15px;
+  font-weight: bold;
+  color: #575962;
+  margin-bottom: 20px;
+}
+h6 {
+  font-size: 14px;
+  color: #9699A2;
+  margin-bottom: 26px;
+  text-align: right;
+  width: 88px;
+}
+h7 {
+  font-size: 14px;
+  color: #9699A2;
+  margin-left: 20px;
+}
 //  正文
 p {
   font-size: 14px;

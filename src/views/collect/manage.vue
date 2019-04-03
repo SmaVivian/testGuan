@@ -97,7 +97,7 @@
           <div class="button">
             <el-row>
               <el-button class="el-primary-border" round @click="onExport">导出</el-button>
-              <el-button class="el-primary-border" round @click="dialogOpenctVisible = true">公开藏品</el-button>
+              <el-button class="el-primary-border" round >公开藏品</el-button>
               <el-button class="el-primary-border" round  @click="dialogCollectVisible = true">收藏</el-button>
               <el-button style="float: right; padding: 35px 35px" type="text" @click="dialogOpenctVisible = true">选择公开字段</el-button>
             </el-row>
@@ -111,9 +111,13 @@
                 <template slot-scope="scope">{{ scope.row.date }}</template>
               </el-table-column>
               <el-table-column prop="classi-fication" label="分类号" width="100"></el-table-column>
-              <el-table-column prop="name" label="藏品名称"  width="100"></el-table-column>
-              <el-table-column prop="name" label="年代" width="100"></el-table-column>
-              <el-table-column prop="name" label="商品分类" width="100"></el-table-column>
+              <el-table-column label="藏品名称"  width="100">
+                <template slot-scope="scope">
+                  <a class="m-btn" style="color:#0590FF;cursor:pointer;" type="text" size="small" @click="getDetails(scope.row)">{{ scope.row.name }}</a>
+                </template>
+              </el-table-column>
+              <el-table-column prop="" label="年代" width="100"></el-table-column>
+              <el-table-column prop="" label="商品分类" width="100"></el-table-column>
               <el-table-column prop="texture" label="质地" width="120"></el-table-column>
               <el-table-column prop="degree" label="完残程度" width="120"></el-table-column>
               <el-table-column prop="number" label="数量" width="120"></el-table-column>
@@ -152,12 +156,25 @@
         <el-button type="primary" @click="fromCollection">确 定</el-button>
       </div>
     </el-dialog>
+
      <!-- 表格标签按钮点击事件 -->
      <el-dialog title="藏品标签" :visible.sync="dialogLablectVisible">
        <lableDialog/>
      </el-dialog>
-    <!-- 藏品新建事件 -->
+     
      <el-dialog title="新建收藏夹" :visible.sync="addDialogLablectVisible" width="350px">
+      <el-form :model="addformTag">
+        <el-form-item a:label-width="formLabelWidth" placeholder="收藏夹名称">
+          <el-input v-model="addformTag.collection"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="addDialogLablectVisible = false">取 消</el-button>
+        <el-button type="primary" @click="addCollection">确 定</el-button>
+      </div>
+    </el-dialog>
+
+    <el-dialog title="新建标签收藏夹" :visible.sync="addDialogLablectVisible" width="350px">
       <el-form :model="addformTag">
         <el-form-item a:label-width="formLabelWidth" placeholder="收藏夹名称">
           <el-input v-model="addformTag.collection"></el-input>
@@ -172,9 +189,17 @@
      <el-dialog title="藏品移库" :visible.sync="dialogMoveVisible" width="460px" class="MoveLibrary">
        <moveStoreDialog/>
     </el-dialog>
+
     <el-dialog title="藏品公开属性设置" :visible.sync="dialogOpenctVisible" width="300px">
       <attributeDialog/>
     </el-dialog>
+
+    <!-- 藏品详情 -->
+    <el-dialog :visible.sync="dialogDetailVisible" class="swiper-collect" :close-on-click-modal="false"
+    width="1125px">
+      <detailDialog/>
+    </el-dialog>
+
   </div>
 </template>
 
@@ -184,14 +209,15 @@ import sidebar from '@cmp/sidebar'
 import attributeDialog from './dialog/manage/publicAttribute'
 import moveStoreDialog from './dialog/manage/moveStore'
 import lableDialog from './dialog/manage/lable'
- 
+import detailDialog from './dialog/manage/detail'
 export default {
   components: {
     sidebar,
     attributeDialog,
     moveStoreDialog,
     lableDialog,
-    top
+    top,
+    detailDialog
   },
   data() {
     return {
@@ -247,6 +273,7 @@ export default {
         dialogTableVisible: false,
         dialogCollectVisible: false,
         dialogMoveVisible: false,
+        dialogDetailVisible: false,
         form: {
           name: '',
           region: '',
@@ -266,25 +293,25 @@ export default {
       // 表格数据
        tableData3: [{
           date: '2016-05-03',
-          name: '王小',
+          name: '翠卧牛',
           address: '上海市普陀区金沙江路 1518 弄'
         }, {
           date: '2016-05-02',
-          name: '王小',
+          name: '翠卧牛',
           address: '上海市普陀区金沙江路 1518 弄'
         }, {
           date: '2016-05-07',
-          name: '王小',
+          name: '翠卧牛',
           address: '上海市普陀区金沙江路 1518 弄'
         },
         {
           date: '2016-05-07',
-          name: '王小',
+          name: '翠卧牛',
           address: '上海市普陀区金沙江路 1518 弄'
         },
         {
           date: '2016-05-07',
-          name: '王小',
+          name: '翠卧牛',
           address: '上海市普陀区金沙江路 1518 弄'
         }],
        dynamicTags: ['陶器', '东周', '未定级'],
@@ -298,23 +325,25 @@ export default {
     //   onReset() {
     //     this.$refs.ruleForm.resetFields()
     // },
-     handleClose(tag) {
-        this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
-      },
+    handleClose(tag) {
+      this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
+    },
     // 弹框新建标签方法
-       fromCollection(){
-        //    alert(this.formTag.collection)
-           if(this.formTag.collection == 4) {
-            //    alert(1)
-               this.addDialogLablectVisible = true;
-               return;
-           }
-           this.dialogCollectVisible = false
-       },
-       addCollection(){
-           this.addDialogLablectVisible = false;
-           this.dialogCollectVisible = false;
-       },
+    fromCollection(){
+      if(this.formTag.collection == 4) {
+          this.addDialogLablectVisible = true;
+          return;
+      }
+      this.dialogCollectVisible = false
+    },
+    addCollection(){
+        this.addDialogLablectVisible = false;
+        this.dialogCollectVisible = false;
+    },
+    // 获取商品详情
+    getDetails () {
+      this.dialogDetailVisible = true;
+    },
     //  按钮事件
     onLabel() {
       console.log('点我')

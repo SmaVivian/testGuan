@@ -53,6 +53,14 @@
 	clear: both;
 }
 
+.hide {
+	display: none;
+}
+
+.show {
+	display: block;
+}
+
 .fr {
 	float: right;
 }
@@ -121,11 +129,19 @@
 	margin-bottom: 20px;
 }
 
+.mb-25 {
+	margin-bottom: 25px;
+}
+
 .mb-30 {
 	margin-bottom: 30px;
 }
 
 .g-pointer {
+	cursor: pointer;
+}
+
+.g-inline-block {
 	cursor: pointer;
 }
 
@@ -207,6 +223,32 @@
 	// 	background: url(~@images/no-data.png) center center no-repeat;
 	// 	background-size: contain;
 	// }
+}
+
+// 图标
+// 上传
+.g-icon-upload {
+	width: 20px !important;
+	height: 16px !important;
+}
+
+// 文档
+.g-icon-wendang{
+	width: 18px !important;
+	height: 15px !important;
+}
+
+// 搜索
+.g-search-box {
+	.el-icon-search {
+		font-size: 18px;
+		color: #0590FF;
+	}
+}
+
+.g-icon-search {
+	font-size: 18px;
+  color: #0590FF;
 }
 
 .g-dialog-pro {

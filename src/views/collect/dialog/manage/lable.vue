@@ -20,13 +20,13 @@
             <el-option label="标签一" value="1"></el-option>
             <el-option label="标签二" value="2"></el-option>
             <el-option label="标签三" value="3"></el-option>
-            <el-option label="新建标签" value="4" @click="newlyBuild"></el-option>
+            <el-option label="新建标签" value="4"></el-option>
           </el-select>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogLablectVisible = false">取 消</el-button>
-        <el-button type="primary" >确 定</el-button>
+        <el-button type="primary" @click="fromCollection">确 定</el-button>
       </div>
 </div>
       
@@ -50,13 +50,23 @@ export default {
     };
   },
   methods: {
-      handleClose(tag) {
-        this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
-      },
-      newlyBuild() {
-      console.log('dss')
+    handleClose(tag) {
+      this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
     },
-  }
+     fromCollection(){
+          //  alert(this.formTag.collection)
+           if(this.formTag.collection == 4) {
+              //  alert(1)
+               this.addDialogLablectVisible = true;
+               return;
+           }
+           this.dialogCollectVisible = false
+       },
+       addCollection(){
+        this.addDialogLablectVisible = false;
+        this.dialogCollectVisible = false;
+      },
+    }
 };
 </script>
 <style lang="scss">

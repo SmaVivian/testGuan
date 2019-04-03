@@ -67,6 +67,7 @@
                 <!-- 下拉框 -->
                 <div v-if="v.showDropdown">
                   <el-select 
+                    class="cus-btn-sel"
                     v-model="v.val" 
                     @change="addLabel(v)"
                     placeholder="添加标签">
@@ -192,19 +193,9 @@ export default {
     box-shadow:0px 1px 10px 0px rgba(238,239,245,1);
     border-radius:4px;
     line-height: 30px;
-    // 重写下拉框样式
-    /deep/ .el-select {
-      .el-input__inner {
-        height: 30px;
-        line-height: 30px;
-        text-align: center;
-        border: none;
-      }
-      .el-input__suffix {
-        display: none;
-      }
+    /deep/ .cus-btn-sel {
       .el-input--suffix .el-input__inner {
-        padding: 0;
+        text-align: center;
       }
       ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
         color: $primary;
@@ -219,6 +210,33 @@ export default {
         color: $primary;
       }
     }
+    // 重写下拉框样式
+    // /deep/ .el-select {
+    //   .el-input__inner {
+    //     height: 30px;
+    //     line-height: 30px;
+    //     text-align: center;
+    //     border: none;
+    //   }
+    //   .el-input__suffix {
+    //     display: none;
+    //   }
+    //   .el-input--suffix .el-input__inner {
+    //     padding: 0;
+    //   }
+    //   ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    //     color: $primary;
+    //   }
+    //   :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    //     color: $primary;
+    //   }
+    //   ::-moz-placeholder { /* Mozilla Firefox 19+ */
+    //     color: $primary;
+    //   }
+    //   :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    //     color: $primary;
+    //   }
+    // }
   }
 }
 </style>

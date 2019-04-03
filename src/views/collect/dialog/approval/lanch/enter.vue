@@ -70,7 +70,7 @@
 
       <div class="table">
       <div class="operation">
-        <a class="m-btn fl" @click="dialogLablectVisible = true" type="text" size="small">精品明细</a>
+        <h3>精品明细</h3>
         <a class="m-btn fr" @click="dialogLablectVisible = true" type="text" size="small">添加</a>
         <a class="m-btn fr" @click="dialogLablectVisible = true" type="text" size="small">批量导入</a>
         <a class="m-btn fr" @click="dialogLablectVisible = true" type="text" size="small">删除</a>
@@ -78,7 +78,7 @@
             <el-table :data="tableData3" stripe>
               <el-table-column type="selection" width="50" align="center"></el-table-column>
               <el-table-column prop="image" label="编号" width="60"></el-table-column>
-              <el-table-column label="图片" width="60" align="center">
+              <el-table-column label="图片" width="60" align="center" prop="name">
                 <template slot-scope="scope">
                   <a class="m-btn" @click="dialogPhotosVisible = true" type="text" size="small">
                     <img :src="scope.row.head_pic" width="40" height="40" class="head_pic"/>
@@ -214,7 +214,9 @@ export default {
     }
   }
 }
-  
+ .operation h3 {
+  display: inline;
+ }
 </style>
 
 

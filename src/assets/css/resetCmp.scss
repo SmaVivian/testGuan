@@ -1,6 +1,7 @@
 // start 自定义样式（element-ui基础上） .cus- 开头
 // 主题色边框按钮 ex:<el-button class="el-primary-border"></el-button>
-.el-button.el-primary-border {
+.el-button.el-primary-border,
+.el-button.el-primary-border:focus {
   border-color: $primary;
   color: $primary;
 }
@@ -51,6 +52,23 @@
   }
   .el-input__suffix {
     right: 50px;
+  }
+}
+
+// 自定义下拉框选择按钮 <el-select class="btn-date"
+.cus-btn-sel.el-select {
+  .el-input__inner {
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border: none;
+  }
+  .el-input__suffix {
+    display: none;
+  }
+  .el-input--suffix .el-input__inner {
+    text-align: left;
+    padding: 0;
   }
 }
 
@@ -149,6 +167,11 @@
   font-weight: bold;
 }
 
+// popover
+.el-popover {
+  padding: 0;
+}
+
 // dialog 模态框、对话框
 .el-dialog__wrapper {
   text-align: center;
@@ -199,6 +222,12 @@
 
 .el-select-dropdown__item.hover, .el-select-dropdown__item:hover {
   background-color: $color4;
+}
+
+.el-scrollbar {
+  ::-webkit-scrollbar-track-piece {
+    background-color: transparent;
+  }
 }
 
 // button 按钮
@@ -310,6 +339,10 @@
 
 .el-pagination__total {
   margin-right: 20px;
+}
+
+.el-pagination__sizes {
+  margin-left: 20px;
 }
 
 .el-pagination.is-background .btn-prev, 

@@ -36,10 +36,10 @@
         <div class="menu-sub-right">
           <label class="mr-20">
             <span class="icon-menu-sub" v-if="showPanel" @click="showPanel=false">
-              <svg-icon icon-class="menu-panel" class-name="icon-panel g-pointer" style="font-size: 20px;"/>
+              <svg-icon icon-class="menu-panel" class-name="icon-panel icon-common g-pointer" style="font-size: 20px;"/>
             </span>
             <span class="icon-menu-sub" v-if="!showPanel" @click="showPanel=true">
-              <svg-icon icon-class="menu-list" class-name="icon-panel g-pointer" style="font-size: 17px;" />
+              <svg-icon icon-class="menu-list" class-name="icon-panel icon-common g-pointer" style="font-size: 17px;" />
             </span>
           </label>
 
@@ -50,7 +50,7 @@
           trigger="click">
             <div class="pop-wrap-search m-search-wrap">
               <div class="input-box">
-                <el-input class="input-block" v-model="key" placeholder="输入姓名搜索"></el-input>
+                <el-input class="input-block" suffix-icon="el-icon-search" v-model="key" placeholder="输入姓名搜索"></el-input>
                 <p class="m-tips mt-20 mb-10">最近</p>
               </div>
               <ul>
@@ -68,7 +68,7 @@
               </ul>
             </div>
             <span slot="reference">
-              <svg-icon icon-class="chengyuan" class-name="icon-chengyuan" style="font-size: 20px;"/>
+              <svg-icon icon-class="chengyuan" class-name="icon-chengyuan icon-common" style="font-size: 20px;"/>
             </span>
           </el-popover>
 
@@ -85,8 +85,10 @@
               <h3 @click="handleOperate(2)">项目归档</h3>
             </div>
           </div>
-          <span class="operate" slot="reference"><i class="el-icon el-icon-more"></i></span>
-          <!-- <span class="operate" slot="reference">···</span> -->
+          <span class="operate" slot="reference">
+            <svg-icon icon-class="more" class-name="icon-common g-pointer" style="font-size: 18px;"/>
+            <!-- <i class="el-icon el-icon-more"></i> -->
+          </span>
         </el-popover>
             
           </div>

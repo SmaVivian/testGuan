@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+    <title>项目列表_创建新项目</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-11.7%" y="-11.3%" width="123.3%" height="123.3%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0.933333333   0 0 0 0 0.937254902   0 0 0 0 0.960784314  0 0 0 1 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="项目列表" transform="translate(-951.000000, -553.000000)" fill="#0590FF">
+            <g id="矩形" filter="url(#filter-1)" transform="translate(840.000000, 458.000000)">
+                <path d="M133.5,116.5 L133.5,104.5 C133.5,103.671573 134.171573,103 135,103 C135.828427,103 136.5,103.671573 136.5,104.5 L136.5,116.5 L148.5,116.5 C149.328427,116.5 150,117.171573 150,118 C150,118.828427 149.328427,119.5 148.5,119.5 L136.5,119.5 L136.5,131.5 C136.5,132.328427 135.828427,133 135,133 C134.171573,133 133.5,132.328427 133.5,131.5 L133.5,119.5 L121.5,119.5 C120.671573,119.5 120,118.828427 120,118 C120,117.171573 120.671573,116.5 121.5,116.5 L133.5,116.5 Z" id="项目列表_创建新项目"></path>
+            </g>
+        </g>
+    </g>
+</svg>
