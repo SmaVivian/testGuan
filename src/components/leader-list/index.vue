@@ -6,7 +6,9 @@
     <div class="m-search-wrap" v-if="show">
       <div class="input-box">
         <el-input class="input-block" 
+          id="keyInput"
           v-model="key" 
+          @keyup.native="handleKeyDown"
           suffix-icon="el-icon-search"
           placeholder="输入姓名搜索">
         </el-input>
@@ -99,6 +101,9 @@ export default {
   methods: {
     init() {
       this.show = false
+    },
+    handleKeyDown() {
+      this.key = document.getElementById('keyInput').value
     },
     showList() {
       this.show = true
