@@ -24,7 +24,7 @@
       <!-- 列表 -->
       <el-table
       v-loading="listLoading"
-      :data="list"
+      :data="dataList"
       @selection-change="handleSelectionChange"
       element-loading-text="Loading"
       stripe
@@ -126,7 +126,7 @@ export default {
   data() {
     return {
       showSearch: false,
-      list: null,
+      dataList: null,
       total: 0,
       listLoading: true,
       listQuery: {
@@ -196,7 +196,7 @@ export default {
       this.$http.get('/list', {
         ...this.listQuery
       }).then(response => {
-        this.list = response.data.list
+        this.dataList = response.data.list
         this.total = response.data.page.allRow
         this.listLoading = false
       })

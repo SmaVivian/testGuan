@@ -11,6 +11,7 @@
               <div class="para-box">
                 <p class="m-assist">胡强</p>
                 <p class="para">明天可以把大纲写完，到时候咱们再一起讨论一下。清理一下每个项目，交付条件的准备情况，特别是文档的问题。明天可以把大纲写完，到时候咱们再一起讨论一下。清理一下每个项目，交付条件的准备情况，特别是文档的问题。明天可以把大纲写完，到时候咱们再一起讨论一下。清理一下每个项目，交付条件的准备情况，特别是文档的问题。</p>
+                <p class="m-tit mt-10">12:12</p>
               </div>
             </div>
 
@@ -19,19 +20,40 @@
               <div class="para-box">
                 <!-- <p class="m-assist">胡强</p> -->
                 <p class="para">明天可以把大纲写完，到时候咱们再一起讨论一下。清理一下每个项目，交付条件的准备情况，特别是文档的问题。</p>
+                <p class="m-tit fr mt-10">12:12</p>
               </div>
               <img class="fr" src="~@images/default-head.svg" alt="">
             </div>
           </li>
         </ul> 
+
+        <!-- 发表评论 -->
+        <!-- <el-form class="form-common form-wrap" ref="form" :model="form">
+          <el-form-item label="">
+            <img class="g-pic" src="~@images/default-head.svg" alt="">
+            <cmp-editor></cmp-editor>
+            <el-button class="btn-comment" type="primary">评论</el-button>
+          </el-form-item>
+        </el-form> -->
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import cmpEditor from '@cmp/editor'
 export default {
-  
+  components: {
+    cmpEditor
+  },
+  data() {
+    return {
+      form: {
+        info: '',
+        subDate: ''  // 子任务时间
+      },
+    }
+  }
 }
 </script>
 

@@ -2,9 +2,9 @@
   <div class="page-statistic">
     <el-card class="header-card">
       <el-row>
-        <el-col :span="3" v-for="o in 8" :key="o">
-          <div class="header-carg-item">22 <span>个</span></div>
-          <p>全部任务</p>
+        <el-col class="card-box" :span="3" v-for="(item, index) in headerList" :key="index">
+          <div class="header-card-item">{{item.count}}</div>
+          <p>{{item.name}}</p>
         </el-col>
       </el-row>
     </el-card>
@@ -12,7 +12,7 @@
     <el-row :gutter="20" class="content">
       <el-col :span="12">
         <el-card class="content-item">
-          <h2>总体任务完成情况</h2>
+          <!-- <h2>总体任务完成情况</h2> -->
           <div class="graph">
             <chart ref="chart1" :options="orgOptions1" :auto-resize="true"></chart>
           </div>
@@ -21,7 +21,7 @@
 
       <el-col :span="12">
         <el-card class="content-item">
-          <h2>总体任务完成情况</h2>
+          <!-- <h2>总体任务完成情况</h2> -->
           <div class="graph">
             <chart ref="chart2" :options="orgOptions2" :auto-resize="true"></chart>
           </div>
@@ -30,7 +30,7 @@
 
       <el-col :span="12">
         <el-card class="content-item">
-          <h2>总体任务完成情况</h2>
+          <!-- <h2>每日完成任务量</h2> -->
           <div class="graph">
             <chart ref="chart2" :options="orgOptions3" :auto-resize="true"></chart>
           </div>
@@ -39,9 +39,27 @@
 
       <el-col :span="12">
         <el-card class="content-item">
-          <h2>总体任务完成情况</h2>
+          <!-- <h2>任务完成排行</h2> -->
           <div class="graph">
             <chart ref="chart2" :options="orgOptions4" :auto-resize="true"></chart>
+          </div>
+        </el-card>
+      </el-col>
+
+      <el-col :span="12">
+        <el-card class="content-item">
+          <!-- <h2>任务执行者分布</h2> -->
+          <div class="graph">
+            <chart ref="chart2" :options="orgOptions5" :auto-resize="true"></chart>
+          </div>
+        </el-card>
+      </el-col>
+
+      <el-col :span="12">
+        <el-card class="content-item">
+          <!-- <h2>成员任务完成情况</h2> -->
+          <div class="graph">
+            <chart ref="chart2" :options="orgOptions6" :auto-resize="true"></chart>
           </div>
         </el-card>
       </el-col>
@@ -64,36 +82,68 @@ export default {
   },
   data() {
     return {
+      headerList: [
+        {
+          name: '全部任务',
+          count: 21
+        },
+        {
+          name: '已完成',
+          count: 22
+        },
+        {
+          name: '未完成',
+          count: 22
+        },
+        {
+          name: '已逾期',
+          count: 22
+        },
+        {
+          name: '待认领',
+          count: 22
+        },
+        {
+          name: '按时完成',
+          count: 22
+        },
+        {
+          name: '今日到期',
+          count: 22
+        },
+        {
+          name: '逾期完成',
+          count: 22
+        },
+      ],
       orgOptions1: {},
       orgOptions2: {},
       orgOptions3: {},
       orgOptions4: {},
+      orgOptions5: {},
+      orgOptions6: {},
     }
   },
   mounted() {
     this.orgOptions1 = {
-      xAxis: {
-        type: 'category',
-        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+      title: {
+        text: '总体任务完成情况',
+        textStyle: {
+          fontSize: 18,
+          color: '#575962',
+          // fontWeight: 'normal'
+        }
+        
       },
-      yAxis: {
-        type: 'value'
-      },
-      series: [{
-        data: [820, 932, 901, 934, 1290, 1330, 1320],
-        type: 'line',
-        // smooth: true
-      }]
-    }
-    this.orgOptions2 = {
       tooltip: {
         trigger: 'item',
         formatter: "{a} <br/>{b}: {c} ({d}%)"
       },
       legend: {
-          orient: 'vertical',
-          x: 'left',
-          data:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
+        orient: 'vertical',
+        x: 'left',
+        top: 30,
+        data:['已完成', '未完成']
       },
       series: [
         {
@@ -120,145 +170,251 @@ export default {
               }
           },
           data:[
-              {value:335, name:'直接访问'},
-              {value:310, name:'邮件营销'},
-              {value:234, name:'联盟广告'},
-              {value:135, name:'视频广告'},
-              {value:1548, name:'搜索引擎'}
-          ]
+            {value:335, name:'已完成'},
+            {value:310, name:'未完成'}
+          ],
+          color:['#50E3C2', '#0590FF']
         },
       ]
     }
-    this.orgOptions3 = {
+
+    this.orgOptions2 = {
       title: {
-          text: '堆叠区域图'
+        text: '任务燃尽图',
+        textStyle: {
+          fontSize: 18,
+          color: '#575962'
+        }
       },
       tooltip : {
-          trigger: 'axis',
-          axisPointer: {
-              type: 'cross',
-              label: {
-                  backgroundColor: '#6a7985'
-              }
+        trigger: 'axis',
+        axisPointer: {
+          type: 'cross',
+          label: {
+            backgroundColor: '#6a7985'
           }
+        }
       },
       legend: {
-          data:['邮件营销','联盟广告','视频广告','直接访问','搜索引擎']
+        data:['待处理','已延误','已完成']
       },
       toolbox: {
-          feature: {
-              saveAsImage: {}
-          }
+        feature: {
+          saveAsImage: {}
+        }
       },
       grid: {
-          left: '3%',
-          right: '4%',
-          bottom: '3%',
-          containLabel: true
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
       },
       xAxis : [
-          {
-              type : 'category',
-              boundaryGap : false,
-              data : ['周一','周二','周三','周四','周五','周六','周日']
-          }
+        {
+          type : 'category',
+          boundaryGap : false,
+          data : ['周一','周二','周三','周四','周五','周六','周日']
+        }
       ],
       yAxis : [
-          {
-              type : 'value'
-          }
+        {
+          type : 'value'
+        }
       ],
       series : [
-          {
-              name:'邮件营销',
-              type:'line',
-              stack: '总量',
-              areaStyle: {},
-              data:[120, 132, 101, 134, 90, 230, 210]
-          },
-          {
-              name:'联盟广告',
-              type:'line',
-              stack: '总量',
-              areaStyle: {},
-              data:[220, 182, 191, 234, 290, 330, 310]
-          },
-          {
-              name:'视频广告',
-              type:'line',
-              stack: '总量',
-              areaStyle: {},
-              data:[150, 232, 201, 154, 190, 330, 410]
-          },
-          {
-              name:'直接访问',
-              type:'line',
-              stack: '总量',
-              areaStyle: {normal: {}},
-              data:[320, 332, 301, 334, 390, 330, 320]
-          },
-          {
-              name:'搜索引擎',
-              type:'line',
-              stack: '总量',
-              label: {
-                  normal: {
-                      show: true,
-                      position: 'top'
-                  }
-              },
-              areaStyle: {normal: {}},
-              data:[820, 932, 901, 934, 1290, 1330, 1320]
-          }
-      ]
+        {
+          name:'待处理',
+          type:'line',
+          stack: '总量',
+          areaStyle: {},
+          data:[120, 132, 101, 134, 90, 230, 210]
+        },
+        {
+          name:'已延误',
+          type:'line',
+          stack: '总量',
+          areaStyle: {},
+          data:[220, 182, 191, 234, 290, 330, 310]
+        },
+        {
+          name:'已完成',
+          type:'line',
+          stack: '总量',
+          areaStyle: {},
+          data:[150, 232, 201, 154, 190, 330, 410]
+        }
+      ],
+      color:['#0590FF', '#F25151', '#50E3C2']
     }
+
+    this.orgOptions3 = {
+      title: {
+        text: '每日完成任务量',
+        textStyle: {
+          fontSize: 18,
+          color: '#575962'
+        }
+      },
+      xAxis: {
+        type: 'category',
+        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [{
+        data: [820, 932, 901, 934, 1290, 1330, 1320],
+        type: 'line',
+        // smooth: true
+      }]
+    }
+    
+    
     this.orgOptions4 = {
+      title: {
+        text: '任务完成排行',
+        textStyle: {
+          fontSize: 18,
+          color: '#575962'
+        }
+      },
       tooltip : {
-          trigger: 'axis',
-          axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-              type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-          }
+        trigger: 'axis',
+        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+          type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+        }
       },
       legend: {
-          data:['邮件营销','联盟广告','视频广告']
+        data:['待认领']
       },
       grid: {
-          left: '3%',
-          right: '4%',
-          bottom: '3%',
-          containLabel: true
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
       },
       xAxis : [
-          {
-              type : 'category',
-              data : ['周一','周二','周三','周四','周五','周六','周日']
-          }
+        {
+          type : 'category',
+          data : ['周一','周二','周三','周四','周五','周六','周日']
+        }
       ],
       yAxis : [
-          {
-              type : 'value'
-          }
+        {
+          type : 'value'
+        }
       ],
       series : [
-          {
-              name:'邮件营销',
-              type:'bar',
-              stack: '广告',
-              data:[120, 132, 101, 134, 90, 230, 210]
+        {
+          name:'待认领',
+          type:'bar',
+          stack: '广告',
+          data:[120, 132, 101, 134, 90, 230, 210]
+        }
+      ],
+      color: ['#0590FF']
+    }
+
+    this.orgOptions5 = {
+      title: {
+        text: '任务执行者分布',
+        textStyle: {
+          fontSize: 18,
+          color: '#575962'
+        }
+      },
+      tooltip: {
+        trigger: 'item',
+        formatter: "{a} <br/>{b}: {c} ({d}%)"
+      },
+      legend: {
+        orient: 'vertical',
+        x: 'left',
+        top: 30,
+        data:['已完成', '未完成']
+      },
+      series: [
+        {
+          name:'访问来源',
+          type:'pie',
+          radius: ['50%', '70%'],
+          avoidLabelOverlap: false,
+          label: {
+            normal: {
+              show: false,
+              position: 'center'
+            },
+            emphasis: {
+              show: true,
+              textStyle: {
+                fontSize: '30',
+                fontWeight: 'bold'
+              }
+            }
           },
-          {
-              name:'联盟广告',
-              type:'bar',
-              stack: '广告',
-              data:[220, 182, 191, 234, 290, 330, 310]
+          labelLine: {
+            normal: {
+              show: false
+            }
           },
-          {
-              name:'视频广告',
-              type:'bar',
-              stack: '广告',
-              data:[150, 232, 201, 154, 190, 330, 410]
-          }
+          data:[
+            {value:335, name:'已完成'},
+            {value:310, name:'未完成'}
+          ],
+          color:['#50E3C2', '#0590FF']
+        },
       ]
+    }
+
+    this.orgOptions6 = {
+      title: {
+        text: '成员任务完成情况',
+        textStyle: {
+          fontSize: 18,
+          color: '#575962'
+        }
+      },
+      tooltip : {
+        trigger: 'axis',
+        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+          type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+        }
+      },
+      legend: {
+        data:['已完成', '未完成']
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+      },
+      xAxis : [
+        {
+          type : 'category',
+          data : ['周一','周二','周三','周四','周五','周六','周日']
+        }
+      ],
+      yAxis : [
+        {
+          type : 'value'
+        }
+      ],
+      series : [
+        {
+          name:'已完成',
+          type:'bar',
+          stack: '广告',
+          data:[120, 132, 101, 134, 90, 230, 210]
+        },
+        {
+          name:'未完成',
+          type:'bar',
+          stack: '广告',
+          data:[220, 182, 191, 234, 290, 330, 310]
+        }
+      ],
+      color:['#50E3C2', '#0590FF']
     }
   }
 }
@@ -266,9 +422,25 @@ export default {
 
 <style lang="scss" scoped>
 .page-statistic {
+  padding: 10px 30px;
+  width: 1380px;
+  margin: 0 auto;
   .header-card {
     margin: 20px 0;
     text-align: center;
+    .header-card-item {
+      font-size: 32px;
+      color: $color5;
+    }
+    .card-box:nth-child(1) .header-card-item {
+      color: $primary;
+    }
+    .card-box:nth-child(2) .header-card-item {
+      color: $info;
+    }
+    .card-box:nth-child(3) .header-card-item {
+      color: $danger;
+    }
   }
   .content {
     .content-item {

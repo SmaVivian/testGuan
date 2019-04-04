@@ -101,8 +101,8 @@
           <div class="button">
             <el-row>
               <el-button class="el-primary-border" round @click="onExport">导出</el-button>
-              <el-button class="el-primary-border" round >公开藏品</el-button>
-              <el-button class="el-primary-border" round  @click="dialogCollectVisible = true">收藏</el-button>
+              <el-button class="el-primary-border" round @click="publicCollect()">公开藏品</el-button>
+              <el-button class="el-primary-border" round  @click="collect()">收藏</el-button>
               <el-button style="float: right; padding: 35px 35px" type="text" @click="dialogOpenctVisible = true">选择公开字段</el-button>
             </el-row>
           </div>
@@ -337,82 +337,84 @@ export default {
   created() {
     this.getDataList()
   },
-
    methods: {
-     restTag (dynamicTags) {
-      //  this.$refs[dynamicTags].restFields;
-      this.dynamicTags = [];
-     },
-    
-    handleClose(tag) {
-      this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
+     collect() {
+      this.dialogCollectVisible = true;
     },
-    // 弹框新建标签方法
-     buliLable() {
-      this.addLableVisible = true;
+  // 公开藏品方法
+  publicCollect () {
+
+  },
+  // 重置标签方法
+  restTag (dynamicTags) {
+  this.dynamicTags = [];
+},
+  handleClose(tag) {
+    this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
+  },
+  // 弹框新建标签方法
+  buliLable() {
+  this.addLableVisible = true;
+  return;
+  this.dialogLablectVisible = false;
+  },
+  // 弹框收藏夹新建方法
+  fromCollection(){
+    if(this.formTag.collection == 4) {
+      this.addDialogLablectVisible = true;
       return;
-      this.dialogLablectVisible = false;
-    },
-    
-    // 弹框收藏夹新建方法
-    fromCollection(){
-      if(this.formTag.collection == 4) {
-          this.addDialogLablectVisible = true;
-          return;
-      }
-      this.dialogCollectVisible = false
-    },
-    addCollection(){
-        this.addDialogLablectVisible = false;
-        this.$message({
-          message: '居中的文字',
-          center: true,
-          duration: 0,
-          colorblue,
-        });
-        this.dialogCollectVisible = false;
-        this.addLableVisible = false;
-    },
-    // 获取商品详情
-    getDetails () {
-      this.dialogDetailVisible = true;
-    },
-    //  按钮事件
-    onLabel() {
-      console.log('点我')
-    },
-    onExport(){
-      console.log('点我')
-    },
-    onCollection(){
-      console.log('点我')
-    },
-    //  表格分页
-    getDataList() {
-      this.$http.get('/list', {
-        ...this.listQuery
-      }).then(response => {
-        this.list = response.data.list
-        this.total = response.data.page.allRow
-        this.listLoading = false
-      })
-    },
-    handleSizeChange(val) {
-      this.listQuery.size = val
-      this.getDataList()
-    },
-    handleCurrentChange(val) {
-      this.listQuery.currentPage = val
-      this.getDataList()
-    },
-    handleClick(){
-      if(this.$refs.span.innerHTML == '收起') {
-        this.searchTag = this.searchTag.splice(0,3)
-        this.$refs.span.innerHTML = '展开'
-      } else{
-        // this.getTag()
-        // this.searchTag = this.searchTag.splice(0,3)
-        this.$refs.span.innerHTML = '收起'
+    }
+    this.dialogCollectVisible = false
+  },
+  addCollection(){
+    this.addDialogLablectVisible = false;
+    this.$message({
+      message: '成功收藏200件藏品',
+      center: true,
+    });
+    this.dialogCollectVisible = false;
+    this.addLableVisible = false;
+  },
+  // 获取商品详情
+  getDetails () {
+    this.dialogDetailVisible = true;
+  },
+  //  按钮事件
+  onLabel() {
+    console.log('点我')
+  },
+  onExport(){
+    console.log('点我')
+  },
+  onCollection(){
+    console.log('点我')
+  },
+  //  表格分页
+  getDataList() {
+    this.$http.get('/list', {
+      ...this.listQuery
+    }).then(response => {
+      this.list = response.data.list
+      this.total = response.data.page.allRow
+      this.listLoading = false
+    })
+  },
+  handleSizeChange(val) {
+    this.listQuery.size = val
+    this.getDataList()
+  },
+  handleCurrentChange(val) {
+    this.listQuery.currentPage = val
+    this.getDataList()
+  },
+  handleClick(){
+    if(this.$refs.span.innerHTML == '收起') {
+      this.searchTag = this.searchTag.splice(0,3)
+      this.$refs.span.innerHTML = '展开'
+    } else{
+      // this.getTag()
+      // this.searchTag = this.searchTag.splice(0,3)
+      this.$refs.span.innerHTML = '收起'
       }
     }  
   },

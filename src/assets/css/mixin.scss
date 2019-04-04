@@ -4,6 +4,7 @@ $color3: #E6F3FF;
 $color4: #F2F9FF;
 $color5: #575962;
 $color6: #9699A2;
+$info: #34BFA3;
 $warning: #F5A623;
 $danger: #F25151;
 $border: #EBEDF2;
@@ -75,14 +76,13 @@ h5 {
 h6 {
   font-size: 14px;
   color: #9699A2;
-  margin-bottom: 26px;
+  margin-bottom: 30px;
   text-align: right;
   width: 88px;
 }
-h7 {
+.m-tit {
   font-size: 14px;
   color: #9699A2;
-  margin-left: 20px;
 }
 //  正文
 p {

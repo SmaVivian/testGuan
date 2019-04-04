@@ -3,43 +3,40 @@
         <h3>2018 / 01 / 11</h3>
         <h3 class="personName fr">贾军</h3>
           <el-form ref="form" :model="form" label-width="100px" >
-            <div class="number">
-              <el-form-item label="入馆凭证号 :">
-                <el-input v-model="form.name"></el-input>
-              </el-form-item>
+
+            <div class="content">
+              <div class="enterContent">
+                <h6>总登记号</h6> <div class="m-tit">12-20-12</div>
+              </div>
+
+              <div class="enterContent">
+                <h6>登记日期</h6> <div class="m-tit">2018/06/20</div>
+              </div>
+
+              <div class="enterContent">
+                <h6>入馆凭证号</h6> <div class="m-tit">RGLS-2018-23</div>
+              </div>
             </div>
+            
+            
+            
         
             <div class="planName">
-              <el-form-item label="入库日期">
-              <el-date-picker v-model="value1" type="date" placeholder="选择日期"></el-date-picker>                  
-            </el-form-item>  
-              <el-form-item label="入库库房 :">
-                 <el-select v-model="form.region">
-                    <el-option label="说明" value="shanghai"></el-option>
-                    <el-option label="全部" value="beijing"></el-option>
-                  </el-select>
-              </el-form-item>
-              <el-form-item label="存放地点 :">
-                 <el-select v-model="form.region" >
-                    <el-option label="说明" value="shanghai"></el-option>
-                    <el-option label="全部" value="beijing"></el-option>
-                  </el-select>
-              </el-form-item>
-            </div>
-              
-            <div class="planName">
-              <el-form-item label="总登记号 :">
+              <el-form-item label="分类别 :">
                 <el-input v-model="form.name"></el-input>
               </el-form-item>
               <el-form-item label="分类号 :">
                 <el-input v-model="form.name"></el-input>
               </el-form-item>
             </div>
+              
+            <div class="planName">
+              
+              
+            </div>
 
             <div class="planName">
-              <el-form-item label="入馆凭证号 :">
-                <el-input v-model="form.name"></el-input>
-              </el-form-item>
+              
               <el-form-item label="注销凭证号 :">
                 <el-input v-model="form.name"></el-input>
               </el-form-item>
@@ -62,7 +59,11 @@
                 </el-select>
               </el-form-item>
             </div>
-            
+            <div class="number">
+              <el-form-item label="入馆凭证号 :">
+                <el-input v-model="form.name"></el-input>
+              </el-form-item>
+            </div>
             <div class="planName">
               <el-form-item label="数量 :">
                 <el-input v-model="form.name"></el-input>
@@ -211,6 +212,16 @@ export default {
 
 <style lang="scss" scoped>
 .el-form {
+  .content {
+    display: flex;
+    .enterContent {
+      display: flex;
+      margin: 15px 75px 0 0;
+      .m-tit {
+        width: 97px;
+      }
+    }
+  }
   .number {
     height: 70px!important;
     .el-form-item {
@@ -222,12 +233,21 @@ export default {
 }
   .planName {
     display: flex;
-    .el-form-item {
-      margin: 0 10px;
-      margin-bottom: 0px;
-      margin-right: 0;
-    }
+      .el-form-item {
+        margin: 0 10px;
+        margin-bottom: 0px;
+        margin-right: 0;
+        .el-form-item__content{
+          .el-input {
+            width: 75%;
+          }
+        }
+      }
   }
 }
+  /deep/.el-form-item__label {
+   text-align: right;
+   color: #9699A2;
+  }
  
 </style>

@@ -34,7 +34,7 @@
 
         <!-- 操作 -->
         <div class="menu-sub-right">
-          <label class="mr-20">
+          <label class="mr-20" v-if="menuRight">
             <span class="icon-menu-sub" v-if="showPanel" @click="showPanel=false">
               <svg-icon icon-class="menu-panel" class-name="icon-panel icon-common g-pointer" style="font-size: 20px;"/>
             </span>
@@ -131,6 +131,7 @@ export default {
     return {
       showPanel: true,  // 显示面板视图
       dialogVisible: false,
+      menuRight: false,
       // 顶部项目选择
       topProActive: {
         name: '烈火展项目',
@@ -186,7 +187,12 @@ export default {
     },
     currentTabCmp() {
       if(this.currentTab === 'task' && !this.showPanel) {
+        this.menuRight = true
         return 'taskListProject'  // 列表视图
+      } else if(this.currentTab === 'task' && this.showPanel) {
+        this.menuRight = true
+      } else {
+        this.menuRight = false
       }
       return this.currentTab && (this.currentTab + 'Project')
     }

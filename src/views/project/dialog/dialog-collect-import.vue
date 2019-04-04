@@ -58,7 +58,7 @@
                       <span class="el-checkbox__inner"></span>
                     </label>
                     <img src="~@images/default-pic.svg" alt="">
-                    <h4 class="tc ell">唐玛瑙花瓣盆</h4>
+                    <h4 class="tc ell">{{item.title}}</h4>
                     <!-- <el-checkbox-group v-model="checkList">
                       <el-checkbox label="复选框 A"></el-checkbox>
                       <el-checkbox label="复选框 B"></el-checkbox>
@@ -69,6 +69,18 @@
                   </div>
                   </el-col>
               </el-row>
+
+              <!-- 分页 -->
+              <div class="pagination-container">
+                <el-pagination
+                  :current-page="listQuery.currentPage"
+                  :page-size="listQuery.size"
+                  :total="total"
+                  background
+                  layout="total, prev, pager, next, sizes, jumper"
+                  @size-change="handleSizeChange"
+                  @current-change="handleCurrentChange"/>
+              </div>
             </div>
           </div>
         </div>
@@ -112,46 +124,53 @@ export default {
           type: '3'
         },
       ],
-      dataList: [
-        {
-          num: 1,
-          id: 123
-        },
-        {
-          num: 1,
-          id: 12
-        },
-        {
-          num: 1,
-          id: 124
-        },
-        {
-          num: 1,
-          id: 125
-        },
-        {
-          num: 1,
-          id: 126
-        },
-        {
-          num: 1,
-          id: 127
-        },
-        {
-          num: 1,
-          id: 1266
-        },
-        {
-          num: 1,
-          id: 1274
-        },
-      ],
+      // dataList: [
+      //   {
+      //     num: 1,
+      //     id: 123
+      //   },
+      //   {
+      //     num: 1,
+      //     id: 12
+      //   },
+      //   {
+      //     num: 1,
+      //     id: 124
+      //   },
+      //   {
+      //     num: 1,
+      //     id: 125
+      //   },
+      //   {
+      //     num: 1,
+      //     id: 126
+      //   },
+      //   {
+      //     num: 1,
+      //     id: 127
+      //   },
+      //   {
+      //     num: 1,
+      //     id: 1266
+      //   },
+      //   {
+      //     num: 1,
+      //     id: 1274
+      //   },
+      // ],
+      dataList: null,
+      total: 0,
+      listQuery: {
+        currentPage: 1,
+        size: 10
+      },
       selectList: []
     }
   },
   methods: {
     init() {
       this.dialogShow = true
+      this.getDataList()
     },
     handleTab(item) {
       console.log('类型', this.$common.getStrParam(item, 'type'))
@@ -192,6 +211,24 @@ export default {
     // 添加藏品
     add() {
       console.log(this.selectList)
+    },
+    getDataList() {
+      this.listLoading = true
+      this.$http.get('/list', {
+        ...this.listQuery
+      }).then(response => {
+        this.dataList = response.data.list
+        this.total = response.data.page.allRow
+        this.listLoading = false
+      })
+    },
+    handleSizeChange(val) {
+      this.listQuery.size = val
+      this.getDataList()
+    },
+    handleCurrentChange(val) {
+      this.listQuery.currentPage = val
+      this.getDataList()
     }
   }
 }

@@ -5,7 +5,7 @@
       <div class="schedule-content">
         <el-breadcrumb separator="/">
           <el-breadcrumb-item :to="{ path: '/' }">藏品征集</el-breadcrumb-item>
-          <el-breadcrumb-item><a href="javascript:;">征集计划</a></el-breadcrumb-item>
+          <el-breadcrumb-item><a href="javascript:;">藏品入库</a></el-breadcrumb-item>
         </el-breadcrumb> 
         
         <el-steps class="schedule" :active="active" finish-status="success"  align-left>
@@ -13,7 +13,7 @@
           <el-step title="藏品入馆"></el-step>
           <el-step title="藏品建账"></el-step>
           <el-step title="藏品入库"></el-step>
-      </el-steps>
+        </el-steps>
       </div>
       
       <div class="search-content">
@@ -31,65 +31,65 @@
         </div>
 
         <div class="sch">
-            <div class="sch-type">精品分类 :</div>
-            <div class="sch-content">
-              <span v-for="item in searchTag" :key="item.name">{{item.name}}&nbsp;({{item.number}})</span>
-              <span @click="handleClick" ref="span">收起</span>
-            </div>
+          <div class="sch-type">精品分类 :</div>
+          <div class="sch-content">
+            <span v-for="item in searchTag" :key="item.name">{{item.name}}&nbsp;({{item.number}})</span>
+            <span @click="handleClick" ref="span">收起</span>
           </div>
+        </div>
 
-          <div class="sch">
-              <div class="sch-type">所属年代 :</div>
-              <div class="sch-content">
-                <span v-for="item in searchYear" :key="item.number">{{item.name}}&nbsp;({{item.number}})</span>
-                <span>收起 ></span>
-              </div>
-            </div>
+        <div class="sch">
+          <div class="sch-type">所属年代 :</div>
+          <div class="sch-content">
+            <span v-for="item in searchYear" :key="item.number">{{item.name}}&nbsp;({{item.number}})</span>
+            <span>收起 ></span>
+          </div>
+        </div>
 
-            <div class="sch">
-              <div class="sch-type">文物级别 :</div>
-              <div class="sch-content">
-                <span v-for="item in searchLeve" :key="item.name">{{item.name}}&nbsp;({{item.number}})</span>
-                <span>更多</span>
-              </div>
-            </div>
+        <div class="sch">
+          <div class="sch-type">文物级别 :</div>
+          <div class="sch-content">
+            <span v-for="item in searchLeve" :key="item.name">{{item.name}}&nbsp;({{item.number}})</span>
+            <span>更多</span>
+          </div>
+        </div>
 
-            <div class="sch">
-              <div class="sch-type">高级选项 :</div>
-              <div class="sch-content">
-                <el-input class="lableSearch" placeholder="藏品标签搜索" v-model="searchName">
-                  <i slot="prefix" class="el-input__icon el-icon-search"></i>
-                </el-input>
-                <el-form ref="form" :model="form" label-width="" inline>
-                  <el-form-item>
-                    <el-select v-model="form.region" placeholder="质地">
-                      <el-option label="说明" value="shanghai"></el-option>
-                      <el-option label="全部" value="beijing"></el-option>
-                    </el-select>
-                  </el-form-item>
-                  <el-form-item>
-                    <el-select v-model="form.region" placeholder="来源">
-                      <el-option label="说明" value="shanghai"></el-option>
-                      <el-option label="全部" value="beijing"></el-option>
-                    </el-select>
-                  </el-form-item>
-                  <el-form-item>
-                    <el-select v-model="form.region" placeholder="状态">
-                      <!-- <el-option v-for="item in textureCondition" :key="item.name">{{item.name}}{{item.value}}</el-option> -->
-                      <el-option label="说明" value="shanghai"></el-option>
-                      <el-option label="全部" value="beijing"></el-option>
-                    </el-select>
-                  </el-form-item>
-                  <el-form-item>
-                    <el-select v-model="form.region" placeholder="完残程度">
-                      <!-- <el-option v-for="item in textureCondition" :key="item.name">{{item.name}}{{item.value}}</el-option> -->
-                      <el-option label="说明" value="shanghai"></el-option>
-                      <el-option label="全部" value="beijing"></el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-form>
-              </div>
-            </div>
+        <div class="sch">
+          <div class="sch-type">高级选项 :</div>
+          <div class="sch-content">
+            <el-input class="lableSearch" placeholder="藏品标签搜索" v-model="searchName">
+              <i slot="prefix" class="el-input__icon el-icon-search"></i>
+            </el-input>
+            <el-form ref="form" :model="form" label-width="" inline>
+              <el-form-item>
+                <el-select v-model="form.region" placeholder="质地">
+                  <el-option label="说明" value="shanghai"></el-option>
+                  <el-option label="全部" value="beijing"></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item>
+                <el-select v-model="form.region" placeholder="来源">
+                  <el-option label="说明" value="shanghai"></el-option>
+                  <el-option label="全部" value="beijing"></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item>
+                <el-select v-model="form.region" placeholder="状态">
+                  <!-- <el-option v-for="item in textureCondition" :key="item.name">{{item.name}}{{item.value}}</el-option> -->
+                  <el-option label="说明" value="shanghai"></el-option>
+                  <el-option label="全部" value="beijing"></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item>
+                <el-select v-model="form.region" placeholder="完残程度">
+                  <!-- <el-option v-for="item in textureCondition" :key="item.name">{{item.name}}{{item.value}}</el-option> -->
+                  <el-option label="说明" value="shanghai"></el-option>
+                  <el-option label="全部" value="beijing"></el-option>
+                </el-select>
+              </el-form-item>
+            </el-form>
+          </div>
+        </div>
             
       </div>
       
@@ -121,7 +121,7 @@
             <el-table-column align="center" prop="texture" label="状态"></el-table-column>
             <el-table-column fixed="right" align="center" label="操作">
               <template>
-                <a class="m-btn" @click="dialogNameDetailsVisible = true" type="text" size="small">入库</a>
+                <a class="m-btn" @click="enter" type="text" size="small">入库</a>
               </template>
             </el-table-column>
             </el-table>
@@ -139,9 +139,10 @@
       </div>
     </div>
 
-    <el-dialog title="藏品入库"  class="approval" :visible.sync="dialogNameDetailsVisible" width="900px" >
-      <enterDialog/>
+    <el-dialog title="藏品入库"  class="approval" :visible.sync="dialogEnterVisible" width="900px" >
+      <enterDialog/> 
     </el-dialog>
+    <!-- <cmp-enter-collect ref="enterStoreDialog"> </cmp-enter-collect> -->
   </div>
 </template>
 
@@ -150,12 +151,12 @@ import cmpHeaderSub from '@cmp/header-sub'
 import sidebar from '@cmp/sidebar'
 import enterDialog from '../dialog/enterStore/enterGoing'
 
-
 export default {
   components: {
   cmpHeaderSub,
   sidebar,
   enterDialog
+  // cmpEnterCollect
 },
   data() {
     return {
@@ -211,7 +212,7 @@ export default {
       },
       // 藏品弹出事件
       dialogCollectVisible: false,
-      dialogNameDetailsVisible: false,
+      dialogEnterVisible: false,
        addDialogLablectVisible: false,
       form: {
         name: '',
@@ -240,6 +241,9 @@ export default {
     this.getDataList()
   },
   methods: {
+    enter () {
+      this.dialogEnterVisible = true;
+    },
      handleClick(){
       if(this.$refs.span.innerHTML == '收起') {
         this.searchTag = this.searchTag.splice(0,3)

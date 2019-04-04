@@ -4,8 +4,8 @@
       <div class="btns clearfix">
         <h1 class="fl">文件夹</h1>
         <div class="right fr">
-          <a class="m-btn">创建文件夹</a>
-          <a class="m-btn ml-30">上传</a>
+          <a class="m-btn" @click="addFile">创建文件夹</a>
+          <a class="m-btn ml-30" @click="upload">上传</a>
         </div>
       </div>
 
@@ -14,7 +14,7 @@
       :data="tableData3"
       stripe
       style="width: 100%"
-      @selection-change="handleSelectionChange">
+      @row-click="rowClick">
         <el-table-column
           type="selection"
           width="55">
@@ -23,7 +23,7 @@
         <el-table-column
           label="名称"
           width="300">
-          <template slot-scope="scope">{{ scope.row.name }}</template>
+          <template slot-scope="scope"><svg-icon icon-class="add" />&nbsp;{{ scope.row.name }}</template>
         </el-table-column>
 
         <el-table-column
@@ -45,23 +45,24 @@
 
         <el-table-column align="center" label="操作" width="250">
           <template slot-scope="scope">
-            <router-link :to="{path: '/list/detail', query: {id: scope.row.id}}">
-              <a class="btn-opera m-btn mr-10">详情</a>
-            </router-link>
+            <a class="btn-opera m-btn mr-10" @click="downLoad(scope.row)">下载</a>
+            <a class="btn-opera m-btn mr-10" @click="upload(scope.row)">上传</a>
             <a href="javascript:;" class="btn-opera m-btn mr-10" icon="el-icon-edit" @click="move()">移动</a>
-            <router-link :to="{path: '/list/edit', query: {id: scope.row.id}}">
+            <a class="btn-opera m-btn mr-10" @click="addFile(scope.row, '重命名文件夹')">重命名</a>
+            <a class="btn-opera m-btn mr-10 dele" @click="deleItem(scope.row)">删除</a>
+            <!-- <router-link :to="{path: '/list/edit', query: {id: scope.row.id}}">
               <a class="btn-opera m-btn mr-10" icon="el-icon-edit">编辑</a>
             </router-link>
             <router-link :to="{path: '/list/edit', query: {id: scope.row.id}}">
               <a class="btn-opera m-btn mr-10" icon="el-icon-edit">编辑</a>
-            </router-link>
+            </router-link> -->
           </template>
         </el-table-column>
       </el-table>
-      <div style="margin-top: 20px">
+      <!-- <div style="margin-top: 20px">
         <el-button @click="toggleSelection([tableData3[1], tableData3[2]])">切换第二、第三行的选中状态</el-button>
         <el-button @click="toggleSelection()">取消选择</el-button>
-      </div>
+      </div> -->
 
       <cmp-file-move ref="fileDialog"></cmp-file-move>
 
@@ -106,34 +107,80 @@ export default {
         name: '王小虎',
         address: '上海市普陀区金沙江路 1518 弄'
       }],
-      multipleSelection: []
+      // multipleSelection: []
     }
   },
 
   methods: {
+    // 点击某行
+    rowClick(row, column, event) {
+      console.log(row)
+    },
+    // 创建文件夹
+    addFile(item, title) {
+      console.log('add')
+      this.$prompt('', title || '创建文件夹', {
+        showClose: true,
+        showCancelButton: false,
+        confirmButtonText: '确定',
+        inputValue: item && item.name,
+        inputPlaceholder: '文件夹名称',
+        inputPattern: /^[\S]{2,6}$/,
+        inputErrorMessage: '请输入2到5位非空字符',
+        // center: true
+      }).then(({ value }) => {
+        console.log(value)
+        // this.$message({
+        //   type: 'success',
+        //   message: '你的邮箱是: ' + value
+        // });
+      }).catch(() => {
+        // this.$message({
+        //   type: 'info',
+        //   message: '取消输入'
+        // });       
+      });
+    },
+    // 下载
+    downLoad(item) {
+      console.log('下载')
+    },
+    // 上传
+    upload(item) {
+      console.log('上传')
+    },
     // 移动
     move(item) {
       this.$refs.fileDialog.init()
       console.log(item)
     },
-    toggleSelection(rows) {
-      if (rows) {
-        rows.forEach(row => {
-          this.$refs.multipleTable.toggleRowSelection(row);
-        });
-      } else {
-        this.$refs.multipleTable.clearSelection();
-      }
+    // 删除
+    deleItem(item) {
+      console.log(item)
     },
-    handleSelectionChange(val) {
-      this.multipleSelection = val;
-    }
+    // toggleSelection(rows) {
+    //   if (rows) {
+    //     rows.forEach(row => {
+    //       this.$refs.multipleTable.toggleRowSelection(row);
+    //     });
+    //   } else {
+    //     this.$refs.multipleTable.clearSelection();
+    //   }
+    // },
+    // handleSelectionChange(val) {
+    //   this.multipleSelection = val;
+    // }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-
+.btn-opera.dele {
+  color: $danger;
+}
+/deep/ .el-table__row {
+  cursor: pointer;
+}
 </style>
 
 

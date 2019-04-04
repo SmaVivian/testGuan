@@ -180,7 +180,7 @@
             </ul>
 
             <!-- 发表评论 -->
-            <el-form class="form-common form-wrap" ref="formSub" :model="form">
+            <el-form class="form-common form-wrap" ref="formSub" :model="formSub">
               <el-form-item label="">
                 <img class="g-pic" src="~@images/default-head.svg" alt="">
                 <cmp-editor></cmp-editor>
