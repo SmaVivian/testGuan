@@ -4,8 +4,9 @@
       <div class="btns clearfix">
         <h1 class="fl">文件夹</h1>
         <div class="right fr">
-          <a class="m-btn" @click="addFile">创建文件夹</a>
-          <a class="m-btn ml-30" @click="upload">上传</a>
+          <a class="m-btn mr-30" @click="addFile"><svg-icon icon-class="upload" class="g-icon-upload" />&nbsp;创建文件夹</a>
+          <!-- 上传 -->
+          <cmp-upload :callFun="uploadCallback"></cmp-upload>
         </div>
       </div>
 
@@ -71,9 +72,11 @@
 </template>
 
 <script>
+import cmpUpload from '@cmp/my-upload/index'
 import cmpFileMove from './dialog/dialog-file-move'
 export default {
   components: {
+    cmpUpload,
     cmpFileMove
   },
   data() {
@@ -145,9 +148,9 @@ export default {
     downLoad(item) {
       console.log('下载')
     },
-    // 上传
-    upload(item) {
-      console.log('上传')
+    // 上传回调
+    uploadCallback(item) {
+      console.log('上传回调')
     },
     // 移动
     move(item) {

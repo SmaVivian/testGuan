@@ -142,7 +142,7 @@
 }
 
 .g-inline-block {
-	cursor: pointer;
+	display: inline-block;
 }
 
 .g-container {
@@ -230,6 +230,7 @@
 .g-icon-upload {
 	width: 20px !important;
 	height: 16px !important;
+	vertical-align: -3px !important;
 }
 
 // 文档

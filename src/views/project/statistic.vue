@@ -147,9 +147,9 @@ export default {
       },
       series: [
         {
-          name:'访问来源',
+          name:'完成情况',
           type:'pie',
-          radius: ['50%', '70%'],
+          radius: ['30%', '70%'],
           avoidLabelOverlap: false,
           label: {
               normal: {
@@ -159,7 +159,7 @@ export default {
               emphasis: {
                   show: true,
                   textStyle: {
-                      fontSize: '30',
+                      fontSize: '16',
                       fontWeight: 'bold'
                   }
               }
@@ -337,7 +337,7 @@ export default {
         {
           name:'访问来源',
           type:'pie',
-          radius: ['50%', '70%'],
+          radius: ['30%', '70%'],
           avoidLabelOverlap: false,
           label: {
             normal: {
