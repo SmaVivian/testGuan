@@ -47,7 +47,8 @@
         <el-table-column align="center" label="操作" width="250">
           <template slot-scope="scope">
             <a class="btn-opera m-btn mr-10" @click="downLoad(scope.row)">下载</a>
-            <a class="btn-opera m-btn mr-10" @click="upload(scope.row)">上传</a>
+            <!-- <a class="btn-opera m-btn mr-10" @click="upload(scope.row)">上传</a> -->
+            <a class="btn-opera m-btn mr-10"><cmp-upload :callFun="uploadCallback" :hasIcon="false"></cmp-upload></a>
             <a href="javascript:;" class="btn-opera m-btn mr-10" icon="el-icon-edit" @click="move()">移动</a>
             <a class="btn-opera m-btn mr-10" @click="addFile(scope.row, '重命名文件夹')">重命名</a>
             <a class="btn-opera m-btn mr-10 dele" @click="deleItem(scope.row)">删除</a>
@@ -149,7 +150,7 @@ export default {
       console.log('下载')
     },
     // 上传回调
-    uploadCallback(item) {
+    uploadCallback(item, type) {
       console.log('上传回调')
     },
     // 移动

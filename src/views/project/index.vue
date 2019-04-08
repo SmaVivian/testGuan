@@ -135,7 +135,7 @@ export default {
     },
     getNavData() {
       // todo ajax
-      this.sidebarData.splice(1, 1)
+      // this.sidebarData.splice(1, 1)
     },
     // 新建项目
     showProAdd() {

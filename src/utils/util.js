@@ -62,6 +62,7 @@ export const common = {
   },
   // 手动打开日期
   openDate: function(ele) {
+    debugger
     document.getElementById(ele || 'openDate').focus()
   }
 }

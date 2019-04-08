@@ -4,7 +4,7 @@
       <div class="g-sub-top">
         <!-- 面包屑 -->
         <el-breadcrumb class="cus-breadcrumb-pro" separator="/">
-          <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/' }"><span class="pro-menu">项目</span></el-breadcrumb-item>
           <el-breadcrumb-item>
             <!-- 头部菜单面板 -->
             <el-popover
@@ -24,7 +24,7 @@
                   </li>
                 </ul>
               </div>
-              <a class="top-menu-current" href="javascript:;" slot="reference">{{topProActive.name}}&nbsp;<i class="el-icon el-icon-arrow-down"></i></a>
+              <span class="top-menu-current" slot="reference">{{topProActive.name}}&nbsp;<i class="el-icon el-icon-arrow-down"></i></span>
             </el-popover>
           </el-breadcrumb-item>
         </el-breadcrumb>
@@ -225,6 +225,16 @@ export default {
 
 <style lang="scss" scoped>
 .g-sub-top {
+  /deep/ .el-breadcrumb {
+    font-size: 16px;
+  }
+  /deep/ .el-breadcrumb__inner.is-link {
+    font-weight: normal;
+  }
+  .pro-menu {
+    color: $color5 !important;
+    cursor: pointer !important;
+  }
   .top-menu-current {
     color: $primary !important;
     cursor: pointer !important;

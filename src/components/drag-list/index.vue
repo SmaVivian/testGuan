@@ -20,8 +20,8 @@
               <h3>
                 <el-date-picker
                   class="cus-btn-date"
-                  v-model="chooseDate"
                   @change="handleOperate(itemGroup, 3)"
+                  v-model="chooseDate"
                   type="date"
                   placeholder="设置本看板所有任务截止时间">
                 </el-date-picker>
@@ -300,10 +300,11 @@ export default {
       }
     }
     .content {
+      height: calc( 100vh - 287px);
       padding-right: 10px;
       // padding-right: 6px;
       overflow-y: auto;
-      height: 617px;
+      // height: 617px;
     }
     /deep/ .el-card__header {
       padding: 0;

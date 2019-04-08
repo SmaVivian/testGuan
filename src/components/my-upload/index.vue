@@ -12,7 +12,10 @@
       :accept="accept"
       :show-file-list="false"
       :before-upload="beforeAvatarUpload">
-      <a class="m-btn"><svg-icon icon-class="upload" class="g-icon-upload" />&nbsp;上传</a>
+      <a class="m-btn">
+        <svg-icon icon-class="upload" class="g-icon-upload" v-if="hasIcon" />
+        上传
+      </a>
     </el-upload>
   </div>
 </template>
@@ -23,6 +26,10 @@ export default {
     accept: {
       type: String,
       default: ''
+    },
+    hasIcon: {
+      type: Boolean,
+      default: true
     },
     callFun: Function
   },

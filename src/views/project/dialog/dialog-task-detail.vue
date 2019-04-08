@@ -119,11 +119,19 @@
                 <div class="top">
                   <img class="g-pic" src="~@images/default-head.svg" alt="">
                   <el-input class="key" v-model="formSub.info" placeholder="输入子任务内容"></el-input>
-                  <span class="icon-date-box" @click="showSubTaskDate">
+                  <span class="icon-date-box">
+                  <!-- <span class="icon-date-box" @click.stop="showSubTaskDate"> -->
                     <svg-icon icon-class="date" class-name="icon-date" v-if="!formSub.subDate"/>
-                    <i v-if="formSub.subDate">{{formSub.subDate}}</i>
+                    <!-- <i v-if="formSub.subDate">{{formSub.subDate}}</i> -->
                   </span>
-                  <el-date-picker id="openDate" class="cus-btn-date date-opacity" type="datetime" placeholder="选择子任务时间" v-model="formSub.subDate" :value-format="'yyyy-MM-dd HH:mm:ss'"></el-date-picker>
+                  <el-date-picker id="openDate" class="cus-btn-date date-opacity" 
+                    type="datetime" 
+                    placeholder="选择子任务截止时间"
+                    :clearable="true" 
+                    :editable="false"
+                    v-model="formSub.subDate" 
+                    :value-format="'yyyy-MM-dd HH:mm:ss'">
+                  </el-date-picker>
                 </div>
                 <div class="bottom tr mt-20">
                   <el-button @click="handleCancel">取消</el-button>
@@ -320,7 +328,9 @@ export default {
     },
     // 弹出子任务日期
     showSubTaskDate() {
-      this.$common.openDate()
+      console.log(22222222)
+      debugger
+      // this.$common.openDate()
     },
     // 弹出项目列表
     showProList() {
@@ -491,9 +501,14 @@ export default {
           position: absolute;
           right: 20px;
           top: 0;
-        }
-        .date-opacity {
-          opacity: 0;
+          // opacity: 0;
+          /deep/ .el-input__inner {
+            padding-right: 0;
+            color: $color6;
+          }
+          /deep/ .el-input__suffix {
+            right: 0;
+          }
         }
         .top {
           position: relative;

@@ -11,7 +11,7 @@
         <div class="header">
           <!-- 面包屑 -->
           <el-breadcrumb separator="/">
-            <el-breadcrumb-item :to="{ path: '/' }">书画展项目</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/' }"><span class="breadcmb">书画展项目</span></el-breadcrumb-item>
             <el-breadcrumb-item>导入展品</el-breadcrumb-item>
           </el-breadcrumb>
 
@@ -247,6 +247,16 @@ export default {
     align-items: center;
     line-height: 60px;
     background-color: #fff;
+    /deep/ .el-breadcrumb {
+      font-size: 16px;
+    }
+    /deep/ .el-breadcrumb__inner.is-link {
+      font-weight: normal;
+    }
+    .breadcmb {
+      color: $color5 !important;
+      cursor: pointer !important;
+    }
     h3 {
       padding-left: 50px;
       flex: 1;

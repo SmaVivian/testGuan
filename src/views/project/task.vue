@@ -156,7 +156,8 @@ export default {
     padding-bottom: 0;
     .panel-add-wrap {
       padding: 20px;
-      height: 700px;
+      height: calc( 100vh - 200px);
+      // height: 700px;
       box-sizing: border-box;
       .panel-add {
         padding: 0 20px;

@@ -167,6 +167,10 @@
   font-weight: bold;
 }
 
+.el-card.is-always-shadow {
+  box-shadow: 0px 1px 10px 0px rgba(238,239,245,1);
+}
+
 // popover
 .el-popover {
   padding: 0;

@@ -174,7 +174,8 @@ export default {
     .content {
       .box-card {
         background-color: #fff;
-        height: 700px;
+        height: calc( 100vh - 197px);
+        // height: 700px;
         padding: 20px;
         box-sizing: border-box;
         .el-icon-more {
