@@ -561,7 +561,7 @@ export default {
   padding: 30px 30px 61px 240px;
 }
 .content {
-  padding: 30px 30px 30px 270px;
+  padding: 30px 30px 30px 260px;
   .table {
       padding: 0 25px;
       background-color: #fff;

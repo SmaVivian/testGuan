@@ -6,8 +6,10 @@
        <div class="g-collect-top">
         <cmp-header-sub :tabList="tabs" :activeTab="currentTab" :pageType="`collect`" :callFun="changeTab"></cmp-header-sub>
       </div>
-       <!-- 侧边栏 -->
-      <sidebar :menuList="sidebarData" :activeIndex="currentTabSide" class="sidebarCont"></sidebar>
+      <!-- 侧边栏 -->
+      <div class="con">
+        <sidebar :menuList="sidebarData" :activeIndex="currentTabSide" class="sidebarCont"></sidebar>
+      </div>
       <div class="content">
         <router-view/>
       </div>
@@ -36,17 +38,17 @@ export default {
       sidebarData: [
         {
           name: '发起审批',
-          icon: 'pro',
+          icon: 'Launch',
           index: '/collect/approval/lanch'
         },
         {
           name: '我发起的',
-          icon: 'pro',
+          icon: 'approval',
           index: '/collect/approval/myLanch'
         },
         {
           name: '待我审批的',
-          icon: 'pro',
+          icon: 'myLaunch',
           index: '/collect/approval/wait'
         },
       ],
@@ -94,14 +96,10 @@ export default {
 
 
 <style lang="scss" scoped>
-.content {
-  padding: 30px 30px 30px 270px;
-}
-
 // 侧边栏样式
 .cmp-sidebar {
   border-radius: 5px;
-  margin: 30px;
+  margin: 20px 0 20px 0;
 }
 
 </style>

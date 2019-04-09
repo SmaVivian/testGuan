@@ -130,52 +130,52 @@
           <el-row>
             <el-col :span="11">
               <div class="infoContent">
-                <h6 class="mb-25">原名:</h6>  <div class="m-tit">detailInfo.name</div>
+                <h6 class="mb-25">原名:</h6>  <div class="m-tit ml-20">{{detailInfo.name}}</div>
               </div>
               <div class="infoContent">
-                <h6 class="mb-25">藏品编号:</h6> <div class="m-tit">000097</div>
+                <h6 class="mb-25">藏品编号:</h6> <div class="m-tit ml-20">000097</div>
               </div>
               <div class="infoContent">
-                <h6 class="mb-25">藏品单位编号:</h6> <div class="m-tit">22038221800001</div>
+                <h6 class="mb-25">藏品单位编号:</h6> <div class="m-tit ml-20">22038221800001</div>
               </div>
               <div class="infoContent">
-                <h6 class="mb-25">入库库房:</h6> <div class="m-tit">书画库房</div>
+                <h6 class="mb-25">入库库房:</h6> <div class="m-tit ml-20">书画库房</div>
               </div>
               <div class="infoContent">
-                <h6 class="mb-25">分类别:</h6> <div class="m-tit">铜器</div>
+                <h6 class="mb-25">分类别:</h6> <div class="m-tit ml-20">铜器</div>
               </div>
               <div class="infoContent">
-                <h6 class="mb-25">入藏时间:</h6> <div class="m-tit">1994</div>
+                <h6 class="mb-25">入藏时间:</h6> <div class="m-tit ml-20">1994</div>
               </div>
               <div class="infoContent">
-                <h6 class="mb-25">单位:</h6> <div class="m-tit">件</div>
+                <h6 class="mb-25">单位:</h6> <div class="m-tit ml-20">件</div>
               </div>
               <div class="infoContent">
-                <h6 class="mb-25">附件:</h6>  <div class="m-tit">- -</div>
+                <h6 class="mb-25">附件:</h6>  <div class="m-tit ml-20">- -</div>
               </div>
             </el-col>
 
             <el-col :span="13">
               <div class="infoContent">
-                <h6>来源:</h6>  <div class="m-tit">拨交</div>     
+                <h6>来源:</h6>  <div class="m-tit ml-20">拨交</div>     
               </div>
               <div class="infoContent">
-                <h6>收藏单位:</h6>  <div class="m-tit">双宁市郑家屯博物馆</div>
+                <h6>收藏单位:</h6>  <div class="m-tit ml-20">双宁市郑家屯博物馆</div>
               </div>
               <div class="infoContent">
-                <h6>总登记号:</h6>  <div class="m-tit">12345</div>
+                <h6>总登记号:</h6>  <div class="m-tit ml-20">12345</div>
               </div>
               <div class="infoContent">
-                <h6>存放地点:</h6>  <div class="m-tit">货柜一</div>
+                <h6>存放地点:</h6>  <div class="m-tit ml-20">货柜一</div>
               </div>
               <div class="infoContent">
-                <h6>分类号:</h6>  <div class="m-tit">123456</div>
+                <h6>分类号:</h6>  <div class="m-tit ml-20">123456</div>
               </div>
               <div class="infoContent">
-                <h6>实际数量:</h6>  <div class="m-tit">1</div>
+                <h6>实际数量:</h6>  <div class="m-tit ml-20">1</div>
               </div>
               <div class="infoContent">
-                <h6>录入员:</h6>  <div class="m-tit">金军</div>
+                <h6>录入员:</h6>  <div class="m-tit ml-20">金军</div>
               </div>   
             </el-col>
           </el-row>

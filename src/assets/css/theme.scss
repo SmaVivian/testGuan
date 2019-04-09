@@ -300,14 +300,37 @@
 }
 .con {
   width: 200px;
-  height: 94px;
   position:absolute;
   margin: 30px;
   border-radius: 5px;
   background-color: #fff;
 }
-// 消息提示框
+// 消息提示框样式
 .el-message {
 	background-color: #fff;
 }
-
+// 面包屑导航样式
+.breadcrumb {
+  color: #0590FF !important;
+  font-weight: bold !important;
+}
+// from表单文字样式
+.el-form-item__label {
+	color: #9699A2;
+}
+.el-input {
+	width: 150px;
+}
+.el-select {
+	width: 150px;
+}
+.lineTime {
+	margin: 0 10px;
+	color: #9699A2;
+	position: relative;
+	top: -8px;
+}
+.el-input__prefix {
+	left: 100px;
+	color: #0590FF;
+}

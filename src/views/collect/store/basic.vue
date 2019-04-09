@@ -5,31 +5,25 @@
         <div class="approvalContent">
           <!-- 面包屑导航 -->
           <el-breadcrumb separator="/">
-            <el-breadcrumb-item :to="{ path: '/' }">库房管理</el-breadcrumb-item>
+            <el-breadcrumb-item>库房管理</el-breadcrumb-item>
             <el-breadcrumb-item><a href="javascript:;">基本信息</a></el-breadcrumb-item>
           </el-breadcrumb>
-          <!-- 内容 -->
-          
-          <div class="www">
-            <div class="add">
-            <a class="m-btn" @click="dialogLablectVisible = true" type="text" size="small">新增库房</a>
+          <!-- 内容 -->    
+          <div class="addBox">
+                <div class="add">
+                <a class="m-btn" @click="dialogLablectVisible = true" type="text" size="small">新增库房</a>
+              </div>
+              <div class="addContent" v-for="(item, index) in 14" :key="index">           
+                <h4>青铜器库房</h4>
+                <h3>存放藏品 : 34件</h3>
+                <a class="m-btn look" @click="dialogLablectVisible = true" type="text" size="small">查看</a>
+                <a class="m-btn del" @click="dialogLablectVisible = true" type="text" size="small">删除</a>
+              </div>
           </div>
-           
-
-           <div class="addContent" v-for="(item, index) in 11" :key="index">           
-            <h4>青铜器库房</h4>
-            <h3>存放藏品 : 34件</h3>
-            <a class="m-btn" @click="dialogLablectVisible = true" type="text" size="small">查看</a>
-            <a class="m-btn" @click="dialogLablectVisible = true" type="text" size="small">删除</a>
-          </div>
-          </div>
-          
          </div>
         </div>
       </div>
     </div>
-
-  </div>
 </template>
 
 <script>
@@ -91,6 +85,8 @@ export default {
           line-height: 50px;
           padding: 10px 0 0px 30px;
           font-size: 18px;
+          font-weight: bold;
+          color: #303133 !important;
         }
     }  
  }
@@ -103,8 +99,8 @@ export default {
   width: 255px; 
   height: 155px;
   border: 1px dashed #0590FF;
-  margin: 30px;
-  // float: left;
+  // 
+     margin: 0 23px 30px 30px;
     .m-btn {
       line-height: 156px;
       margin-left: 35%;
@@ -118,14 +114,20 @@ export default {
      border: 1px solid #0590FF;
    }
  }
-
  .addContent {
       width: 255px; 
       height: 156px;
       border: 1px solid #EBEDF2;
-      margin: 30px;
+      // margin: 30px 10px 30px 40px;
+          margin: 0 23px 30px 30px;
+      .look {
+        margin: 0px 100px 20px 47px;
+      }
+      .del {
+        color: #F25151;
+      }
       h4 {
-        margin: 30px;
+        margin: 30px 0 17px 30px;
       }
       h3 {
         margin: 0 0 30px 30px;
@@ -134,11 +136,15 @@ export default {
         margin: 0 0 20px 47px;
       }
    }
-   .www {
-     width: 20%;
+   .addBox {
      display: flex;
-     height: 20%;
+     flex-wrap: wrap;
+     padding: 15px 30px 30px 30px;
    }
+/deep/.el-breadcrumb__inner {
+            color: #303133;
+            font-weight: bold;
+          }
 </style>
 
 

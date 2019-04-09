@@ -15,7 +15,7 @@
         <div class="search-content">
           <el-breadcrumb separator="/">
            <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item><a href="javascript:;">藏品管理</a></el-breadcrumb-item>
+            <el-breadcrumb-item><a href="javascript:;" class="breadcrumb">藏品管理</a></el-breadcrumb-item>
           </el-breadcrumb> 
           <el-input placeholder="请输入总登记号 / 藏品名称搜索" v-model="search" class="titSearch">
             <i slot="prefix" class="el-input__icon el-icon-search"></i>
@@ -35,7 +35,7 @@
             </div>
 
             <div class="sch">
-              <div class="sch-type">精品分类 :</div>
+              <div class="sch-type gold">精品分类 :</div>
               <div class="sch-content">
                 <span v-for="item in searchTag" :key="item.name">{{item.name}}&nbsp;({{item.number}})</span>
                 <span @click="handleClick" ref="span">收起</span>
@@ -43,7 +43,7 @@
             </div>
 
             <div class="sch">
-              <div class="sch-type">所属年代 :</div>
+              <div class="sch-type gold">所属年代 :</div>
               <div class="sch-content">
                 <span v-for="item in searchYear" :key="item.number">{{item.name}}&nbsp;({{item.number}})</span>
                 <span>收起 ></span>
@@ -51,7 +51,7 @@
             </div>
 
             <div class="sch">
-              <div class="sch-type">文物级别 :</div>
+              <div class="sch-type gold">文物级别 :</div>
               <div class="sch-content">
                 <span v-for="item in searchLeve" :key="item.name">{{item.name}}&nbsp;({{item.number}})</span>
                 <span>更多</span>
@@ -59,7 +59,7 @@
             </div>
 
             <div class="sch">
-              <div class="sch-type">高级选项 :</div>
+              <div class="sch-type select">高级选项 :</div>
               <div class="sch-content">
                 <el-input class="lableSearch" placeholder="藏品标签搜索" v-model="searchName">
                   <i slot="prefix" class="el-input__icon el-icon-search"></i>
@@ -100,10 +100,10 @@
         <div class="table-content">
           <div class="button">
             <el-row>
-              <el-button class="el-primary-border" round @click="onExport">导出</el-button>
-              <el-button class="el-primary-border" round @click="publicCollect()">公开藏品</el-button>
-              <el-button class="el-primary-border" round  @click="collect()">收藏</el-button>
-              <el-button style="float: right; padding: 35px 35px" type="text" @click="dialogOpenctVisible = true">选择公开字段</el-button>
+              <el-button class="el-primary-border" round @click="onExport"><svg-icon icon-class="daochu" />&nbsp;导出</el-button>
+              <el-button class="el-primary-border" round @click="publicCollect()"><svg-icon icon-class="gongkai" class="open"/>&nbsp;公开藏品</el-button>
+              <el-button class="el-primary-border" round  @click="collect()"><svg-icon icon-class="shoucang" />&nbsp;收藏</el-button>
+              <el-button style="float: right; padding: 35px 35px" type="text" @click="dialogOpenctVisible = true"><svg-icon icon-class="daochu" />&nbsp;选择公开字段</el-button>
             </el-row>
           </div>
             <!-- 表格 -->
@@ -304,7 +304,7 @@ export default {
       sidebarData: [
         {
           name: '藏品管理',
-          icon: 'pro',
+          icon: 'cangpinguanli',
           index: '/collect/manage'
         },
       ],
@@ -443,7 +443,7 @@ export default {
 }
 .g-container {
   .content {
-    padding: 30px 30px 30px 270px;
+    padding: 30px 30px 30px 260px;
     .titSearch {
       width: 21.5%;
       background-color: #fff;
@@ -452,20 +452,21 @@ export default {
     }
     .table {
       padding: 0 30px;
+      border-radius: 5px;
       background-color: #fff;
         .m-btn {
           margin-right: 10px;
         }
     }
     .search-content {
-      padding: 30px;
+      padding: 30px 30px 20px 30px;
       background-color: #fff;
       box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
       border-radius: 4px;
         .el-breadcrumb {
           font-size: 18px;
           line-height: 20px;
-          margin-bottom: 30px;
+          margin-bottom: 20px;
           background: #fff;
         } 
       }
@@ -477,6 +478,12 @@ export default {
     padding: 10px 0;
     font-size: 14px;
     background-color: #fff;
+      .gold {
+        line-height: 14px;
+      }
+      .select {
+        line-height: 35px;
+      }
       .sch-type {
         height: 20px;
         width: 75px;
@@ -511,7 +518,7 @@ export default {
   .sch-content {
     width: 100%;
       .lableSearch {
-        width: 18%;
+        width: 208px;
         float: left;
       }
     }
@@ -571,5 +578,21 @@ content:'';
 }
 .el-button {
   margin-left: 5px;
+  .open {
+    font-size: 14px;
+  }
 }
+.el-input__icon {
+  color: #0590FF;
+}
+/deep/.el-input__prefix {
+  left: 83%;
+}
+/deep/.el-input__inner {
+  padding-left: 15px;
+}
+.con {
+  height: 95px;
+}
+
 </style>

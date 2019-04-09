@@ -6,8 +6,12 @@
        <div class="g-collect-top">
         <cmp-header-sub :tabList="tabs" :activeTab="currentTab" :pageType="`collect`" :callFun="changeTab"></cmp-header-sub>
       </div>
-       <!-- 侧边栏 -->
-      <sidebar :menuList="sidebarData" :activeIndex="currentTabSide" class="sidebarCont"></sidebar>
+      <!-- 侧边栏 -->
+      <div class="con">
+        <sidebar :menuList="sidebarData" :activeIndex="currentTabSide" 
+        class="sidebarCont">
+        </sidebar>
+      </div>
       <div class="content">
         <router-view/>
       </div>
@@ -90,12 +94,12 @@ export default {
 
 <style lang="scss" scoped>
 .content {
-  padding: 30px 30px 30px 270px;
+  padding: 30px 30px 30px 260px;
 }
 
 // 侧边栏样式
 .cmp-sidebar {
-  margin: 30px;
+  margin: 20px 0 20px 0; 
 }
 
 </style>

@@ -6,7 +6,7 @@
           <!-- 面包屑导航 -->
           <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item><a href="javascript:;">发起审批</a></el-breadcrumb-item>
+            <el-breadcrumb-item><a href="javascript:;" class="breadcrumb">发起审批</a></el-breadcrumb-item>
           </el-breadcrumb>
           <!-- 内容 -->
           <h3 class="addTit m-btn" @click="dialogRejectVisible = true">驳回原因</h3>
@@ -346,10 +346,11 @@ export default {
 }
 
 .content {
-    padding: 0!important;
+  padding: 30px 30px 30px 250px;
   .approvalContent {
-    padding: 30px;
+    padding: 20px 30px 30px 30px;
     margin-left: 10px;
+    border-radius: 5px;
     background-color: #fff;
     .addTit {
       display: block;

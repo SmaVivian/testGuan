@@ -88,6 +88,7 @@
   }
 
   .el-tabs__header {
+    height: 60px;
     margin: 0;
     line-height: 60px;
     background-color: #fff;
@@ -464,3 +465,8 @@
   content:'';
   }
 // end 重写element-ui
+
+// UEditor上传
+#edui_fixedlayer {
+  z-index: 9999 !important;
+}

@@ -530,7 +530,7 @@ export default {
    }
  }
 .content {
-  padding: 30px 30px 30px 270px;
+  padding: 30px 30px 30px 260px;
   .el-breadcrumb {
     height: 50px;
     line-height: 50px;

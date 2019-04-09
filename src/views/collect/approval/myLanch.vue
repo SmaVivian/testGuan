@@ -6,14 +6,14 @@
           <!-- 面包屑导航 -->
           <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item><a href="javascript:;">我发起的</a></el-breadcrumb-item>
+            <el-breadcrumb-item><a href="javascript:;" class="breadcrumb">我发起的</a></el-breadcrumb-item>
           </el-breadcrumb>
 
           <div class="search">
             <el-form ref="form" :model="form" label-width="70px" class="searchBottom">
               <el-form-item label="选择日期">
-                <el-date-picker class="fl" v-model="value1" type="date" placeholder="选择日期"></el-date-picker>                  
-                <el-date-picker v-model="value1" type="date" placeholder="选择日期"></el-date-picker>
+                <el-date-picker class="fl" v-model="start" type="date" placeholder="选择开始日期"></el-date-picker><span class="lineTime">__</span>      
+                <el-date-picker v-model="end" type="date" placeholder="选择结束日期"></el-date-picker>
               </el-form-item>   
               <el-form-item label="登记人">
                 <el-select v-model="form.region" placeholder="请选择">
@@ -27,9 +27,9 @@
                   <el-option label="状态二" value="beijing"></el-option>
                 </el-select>
               </el-form-item>
-              <el-button class="el-primary-border searchBton" @click="onExport">查询</el-button>
+              <el-button class="el-primary-border searchBton" @click="onExport"><svg-icon icon-class="search" />&nbsp;查询</el-button>
             </el-form>
-            <el-button class="el-primary-border" round @click="onExport">导出</el-button>
+            <el-button class="el-primary-border" round @click="onExport"><svg-icon icon-class="daochu" />&nbsp;导出</el-button>
         </div>
         <!-- 表格 -->
         <div class="table">
@@ -97,7 +97,8 @@ export default {
         name: '',
         region: '',
       },
-      value1: '',
+      start: '2018-03-23',
+      end: '2019-04-3',
       // 表格数据
       tableData3: [{
         date: '2016-05-03',
@@ -186,7 +187,17 @@ export default {
         margin-left: 15px;
       }
       .el-form-item {
-        margin-right: 30px;
+        margin-right: 30px;   
+          /deep/.el-input__inner {
+            padding-left: 15px;
+          }
+          .el-input {
+            width: 150px;
+          }
+          /deep/.el-input__prefix {
+            left: 100px;
+            color: #0590FF;
+          }
       }
       .el-button {
         height: 40px;
@@ -198,15 +209,12 @@ export default {
       margin: 0 0 30px 30px;
     }
   }
- 
  .content {
+   padding: 30px 30px 30px 260px;
    .el-dialog {
      .el-dialog__header {
      margin-top: 300px;
    }
    }
-   
  }
 </style>
-
-

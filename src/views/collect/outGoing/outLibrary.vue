@@ -6,7 +6,7 @@
         <div class="schedule-content">
           <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/' }">出库管理</el-breadcrumb-item>
-            <el-breadcrumb-item><a href="javascript:;">回库管理</a></el-breadcrumb-item>
+            <el-breadcrumb-item><a href="javascript:;" class="breadcrumb">回库管理</a></el-breadcrumb-item>
           </el-breadcrumb> 
           <div class="search-content">
             <el-form ref="form" :model="form" label-width="70px" class="searchTop">
@@ -524,7 +524,7 @@ export default {
    }
  }
 .content {
-  padding: 30px 30px 30px 270px;
+  padding: 30px 30px 30px 260px;
   .el-breadcrumb {
     height: 50px;
     line-height: 50px;
@@ -537,7 +537,7 @@ export default {
     background-color: #fff;
   }
   .schedule-content {
-    padding: 30px;
+    padding: 8px;
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
     border-radius: 4px;
     background-color: #fff;

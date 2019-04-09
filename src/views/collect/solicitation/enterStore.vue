@@ -98,7 +98,7 @@
       <div class="table-content">
         <div class="button">
           <el-row>
-            <el-button class="el-primary-border" round @click="onExport">导出</el-button>       
+            <el-button class="el-primary-border" round @click="onExport"><svg-icon icon-class="daochu" />&nbsp;导出</el-button>       
           </el-row>
         </div>
         <!-- 表格 -->

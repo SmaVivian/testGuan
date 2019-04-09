@@ -7,7 +7,10 @@
         <cmp-header-sub :tabList="tabs" :activeTab="currentTab" :pageType="`collect`" :callFun="changeTab"></cmp-header-sub>
       </div>
        <!-- 侧边栏 -->
-      <sidebar :menuList="sidebarData" :activeIndex="currentTabSide" class="sidebarCont"></sidebar>
+       <div class="con">
+         <sidebar :menuList="sidebarData" :activeIndex="currentTabSide" class="sidebarCont"></sidebar>
+       </div>
+      
       <div class="content">
         <router-view/>
       </div>
@@ -36,17 +39,17 @@ export default {
       sidebarData: [
         {
           name: '基本信息',
-          icon: 'pro',
+          icon: 'basic',
           index: '/collect/store/basic'
         },
         {
           name: '库房盘点',
-          icon: 'pro',
+          icon: 'inventory',
           index: '/collect/store/inventory'
         },
         {
           name: '温度记录',
-          icon: 'pro',
+          icon: 'cangpgl',
           index: '/collect/store/temperature'
         }
       ],
@@ -100,7 +103,6 @@ export default {
 
 // 侧边栏样式
 .cmp-sidebar {
-  margin: 30px 20px 0 30px;
+  margin: 20px 0 20px 0; 
 }
-
 </style>

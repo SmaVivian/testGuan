@@ -5,7 +5,7 @@
       <div class="schedule-content">
         <el-breadcrumb separator="/">
           <el-breadcrumb-item :to="{ path: '/' }">藏品征集</el-breadcrumb-item>
-          <el-breadcrumb-item><a href="javascript:;">征集计划</a></el-breadcrumb-item>
+          <el-breadcrumb-item><a href="javascript:;" class="breadcrumb">征集计划</a></el-breadcrumb-item>
         </el-breadcrumb> 
         <el-steps class="schedule" :active="active" finish-status="success"  align-left>
           <el-step title="征集计划"></el-step>
@@ -27,8 +27,8 @@
             </el-form-item>
             <el-form-item label="计划年度">
               <el-select v-model="form.region" placeholder="请选择">
-              <el-option label="年度计划" value="shanghai"></el-option>
-              <el-option label="区域二" value="beijing"></el-option>
+                <el-option label="年度计划" value="shanghai"></el-option>
+                <el-option label="区域二" value="beijing"></el-option>
               </el-select>
             </el-form-item>
           </el-form>             
@@ -39,14 +39,14 @@
             </el-form-item>   
             <el-form-item label="登记人">
               <el-select v-model="form.region" placeholder="请选择">
-              <el-option label="登记一" value="shanghai"></el-option>
-              <el-option label="登记二" value="beijing"></el-option>
+                <el-option label="登记一" value="shanghai"></el-option>
+                <el-option label="登记二" value="beijing"></el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="状态选择">
               <el-select v-model="form.region" placeholder="请选择">
-              <el-option label="状态一" value="shanghai"></el-option>
-              <el-option label="状态二" value="beijing"></el-option>
+                <el-option label="状态一" value="shanghai"></el-option>
+                <el-option label="状态二" value="beijing"></el-option>
               </el-select>
             </el-form-item>
             <el-button class="el-primary-border fr searchButton" round @click="onExport">查询</el-button>
@@ -54,9 +54,9 @@
         </div>
         <div class="button">
           <el-row>
-            <el-button class="el-primary-border" round @click="onExport">导出</el-button>
-            <el-button class="el-primary-border" round @click="dialogOpenctVisible = true">创建计划</el-button>
-            <el-button class="el-primary-border" round @click="onExport">导入征集藏品</el-button>
+            <el-button class="el-primary-border" round @click="onExport"><svg-icon icon-class="daochu" />&nbsp;导出</el-button>
+            <el-button class="el-primary-border" round @click="dialogOpenctVisible = true"><svg-icon icon-class="add" />&nbsp;创建计划</el-button>
+            <el-button class="el-primary-border" round @click="onExport"><svg-icon icon-class="daoru" />&nbsp;导入征集藏品</el-button>
           </el-row>
         </div>
         <!-- 表格 -->
@@ -183,10 +183,6 @@ export default {
     return {
       // 点击上传
       fileList: [{name: '概念设计文档', url: ''}],
-      ruleForm: {
-        shape: '',
-        content: ''
-      },
       ruleForm: {
         shape: '',
         content: ''
@@ -395,8 +391,8 @@ export default {
   font-size: 18px;
   font-weight: bold;
 }
-  
 .content {
+  padding: 30px 30px 30px 260px;
   .el-dialog__footer {
     text-align: center;
   }
@@ -410,6 +406,7 @@ export default {
   }
   .table {
     padding: 0 25px;
+    border-radius: 5px;
     background-color: #fff;
   }
   .schedule-content {
@@ -426,7 +423,7 @@ export default {
     background-color: #fff;
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
     margin-top: 20px;
-    border-radius: 4px;
+    border-radius: 5px;
     .search-content {
       padding: 30px 30px 0 30px;
         .el-form-item {
@@ -513,7 +510,6 @@ export default {
    }
  }
  .table {
-   margin-top: 30px;
    .m-btn {
      display: block;
      margin-bottom: 10px;

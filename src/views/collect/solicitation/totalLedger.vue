@@ -112,7 +112,7 @@
       </div>
       <!-- 表格内容 -->
       <div class="table-content">
-      <el-button class="el-primary-border" round @click="onExport">导出</el-button>
+      <el-button class="el-primary-border" round @click="onExport"><svg-icon icon-class="daochu" />&nbsp;导出</el-button>
       <!-- 表格 -->
       <div class="table">
         <el-table :data="tableData3" stripe>
@@ -374,7 +374,15 @@ export default {
  .el-breadcrumb::after {
    display: none;
 }
-
+/deep/.el-input__prefix {
+  left: 80%;
+}
+/deep/.el-input__inner {
+  padding-left: 15px;
+}
+/deep/.content {
+  padding: 30px 30px 30px 260px !important;
+}
 </style>
 
 

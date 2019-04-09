@@ -38,7 +38,7 @@
     </div>
     <div class="totalContent ">
       <div class="table">
-        <el-button class="el-primary-border" round @click="onExport">导出</el-button>
+        <el-button class="el-primary-border" round @click="onExport"><svg-icon icon-class="daochu" />&nbsp;导出</el-button>
         <el-button class="el-primary-border" round @click="onExport">添加记录</el-button>
         <div class="table">
           <el-table :data="tableData3" stripe>

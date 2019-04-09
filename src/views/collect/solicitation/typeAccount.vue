@@ -112,7 +112,7 @@
         </div>
         <!-- 表格内容 -->
         <div class="table-content">
-        <el-button class="el-primary-border" round @click="onExport">导出</el-button>
+        <el-button class="el-primary-border" round @click="onExport"><svg-icon icon-class="daochu" />&nbsp;导出</el-button>
         <!-- 表格 -->
         <div class="table">
           <el-table :data="tableData3" stripe>

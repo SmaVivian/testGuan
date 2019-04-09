@@ -6,13 +6,13 @@
           <!-- 面包屑导航 -->
           <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/' }">审批</el-breadcrumb-item>
-            <el-breadcrumb-item><a href="javascript:;">抄送我的</a></el-breadcrumb-item>
+            <el-breadcrumb-item><a href="javascript:;" class="breadcrumb">抄送我的</a></el-breadcrumb-item>
           </el-breadcrumb>
 
           <div class="search">
             <el-form ref="form" :model="form" label-width="70px" class="searchBottom">
               <el-form-item label="选择日期">
-                <el-date-picker class="fl" v-model="value1" type="date" placeholder="选择日期"></el-date-picker>                  
+                <el-date-picker class="fl" v-model="value1" type="date" placeholder="选择日期"></el-date-picker><span class="lineTime">__</span>                  
                 <el-date-picker v-model="value1" type="date" placeholder="选择日期"></el-date-picker>
               </el-form-item>   
               <el-form-item label="审批状态">
@@ -29,7 +29,7 @@
               </el-form-item>
               <el-button class="el-primary-border searchBton" @click="onExport">查询</el-button>
             </el-form>
-            <el-button class="el-primary-border" round @click="onExport">导出</el-button>
+            <el-button class="el-primary-border" round @click="onExport"><svg-icon icon-class="daochu" />&nbsp;导出</el-button>
         </div>
         <!-- 表格 -->
         <div class="table">
@@ -155,6 +155,10 @@ export default {
       .el-form-item {
         margin-right: 30px;
       }
+      .el-input {
+        width: 150px;
+      }
+      
       .el-button {
         height: 40px;
         background-color: #0590FF;
@@ -165,7 +169,9 @@ export default {
       margin: 0px 0 30px 30px;
     }
   }
- 
+.content {
+  padding: 30px 30px 30px 250px;
+}
 </style>
 
 

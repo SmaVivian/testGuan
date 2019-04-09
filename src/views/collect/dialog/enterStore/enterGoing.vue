@@ -6,19 +6,17 @@
 
             <div class="content">
               <div class="enterContent">
-                <h6>总登记号</h6> <div class="m-tit">12-20-12</div>
+                <h6>总登记号: </h6> <div class="m-tit ml-20">12-20-12</div>
               </div>
 
               <div class="enterContent">
-                <h6>登记日期</h6> <div class="m-tit">2018/06/20</div>
+                <h6>登记日期: </h6> <div class="m-tit ml-20">2018/06/20</div>
               </div>
 
               <div class="enterContent">
-                <h6>入馆凭证号</h6> <div class="m-tit">RGLS-2018-23</div>
+                <h6>入馆凭证号: </h6> <div class="m-tit ml-20">RGLS-2018-23</div>
               </div>
             </div>
-            
-            
             
         
             <div class="planName">
@@ -30,14 +28,12 @@
               </el-form-item>
             </div>
               
+    
             <div class="planName">
-              
-              
-            </div>
-
-            <div class="planName">
-              
-              <el-form-item label="注销凭证号 :">
+              <el-form-item label="藏品名称 :">
+                <el-input v-model="form.collectName">{{form.collectName}}</el-input>
+              </el-form-item>
+              <el-form-item label="年代 :">
                 <el-input v-model="form.name"></el-input>
               </el-form-item>
             </div>
@@ -46,12 +42,7 @@
               <el-form-item label="藏品名称 :">
                 <el-input v-model="form.name"></el-input>
               </el-form-item>
-              <el-form-item label="年代 :">
-                 <el-select v-model="form.region">
-                  <el-option label="说明" value="shanghai"></el-option>
-                  <el-option label="全部" value="beijing"></el-option>
-                </el-select>
-              </el-form-item>
+              
               <el-form-item label="藏品分类 :">
                  <el-select v-model="form.region">
                   <el-option label="说明" value="shanghai"></el-option>
@@ -185,6 +176,7 @@ export default {
   data() {
     return {
       form: {
+        collectName: '青花瓷器入馆',
         name: '',
         region: '',
         type: []
@@ -216,7 +208,7 @@ export default {
     display: flex;
     .enterContent {
       display: flex;
-      margin: 15px 75px 0 0;
+      margin: 15px 90px 0 0;
       .m-tit {
         width: 97px;
       }
@@ -236,18 +228,22 @@ export default {
       .el-form-item {
         margin: 0 10px;
         margin-bottom: 0px;
-        margin-right: 0;
+        margin-right: -20px;
         .el-form-item__content{
           .el-input {
             width: 75%;
+              /deep/.el-input__inner {
+                color: #9699A2;
+              }
           }
         }
       }
   }
 }
   /deep/.el-form-item__label {
-   text-align: right;
+   width: 91px!important;
    color: #9699A2;
+   text-align: right;
   }
- 
+
 </style>

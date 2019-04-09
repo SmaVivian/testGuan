@@ -50,13 +50,13 @@
               <el-option label="状态二" value="beijing"></el-option>
               </el-select>
             </el-form-item>
-            <el-button class="el-primary-border fr searchButton" round @click="onExport">查询</el-button>
+            <el-button class="el-primary-border fr searchButton" round @click="onExport"><svg-icon icon-class="search" />&nbsp;查询</el-button>
           </el-form>
         </div>
         <div class="button">
           <el-row>
-            <el-button class="el-primary-border" round @click="onExport">导出</el-button>
-            <el-button class="el-primary-border" round @click="dialogEnterDetailsVisible = true">藏品入馆</el-button>
+            <el-button class="el-primary-border" round @click="onExport"><svg-icon icon-class="daochu" />&nbsp;&nbsp;导出</el-button>
+            <el-button class="el-primary-border" round @click="dialogEnterDetailsVisible = true"><svg-icon icon-class="enterStore" />&nbsp;&nbsp;藏品入馆</el-button>
           </el-row>
         </div>
         <!-- 表格 -->
@@ -212,6 +212,7 @@ export default {
   font-weight: bold;
 }
 .content {
+  padding: 30px 30px 30px 260px;
   .el-dialog__footer {
     text-align: center;
   }
