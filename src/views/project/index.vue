@@ -40,6 +40,7 @@
 
 <script>
 import sidebar from '@cmp/sidebar'
+import abc from '@cmp/header'
 import cmpProAdd from './dialog/dialog-pro-add'  // 新建项目
 export default {
   components: {
@@ -149,9 +150,14 @@ export default {
 .g-wrap {
   display: flex;
   .cmp-sidebar {
+    position: fixed;
+    top: 80px;
+    bottom: 0;
+    overflow-y: auto;
     background: #fff;
   }
   .page-project {
+    padding-left: 200px;
     flex: 1;
     .content {
       padding: 30px;

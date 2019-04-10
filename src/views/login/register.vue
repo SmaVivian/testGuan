@@ -6,7 +6,7 @@
       <div class="content" :class="{'type-forget': pageType === 'forget'}">
         <h1 class="title">{{pageType === 'add' ? '注册' : '忘记密码'}}</h1>
 
-        <el-form :label-position="`top`" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="form cus-form-top">
+        <el-form @keyup.enter.native="submitForm('ruleForm')" :label-position="`top`" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="form cus-form-top">
           <el-form-item label="账号" prop="name" v-if="pageType === 'add'">
             <el-input v-model="ruleForm.name" placeholder="请输入用户名"></el-input>
           </el-form-item>
@@ -29,11 +29,11 @@
           </el-form-item>
 
           <el-form-item :label="pageType === 'add' ? '密码' : '重置密码'" prop="pass">
-            <el-input v-model="ruleForm.pass" placeholder="设置6至20位登录密码"></el-input>
+            <el-input type="password" v-model="ruleForm.pass" placeholder="设置6至20位登录密码"></el-input>
           </el-form-item>
 
           <el-form-item label="确认密码" prop="checkPass">
-            <el-input v-model="ruleForm.checkPass" placeholder="请再次输入登录密码"></el-input>
+            <el-input type="password" v-model="ruleForm.checkPass" placeholder="请再次输入登录密码"></el-input>
           </el-form-item>
         </el-form>
 
@@ -45,7 +45,7 @@
 
 <script>
 import { validate } from '@/utils/util'
-import md5 from 'js-md5'
+// import md5 from 'js-md5'
 import cmpLoginPic from './components/login-pic'
 export default {
   components: {
@@ -86,7 +86,7 @@ export default {
     return {
       pageType: this.$route.query.type,
       resetMsg: '', // 重新发送倒计时
-      codeEnable: true,  // 验证码按钮是否可用
+      // codeEnable: true,  // 验证码按钮是否可用
       ruleForm: {
         name: '',
         phoneNo: '',
@@ -97,6 +97,7 @@ export default {
       rules: {
         name: [
           { required: true, message: '请输入用户名', trigger: 'blur' },
+          { min: 1, max: 10, message: '长度在 1 到 10 个字符', trigger: 'blur' },
         ],
         phoneNo: [
           { required: true, message: '请输入手机号码', trigger: 'blur' },
@@ -119,28 +120,20 @@ export default {
   methods: {
     // 获取验证码
     sendMsg() {
-      this.$refs.ruleForm.validateField('phoneNo', (errorMsg) => {
+      let api = this.pageType == 'add' ? '/login/sendSecretCode' : '/login/front/sendForgetPasswordCode';
+      this.$refs.ruleForm.validateField('phoneNo', (str, errorMsg) => {
         if(!errorMsg) {
           this.timeDown();
+          // 发送验证码
+          this.$http.post(api, {
+            phone: this.ruleForm.phoneNo
+          }).then((res) => {
+            if(!res.success) {
+              this.$message.error(res.message);
+            }
+          })
         }
       })
-      // let vm = this;
-      // let api = this.pageType == 'add' ? '/sendSecretCode.do' : '/front/sendForgetPasswordCode.do';
-      // this.$refs.ruleForm.validateField('phoneNo', (str, errorMsg) => {
-      //   if(!errorMsg) {
-      //     vm.timeDown();
-      //     // 发送验证码
-      //     vm.$http.get(api, {
-      //       params: {
-      //         phone: vm.ruleForm.phoneNo
-      //       }
-      //     }).then((res) => {
-      //       if(res.data.success == 0) {
-      //         vm.$message.error(res.data.error.message);
-      //       }
-      //     })
-      //   }
-      // })
     },
     // 倒计时
     timeDown() {
@@ -156,19 +149,19 @@ export default {
     },
     // 注册、忘记密码
     submitForm(formName) {
-      let api = this.pageType == 'add' ? '/front/register.do' : '/front/forgetPassword.do';
+      let api = this.pageType == 'add' ? '/login/front/register' : '/login/front/forgetPassword';
 
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.$http.post(api, {
-            id: this.$store.state.user.userid,
+            // id: this.$store.state.user.userid,
             userName: this.ruleForm.name,
             phone: this.ruleForm.phoneNo,
             verificationCode: this.ruleForm.code,
-            password: md5(this.$salt + this.ruleForm.pass),
-            surePassword: md5(this.$salt + this.ruleForm.checkPass)
+            pwd: this.ruleForm.pass,
+            // surePassword: this.ruleForm.checkPass
           }).then((res) => {
-            if(res.data.success == 1) {
+            if(res.success) {
               this.$message({
                 duration: 2000,
                 message: this.pageType == 'add' ? '注册成功' : '修改密码成功',
@@ -176,9 +169,9 @@ export default {
               });
               setTimeout(() => {
                 this.$router.push({ path: '/login'});
-              }, 2000);
+              }, 1000);
             } else {
-              this.$message.error(res.data.error.message);
+              this.$message.error(res.message);
             }
           })
         } else {

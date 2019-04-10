@@ -49,7 +49,7 @@
               </h3>
 
               <el-row :gutter="30" class="collect-list">
-                <el-col :span="4" 
+                <el-col :xs="6" :sm="6" :md="6" :xl="4"
                   v-for="(item, index) in dataList"
                   @click.native="toggleCheck(item)">
                   <div class="it" :class="{'is-checked': item.active}">

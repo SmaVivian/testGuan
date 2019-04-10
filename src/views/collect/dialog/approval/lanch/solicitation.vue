@@ -74,12 +74,11 @@
         <span slot="tip" class="el-upload__tip">支持扩展名: .rar .zip .doc .pdf .jpg</span> 
       </el-upload>
     </div>
-    
-    
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogEnterlVisible = false">取 消</el-button>
-        <el-button type="primary" @click="fromCollection">提 交</el-button>
-      </div>
+  
+    <div slot="footer" class="dialog-footer">
+      <el-button @click="dialogEnterlVisible = false">取 消</el-button>
+      <el-button type="primary" @click="fromCollection">提 交</el-button>
+    </div>
   </div>    
 </template>
 

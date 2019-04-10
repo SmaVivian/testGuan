@@ -1,10 +1,11 @@
 import axios from 'axios'
 import { Message, MessageBox } from 'element-ui'
-// import store from '../store'
+import store from '../store'
 // import { getToken } from '@/utils/auth'
 
 // 创建axios实例
 const service = axios.create({
+  // baseURL: '/singleMuseum', // api 的 base_url
   baseURL: '/vivi', // api 的 base_url
   // baseURL: process.env.BASE_API, // api 的 base_url
   timeout: 60000 // 请求超时时间
@@ -13,9 +14,9 @@ const service = axios.create({
 // request拦截器
 service.interceptors.request.use(
   config => {
-    // if (store.getters.token) {
-    //   config.headers['X-Token'] = getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
-    // }
+    if (store.state.user.userid) {
+      // config.headers['token'] = store.state.user.token // 让每个请求携带自定义userId 请根据实际情况自行修改
+    }
     return config
   },
   error => {

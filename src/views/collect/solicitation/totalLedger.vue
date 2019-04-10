@@ -260,6 +260,7 @@ export default {
   width: 50px;
 }
 .g-wrap {
+  padding: 30px 30px 30px 260px;
   .left {
     width: 210px;
     height: 100%;
@@ -379,9 +380,6 @@ export default {
 }
 /deep/.el-input__inner {
   padding-left: 15px;
-}
-/deep/.content {
-  padding: 30px 30px 30px 260px !important;
 }
 </style>
 

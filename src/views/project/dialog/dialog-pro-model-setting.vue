@@ -27,7 +27,9 @@
           :class="{'el-primary-border': item.active}"
           @click="handleClick(item)" 
           :key="index">
-          <i class="el-icon-edit"></i>
+          <svg-icon icon-class="icon-set" :icon-class="item.active ? item.icon+'-active' : item.icon" style="font-size:14px;" />
+          <img src="~@images/project/triangle.svg" class="bg" v-if="item.active">
+          <!-- <i class="el-icon-edit"></i> -->
           {{item.name}}
         </el-button>
         <!-- <el-button class="el-primary-border">任务</el-button> -->
@@ -60,27 +62,27 @@ export default {
         },
         {
           name: '展品',
-          icon: 'task',
+          icon: 'exbihition',
           active: true
         },
         {
           name: '文件',
-          icon: 'task',
+          icon: 'file',
           active: true
         },
         {
           name: '日程',
-          icon: 'task',
+          icon: 'richen',
           active: true
         },
         {
           name: '讨论',
-          icon: 'task',
+          icon: 'taolun',
           active: true
         },
         {
           name: '统计',
-          icon: 'task',
+          icon: 'tongji',
           active: true
         },
       ]
@@ -105,7 +107,13 @@ export default {
 .dialog-pro-setting {
   .choose-list {
     .el-button {
+      position: relative;
       border-radius: 4px;
+      .bg {
+        position: absolute;
+        right: -1px;
+        bottom: -1px;
+      }
     }
     .el-button.el-primary-border{
       border-radius:4px;

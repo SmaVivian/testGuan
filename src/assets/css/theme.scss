@@ -155,7 +155,7 @@
 }
 
 .g-wrap {
-	min-height: calc( 100vh - 80px );
+	// min-height: calc( 100vh - 80px );
 }
 
 .g-container.header-no {
@@ -314,16 +314,17 @@
   color: #0590FF !important;
   font-weight: bold !important;
 }
+
 // from表单文字样式
 .el-form-item__label {
 	color: #9699A2;
 }
-.el-input {
-	width: 150px;
-}
-.el-select {
-	width: 150px;
-}
+// .el-input {
+// 	width: 150px;
+// }
+// .el-select {
+// 	width: 150px;
+// }
 .lineTime {
 	margin: 0 10px;
 	color: #9699A2;

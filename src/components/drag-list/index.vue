@@ -26,7 +26,7 @@
                   placeholder="设置本看板所有任务截止时间">
                 </el-date-picker>
               </h3>
-              <h3 @click="handleOperate(itemGroup, 4)">删除看板</h3>
+              <h3 class="m-danger dele" @click="handleOperate(itemGroup, 4)">删除看板</h3>
             </div>
 
             <!-- 搜索负责人列表 悬浮面板 -->
@@ -281,8 +281,10 @@ export default {
 }
 .cmp-drag {
   .drag-list {
+    width: 330px;
     padding: 20px;
     padding-right: 10px;
+    margin-right: 20px;
     box-sizing: border-box;
     margin-bottom: 20px;
     overflow: initial;
@@ -313,9 +315,11 @@ export default {
     }
     .list-group-item {
       position: relative;
+      cursor: pointer;
       &.tip {
         padding-left: 11px;
         &:before {
+          margin-top: 30px;
           display: block;
           content:'';
           width: 6px;
@@ -348,11 +352,11 @@ export default {
       }
       .person {
         display: inline-block;
-        padding: 10px 15px;
+        padding: 6px 15px;
         margin-top: 15px;
         margin-left: 25px;
         background:rgba(252,252,253,1);
-        border-radius:15px;
+        border-radius: 100px;
       }
     }
 
@@ -413,6 +417,13 @@ export default {
       :-ms-input-placeholder { /* Internet Explorer 10+ */
         color: $color5;
       }
+    }
+  }
+}
+.operate-box {
+  h3.dele {
+    &:hover {
+      color: $danger;
     }
   }
 }

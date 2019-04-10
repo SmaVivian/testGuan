@@ -6,13 +6,13 @@
       <div class="content">
         <h1 class="title">登录</h1>
 
-        <el-form :label-position="`top`" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="form cus-form-top">
+        <el-form @keyup.enter.native="submitForm('ruleForm')" :label-position="`top`" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="form cus-form-top">
           <el-form-item label="账号" prop="name">
-            <el-input v-model="ruleForm.name" placeholder="请输入用户名"></el-input>
+            <el-input v-model="ruleForm.name" placeholder="请输入用户名/手机号"></el-input>
           </el-form-item>
 
           <el-form-item label="密码" prop="pass">
-            <el-input v-model="ruleForm.pass" placeholder="请输入手机号"></el-input>
+            <el-input type="password" v-model="ruleForm.pass" placeholder="请输入密码"></el-input>
           </el-form-item>
         </el-form>
 
@@ -50,7 +50,6 @@ export default {
       rules: {
         name: [
           { required: true, message: '请输入用户名', trigger: 'blur' },
-          { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' },
         ],
         pass: [
           { required: true, message: '请输入密码', trigger: 'blur' },
@@ -63,22 +62,19 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('submit!');
           this.$store.dispatch('LoginUser', {
             loginName: this.ruleForm.name,
             password: this.ruleForm.pass,
-            // password: 'dc483e80a7a0bd9ef71d8cf973673924',
-            // password: md5(this.$salt + this.pass),
           })
           .then((res) => {
-            this.$router.push({ path: '/project'})
+            this.$router.push({ path: '/'})
           }).catch(() => {
             
           })
         } else {
-          return false;
+          return false
         }
-      });
+      })
     },
     // resetForm(formName) {
     //   this.$refs[formName].resetFields();

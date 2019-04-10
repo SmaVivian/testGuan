@@ -7,6 +7,7 @@ const user = {
     userName: '',
     headImg: '',
     phone: '',
+    noScrollY: true
   },
   mutations: {
     SET_USER_INFO(state, userInfo) {
@@ -35,25 +36,25 @@ const user = {
     // 用户名登录
     LoginUser({ commit }, userInfo) {
       return new Promise((resolve, reject) => {
-        this._vm.$http.post("/postLogin.do", userInfo).then((res)=>{
-          if(res.data.success==1) {
-            let data = res.data
+        this._vm.$http.post('/login/webLogin', userInfo).then((res)=>{
+          if(res.success) {
+            let data = res.result
             commit('SET_USER_PHONE', data.phone)
             commit('SET_USER_INFO', {
               token: data.token,
-              userid: data.id,
+              userid: data.userId,
               userName: data.userName,
               headImg: data.avatarLink,
               phone: data.phone
             })
             Cookies.set('token', data.token, { expires: 7 })
-            Cookies.set('userid', data.id, { expires: 7 })
+            Cookies.set('userid', data.userId, { expires: 7 })
             Cookies.set('userName', data.userName, { expires: 7 })
             Cookies.set('headImg', data.avatarLink, { expires: 7 })
             Cookies.set('phone', data.phone, { expires: 7 })
             resolve()
           }else{
-            this._vm.$message.error(res.data.error.message)
+            this._vm.$message.error(res.message)
             reject()
           }
         }, error => {

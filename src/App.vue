@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" :class="{'no-scroll-y': $store.state.user.noScrollY}">
     <router-view/>
   </div>
 </template>
@@ -8,7 +8,7 @@
 export default {
   name: 'App',
   created() {
-    console.log(this.$store.getters)
+    console.log('store',this.$store)
   },
 }
 </script>
@@ -19,5 +19,12 @@ export default {
   @import '~@/assets/css/theme.scss';
   @import '~@/assets/css/resetCmp.scss';
 </style>
+
+<style lang="scss" scoped>
+.no-scroll-y {
+  overflow: hidden;
+}
+</style>
+
 
 

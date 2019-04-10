@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="13px" height="16px" viewBox="0 0 13 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+    <title>任务</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round">
+        <g id="模版设置" transform="translate(-325.000000, -617.000000)" stroke="#9699A2" stroke-width="0.912">
+            <g id="任务" transform="translate(325.000000, 618.000000)">
+                <path d="M11.239,13.9194 L1.296,13.9194 C0.834,13.9194 0.456,13.5414 0.456,13.0794 L0.456,1.2954 C0.456,0.8334 0.834,0.4554 1.296,0.4554 L11.239,0.4554 C11.701,0.4554 12.079,0.8334 12.079,1.2954 L12.079,13.0794 C12.079,13.5414 11.701,13.9194 11.239,13.9194 Z" id="Stroke-1"></path>
+                <path d="M3.8425,0.4555 L3.8425,13.9195" id="Stroke-3"></path>
+                <path d="M8.6081,0.6987 L8.6081,5.9587" id="Stroke-5"></path>
+            </g>
+        </g>
+    </g>
+</svg>

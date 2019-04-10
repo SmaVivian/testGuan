@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+    <title>矩形</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="模版设置" transform="translate(-388.000000, -596.000000)" fill="#0590FF">
+            <g id="分组-8" transform="translate(270.000000, 181.000000)">
+                <g id="分组-10-copy" transform="translate(30.000000, 387.000000)">
+                    <path d="M100,28 L100,36 C100,38.209139 98.209139,40 96,40 L88,40 L100,28 Z" id="矩形"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="15px" height="14px" viewBox="0 0 15 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+    <title>统计</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round">
+        <g id="模版设置" transform="translate(-1063.000000, -618.000000)" stroke="#9699A2" stroke-width="0.876">
+            <g id="统计" transform="translate(1064.000000, 618.000000)">
+                <path d="M13.7269,13.4383 L1.3139,13.4383 C0.8309,13.4383 0.4379,13.0453 0.4379,12.5623 L0.4379,0.4383" id="Stroke-1"></path>
+                <polyline id="Stroke-3" points="2.6575 0.9637 6.3815 4.5997 10.7615 0.9637 13.4635 3.2857"></polyline>
+                <path d="M2.6575,5.783 L2.6575,11.185" id="Stroke-5"></path>
+                <path d="M6.2601,7.4051 L6.2601,11.1851" id="Stroke-7"></path>
+                <path d="M9.8616,5.783 L9.8616,11.185" id="Stroke-9"></path>
+                <path d="M13.4632,6.7322 L13.4632,11.1852" id="Stroke-11"></path>
+            </g>
+        </g>
+    </g>
+</svg>

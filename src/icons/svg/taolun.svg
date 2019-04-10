@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="17px" height="15px" viewBox="0 0 17 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+    <title>讨论</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="模版设置" transform="translate(-916.000000, -617.000000)" stroke="#9699A2" stroke-width="0.912">
+            <g id="讨论" transform="translate(917.000000, 618.000000)">
+                <path d="M14.2099,11.7378 L9.4419,11.7378 L8.1969,13.0488 C7.9989,13.2578 7.6789,13.2578 7.4809,13.0488 L6.2349,11.7378 L1.4689,11.7378 C0.9089,11.7378 0.4559,11.2598 0.4559,10.6718 L0.4559,1.5218 C0.4559,0.9328 0.9089,0.4558 1.4689,0.4558 L14.2099,0.4558 C14.7689,0.4558 15.2219,0.9328 15.2219,1.5218 L15.2219,10.6718 C15.2219,11.2598 14.7689,11.7378 14.2099,11.7378 Z" id="Stroke-1"></path>
+                <path d="M4.1084,8.1841 L11.5704,8.1841" id="Stroke-3" stroke-linecap="round"></path>
+                <path d="M4.1084,4.5425 L11.5704,4.5425" id="Stroke-5" stroke-linecap="round"></path>
+            </g>
+        </g>
+    </g>
+</svg>

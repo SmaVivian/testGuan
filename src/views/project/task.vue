@@ -14,17 +14,17 @@
     </div> -->
 
     <div class="content">
-      <el-row :gutter="20">
-        <el-col :xs="6" :sm="6" :md="6" :xl="4" v-for="(item, index) in list" :key="index">
+      <ul>
+        <li v-for="(item, index) in list" :key="index">
           <drag-list ref="drag" :list="item.arrList" :itemGroup="item" :lastPersonList="lastPersonList" @showProDialog="showDialog" :callFun="addTaskPanel"/>
-        </el-col>
-        <el-col :xs="6" :sm="6" :md="6" :xl="4">
+        </li>
+        <li>
           <el-card class="panel-add-wrap">
             <p class="panel-add m-assist" @click="addTaskPanel()"><svg-icon icon-class="add" class-name="icon-add" />&nbsp;新建任务看板</p>
             <!-- <el-button plain>新建任务看板</el-button> -->
           </el-card>
-        </el-col>
-      </el-row>
+        </li>
+      </ul>
     </div>
 
     <cmp-task-detail ref="dialogPro" :dialogData="dialogData"></cmp-task-detail>
@@ -139,12 +139,15 @@ export default {
       });
     },
   },
+  created() {
+    this.$store.state.user.noScrollY = true
+  },
   mounted() {
-    document.addEventListener('click', this.hidePanel, false)
+    // document.addEventListener('click', this.hidePanel, false)
   },
   beforeDestroy() {
-    // this.$store.dispatch('ToggleBodyClick', false)
-    document.removeEventListener('click', this.hidePanel, false)
+    this.$store.state.user.noScrollY = false
+    // document.removeEventListener('click', this.hidePanel, false)
   }
 }
 </script>
@@ -154,7 +157,17 @@ export default {
   .content {
     padding: 30px;
     padding-bottom: 0;
+    overflow-x: auto; 
+    ul {
+      display: flex;
+      li {
+        // width: 330px;
+        // margin-right: 20px;
+      }
+    }
     .panel-add-wrap {
+      margin-right: 30px;
+      width: 330px;
       padding: 20px;
       height: calc( 100vh - 200px);
       // height: 700px;

@@ -88,9 +88,7 @@
   }
 
   .el-tabs__header {
-    height: 60px;
     margin: 0;
-    line-height: 60px;
     background-color: #fff;
   }
 
@@ -303,6 +301,7 @@
 .el-message-box {
   width: auto;
   min-width: 270px;
+  padding-bottom: 30px;
 }
 .el-message-box__header {
   padding: 30px;
@@ -406,8 +405,8 @@
     content: '';
     display: block;
     // margin: auto;
-    width: 300px;
-    height: 200px;
+    width: 150px;
+    height: 148px;
     background: url(~@images/no-data.png) center center no-repeat;
     background-size: contain;
   }
@@ -469,4 +468,80 @@
 // UEditor上传
 #edui_fixedlayer {
   z-index: 9999 !important;
+}
+
+// 重置时间线样式
+.el-timeline-item {
+  .el-timeline-item__node--large {
+    width: 5px;
+    height: 5px;
+    left: 1px;
+  }
+  .el-icon-more:before {
+    content: none;
+  }
+  .el-timeline-item__node--primary {
+    background-color: #fff;
+    border: 1px solid #0590FF;
+  }
+  .el-timeline-item__tail {
+    border-left: 1px solid #0590FF;
+  }
+}
+// 征集计划无表格弹框样式
+.timeLine {
+  height: 535px;
+  padding-top: 30px;
+  float: left;
+  width: 140px;
+  border-right: 1px solid #EBEDF2;
+  overflow-y: auto;
+}
+.approval {
+  .el-timeline-item__content {
+     width: 45px;
+     color: #9699A2;
+       } 
+  .el-dialog__header {
+    border-bottom: 1px solid #EBEDF2;
+    height: 30px;
+  }
+  .el-dialog__footer {
+    margin-top: 30px;
+    padding: 30px 0 0 0;
+    border-top: 1px solid #EBEDF2;
+    text-align: center;
+  }
+.right {
+  margin-left: 25px;
+  padding-left: 145px;
+  padding-top: 30px;
+  .uploadTit {
+     display: flex;
+  }
+  .article {
+     margin: 30px 0;
+  }
+  .el-form-item {
+    margin-left: -23px;
+    margin-bottom: 0;
+    .el-textarea {
+      border-radius: 5px;
+    }
+  }
+}
+ .right  h3 {
+    margin-bottom: 15px;
+  }
+  .personName {
+    margin-top: -33px;
+  }
+  .el-textarea__inner {
+     width: 560px;
+     height: 100px;
+  }
+ .el-input {
+  width: 90%;
+  margin-bottom: 30px;
+}
 }
