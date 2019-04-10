@@ -27,12 +27,10 @@
           :class="{'el-primary-border': item.active}"
           @click="handleClick(item)" 
           :key="index">
-          <svg-icon icon-class="icon-set" :icon-class="item.active ? item.icon+'-active' : item.icon" style="font-size:14px;" />
+          <svg-icon :icon-class="item.active ? item.icon+'-active' : item.icon" style="font-size:14px;" />
           <img src="~@images/project/triangle.svg" class="bg" v-if="item.active">
-          <!-- <i class="el-icon-edit"></i> -->
           {{item.name}}
         </el-button>
-        <!-- <el-button class="el-primary-border">任务</el-button> -->
       </div>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
