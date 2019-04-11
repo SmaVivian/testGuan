@@ -487,9 +487,11 @@ export default {
     // 截止时间
     .cus-btn-date {
       width: 150px;
+      @include placeHolder;
     }
 
     /deep/ .cus-btn-sel.el-select {
+      @include placeHolder;
       .el-input__inner {
         width: 79px;
         text-align: center;

@@ -140,12 +140,16 @@ export default {
     },
   },
   created() {
-    this.$store.state.user.noScrollY = true
+    console.log('creat')
+    
   },
   mounted() {
+    console.log('mounted')
+    this.$store.state.user.noScrollY = true
     // document.addEventListener('click', this.hidePanel, false)
   },
   beforeDestroy() {
+    console.log('----------------------------------destroy')
     this.$store.state.user.noScrollY = false
     // document.removeEventListener('click', this.hidePanel, false)
   }
@@ -155,6 +159,11 @@ export default {
 <style lang="scss" scoped>
 .page-project-task {
   .content {
+    position: fixed;
+    top: 137px;
+    bottom: 0;
+    left: 0;
+    right: 0;
     padding: 30px;
     padding-bottom: 0;
     overflow-x: auto; 

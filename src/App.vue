@@ -23,6 +23,9 @@ export default {
 <style lang="scss" scoped>
 .no-scroll-y {
   overflow: hidden;
+  /deep/ .el-dialog.is-fullscreen {
+    overflow: hidden;
+  }
 }
 </style>
 

@@ -232,10 +232,32 @@ p {
   }
   &::-webkit-scrollbar {
     width: 8px;
+    height: 8px;
+    // height: 15px;
+    // width: 8px;
   }
   &::-webkit-scrollbar-thumb {
     background: #9699A2;
     border-radius: 5px;
+  }
+}
+
+@mixin placeHolder($color: $primary) {
+  ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    text-align: left;
+    color: $color;
+  }
+  :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    text-align: left;
+    color: $color;
+  }
+  ::-moz-placeholder { /* Mozilla Firefox 19+ */
+    text-align: left;
+    color: $color;
+  }
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    text-align: left;
+    color: $color;
   }
 }
 

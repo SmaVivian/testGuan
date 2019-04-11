@@ -11,7 +11,7 @@
           <h1>
             创建项目模板
             <div class="btns fr">
-              <el-button @click="dialogShow=false">取消</el-button>
+              <el-button @click="handleClose">取消</el-button>
               <el-button type="primary" @click="save">保存模板</el-button>
             </div>
           </h1>
@@ -24,8 +24,8 @@
 
         <div class="content-box">
           <div class="content">
-            <el-row :gutter="20">
-              <el-col :xs="6" :sm="6" :md="6" :xl="4" v-for="(item, index) in list" :key="index">
+            <ul>
+              <li :xs="6" :sm="6" :md="6" :xl="4" v-for="(item, index) in list" :key="index">
                 <el-card class="box-card">
                   <h2>
                     <el-badge class="g-mark" :value="0" type="primary" />&nbsp;
@@ -35,16 +35,16 @@
                 </el-card>
                 <!-- <span class="operate" slot="reference" @click="clickMenu"><i class="el-icon el-icon-more"></i></span> -->
                 <!-- <drag-list ref="drag" :list="item.arrList" :itemGroup="item" @showProDialog="showDialog"/> -->
-              </el-col>
-              <el-col :xs="6" :sm="6" :md="6" :xl="4">
+              </li>
+              <li :xs="6" :sm="6" :md="6" :xl="4">
                 <el-card class="box-card panel-add-wrap">
                   <p class="panel-add m-assist" @click="addTaskPanel">
                     <svg-icon icon-class="add" class-name="icon-add" />&nbsp;新建任务看板
                   </p>
                   <!-- <el-button plain>新建任务看板</el-button> -->
                 </el-card>
-              </el-col>
-            </el-row>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -107,6 +107,8 @@ export default {
   },
   methods: {
     init(setData) {
+      this.$store.state.user.noScrollY = true
+
       this.dialogShow = true
       setData && (this.settingData = setData)
     },
@@ -139,9 +141,21 @@ export default {
     },
     save() {
       console.log('ajax', this.form)
+
+      this.handleClose()
+    },
+    handleClose() {
       this.dialogShow = false
+      this.$store.state.user.noScrollY = false
     }
-  }
+  },
+  // mounted() {
+  //   console.log('pro-model')
+  //   this.$store.state.user.noScrollY = true
+  // },
+  // beforeDestroy() {
+  //   this.$store.state.user.noScrollY = false
+  // }
 }
 </script>
 
@@ -170,14 +184,33 @@ export default {
     }
   }
   .content-box {
+    position: fixed;
     padding: $paddingWidth;
+    top: 137px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow-y: hidden; 
+    overflow-x: auto; 
+    @include scrollBar;
     .content {
+      ul {
+        display: flex;
+      }
+      li:last-child {
+        .box-card {
+          margin-right: 30px;
+        }
+      }
       .box-card {
+        width: 330px;
         background-color: #fff;
         height: calc( 100vh - 197px);
         // height: 700px;
         padding: 20px;
+        margin-right: 20px;
         box-sizing: border-box;
+        
         .el-icon-more {
           position: relative;
           top: 5px;
