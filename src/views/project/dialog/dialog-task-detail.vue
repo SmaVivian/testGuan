@@ -58,7 +58,8 @@
           </el-form-item>
           
           <el-form-item label="截止时间" prop="date1">
-            <el-date-picker class="cus-btn-date" placeholder="选择截止时间" 
+            <p class="btn-deadline m-des g-pointer m-primary" v-if="!form.date1">选择截止时间</p>
+            <el-date-picker class="cus-btn-date" placeholder="" 
               type="date"
               :clearable="true" 
               v-model="form.date1"  
@@ -73,7 +74,7 @@
               class="cus-btn-sel"
               :class="'status' + form.status"
               v-model="form.status" 
-              placeholder="添加标签">
+              placeholder="">
               <el-option
                 v-for="item in options"
                 :key="item.value"
@@ -455,7 +456,11 @@ export default {
   .content {
     max-height: 730px;
     padding: 0 10px;
-    overflow-y: auto
+    overflow-y: auto;
+    .btn-deadline {
+      position: absolute;
+      left: 60px;
+    }
   }
   .icon-dele {
     position: absolute;
@@ -487,11 +492,9 @@ export default {
     // 截止时间
     .cus-btn-date {
       width: 150px;
-      @include placeHolder;
     }
 
     /deep/ .cus-btn-sel.el-select {
-      @include placeHolder;
       .el-input__inner {
         width: 79px;
         text-align: center;
@@ -499,11 +502,21 @@ export default {
         line-height: 24px;
         border-radius: 20px;
       }
+      &:after {
+        content: '添加标签';
+        position: absolute;
+        top: 0;
+        left: 0;
+        color: $primary;
+      }
       // 普通
       &.status1 {
         .el-input__inner {
           border: 1px solid $color5;
           color: $color5;
+        }
+        &:after {
+          content: '';
         }
       }
       // 紧急
@@ -512,12 +525,18 @@ export default {
           border: 1px solid $warning;
           color: $warning;
         }
+        &:after {
+          content: '';
+        }
       }
       // 非常紧急
       &.status3 {
         .el-input__inner {
           border:1px solid $danger;
           color: $danger;
+        }
+        &:after {
+          content: '';
         }
       }
     }

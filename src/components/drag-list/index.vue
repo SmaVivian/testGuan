@@ -68,7 +68,8 @@
         <p class="panel-add m-assist" v-if="!showAddTask" @click="showAddTask=true"><svg-icon icon-class="add" class-name="icon-add" />&nbsp;添加新任务</p>
         <div class="task-add-box" v-if="showAddTask">
           <el-input class="task-area" type="textarea" v-model="form.newTask" placeholder="请输入任务名称"></el-input>
-          <h4>
+          <h4 class="btn-deadline-box">
+            <span class="btn-deadline" v-if="!form.deadline">截止时间</span>
             <span>
               <svg-icon icon-class="date" class-name="icon-item"/>&nbsp;
               <el-date-picker
@@ -76,7 +77,7 @@
                 v-model="form.deadline"
                 @change="handleOperate(itemGroup, 3)"
                 type="date"
-                placeholder="截止时间">
+                placeholder="">
               </el-date-picker>
             </span>
 
@@ -273,6 +274,14 @@ export default {
   }
   :-ms-input-placeholder { /* Internet Explorer 10+ */
     color: #9699A2;
+  }
+}
+.btn-deadline-box {
+  position: relative;
+  .btn-deadline {
+    position: absolute;
+    left: 20px;
+    top: 10px;
   }
 }
 .icon-chengyuan {
