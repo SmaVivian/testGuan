@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+    <title>报销</title>
+    <desc>Created with Sketch.</desc>
+    <g id="报销" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g transform="translate(10.000000, 5.000000)">
+            <path d="M20.3691,20.3202 C20.3691,25.9082 15.8381,28.7242 10.2491,28.7242 C4.6611,28.7242 0.1301,25.9082 0.1301,20.3202 C0.1301,14.7312 4.6611,6.5282 10.2491,6.5282 C15.8381,6.5282 20.3691,14.7312 20.3691,20.3202" id="Fill-15" fill="#0590FF"></path>
+            <path d="M10.2495,4.6283 C11.3905,4.6283 12.4845,4.8473 13.5205,5.2333 C14.1135,5.4553 14.7605,5.0943 14.8635,4.4693 L15.2725,1.9873 C15.3735,1.3783 14.9035,0.8243 14.2865,0.8243 L6.3425,0.8243 C5.7255,0.8243 5.2555,1.3783 5.3555,1.9873 L5.7575,4.4253 C5.8605,5.0463 6.5005,5.4073 7.0925,5.1943 C8.0945,4.8333 9.1505,4.6283 10.2495,4.6283" id="Fill-17" fill="#0590FF"></path>
+            <path d="M7.3471,17.6263 L13.4311,17.6263" id="Stroke-23" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M7.3471,20.5057 L13.4311,20.5057" id="Stroke-25" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            <polyline id="Stroke-27" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="13.143 13.9037 10.389 16.6577 7.635 13.9037"></polyline>
+            <path d="M10.3891,17.0453 L10.3891,23.5953" id="Stroke-29" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        </g>
+    </g>
+</svg>

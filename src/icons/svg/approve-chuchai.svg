@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+    <title>出差申请</title>
+    <desc>Created with Sketch.</desc>
+    <g id="出差申请" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g transform="translate(7.000000, 7.000000)">
+            <path d="M26.4926,2.8256 C25.9286,1.8266 24.7426,1.5356 23.8056,2.0736 L17.3066,5.8066 C16.2806,6.3966 15.0756,6.4736 14.0006,6.0066 C13.8836,5.9556 13.7726,5.9026 13.6676,5.8496 L2.9336,0.3896 C1.7926,-0.1904 0.8156,1.4856 1.7416,2.4346 L8.3756,9.2376 C8.8216,9.6946 8.7236,10.5126 8.1866,10.8206 L6.5766,11.7456 C5.8006,12.1916 4.9046,12.2916 4.0656,12.0286 L1.4466,11.2036 C0.4246,10.8816 -0.2744,12.3446 0.5266,13.1286 L4.0676,16.5966 C4.6606,17.3516 5.6526,17.5926 6.4866,17.1136 L25.7126,6.0696 C26.7606,5.4676 27.1396,3.9716 26.4926,2.8256" id="Fill-7" fill="#0590FF"></path>
+            <path d="M1.6997,24.0951 L25.2907,24.0951" id="Stroke-9" stroke="#0590FF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+        </g>
+    </g>
+</svg>

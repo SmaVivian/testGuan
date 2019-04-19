@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="16px" viewBox="0 0 18 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+    <title>文件夹</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="弹窗4" transform="translate(-539.000000, -310.000000)" stroke="#0590FF">
+            <g id="分组-4" transform="translate(270.000000, 169.000000)">
+                <g id="分组-3">
+                    <g id="文件夹" transform="translate(270.000000, 142.000000)">
+                        <path d="M0.25,3.61305 L0.25,1.25005 C0.25,0.69755 0.698,0.25005 1.25,0.25005 L6.742,0.25005 C7.061,0.25005 7.3615,0.40255 7.55,0.66055 L9.4065,3.20305 C9.5945,3.46005 9.895,3.61305 10.2145,3.61305 L14.9495,3.61305 C15.502,3.61305 15.9495,4.06055 15.9495,4.61305 L15.9495,13.40005 C15.9495,13.95255 15.502,14.40005 14.9495,14.40005 L1.25,14.40005 C0.698,14.40005 0.25,13.95255 0.25,13.40005 L0.25,3.61305 Z" id="Stroke-1"></path>
+                        <path d="M0.25,3.61305 L10.2145,3.61305" id="Stroke-3"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

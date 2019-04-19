@@ -495,6 +495,7 @@ export default {
     }
 
     /deep/ .cus-btn-sel.el-select {
+      cursor: pointer;
       .el-input__inner {
         width: 79px;
         text-align: center;

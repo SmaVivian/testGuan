@@ -37,13 +37,16 @@
         </el-form> -->
       </div>
     </div>
+    <cmp-footer class="relat"></cmp-footer>
   </div>
 </template>
 
 <script>
+import cmpFooter from '@cmp/footer'
 import cmpEditor from '@cmp/editor'
 export default {
   components: {
+    cmpFooter,
     cmpEditor
   },
   data() {
@@ -63,6 +66,7 @@ export default {
   width: 1200px;
   padding: 30px 0;
   .wrap {
+    min-height: 600px;
     background-color: #fff;
     padding: 30px 20px;
     box-shadow:0px 1px 10px 0px rgba(238,239,245,1);

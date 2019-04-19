@@ -49,10 +49,10 @@ export default {
           leader: '胡强',
           id: 1111,
           arrList: [
-            { name: "1列表", id: 1 },
-            { name: "12列表", id: 2 },
-            { name: "13列表", id: 3 },
-            { name: "14列表", id: 4 }
+            { name: "1列表", id: 1, parentId: 1111 },
+            { name: "12列表", id: 2, parentId: 1111 },
+            { name: "13列表", id: 3, parentId: 1111 },
+            { name: "14列表", id: 4, parentId: 1111 }
           ],
         },
         {

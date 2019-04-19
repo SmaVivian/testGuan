@@ -1,28 +1,32 @@
 <template>
   <div class="g-container">
-    <div class="page-login">
-      <cmp-login-pic></cmp-login-pic>
-      
-      <div class="content">
-        <h1 class="title">登录</h1>
+    <div class="page-login-wrap">
+      <div class="page-login">
+        <cmp-login-pic></cmp-login-pic>
+        
+        <div class="content">
+          <h1 class="title">登录</h1>
 
-        <el-form @keyup.enter.native="submitForm('ruleForm')" :label-position="`top`" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="form cus-form-top">
-          <el-form-item label="账号" prop="name">
-            <el-input v-model="ruleForm.name" placeholder="请输入用户名/手机号"></el-input>
-          </el-form-item>
+          <el-form @keyup.enter.native="submitForm('ruleForm')" :label-position="`top`" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="form cus-form-top">
+            <el-form-item label="账号" prop="name">
+              <el-input v-model="ruleForm.name" placeholder="请输入用户名/手机号"></el-input>
+            </el-form-item>
 
-          <el-form-item label="密码" prop="pass">
-            <el-input type="password" v-model="ruleForm.pass" placeholder="请输入密码"></el-input>
-          </el-form-item>
-        </el-form>
+            <el-form-item label="密码" prop="pass">
+              <el-input type="password" v-model="ruleForm.pass" placeholder="请输入密码"></el-input>
+            </el-form-item>
+          </el-form>
 
-        <div class="other-way mt-20">
-          <router-link tag="span" :to="{path: '/register?type=forget'}" class="m-btn">忘记密码</router-link>
-          <router-link tag="span" :to="{path: '/register?type=add'}" class="m-btn fr">注册账户</router-link>
+          <div class="other-way mt-20">
+            <router-link tag="span" :to="{path: '/register?type=forget'}" class="m-btn">忘记密码</router-link>
+            <router-link tag="span" :to="{path: '/register?type=add'}" class="m-btn fr">注册账户</router-link>
+          </div>
+
+          <el-button class="btn-sure" type="primary" @click="submitForm('ruleForm')">确定</el-button>
         </div>
-
-        <el-button class="btn-sure" type="primary" @click="submitForm('ruleForm')">确定</el-button>
       </div>
+
+      <cmp-footer></cmp-footer>
     </div>
   </div>
 </template>
@@ -30,9 +34,11 @@
 <script>
 import { validate } from '@/utils/util';
 import cmpLoginPic from './components/login-pic'
+import cmpFooter from '@cmp/footer'
 export default {
   components: {
-    cmpLoginPic
+    cmpLoginPic,
+    cmpFooter
   },
   data() {
     var validatePass = (rule, value, callback) => {
@@ -86,9 +92,17 @@ export default {
 <style lang="scss" scoped>
 .g-container {
   padding-top: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  
+  .page-login-wrap {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   .page-login {
     display: flex;
     justify-content: center;

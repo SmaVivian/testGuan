@@ -11,17 +11,39 @@
     @select="handleSelect"
     background-color="#404560">
       <el-menu-item class="m-menu-top" index="/home">首页</el-menu-item>
-      <el-menu-item class="m-menu-top" index="/project" >项目</el-menu-item>
+      <el-menu-item class="m-menu-top" index="/project">项目</el-menu-item>
       <el-menu-item class="m-menu-top" index="/collect/manage?type=manage">藏品</el-menu-item>
+      <el-menu-item class="m-menu-top" index="/approve">审批</el-menu-item>
       <el-menu-item class="m-menu-top" index="/digital">数字资产</el-menu-item>
     </el-menu>
     <div class="operate">
-      <i class="el-icon el-icon-bell"></i>
-      <i class="el-icon el-icon-search"></i>
-      <label class="person">
-        <img src="~@images/default-head.svg" alt="">
+      <el-badge :value="12" class="el-icon">
+        <!-- <el-button size="small">评论</el-button> -->
+        <i class="el-icon-bell g-pointer"></i>
+      </el-badge>
+      <!-- <i class="el-icon el-icon-search g-pointer" v-if="!showSearch" @click="showSearch=true;blurFocus=true;"></i> -->
+      <i class="el-icon el-icon-search g-pointer" v-if="!showSearch" @click="showSearchBox"></i>
+      
+      <el-input ref="customerInput" class="input-block mr-20" suffix-icon="el-icon-search g-icon-search" 
+        style="width:300px;" 
+        placeholder="输入关键字" 
+        @keyup.enter.native="goSearch"
+        @blur="showSearch=false"
+        v-if="showSearch" 
+        v-model="key">
+      </el-input>
+      <el-upload
+        class="g-inline-block"
+        action=""
+        :show-file-list="false"
+        :before-upload="beforeAvatarUpload">
+        <img class="head-pic" :src="$store.state.user.headImg || ''" alt="" :onerror="defaultHeadImg">
+      </el-upload>
+      <label class="person ml-10">
+        <!-- <img src="~@images/default-head.svg" alt=""> -->
         <span class="m-assist">Jane</span>
       </label>
+      <span class="m-assist ml-20 g-pointer" @click="loginOut">退出</span>
     </div>
   </div>
 </template>
@@ -30,9 +52,16 @@
 export default {
   name: 'Header',
   data() {
+    console.log('head', this.$store.state.app.defaultHeadImg)
     return {
-      activeMenu: '/' + (this.$route.path.split('/')[1] === 'collect' ? 'collect/manage?type=manage': this.$route.path.split('/')[1])
+      // headPic: $store.state.app.defaultHeadImg,
+      // headPic: '',
+      blurFocus: true,
+      defaultHeadImg: this.$store.state.app.defaultHeadImg,
+      activeMenu: '/' + (this.$route.path.split('/')[1] === 'collect' ? 'collect/manage?type=manage': this.$route.path.split('/')[1]),
       // activeMenu: [this.$route.meta.menuPath || this.$route.path]
+      key: '',
+      showSearch: false,
     }
   },
   watch: {
@@ -41,10 +70,50 @@ export default {
     }
   },
   methods: {
+    goSearch() {
+      console.log('搜索', this.key)
+    },
+    // 显示搜索框
+    showSearchBox() {
+      this.showSearch = true
+      this.$nextTick(() => {
+        this.$refs.customerInput.$el.querySelector('input').focus()
+      })
+    },
+    // 上传
+    beforeAvatarUpload(file) {
+      // if(this.accept.split(',').indexOf(file.type) === -1) {
+      //   this.$message.warning('请上传正确的视频格式');
+      // }
+      console.log('file', file)
+      console.log('类型', file.type)
+
+      let fd = new FormData()
+      fd.append('file', file)
+      fd.append('tableName', 'bsScheme')  // 所属业务名
+      fd.append('tableId', '') // 所属业务ID
+
+      this.$http.post('/user/updateUserImg', fd)
+      .then((res) => {
+        console.log('res', res)
+        if(res.success) {
+          this.$message.success('上传成功')
+          this.$store.commit('SET_USER_INFO', {
+            headImg: res.result.absolutePath
+          })
+          Cookies.set('headImg', data.image, { expires: 7 })
+        } else {
+          this.$message.error(res.message)
+        }
+      })
+      return true
+    },
     handleSelect(key, keyPath) {
       this.$router.push(key);
     },
-
+    loginOut() {
+      this.$store.dispatch('LoginOut')
+    }
     // onload() {
     //   window.location.reload()
     // }
@@ -66,7 +135,8 @@ export default {
   background-color: #404560;
   .header-left {
     padding-left: 20px;
-    margin-right: 130px;
+    margin-right: 30px;
+    // margin-right: 130px;
     .logo {
       width: 50px;
       height: 50px;
@@ -78,6 +148,11 @@ export default {
       line-height: 50px;
       margin-bottom: 0;
     }
+  }
+  .head-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
   }
   .el-menu-top {
     flex: 1;
@@ -103,15 +178,10 @@ export default {
         border-radius: 100%;
       }
     }
-  }
-
-  
+  }  
 }
-</style>
-
-<style lang="scss" scoped>
+// 重置element-ui样式
 .cmp-header {
-  // 重置element-ui样式
   /deep/ .el-menu--horizontal > .el-menu-item {
     position: relative;
     min-width: 120px;

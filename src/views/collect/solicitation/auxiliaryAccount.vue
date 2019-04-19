@@ -258,6 +258,7 @@ export default {
   width: 50px;
 }
 .g-wrap {
+   padding: 30px 30px 30px 260px;
   .left {
     width: 210px;
     height: 100%;
@@ -365,7 +366,7 @@ export default {
         font-size: 18px;
       }
       .schedule {
-        margin: 0 20px;
+        margin: 0 50px;
       }
   }
 }

@@ -43,14 +43,14 @@ const user = {
             commit('SET_USER_INFO', {
               token: data.token,
               userid: data.userId,
-              userName: data.userName,
-              headImg: data.avatarLink,
+              userName: data.nickName,
+              headImg: data.image,
               phone: data.phone
             })
             Cookies.set('token', data.token, { expires: 7 })
             Cookies.set('userid', data.userId, { expires: 7 })
-            Cookies.set('userName', data.userName, { expires: 7 })
-            Cookies.set('headImg', data.avatarLink, { expires: 7 })
+            Cookies.set('userName', data.nickName, { expires: 7 })
+            Cookies.set('headImg', data.image, { expires: 7 })
             Cookies.set('phone', data.phone, { expires: 7 })
             resolve()
           }else{
@@ -65,6 +65,7 @@ const user = {
     LoginOut({ commit }) {
       commit('SET_USER_INFO', '')
       Cookies.remove('userid')
+      console.log(111111)
     }
   }
 }

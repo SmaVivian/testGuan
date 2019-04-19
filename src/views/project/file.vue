@@ -4,7 +4,7 @@
       <div class="btns clearfix">
         <h1 class="fl">文件夹</h1>
         <div class="right fr">
-          <a class="m-btn mr-30" @click="addFile"><svg-icon icon-class="upload" class="g-icon-upload" />&nbsp;创建文件夹</a>
+          <a class="m-btn mr-30" @click="addFile"><svg-icon icon-class="folder" class="g-icon-upload" />&nbsp;创建文件夹</a>
           <!-- 上传 -->
           <cmp-upload :callFun="uploadCallback"></cmp-upload>
         </div>
@@ -24,11 +24,13 @@
         <el-table-column
           label="名称"
           width="300">
-          <template slot-scope="scope"><svg-icon icon-class="add" />&nbsp;{{ scope.row.name }}</template>
+          <template slot-scope="scope">
+            <svg-icon icon-class="folder" style="font-size:14px;" />&nbsp;{{ scope.row.name | ellSplit(30) }}
+          </template>
         </el-table-column>
 
         <el-table-column
-          prop="name"
+          prop="date"
           label="大小">
         </el-table-column>
 
@@ -67,16 +69,18 @@
       </div> -->
 
       <cmp-file-move ref="fileDialog"></cmp-file-move>
-
+      <cmp-footer></cmp-footer>
     </div>
   </div>
 </template>
 
 <script>
+import cmpFooter from '@cmp/footer'
 import cmpUpload from '@cmp/my-upload/index'
 import cmpFileMove from './dialog/dialog-file-move'
 export default {
   components: {
+    cmpFooter,
     cmpUpload,
     cmpFileMove
   },

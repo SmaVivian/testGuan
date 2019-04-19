@@ -215,9 +215,6 @@ export default {
     }
   }
 }
-  
-
-
   .el-dialog {
    .el-timeline-item__content {
       width: 45px;

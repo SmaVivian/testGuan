@@ -85,7 +85,7 @@ export default {
   }
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
   .dialog-footer {
     margin: 20px 0 0 0;
   }

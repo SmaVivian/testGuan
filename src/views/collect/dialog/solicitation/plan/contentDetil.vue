@@ -14,8 +14,8 @@
       </el-timeline>
     </div>
     <div class="right">
-      <h3>2018 / 01 / 11</h3>
-      <h3 class="personName fr">贾军</h3>
+      <h3></h3>
+      <h3 class="personName fr"></h3>
       <el-form ref="form" :model="form" label-width="104px"  class="fl">
         <el-row>
           <el-col :span="12">
@@ -228,6 +228,7 @@ export default {
     handleExceed(files, fileList) {
       this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
     },
+    
   }
 }
 </script>

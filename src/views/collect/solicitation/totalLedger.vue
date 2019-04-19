@@ -32,7 +32,7 @@
           <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
           <el-breadcrumb-item><a href="javascript:;">藏品管理</a></el-breadcrumb-item>
         </el-breadcrumb> 
-        <el-input placeholder="请输入总登记号 / 藏品名称搜索" v-model="searchName" class="titSearch">
+        <el-input placeholder="请输入总登记号 / 藏品名称搜索" v-model="searchName" class="titSearch" @keyup.enter.native="initList">
           <i slot="prefix" class="el-input__icon el-icon-search"></i>
         </el-input>
         <!-- 搜索详情 -->
@@ -45,7 +45,7 @@
               {{tag}}
             </el-tag>
           </div>
-          <el-button type="primary" class="reset" size="mini" style="width:20px">重置</el-button>
+          <el-button type="primary" class="reset" size="mini" style="width:20px" @click="restTag(dynamicTags)">重置</el-button>
         </div>
 
         <div class="sch">
@@ -113,9 +113,10 @@
       <!-- 表格内容 -->
       <div class="table-content">
       <el-button class="el-primary-border" round @click="onExport"><svg-icon icon-class="daochu" />&nbsp;导出</el-button>
+
       <!-- 表格 -->
       <div class="table">
-        <el-table :data="tableData3" stripe>
+        <el-table :data="tableData" stripe @selection-change="handleSelectionChange">
           <el-table-column type="selection" width="50" align="center"></el-table-column>
           <el-table-column prop="image" label="图片" width="100"></el-table-column>
           <el-table-column label="登记号" width="100" align="center">
@@ -132,7 +133,7 @@
           <el-table-column prop="storehouse" label="状态" width="120"></el-table-column>
           <el-table-column fixed="right" align="center" label="操作" width="100">
               <template>
-                <a class="m-btn" @click="dialogEnterVisible = true" type="text" size="small">编辑</a>
+                <a class="m-btn" @click="build" type="text" size="small">建账</a>
               </template>
             </el-table-column>
         </el-table>
@@ -142,14 +143,15 @@
       </div>
       </div>
     </div>
-    <el-dialog title="藏品入馆审批"  class="approval" :visible.sync="dialogEnterVisible" width="900px" >
-      <enterTotalDialog/>
-    </el-dialog>
+
+    <!-- 点击表格建账弹框 -->
+    <enterTotalDialog ref="palnDialog"></enterTotalDialog>
+
   </div>
 </template>
 
 <script>
-import enterTotalDialog from '../dialog/solicitation/enterTotal'
+import enterTotalDialog from '../dialog/solicitation/bulidAccount/total'
 export default {
   components: {
     enterTotalDialog
@@ -161,11 +163,11 @@ export default {
         name: '',
         region: '',
       },
-      active: 4,
+      active: 3,
       dynamicTags: ['陶器', '东周', '未定级'],
       value1: '',
       // 表格数据
-      tableData3: [{
+      tableData: [{
         date: '2016-05-03',
         name: '王小',
         address: '上海市普陀区金沙江路 1518 弄'
@@ -214,21 +216,52 @@ export default {
       dialogEnterVisible: false,
     }
   },
+  created () {
+    this.initList()
+  },
   methods: {
+    initList() {
+      this.loading = true;
+      // 获取下拉状态选择值
+      this.$http.get('/collectDict/getSelectDataByKey', 
+        this.dicts
+      ).then(res => {
+        console.log(res.result)
+        this.state = res.result
+      })
+      // 初始化表格 点击查询
+      this.$http.get('/scheme/getSchemeList', 
+        this.listQuery 
+      ).then(res => {
+        console.log(res)
+        this.tableData = res.result
+        this.total = res.page.allRow
+        this.listLoading = false
+      })
+    },
+    // 获取表格序号
+    handleSelectionChange(val){
+      console.log(val)
+      this.tableIndex = val
+      this.multipleSelection = val
+      // this.multipleSelection += val[0].schemeId + ','
+    },
+    // 重置标签方法
+    restTag (dynamicTags) {
+      this.dynamicTags = [];
+    },
+    // tag标签删除方法
+    handleClose(tag) {
+    this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
+    },
+    // 表格建帐
+    build () {
+      this.$refs.palnDialog.buildAccount()
+    },
     onExport(){
       console.log('点我')
     },
     //  表格分页
-    getDataList() {
-      // this.listLoading = true
-      this.$http.get('/list', {
-        ...this.listQuery
-      }).then(response => {
-        this.list = response.data.list
-        this.total = response.data.page.allRow
-        this.listLoading = false
-      })
-    },
     handleSizeChange(val) {
       this.listQuery.size = val
       this.getDataList()
@@ -237,6 +270,7 @@ export default {
       this.listQuery.currentPage = val
       this.getDataList()
     },
+    // 收起展开
     handleClick(){
       if(this.$refs.span.innerHTML == '收起') {
         this.searchTag = this.searchTag.splice(0,3)
@@ -323,9 +357,9 @@ export default {
             .reset {
               border: 1px solid #0590FF;
               width: 59px !important;
-              height: 20px;
-              line-height: 2px;
-              margin: 3px 15px;
+              height: 24px;
+              line-height: 17px;
+              margin: 0px 15px;
             }
             .reset:hover {
               color: #fff;
@@ -368,7 +402,7 @@ export default {
         font-size: 18px;
       }
       .schedule {
-        margin: 0 20px;
+        margin: 0 50px;
       }
   }
 }

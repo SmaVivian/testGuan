@@ -86,7 +86,7 @@
                 <span><i class="m-circle-dot"></i>&nbsp;&nbsp;未完成</span>
                 <!-- 勿删 -->
                 <!-- <span class="m-primary"><i class="m-circle-dot primary"></i>&nbsp;&nbsp;进行中</span>
-                <span class="m-done"><i class="m-circle-dot done"></i>&nbsp;&nbsp;已完成</span>
+                <span class="m-info"><i class="m-circle-dot done"></i>&nbsp;&nbsp;已完成</span>
                 <span class="m-danger"><i class="m-circle-dot danger"></i>&nbsp;&nbsp;已延期</span> -->
               </el-col>
             </el-row>

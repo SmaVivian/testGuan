@@ -33,6 +33,14 @@
   }
 }
 
+.el-date-editor.el-input {
+  .el-input__prefix {
+    left: 100%;
+    margin-left: -30px;
+    color: #0590FF;
+  }
+}
+
 // 自定义日期选择按钮 <el-date-picker class="btn-date"
 .cus-btn-date.el-date-editor.el-input {
   // width: 150px;
@@ -88,6 +96,7 @@
   }
 
   .el-tabs__header {
+    height: 60px;
     margin: 0;
     background-color: #fff;
   }
@@ -108,6 +117,8 @@
   .el-tabs__item {
     box-sizing: border-box;
     padding: 0 40px;
+    height: 50px;
+    line-height: 60px;
   }
 
   .el-tabs__active-bar {
@@ -210,13 +221,17 @@
 }
 
 // input框
+.el-form-item__content {
+  // line-height: normal; // 必须，否则ie兼容性input框会有抖动问题；或将height改大点42px
+}
 .el-input__inner {
   border-radius:26px;
   border:1px solid rgba(235,237,242,1);
-  height: 40px;
-  line-height: 40px;
+  height: 42px;    
+  line-height: 42px; 
   color: #575962;
   padding: 0 15px;
+  padding-left: 15px !important;
 }
 
 .el-form-item.is-success .el-input__inner, .el-form-item.is-success .el-input__inner:focus, .el-form-item.is-success .el-textarea__inner, .el-form-item.is-success .el-textarea__inner:focus {
@@ -387,6 +402,16 @@
   background-color: $border;
 }
 
+// 标题没有颜色
+.cus-table-bg-no.el-table th {
+  background-color: #fff;
+}
+
+// 行可点击
+.cus-table-pointer.el-table tbody tr {
+  cursor: pointer;
+}
+
 .el-table th,
 .el-table td {
   padding: 13px 0;
@@ -424,6 +449,10 @@
 .el-badge__content {
   position: relative;
   top: 1px;
+  border: none;
+  padding: 0 4px;
+  min-width: 18px;
+  box-sizing: border-box;
 }
 
 // popover弹出层
@@ -490,7 +519,7 @@
 }
 // 征集计划无表格弹框样式
 .timeLine {
-  height: 535px;
+  height: 520px;
   padding-top: 30px;
   float: left;
   width: 140px;
@@ -507,9 +536,7 @@
     height: 30px;
   }
   .el-dialog__footer {
-    margin-top: 30px;
     padding: 30px 0 0 0;
-    border-top: 1px solid #EBEDF2;
     text-align: center;
   }
 .right {

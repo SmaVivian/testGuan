@@ -8,7 +8,7 @@ $info: #34BFA3;
 $warning: #F5A623;
 $danger: #F25151;
 $border: #EBEDF2;
-$minWidth: 1200px;
+$minWidth: 1400px;
 $paddingWidth: 30px;
 $headerHeight: 80px;  // 头部高度
 $subHeight: 60px;  // 二级导航高度
@@ -143,11 +143,14 @@ p {
 .m-primary {
   color: $primary;
 }
-.m-done {
-  color: #34BFA3;
+.m-info {
+  color: $info;
 }
 .m-danger {
   color: $danger;
+}
+.m-warning {
+  color: $warning;
 }
 
 // 悬浮面板

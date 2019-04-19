@@ -131,7 +131,7 @@
               <el-table-column prop="open" label=" 藏品状态" width="100"></el-table-column>
               <el-table-column fixed="right" align="center" label="操作" width="100">
                 <template>
-                  <a class="m-btn" @click="dialogLablectVisible = true" type="text" size="small">标签</a>
+                  <a class="m-btn" @click="lableContent" type="text" size="small">标签</a>
                   <a class="m-btn" type="text" size="small" @click="dialogMoveVisible = true">移库</a>
                 </template>
               </el-table-column>
@@ -160,11 +160,6 @@
         <el-button type="primary" @click="fromCollection">确 定</el-button>
       </div>
     </el-dialog>
-
-     <!-- 表格标签按钮点击事件 -->
-     <el-dialog title="藏品标签" :visible.sync="dialogLablectVisible">
-       <lableDialog :callFun = "buliLable"/>
-     </el-dialog>
      
     <el-dialog title="新建标签" :visible.sync="addLableVisible" width="350px">
       <el-form :model="addformTag">
@@ -215,6 +210,9 @@
     width="1125px">
       <detailDialog/>
     </el-dialog>
+
+    <!-- 藏品标签 -->
+    <lableDialog ref="lable"></lableDialog>
 
   </div>
 </template>
@@ -345,19 +343,23 @@ export default {
   publicCollect () {
 
   },
-  // 重置标签方法
+  // 重置
   restTag (dynamicTags) {
   this.dynamicTags = [];
-},
+  },
+  // tag标签删除方法
   handleClose(tag) {
     this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
   },
   // 弹框新建标签方法
-  buliLable() {
-  this.addLableVisible = true;
-  return;
-  this.dialogLablectVisible = false;
+  lableContent () {
+    this.$refs.lable.lableContent()
   },
+  // buliLable() {
+  //   this.addLableVisible = true;
+  //   return;
+  //   this.dialogLablectVisible = false;
+  // },
   // 弹框收藏夹新建方法
   fromCollection(){
     if(this.formTag.collection == 4) {

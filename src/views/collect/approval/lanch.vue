@@ -85,29 +85,23 @@
     </el-dialog>
     
     <!-- 点击图片上传图片 -->
-    <el-dialog title="上传藏品照片" :visible.sync="dialogPhotosVisible" width="470px">
-      <div class="labelTable clearfix">
-        <h3 class="collectLable">上传照片</h3>
-        <el-row class="photoContent fl">
-          <el-col :span="8" class="main">
-            <a class="m-btn" @click="dialogLablectVisible = true" type="text" size="small">上传</a>
-            <h3 class="view">主视图</h3>
-          </el-col>
-        </el-row>
-         <el-row class="photoContent fl">
-          <el-col :span="8" class="main">
-            <a class="m-btn" @click="dialogLablectVisible = true" type="text" size="small">上传</a>
-            <h3 class="view">侧视图</h3>
-          </el-col>
-        </el-row>
-         <el-row class="photoContent fl">
-          <el-col :span="8" class="main">
-            <a class="m-btn" @click="dialogLablectVisible = true" type="text" size="small">上传</a>
-            <h3 class="view">俯视图</h3>
-          </el-col>
-        </el-row>
+    <el-dialog class="up-picture" title="上传藏品照片" :visible.sync="dialogPhotosVisible" width="470px">
+      <h3 class="collectLable mb-20">上传照片</h3>
+      <div class="main-content clearfix">
+        <div class="main">
+          <a class="m-btn" @click="dialogLablectVisible = true" type="text" size="small">上传</a>
+          <h3 class="view">主视图</h3>
+        </div>
+        <div class="main">
+          <a class="m-btn" @click="dialogLablectVisible = true" type="text" size="small">上传</a>
+          <h3 class="view">侧视图</h3>
+        </div>
+        <div class="main">
+          <a class="m-btn" @click="dialogLablectVisible = true" type="text" size="small">上传</a>
+          <h3 class="view">俯视图</h3>
+        </div>
       </div>
-       <h3 class="condition">( 最少上传一种类型的图片 )</h3>   
+      <h3 class="condition">( 最少上传一种类型的图片 )</h3>   
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogLablectVisible = false">取 消</el-button>
         <el-button type="primary">确 定</el-button>
@@ -241,35 +235,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.main {
-  width: 100px;
-  height: 100px;
-  margin-right: 30px;
-  border: 1px dashed #0590FF;
-  .main:first-child {
-    margin-left: 20px;
-  }
-  .m-btn {
-    display: block;
-    margin-left: 30px;
-    line-height: 100px;
-  }
-}
-.el-dialog__body {
-  .condition {
-  margin: 55px 0 0 109px;
-  
-  }
-}
 .el-table {
   margin-top: 30px;
-}
-
- /deep/ .el-dialog__header {
-    text-align: center;
-    padding-bottom: 30px;
-    font-size: 18px;
-    font-weight: bold;
 }
 /deep/ .approval {
   .el-dialog {
@@ -307,7 +274,6 @@ export default {
    margin-left: 25px;
    padding-left: 145px;
    padding-top: 30px;
-  //  border-bottom: 1px solid #EBEDF2;
    .el-form-item {
      margin-left: -23px;
      margin-bottom: 0;
@@ -412,11 +378,6 @@ export default {
 // 侧边栏样式
 .cmp-sidebar {
   margin: 30px;
-}
-/deep/ .dialog-footer {
-    border-top: 1px solid #EBEDF2;
-    text-align: center;
-    padding-top: 30px;
 }
 /deep/ .el-dialog__footer {
     padding-bottom: 0!important;

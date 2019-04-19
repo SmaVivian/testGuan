@@ -29,6 +29,8 @@
             </el-col>
           </el-row>
         </ul>
+
+        <cmp-footer class="footer-pd"></cmp-footer>
       </div>
     </div>
 
@@ -40,11 +42,12 @@
 
 <script>
 import sidebar from '@cmp/sidebar'
-import abc from '@cmp/header'
+import cmpFooter from '@cmp/footer'
 import cmpProAdd from './dialog/dialog-pro-add'  // 新建项目
 export default {
   components: {
     sidebar,
+    cmpFooter,
     cmpProAdd,
   },
   watch: {

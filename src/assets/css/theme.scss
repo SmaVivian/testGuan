@@ -37,7 +37,7 @@
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
-
+// IE不兼容
 .two-ell {
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -196,6 +196,11 @@
 	height: 32px;
 }
 
+.g-pic.mini {
+	width: 24px;
+	height: 24px;
+}
+
 // 通知
 .g-mark {
 	top: 1px;
@@ -212,6 +217,12 @@
 // 灰色
 .g-line-split.gray {
 	background-color: #9699A2;
+}
+
+// 阴影
+.g-shadow {
+	box-shadow:0px 1px 10px 0px rgba(238,239,245,1);
+	border-radius:4px;
 }
 
 .g-no-data  {
@@ -331,7 +342,43 @@
 	position: relative;
 	top: -8px;
 }
-.el-input__prefix {
-	left: 100px;
-	color: #0590FF;
+
+// 上传图片样式
+.up-picture {
+	.el-dialog__footer {
+		border-top: 1px solid #EBEDF2;
+    padding: 0;
+    text-align: center;
+  }
+.el-dialog__header {
+    text-align: center;
+    padding-bottom: 30px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .el-dialog__body {
+    .main-content {
+      display: flex;
+    }
+    .condition {
+      margin: 60px 0 0 109px;
+    }
+  }
+  .main {
+    width: 100px;
+    height: 100px;
+    margin-right: 30px;
+    border: 1px dashed #0590FF;
+    .m-btn {
+      display: block;
+      margin-left: 30px;
+      line-height: 100px;
+    }
+    .view {
+      margin: 20px;
+    }
+    .main:first-child {
+      margin-left: 20px;
+    }
+  }
 }

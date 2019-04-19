@@ -97,6 +97,7 @@
 
       <div class="sub-content">
         <div class="sub-content-wrap">
+          <!-- <router-view/> -->
           <component :is="currentTabCmp"></component>
         </div>
       </div>
@@ -217,7 +218,8 @@ export default {
 
     },
     changeTab(path) {
-      this.$router.replace({path: '/project/sub', query: {type: path}})
+      this.$router.push({path: '/project/sub', query: {type: path}})
+      // this.$router.replace({path: '/project/sub', query: {type: path}})
     },
   },
 }

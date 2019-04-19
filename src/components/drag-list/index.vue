@@ -3,7 +3,6 @@
     <el-card class="box-card drag-list">
       <div slot="header" class="header clearfix">
         <h2><el-badge class="g-mark" :value="234" type="primary" />&nbsp;{{itemGroup.title}}</h2>
-
         
         <el-popover
           class="pop-wrap"
@@ -39,7 +38,7 @@
       
       <div class="content">
         <!-- <el-checkbox-group v-model="checkedList" @change="handleChange"> -->
-        <draggable class="list-group" :list="list" :options="{group:'task'}" @change="log">
+        <draggable class="list-group" :list="list"  :options="{group:'task'}" @change="log">
           <div class="list-group-item"
             :class="{'tip waning': item.id === 1, 'tip rush': item.id === 2}"
             @click="showDetailDialog(item)"
@@ -328,7 +327,7 @@ export default {
       &.tip {
         padding-left: 11px;
         &:before {
-          margin-top: 30px;
+          // margin-top: 30px;
           display: block;
           content:'';
           width: 6px;

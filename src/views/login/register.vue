@@ -1,43 +1,45 @@
 <template>
   <div class="g-container">
-    <div class="page-login">
-      <cmp-login-pic></cmp-login-pic>
-      
-      <div class="content" :class="{'type-forget': pageType === 'forget'}">
-        <h1 class="title">{{pageType === 'add' ? '注册' : '忘记密码'}}</h1>
+    <div class="page-login-wrap">
+      <div class="page-login">
+        <cmp-login-pic></cmp-login-pic>
+        
+        <div class="content" :class="{'type-forget': pageType === 'forget'}">
+          <h1 class="title">{{pageType === 'add' ? '注册' : '忘记密码'}}</h1>
 
-        <el-form @keyup.enter.native="submitForm('ruleForm')" :label-position="`top`" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="form cus-form-top">
-          <el-form-item label="账号" prop="name" v-if="pageType === 'add'">
-            <el-input v-model="ruleForm.name" placeholder="请输入用户名"></el-input>
-          </el-form-item>
+          <el-form @keyup.enter.native="submitForm('ruleForm')" :label-position="`top`" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="form cus-form-top">
+            <el-form-item label="账号" prop="name" v-if="pageType === 'add'">
+              <el-input v-model="ruleForm.name" placeholder="请输入用户名"></el-input>
+            </el-form-item>
 
-          <el-form-item label="手机号" required>
-            <el-row :gutter="10">
-              <el-col :span="12">
-                <el-form-item prop="phoneNo">
-                  <el-input v-model="ruleForm.phoneNo" placeholder="请输入手机号"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item class="vertify" prop="code">
-                  <el-input v-model="ruleForm.code" placeholder="验证码"></el-input>
-                  <span class="m-btn" @click="sendMsg()" v-if="!resetMsg">发送验证码</span>
-                  <span class="m-btn diable" v-if="resetMsg">重新发送({{resetMsg}}s)</span>
-                </el-form-item>
-              </el-col>
-            </el-row>
-          </el-form-item>
+            <el-form-item label="手机号" required>
+              <el-row :gutter="10">
+                <el-col :span="12">
+                  <el-form-item prop="phoneNo">
+                    <el-input v-model="ruleForm.phoneNo" placeholder="请输入手机号"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="12">
+                  <el-form-item class="vertify" prop="code">
+                    <el-input v-model="ruleForm.code" placeholder="验证码"></el-input>
+                    <span class="m-btn" @click="sendMsg()" v-if="!resetMsg">发送验证码</span>
+                    <span class="m-btn diable" v-if="resetMsg">重新发送({{resetMsg}}s)</span>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-form-item>
 
-          <el-form-item :label="pageType === 'add' ? '密码' : '重置密码'" prop="pass">
-            <el-input type="password" v-model="ruleForm.pass" placeholder="设置6至20位登录密码"></el-input>
-          </el-form-item>
+            <el-form-item :label="pageType === 'add' ? '密码' : '重置密码'" prop="pass">
+              <el-input type="password" v-model="ruleForm.pass" placeholder="设置6至20位登录密码"></el-input>
+            </el-form-item>
 
-          <el-form-item label="确认密码" prop="checkPass">
-            <el-input type="password" v-model="ruleForm.checkPass" placeholder="请再次输入登录密码"></el-input>
-          </el-form-item>
-        </el-form>
+            <el-form-item label="确认密码" prop="checkPass">
+              <el-input type="password" v-model="ruleForm.checkPass" placeholder="请再次输入登录密码"></el-input>
+            </el-form-item>
+          </el-form>
 
-        <el-button class="btn-sure" type="primary" @click="submitForm('ruleForm')">{{pageType === 'add' ? '注册' : '重置'}}</el-button>
+          <el-button class="btn-sure" type="primary" @click="submitForm('ruleForm')">{{pageType === 'add' ? '注册' : '重置'}}</el-button>
+        </div>
       </div>
     </div>
   </div>
@@ -189,9 +191,16 @@ export default {
 <style lang="scss" scoped>
 .g-container {
   padding-top: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  .page-login-wrap {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   .page-login {
     display: flex;
     justify-content: center;
@@ -231,6 +240,7 @@ export default {
             position: absolute;
             right: 15px;
             top: 0;
+            line-height: 40px;
             &.diable {
               color: #c9cacc;
             }

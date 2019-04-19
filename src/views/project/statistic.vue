@@ -65,10 +65,12 @@
       </el-col>
     </el-row>
     
+    <cmp-footer></cmp-footer>
   </div>
 </template>
 
 <script>
+import cmpFooter from '@cmp/footer'
 import chart from 'vue-echarts/components/ECharts'
 import 'echarts/lib/chart/line'
 import 'echarts/lib/chart/pie'
@@ -78,6 +80,7 @@ import 'echarts/lib/component/tooltip' //引入图例组件
 import 'echarts/lib/chart/bar'
 export default {
   components: {
+    cmpFooter,
     chart
   },
   data() {
@@ -152,22 +155,22 @@ export default {
           radius: ['30%', '70%'],
           avoidLabelOverlap: false,
           label: {
-              normal: {
-                  show: false,
-                  position: 'center'
-              },
-              emphasis: {
-                  show: true,
-                  textStyle: {
-                      fontSize: '16',
-                      fontWeight: 'bold'
-                  }
+            normal: {
+              show: false,
+              position: 'center'
+            },
+            emphasis: {
+              show: true,
+              textStyle: {
+                fontSize: '16',
+                fontWeight: 'bold'
               }
+            }
           },
           labelLine: {
-              normal: {
-                  show: false
-              }
+            normal: {
+              show: false
+            }
           },
           data:[
             {value:335, name:'已完成'},

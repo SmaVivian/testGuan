@@ -101,17 +101,20 @@
 
       <cmp-collect-add ref="addCollectDialog"></cmp-collect-add>
       <cmp-collect-import ref="importCollectDialog"></cmp-collect-import>
+      <cmp-footer></cmp-footer>
     </div>
   </div>
 </template>
 
 <script>
+import cmpFooter from '@cmp/footer'
 import cmpCollectAdd from './dialog/dialog-collect-add'
 import cmpCollectImport from './dialog/dialog-collect-import'
 export default {
   components: {
+    cmpFooter,
     cmpCollectAdd,
-    cmpCollectImport
+    cmpCollectImport,
   },
   filters: {
     statusFilter(status) {

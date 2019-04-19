@@ -139,10 +139,8 @@
       </div>
     </div>
 
-    <el-dialog title="藏品入库"  class="approval" :visible.sync="dialogEnterVisible" width="900px" >
-      <enterDialog/> 
-    </el-dialog>
-    <!-- <cmp-enter-collect ref="enterStoreDialog"> </cmp-enter-collect> -->
+    <enterDialog ref="enterStoreDialog"> </enterDialog>
+
   </div>
 </template>
 
@@ -197,8 +195,6 @@ export default {
             {name: '三级文物 ', number:'122'},
             {name: '未定级 ', number:'143'},
         ],       
-      // 时间选择器
-      
       // 进度条事件
       active: 4,
       // 弹框标签
@@ -210,10 +206,7 @@ export default {
       currentPage: 1,
       size: 5
       },
-      // 藏品弹出事件
-      dialogCollectVisible: false,
       dialogEnterVisible: false,
-       addDialogLablectVisible: false,
       form: {
         name: '',
         region: '',
@@ -242,7 +235,7 @@ export default {
   },
   methods: {
     enter () {
-      this.dialogEnterVisible = true;
+      this.$refs.enterStoreDialog.enterStore()
     },
      handleClick(){
       if(this.$refs.span.innerHTML == '收起') {
@@ -304,6 +297,7 @@ export default {
   margin-right: 0!important;
 }
 .content {
+  padding: 30px 30px 30px 260px;
   .el-breadcrumb {
     height: 50px;
     line-height: 50px;

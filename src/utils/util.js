@@ -1,4 +1,5 @@
 import { Message, MessageBox } from 'element-ui';
+import request from '@/utils/request'
 
 // 公共方法
 export const common = {

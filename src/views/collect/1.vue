@@ -1,108 +1,159 @@
+<template>
+  <div class="tableDate">
+    <div class="button" style="width:3%;float:right;">
+      <P><el-button class="el-icon-plus" @click.prevent="addRow()"></el-button></P>
+      <p><el-button class="el-icon-minus" @click.prevent="delData()"></el-button></p>
+    </div>
+    <div class="table">
+      <el-table
+        :data="tableData"
+        ref="table"
+        tooltip-effect="dark"
+        border
+        stripe
+        style="width: 95%"
+        @selection-change='selectRow'>
+        <el-table-column type="selection" width="45" align="center"></el-table-column>
+        <el-table-column label="序号"  type="index" width="60" align="center"></el-table-column>
+        <el-table-column  label="地址" align="center">
+          <template slot-scope="scope">
+              <el-input v-model="scope.row.address"></el-input>
+          </template>
+        </el-table-column>
+        <el-table-column label="男猪脚">
+          <template slot-scope="scope">
+            <el-input v-model="scope.row.name"></el-input>
+          </template>
+        </el-table-column>
+        <el-table-column label="女猪脚">
+          <template slot-scope="scope">
+            <el-input v-model="scope.row.loveer"></el-input>
+          </template>
+        </el-table-column>
+        <el-table-column prop="name" label="天气">
+          <template slot-scope="scope">
+            <el-input v-model="scope.row.weather"></el-input>
+          </template>
+        </el-table-column>
+        <el-table-column label="电话">
+          <template slot-scope="scope">
+            <el-input v-model="scope.row.phone"></el-input>
+          </template>
+        </el-table-column>
+        <el-table-column label="牵手日">
+          <template slot-scope="scope">
+            <el-input v-model="scope.row.date"></el-input>
+          </template>
+        </el-table-column>
+        <el-table-column label="纪念日">
+          <template slot-scope="scope">
+            <el-input v-model="scope.row.mdate"></el-input>
+          </template>
+        </el-table-column>
+      </el-table>
+    </div>
+  </div>
+</template>
 
-<el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-  <el-form-item label="活动名称" prop="name">
-    <el-input v-model="ruleForm.name"></el-input>
-  </el-form-item>
-  <el-form-item label="活动区域" prop="region">
-    <el-select v-model="ruleForm.region" placeholder="请选择活动区域">
-      <el-option label="区域一" value="shanghai"></el-option>
-      <el-option label="区域二" value="beijing"></el-option>
-    </el-select>
-  </el-form-item>
-  <el-form-item label="活动时间" required>
-    <el-col :span="11">
-      <el-form-item prop="date1">
-        <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.date1" style="width: 100%;"></el-date-picker>
-      </el-form-item>
-    </el-col>
-    <el-col class="line" :span="2">-</el-col>
-    <el-col :span="11">
-      <el-form-item prop="date2">
-        <el-time-picker placeholder="选择时间" v-model="ruleForm.date2" style="width: 100%;"></el-time-picker>
-      </el-form-item>
-    </el-col>
-  </el-form-item>
-  <el-form-item label="即时配送" prop="delivery">
-    <el-switch v-model="ruleForm.delivery"></el-switch>
-  </el-form-item>
-  <el-form-item label="活动性质" prop="type">
-    <el-checkbox-group v-model="ruleForm.type">
-      <el-checkbox label="美食/餐厅线上活动" name="type"></el-checkbox>
-      <el-checkbox label="地推活动" name="type"></el-checkbox>
-      <el-checkbox label="线下主题活动" name="type"></el-checkbox>
-      <el-checkbox label="单纯品牌曝光" name="type"></el-checkbox>
-    </el-checkbox-group>
-  </el-form-item>
-  <el-form-item label="特殊资源" prop="resource">
-    <el-radio-group v-model="ruleForm.resource">
-      <el-radio label="线上品牌商赞助"></el-radio>
-      <el-radio label="线下场地免费"></el-radio>
-    </el-radio-group>
-  </el-form-item>
-  <el-form-item label="活动形式" prop="desc">
-    <el-input type="textarea" v-model="ruleForm.desc"></el-input>
-  </el-form-item>
-  <el-form-item>
-    <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
-    <el-button @click="resetForm('ruleForm')">重置</el-button>
-  </el-form-item>
-</el-form>
 
-  
+
 <script>
+  import '../../../assets/css/commlist.css'
+  import '../../../assets/css/comm.sass'
+  import '../../../assets/css/commscoped.sass'
+ 
   export default {
-    data() {
+    data () {
       return {
-        ruleForm: {
-          name: '',
-          region: '',
-          date1: '',
-          date2: '',
-          delivery: false,
-          type: [],
-          resource: '',
-          desc: ''
-        },
-        rules: {
-          name: [
-            { required: true, message: '请输入活动名称', trigger: 'blur' },
-            { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
-          ],
-          region: [
-            { required: true, message: '请选择活动区域', trigger: 'change' }
-          ],
-          date1: [
-            { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
-          ],
-          date2: [
-            { type: 'date', required: true, message: '请选择时间', trigger: 'change' }
-          ],
-          type: [
-            { type: 'array', required: true, message: '请至少选择一个活动性质', trigger: 'change' }
-          ],
-          resource: [
-            { required: true, message: '请选择活动资源', trigger: 'change' }
-          ],
-          desc: [
-            { required: true, message: '请填写活动形式', trigger: 'blur' }
-          ]
-        }
-      };
+        tableData: [{
+          rowNum: 1,
+          address: '西安城墙',
+          name: '小哥',
+          weather: '下雪',
+          phone: '0771-5201314',
+          date: '2016-11-22',
+          mdate: '2018-04-10',
+          loveer: '甜甜圈'
+        }, {
+          rowNum: 2,
+          address: '西安城墙',
+          name: '小哥',
+          weather: '下雪',
+          phone: '0771-5201314',
+          date: '2016-11-22',
+          mdate: '2018-04-10',
+          loveer: '甜甜圈'
+        }, {
+          rowNum: 3,
+          address: '西安城墙',
+          name: '小哥',
+          weather: '下雪',
+          phone: '0771-5201314',
+          date: '2016-11-22',
+          mdate: '2018-04-10',
+          loveer: '甜甜圈'
+        }, {
+          rowNum: 4,
+          address: '西安城墙',
+          name: '小哥',
+          weather: '下雪',
+          phone: '0771-5201314',
+          date: '2016-11-22',
+          mdate: '2018-04-10',
+          loveer: '甜甜圈'
+        }, {
+          rowNum: 5,
+          address: '西安城墙',
+          name: '小哥',
+          weather: '下雪',
+          phone: '0771-5201314',
+          date: '2016-11-22',
+          mdate: '2018-04-10',
+          loveer: '甜甜圈'
+        }],
+        selectlistRow: []
+      }
     },
     methods: {
-      submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            alert('submit!');
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
-        });
+      // 获取表格选中时的数据
+      selectRow (val) {
+        this.selectlistRow = val
       },
-      resetForm(formName) {
-        this.$refs[formName].resetFields();
+      // 增加行
+      addRow () {
+        var list = {
+          rowNum: '',
+          address: this.address,
+          name: this.name,
+          weather: this.weather,
+          phone: this.phone,
+          date: this.date,
+          mdate: this.mdate,
+          loveer: this.loveer}
+        this.tableData.unshift(list)
+      },
+      // 删除方法
+      // 删除选中行
+      delData () {
+        for (let i = 0; i < this.selectlistRow.length; i++) {
+          let val = this.selectlistRow
+          // 获取选中行的索引的方法
+          // 遍历表格中tableData数据和选中的val数据，比较它们的rowNum,相等则输出选中行的索引
+          // rowNum的作用主要是为了让每一行有一个唯一的数据，方便比较，可以根据个人的开发需求从后台传入特定的数据
+          val.forEach((val, index) => {
+            this.tableData.forEach((v, i) => {
+              if (val.rowNum === v.rowNum) {
+                // i 为选中的索引
+                this.tableData.splice(i, 1)
+              }
+            })
+          })
+        }
+        // 删除完数据之后清除勾选框
+        this.$refs.tableData.clearSelection()
       }
     }
   }
 </script>
+
+

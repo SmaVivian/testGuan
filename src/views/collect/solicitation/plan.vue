@@ -7,75 +7,74 @@
           <el-breadcrumb-item :to="{ path: '/' }">藏品征集</el-breadcrumb-item>
           <el-breadcrumb-item><a href="javascript:;" class="breadcrumb">征集计划</a></el-breadcrumb-item>
         </el-breadcrumb> 
-        <el-steps class="schedule" :active="active" finish-status="success"  align-left>
+        <el-steps class="schedule" :active="active" finish-status="success" align-left>
           <el-step title="征集计划"></el-step>
           <el-step title="藏品入馆"></el-step>
           <el-step title="藏品建账"></el-step>
           <el-step title="藏品入库"></el-step>
         </el-steps>
       </div>
-      <!-- 表格内容 -->
+
+      <!-- 表单内容 -->
       <div class="table-content">
         <div class="search-content">
-          <el-form ref="form" :model="form" label-width="80px">
-            <el-form-item label="计划名称">
-              <el-input v-model="form.name" placeholder="请输入"></el-input>
+          <el-form ref="form" :model="listQuery" label-width="80px"  >
+            <el-form-item label="计划名称" >
+              <el-input v-model="listQuery.schemeName" placeholder="请输入"></el-input>
             </el-form-item>
-            <el-form-item label="计划编号">
-              <el-input v-model="form.name" placeholder="请输入"></el-input>
+            <el-form-item label="计划编号" placeholder="请输入">
+              <el-input v-model="listQuery.schemeNumber"></el-input>
             </el-form-item>
-            <el-form-item label="计划年度">
-              <el-select v-model="form.region" placeholder="请选择">
-                <el-option label="年度计划" value="shanghai"></el-option>
-                <el-option label="区域二" value="beijing"></el-option>
-              </el-select>
+            <el-form-item label="计划年度 :">
+              <el-date-picker v-model="listQuery.planYear" type="year" value-format="yyyy"></el-date-picker>
             </el-form-item>
           </el-form>             
-          <el-form ref="form" :model="form" label-width="80px">
+          <el-form ref="form" :model="listQuery" label-width="80px">
             <el-form-item label="选择日期">
-              <el-date-picker class="fl" v-model="value1" type="date" placeholder="选择日期"></el-date-picker>                  
-              <el-date-picker v-model="value1" type="date" placeholder="选择日期"></el-date-picker>
+              <el-date-picker class="fl" v-model="listQuery.startTime" type="date" placeholder="开始日期" value-format="yyyy-MM-dd"></el-date-picker>    
+              <el-date-picker v-model="listQuery.endTime" type="date" placeholder="结束日期"></el-date-picker>
             </el-form-item>   
-            <el-form-item label="登记人">
-              <el-select v-model="form.region" placeholder="请选择">
-                <el-option label="登记一" value="shanghai"></el-option>
-                <el-option label="登记二" value="beijing"></el-option>
-              </el-select>
+            <el-form-item label="登记人" >
+              <el-input v-model="listQuery.register" placeholder="请输入"></el-input>
             </el-form-item>
             <el-form-item label="状态选择">
-              <el-select v-model="form.region" placeholder="请选择">
-                <el-option label="状态一" value="shanghai"></el-option>
-                <el-option label="状态二" value="beijing"></el-option>
+              <el-select  v-model ='value' placeholder="请选择">
+                <el-option
+                  v-for="item in state" :key="item.dictCode" :label="item.dictName" :value="item.dictCode">
+                </el-option>
               </el-select>
             </el-form-item>
-            <el-button class="el-primary-border fr searchButton" round >查询</el-button>
+            <el-form-item v-model="listQuery">
+              <el-button class="el-primary-border fr searchButton" @click="initList">查询</el-button>
+            </el-form-item>
           </el-form>
         </div>
         <div class="button">
           <el-row>
-            <el-button class="el-primary-border" round><svg-icon icon-class="daochu" />&nbsp;导出</el-button>
+            <el-button class="el-primary-border" round @click="exportFil"><svg-icon icon-class="daochu"/>&nbsp;导出</el-button>
             <el-button class="el-primary-border" round @click="createPlan"><svg-icon icon-class="" />&nbsp;创建计划</el-button>
-            <el-button class="el-primary-border" round @click="exportdetail"><svg-icon icon-class="daoru" />&nbsp;导入征集藏品</el-button>
+            <el-button class="el-primary-border" round @click="outDetail"><svg-icon icon-class="daoru"/>&nbsp;导入征集藏品</el-button>
           </el-row>
         </div>
+
         <!-- 表格 -->
-        <div class="table">
-          <el-table :data="tableData3" stripe style="width: 100%">
+        <div class="table" >
+          <el-table :data="tableData" stripe @selection-change="handleSelectionChange">
             <el-table-column type="selection"></el-table-column>
-            <el-table-column prop="image" label="计划编号"></el-table-column>
+            <el-table-column prop="schemeNumber" label="计划编号"></el-table-column>
             <el-table-column label="计划名称">
               <template slot-scope="scope">
-                <a class="m-btn" style="color:#0590FF;text-decoration:underline;cursor:pointer;" type="text" size="small" @click="getNameDetails(scope.row)">{{ scope.row.date }}</a>
+                <a class="m-btn" style="color:#0590FF; cursor:pointer;" type="text" size="small" @click="getNameDetails(scope.row)">{{ scope.row.schemeName }}</a>
               </template>
             </el-table-column>
-            <el-table-column prop="classi-fication" label="计划年度"></el-table-column>
-            <el-table-column prop="name" label="预计经费(万元)"></el-table-column>
-            <el-table-column prop="name" label="登记人"></el-table-column>
-            <el-table-column prop="name" label="登记时间"></el-table-column>
-            <el-table-column label="计划状态"></el-table-column>
-            <el-table-column fixed="right" align="center" label="操作">
+            <el-table-column prop="planYear" label="计划年度"></el-table-column>
+            <el-table-column prop="estimatedExpenditure" label="预计经费(万元)"></el-table-column>
+            <el-table-column prop="register" label="登记人"></el-table-column>
+            <el-table-column prop="registerDateStr" label="登记时间"></el-table-column>
+            <el-table-column label="计划状态" prop="approvalState"></el-table-column>
+            <el-table-column fixed="right" label="操作">
               <template slot-scope="scope">
-                <a class="m-btn"  @click="handleDelete(scope.$index, scope.row)" type="text" size="small">删除</a>
+                <a class="m-btn"  @click="handleDelete(scope.row)" type="text" size="small">删除</a>
               </template>
             </el-table-column>
           </el-table>
@@ -93,14 +92,40 @@
       </div>
     </div>
 
+    <!-- 点击图片上传图片 -->
+    <el-dialog class="up-picture" title="上传藏品照片" :visible.sync="dialogPhotosVisible" width="470px">
+        <h3 class="collectLable mb-20">上传照片</h3>
+        <div class="main-content clearfix">
+          <div class="main">
+            <a class="m-btn" @click="dialogLablectVisible = true" type="text" size="small">上传</a>
+            <h3 class="view">主视图</h3>
+          </div>
+          <div class="main">
+            <a class="m-btn" @click="dialogLablectVisible = true" type="text" size="small">上传</a>
+            <h3 class="view">侧视图</h3>
+          </div>
+          <div class="main">
+            <a class="m-btn" @click="dialogLablectVisible = true" type="text" size="small">上传</a>
+            <h3 class="view">俯视图</h3>
+          </div>
+        </div>
+       <h3 class="condition">( 最少上传一种类型的图片 )</h3>   
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogPhotosVisible = false">取 消</el-button>
+        <el-button type="primary">确 定</el-button>
+      </div>
+    </el-dialog>
+
     <!-- 点击创建计划弹框 -->
     <createPlan ref="palnDialog"></createPlan>
 
-    <!-- 导入征集计划详情 -->
-    <planDetail ref="detailDialog"></planDetail>
+    <!-- 导入征集藏品 -->
+    <planDetail ref="detailDialog" :callFun = "upPicture"></planDetail>
 
     <!-- 点击表格获取内容详情 -->
     <contentDetil ref="contentDialog"></contentDetil>
+
+    
 
   </div>
 </template>
@@ -111,60 +136,96 @@ import sidebar from '@cmp/sidebar'
 import createPlan from '../dialog/solicitation/plan/createPlan'
 import planDetail from '../dialog/solicitation/plan/planDetail'
 import contentDetil from '../dialog/solicitation/plan/contentDetil'
+
 export default {
   components: {
-  cmpHeaderSub,
-  sidebar,
-  createPlan,
-  planDetail,
-  contentDetil
-},
+    cmpHeaderSub,
+    sidebar,
+    createPlan,
+    planDetail,
+    contentDetil,
+  },
   data() {
     return {
-      // 时间选择器
-      value1: '',
-      // 搜索条件
-      form: {
-        name: '',
+      // 导入征集藏品获取表格数据索引
+      tableIndex:[],
+      // 状态选择
+      value: '',
+      state:'',
+      dicts: {
+        key:'scheme_state'
       },
-      active: 0,
-      // 表格分页
-      list: null,
+      form: {},
+      active: 1,
       total: 0,
       listLoading: true,
       listQuery: {
-      currentPage: 1,
-      size: 5
+        startTime: null,
+        endTime:  null,
+        schemeName: '',
+        planYear: '',
+        register: '',
+        userId:'',
+        currentPage: 1,
+        size: 10
       },
-      // 当前选中页面
-      currentPage: 5,
       // 表格数据
-      tableData3: [{
-        date: '2016-05-03',
-        name: '王小',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-02',
-        name: '王小',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-07',
-        name: '王小',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }],
+      tableData: [],
+      dialogPhotosVisible: false,
+      multipleSelection: []
     }
   },
   created() {
-    this.getDataList()
+    this.initList()
   },
   methods: {
-    // 点击表格或者表格详情
+    initList() {
+      this.loading = true;
+      // 获取下拉状态选择值
+      this.$http.get('/collectDict/getSelectDataByKey', 
+        this.dicts
+      ).then(res => {
+        console.log(res.result)
+        this.state = res.result
+      })
+      // 初始化表格 点击查询
+      this.$http.get('/scheme/getSchemeList', 
+        this.listQuery 
+      ).then(res => {
+        console.log(res)
+        this.tableData = res.result
+        this.total = res.page.allRow
+        this.listLoading = false
+      })
+    },
+    // 定义父组件上传图片弹框
+    upPicture () {
+      this.dialogPhotosVisible = true
+    },
+    // 导出
+    exportFil () {
+      if(!this.multipleSelection.length) {
+        this.$message({
+          message: '请选择藏品',
+          type: 'warning'
+        })
+        return
+      } else {
+          let str = ''
+            this.multipleSelection.forEach((it, i) => {
+            str += it.schemeId + ','
+         })
+         location.href = '/singleMuseum/scheme/exportScheme?arr=' + str
+      }
+    },
+
+    // 点击表格标签弹出表格弹框
+    lableDetail () {
+      this.$refs.lableDialog.lableContent
+    },
+    // 点击表格获取表格详情弹框
     getNameDetails () {
       this.$refs.contentDialog.namDetail()
-    },
-    // 点击导入征集藏品
-    exportdetail () {
-      this.$refs.detailDialog.exportdetail()
     },
     // 点击创建计划弹框
     createPlan () {
@@ -174,29 +235,47 @@ export default {
     changeTab(path) {
       this.$router.push({path: '/collect/' + path})
     },
-  //  点击删除
-  handleDelete(index, row) {
-  // console.log(index, row);
-  },
-  //  表格分页
-  getDataList() {
-    // this.listLoading = true
-    // this.$http.get('/list', {
-    //   ...this.listQuery
-    // }).then(response => {
-    //   this.list = response.data.list
-    //   this.total = response.data.page.allRow
-    //   this.listLoading = false
-    // })
-  },
-    handleSizeChange(val) {
-      this.listQuery.size = val
-      this.getDataList()
+    //  点击删除
+    handleDelete(row) {
+      this.$http.post('/scheme/deleteScheme', {
+        schemeId: row.schemeId,
+      }).then(res => {
+        console.log(res)
+        if(res.success) {
+          this.$message.success('删除成功')
+          this.initList()
+        }
+      })
     },
-    handleCurrentChange(val) {
-      this.listQuery.currentPage = val
-      this.getDataList()
+    // 获取表格序号
+    handleSelectionChange(val){
+      console.log(val)
+      this.tableIndex = val
+      this.multipleSelection = val
+      // this.multipleSelection += val[0].schemeId + ','
+    },
+    // 点击导入征集藏品弹框
+    outDetail (tableIndex) {
+      // if(!this.multipleSelection.length) {
+      //   this.$message({
+      //     message: '请选择藏品',
+      //     type: 'warning'
+      //   })
+      //   return
+      // } else {
+         console.log(this.tableIndex)
+         this.$refs.detailDialog.outDetail()
+        // }
     }, 
+    // 表格分页
+    handleSizeChange(val) {
+        this.listQuery.size = val
+        this.initList()
+      },
+    handleCurrentChange(val) {
+        this.listQuery.currentPage = val
+        this.initList()
+      }
   },
 }
 </script>

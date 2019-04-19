@@ -65,9 +65,10 @@ export const constantRouterMap = [
       // 项目二级页面
       {
         path: '/project/sub',
+        // redirect: '/project/task',
         name: 'projectSub',
         component: () => import('@/views/project/sub-index'),
-        meta: {title: '项目二级菜单', rank: 2 }
+        meta: {title: '项目二级菜单' },
       },
       {
         path: '/collect/manage',
@@ -216,6 +217,51 @@ export const constantRouterMap = [
         name: 'digital',
         component: () => import('@/views/digital/index'),
         meta: {title: '数字资产', rank: 1 }
+      },
+      {
+        path: '/approve',
+        redirect: '/approve/start',
+        name: 'approve',
+        component: () => import('@/views/approve/index'),
+        meta: {title: '审批' },
+        children: [
+          {
+            path: '/approve/start',
+            name: 'approveStart',
+            component: () => import('@/views/approve/start'),
+            meta: { title: '发起审批' },
+          },
+          {
+            path: '/approve/pending',
+            name: 'approvePending',
+            component: () => import('@/views/approve/pending'),
+            meta: { title: '待我审批的' },
+          },
+          {
+            path: '/approve/done',
+            name: 'approveDone',
+            component: () => import('@/views/approve/done'),
+            meta: { title: '我已审批的' },
+          },
+          {
+            path: '/approve/done',
+            name: 'approveDone',
+            component: () => import('@/views/approve/done'),
+            meta: { title: '我已审批的' },
+          },
+          {
+            path: '/approve/mystart',
+            name: 'approveMyStart',
+            component: () => import('@/views/approve/mystart'),
+            meta: { title: '我发起的' },
+          },
+          {
+            path: '/approve/copy',
+            name: 'approveCopy',
+            component: () => import('@/views/approve/copy'),
+            meta: { title: '抄送我的' },
+          },
+        ]
       },
     ]
   },

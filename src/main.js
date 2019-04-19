@@ -10,10 +10,12 @@ import Cookies from 'js-cookie'
 import '@/icons' // svg icon
 import {common} from '@/utils/util'
 import request from '@/utils/request'
+import '@/utils/filters'
 Vue.prototype.$http = request
 Vue.prototype.$common = common
 
 router.beforeEach((to, from, next) => {
+  store.state.user.noScrollY = false
   // 页面刷新时，重新赋值token、userid
   if (Cookies.get('userid')) {
     store.commit('SET_USER_INFO', {
@@ -26,7 +28,6 @@ router.beforeEach((to, from, next) => {
   }
   next()
 })
-
 Vue.use(ElementUI)
 Vue.config.productionTip = false
 
