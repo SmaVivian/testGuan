@@ -85,6 +85,14 @@
 	padding: 30px;
 }
 
+.pdl-30 {
+	padding-left: 30px;
+}
+
+.pdl-60 {
+	padding-left: 60px;
+}
+
 .ml-10 {
 	margin-left: 10px;
 }
@@ -95,6 +103,10 @@
 
 .ml-30 {
 	margin-left: 30px;
+}
+
+.ml-60 {
+	margin-left: 60px;
 }
 
 .mr-10 {
@@ -199,6 +211,18 @@
 .g-pic.mini {
 	width: 24px;
 	height: 24px;
+}
+
+// label text单行展示
+.g-label-box {
+	display: flex;
+	.g-label-name {
+		display: inline-block;
+		width: 100px;
+	}
+	.g-label-txt {
+		flex: 1;
+	}
 }
 
 // 通知

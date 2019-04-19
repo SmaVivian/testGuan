@@ -80,7 +80,7 @@ module.exports = {
     port: 8080,
     proxy: {
       '/singleMuseum': {
-        target: 'http://192.168.5.14:8080',  // 程荣凯
+        target: 'http://192.168.5.14:8888',  // 程荣凯
         // target: 'http://192.168.5.89:8080',  // 陈诗雅
         ws: false,
         changeOrigin: true
