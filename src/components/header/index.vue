@@ -40,7 +40,6 @@
         <img class="head-pic" :src="$store.state.user.headImg || ''" alt="" :onerror="defaultHeadImg">
       </el-upload>
       <label class="person ml-10">
-        <!-- <img src="~@images/default-head.svg" alt=""> -->
         <span class="m-assist">Jane</span>
       </label>
       <span class="m-assist ml-20 g-pointer" @click="loginOut">退出</span>

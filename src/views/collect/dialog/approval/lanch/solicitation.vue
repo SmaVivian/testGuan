@@ -1,5 +1,5 @@
 <template>
-  <div>
+   <el-dialog title="征集计划审批"  class="approval" :visible.sync="dialogSolicitationVisible" width="900px" >
     <div class="timeLine">
       <el-timeline >
         <el-timeline-item
@@ -54,36 +54,31 @@
             <el-input type="textarea" v-model="form.content"></el-input>
           </el-form-item>
         </div>
+
+        <el-form-item label="上传附件 :" prop="">
+          <!-- 上传 -->
+          <cmp-upload :callFun="uploadCallback" :fileList="remoteFileList" accept=".rar,.zip,.doc,.docx,.pdf,.jpg" :showUpload="true" :showName="true" :showTip="true" >
+          </cmp-upload>
+        </el-form-item>
       </el-form>
       
-      <el-upload
-        class="upload-demo"
-        action="https://jsonplaceholder.typicode.com/posts/"
-        :on-preview="handlePreview"
-        :on-remove="handleRemove"
-        :before-remove="beforeRemove"
-        multiple
-        :limit="3"
-        :on-exceed="handleExceed"
-        :file-list="fileList">
-        <div class="uploadTit">
-          <h3>上传附件 :</h3>
-          <a class="m-btn" style="color:#0590FF;" type="text" size="small">点击上传</a>
-        </div>
-        
-        <span slot="tip" class="el-upload__tip">支持扩展名: .rar .zip .doc .pdf .jpg</span> 
-      </el-upload>
+      
     </div>
   
     <div slot="footer" class="dialog-footer">
       <el-button @click="dialogEnterlVisible = false">取 消</el-button>
       <el-button type="primary" @click="fromCollection">提 交</el-button>
     </div>
-  </div>    
+  </el-dialog>
+  
 </template>
 
 <script>
+import cmpUpload from '@cmp/my-upload/index'
 export default {
+  components: {
+    cmpUpload
+  },
   data() {
     return {
       activities2: [{
@@ -120,37 +115,28 @@ export default {
         region: ''
       },
       ruleForm: {
-          shape: '',
-          content: ''
-        },
+        shape: '',
+        content: ''
+      },
       // 时间选择器
-        value1: '',
+      value1: '',
+      // 接口返回的附件列表
+      remoteFileList: [],
+        dialogSolicitationVisible: false
     };
   },
   methods: {
-      handlePreview(file) {
-        console.log(file);
+    plan() {
+      this.dialogSolicitationVisible = true
+    },
+    // 上传图片
+    uploadCallback(fileStr) {
+      // this.files = fileStr
+      this.form.attachmentIds = fileStr
+    },
+    fromCollection(){
+        this.dialogApprovalVisible = false
       },
-      // 点击上传
-      handleRemove(file, fileList) {
-        console.log(file, fileList);
-      },
-      beforeRemove(file, fileList) {
-        return this.$confirm(`确定移除 ${ file.name }？`);
-      },
-      handleExceed(files, fileList) {
-        this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
-      },
-      fromCollection(){
-        //    alert(this.formTag.collection)
-           if(this.formTag.collection == 4) {
-            //    alert(1)
-               this.addDialogLablectVisible = true;
-               return;
-           }
-
-           this.dialogApprovalVisible = false
-       },
     }
 };
 </script>

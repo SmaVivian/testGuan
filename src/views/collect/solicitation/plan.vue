@@ -30,7 +30,7 @@
             </el-form-item>
           </el-form>             
           <el-form ref="form" :model="listQuery" label-width="80px">
-            <el-form-item label="选择日期">
+            <el-form-item label="选择日期" class="collect-data">
               <el-date-picker class="fl" v-model="listQuery.startTime" type="date" placeholder="开始日期" value-format="yyyy-MM-dd"></el-date-picker>    
               <el-date-picker v-model="listQuery.endTime" type="date" placeholder="结束日期"></el-date-picker>
             </el-form-item>   
@@ -38,14 +38,14 @@
               <el-input v-model="listQuery.register" placeholder="请输入"></el-input>
             </el-form-item>
             <el-form-item label="状态选择">
-              <el-select  v-model ='value' placeholder="请选择">
+              <el-select  v-model ="listQuery.value" placeholder="请选择">
                 <el-option
                   v-for="item in state" :key="item.dictCode" :label="item.dictName" :value="item.dictCode">
                 </el-option>
               </el-select>
             </el-form-item>
-            <el-form-item v-model="listQuery">
-              <el-button class="el-primary-border fr searchButton" @click="initList">查询</el-button>
+            <el-form-item class="search-button">
+              <el-button class="el-primary-border searchButton" @click="initList">查询</el-button>
             </el-form-item>
           </el-form>
         </div>
@@ -61,17 +61,23 @@
         <div class="table" >
           <el-table :data="tableData" stripe @selection-change="handleSelectionChange">
             <el-table-column type="selection"></el-table-column>
-            <el-table-column prop="schemeNumber" label="计划编号"></el-table-column>
+            <el-table-column  v-if="false">
+              <template slot-scope="scope">
+                <input type="text" v-model="scope.row.schemeId" >
+              </template>
+            </el-table-column>
+
+            <el-table-column prop="schemeNumber" label="计划编号" width="200px"></el-table-column>
             <el-table-column label="计划名称">
               <template slot-scope="scope">
-                <a class="m-btn" style="color:#0590FF; cursor:pointer;" type="text" size="small" @click="getNameDetails(scope.row)">{{ scope.row.schemeName }}</a>
+                <a class="m-btn" style="color:#0590FF; cursor:pointer;" type="text" @click="getNameDetails(scope.row)">{{ scope.row.schemeName }}</a>
               </template>
             </el-table-column>
             <el-table-column prop="planYear" label="计划年度"></el-table-column>
             <el-table-column prop="estimatedExpenditure" label="预计经费(万元)"></el-table-column>
-            <el-table-column prop="register" label="登记人"></el-table-column>
+            <el-table-column prop="creater" label="登记人"></el-table-column>
             <el-table-column prop="registerDateStr" label="登记时间"></el-table-column>
-            <el-table-column label="计划状态" prop="approvalState"></el-table-column>
+            <el-table-column label="计划状态" prop="approvalStateDes"></el-table-column>
             <el-table-column fixed="right" label="操作">
               <template slot-scope="scope">
                 <a class="m-btn"  @click="handleDelete(scope.row)" type="text" size="small">删除</a>
@@ -92,35 +98,12 @@
       </div>
     </div>
 
-    <!-- 点击图片上传图片 -->
-    <el-dialog class="up-picture" title="上传藏品照片" :visible.sync="dialogPhotosVisible" width="470px">
-        <h3 class="collectLable mb-20">上传照片</h3>
-        <div class="main-content clearfix">
-          <div class="main">
-            <a class="m-btn" @click="dialogLablectVisible = true" type="text" size="small">上传</a>
-            <h3 class="view">主视图</h3>
-          </div>
-          <div class="main">
-            <a class="m-btn" @click="dialogLablectVisible = true" type="text" size="small">上传</a>
-            <h3 class="view">侧视图</h3>
-          </div>
-          <div class="main">
-            <a class="m-btn" @click="dialogLablectVisible = true" type="text" size="small">上传</a>
-            <h3 class="view">俯视图</h3>
-          </div>
-        </div>
-       <h3 class="condition">( 最少上传一种类型的图片 )</h3>   
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogPhotosVisible = false">取 消</el-button>
-        <el-button type="primary">确 定</el-button>
-      </div>
-    </el-dialog>
 
     <!-- 点击创建计划弹框 -->
-    <createPlan ref="palnDialog"></createPlan>
+    <createPlan ref="palnDialog" @initList = "init"></createPlan>
 
     <!-- 导入征集藏品 -->
-    <planDetail ref="detailDialog" :callFun = "upPicture"></planDetail>
+    <planDetail ref="detailDialog" @initList = "init"></planDetail>
 
     <!-- 点击表格获取内容详情 -->
     <contentDetil ref="contentDialog"></contentDetil>
@@ -147,6 +130,7 @@ export default {
   },
   data() {
     return {
+      activities: [],
       // 导入征集藏品获取表格数据索引
       tableIndex:[],
       // 状态选择
@@ -156,15 +140,11 @@ export default {
         key:'scheme_state'
       },
       form: {},
+
       active: 1,
       total: 0,
       listLoading: true,
       listQuery: {
-        startTime: null,
-        endTime:  null,
-        schemeName: '',
-        planYear: '',
-        register: '',
         userId:'',
         currentPage: 1,
         size: 10
@@ -179,20 +159,23 @@ export default {
     this.initList()
   },
   methods: {
+    // 接受子页面调用的方法
+    init(){
+      this.initList()
+    },
     initList() {
       this.loading = true;
       // 获取下拉状态选择值
       this.$http.get('/collectDict/getSelectDataByKey', 
         this.dicts
       ).then(res => {
-        console.log(res.result)
         this.state = res.result
       })
       // 初始化表格 点击查询
       this.$http.get('/scheme/getSchemeList', 
         this.listQuery 
       ).then(res => {
-        console.log(res)
+        // console.log(res)
         this.tableData = res.result
         this.total = res.page.allRow
         this.listLoading = false
@@ -223,10 +206,6 @@ export default {
     lableDetail () {
       this.$refs.lableDialog.lableContent
     },
-    // 点击表格获取表格详情弹框
-    getNameDetails () {
-      this.$refs.contentDialog.namDetail()
-    },
     // 点击创建计划弹框
     createPlan () {
       this.$refs.palnDialog.createPlan()
@@ -255,18 +234,41 @@ export default {
       // this.multipleSelection += val[0].schemeId + ','
     },
     // 点击导入征集藏品弹框
-    outDetail (tableIndex) {
-      // if(!this.multipleSelection.length) {
-      //   this.$message({
-      //     message: '请选择藏品',
-      //     type: 'warning'
-      //   })
-      //   return
-      // } else {
-         console.log(this.tableIndex)
-         this.$refs.detailDialog.outDetail()
-        // }
+    outDetail () {
+      var tableIndex = this.tableIndex
+      console.log(tableIndex)
+      if(!this.multipleSelection.length) {
+        this.$message({
+          message: '请选择藏品',
+          type: 'warning'
+        })
+        return
+      } else {
+        this.$http.get('/scheme/getSchemeDetail', {
+          schemeId: tableIndex[0].schemeId }
+        ).then(res => { 
+          console.log(res)
+          this.form = res.result      
+          this.table = res.result.collectList
+          this.activities = res.result.approvalDetailList
+          console.log(this.activities)
+          this.$refs.detailDialog.outDetail(this.form, this.table, this.activities)
+        })
+      }
     }, 
+    // 点击表格获取表格详情弹框
+    getNameDetails ( row ) {
+      var schemeId = row.schemeId
+      this.$http.get('/scheme/getSchemeDetail', {
+         schemeId: row.schemeId}
+      ).then (res => {
+        // console.log(res)
+        this.form = res.result      
+        this.table = res.result.collectList
+        this.activities = res.result.approvalDetailList
+        this.$refs.contentDialog.namDetail(this.form, this.table, this.activities)
+      })
+    },
     // 表格分页
     handleSizeChange(val) {
         this.listQuery.size = val
@@ -299,7 +301,7 @@ export default {
   .schedule-content {
     padding: 30px;
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
+    border-radius: 5px;
     background-color: #fff;
       .el-breadcrumb {
         line-height: 20px;
@@ -313,19 +315,23 @@ export default {
     border-radius: 5px;
     .search-content {
       padding: 30px 30px 0 30px;
+        .collect-data {
+          min-width: 470px;
+          margin-right: -50px!important;
+        }
         .el-form-item {
           margin-right: 20px;
             .el-date-editor:nth-child(2) {
               margin-left: -50px;
               }
         }
-        .searchButton {
-          height: 40px;
-        }
         .el-form {
           display: flex;
             .el-input__inner {
             width: 150px;
+            }
+            .search-button {
+              margin-left: -60px;
             }
         } 
     }
@@ -347,6 +353,9 @@ export default {
       margin-left: 20px;
     }
   }
-  
 }
+// /deep/.el-form-item__content {
+//   margin-left: 20px!important;
+// }
+
 </style>

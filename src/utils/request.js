@@ -5,8 +5,8 @@ import store from '../store'
 
 // 创建axios实例
 const service = axios.create({
-  baseURL: '/singleMuseum', // api 的 base_url
-  // baseURL: '/vivi', // api 的 base_url
+  // baseURL: '/singleMuseum', // api 的 base_url
+  baseURL: '/vivi', // api 的 base_url
   // baseURL: process.env.BASE_API, // api 的 base_url
   timeout: 60000 // 请求超时时间
 })

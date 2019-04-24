@@ -2,6 +2,8 @@
   <transition name="slide-fade">
     <div class="cmp-approve-panel" v-if="showPanel">
       <div class="approve-panel">
+        <div class="status-bg" :class="{'refuse': status === '1', 'pass': status === '2', 'cancel': status === '3'}"></div>
+
         <h1>
           <img class="g-pic small" src="~@images/default-head.svg" alt="">
           &nbsp;胡强发的请假申请
@@ -139,9 +141,9 @@
 
       <!-- 操作 start -->
       <div class="footer-btns">
-        <a class="btn m-primary tc" href="javascript:;"><svg-icon icon-class="add" class-name="icon mr-10" />撤销 </a>
+        <a class="btn m-primary tc" href="javascript:;"><svg-icon icon-class="approve-cancel" class-name="icon mr-10" />撤销 </a>
         <div class="g-line-split gray" style="margin-left:1px;"></div>
-        <a class="btn m-primary tc" href="javascript:;"><svg-icon icon-class="add" class-name="icon mr-10" />评论</a>
+        <a class="btn m-primary tc" href="javascript:;"><svg-icon icon-class="approve-comment" class-name="icon mr-10" style="font-size:14px;vertical-align: -2px;" />评论</a>
       </div>
       <!-- 操作 end -->
     </div>
@@ -153,6 +155,7 @@ export default {
   data() {
     return {
       testType: '1',
+      status: '1',
       showPanel: true,
       activities2: [{
         name: '将明',
@@ -205,12 +208,29 @@ export default {
   box-shadow: 0px 1px 10px 0px rgba(150,153,162,0.5);
   z-index: 3;
   .approve-panel {
+    position: relative;
     padding: 30px;
     padding-bottom: 10px;
     position: absolute;
     top: 0;
     bottom: 60px;
     overflow-y: auto;
+    .status-bg {
+      width: 130px;
+      height: 130px;
+      position: absolute;
+      right: 30px;
+      top: 80px;
+      &.refuse {
+        background: url(~@images/approve/refuse.png) center center no-repeat;
+      }
+      &.pass {
+        background: url(~@images/approve/pass.png) center center no-repeat;
+      }
+      &.cancel {
+        background: url(~@images/approve/cancel.png) center center no-repeat;
+      }
+    }
     h1 {
       margin-bottom: 20px;
     }

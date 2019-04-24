@@ -9,8 +9,8 @@
     <ul class="file-list" v-if="showName">
       <li v-for="(item, index) in fileList" :key="index">
         <span @click="download(item)">
-          <svg-icon :icon-class="'file-'+item.fileType" class="g-icon-upload" />
-          {{item.realFileName}}
+          <svg-icon :icon-class="'file-'+item.attFileTypeStr" class="g-icon-upload" />
+          {{item.attName}}
         </span>
         <i class="el-icon-close" @click="dele(item, index)"></i>
       </li>
@@ -21,7 +21,7 @@
       :accept="accept"
       :show-file-list="false"
       multiple
-      :before-upload="beforeAvatarUpload">
+      :before-upload="beforeAvatarUpload" v-if="showUpload" >
       <a class="m-btn">
         <svg-icon icon-class="upload" class="g-icon-upload" v-if="hasIcon" />
         上传
@@ -59,6 +59,11 @@ export default {
       type: Boolean,
       default: false
     },
+    // 显示上传控件
+    showUpload: {
+      type: Boolean,
+      default: true
+    },
     callFun: Function
   },
   data() {
@@ -79,7 +84,7 @@ export default {
       //   this.$message.warning('请上传正确的视频格式');
       // }
       console.log('file', file)
-      console.log('类型', file.type)
+      console.log('类型', file.attFileTypeStr)
 
       let fd = new FormData()
       fd.append('file', file)
@@ -100,13 +105,13 @@ export default {
     },
     // 下载
     download(item) {
-      location.href = '/singleMuseum/attach/downloadFile?attachmentId=' + item.id
+      location.href = '/singleMuseum/attach/downloadFile?attachmentId=' + item.attId
     },
     // 删除附件
     dele(item, index) {
       console.log(item.id)
       this.$http.get('/attach/deleteAttachment', {
-        id: item.id
+        id: item.attId
       }).then((res) => {
         if(res.success) {
           this.$message.success('删除成功')
@@ -121,7 +126,7 @@ export default {
     sentCallback(fileList) {
       let arr = []
       fileList.forEach((item, index) => {
-        arr.push(item.id)
+        arr.push(item.attId)
       })
       this.callFun && this.callFun(arr.join(','))
     }

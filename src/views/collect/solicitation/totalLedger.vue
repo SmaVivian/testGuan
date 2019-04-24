@@ -117,21 +117,24 @@
       <!-- 表格 -->
       <div class="table">
         <el-table :data="tableData" stripe @selection-change="handleSelectionChange">
-          <el-table-column type="selection" width="50" align="center"></el-table-column>
-          <el-table-column prop="image" label="图片" width="100"></el-table-column>
-          <el-table-column label="登记号" width="100" align="center">
+          <el-table-column type="selection"></el-table-column>
+          <el-table-column prop="image" label="图片" ></el-table-column>
+          <el-table-column label="登记号">
             <template slot-scope="scope">{{ scope.row.date }}</template>
           </el-table-column>
-          <el-table-column prop="classi-fication" label="分类号" width="100"></el-table-column>
-          <el-table-column prop="name" label="分类别"  width="100"></el-table-column>
-          <el-table-column prop="name" label="藏品名称" width="100"></el-table-column>
-          <el-table-column prop="name" label="年代" width="100"></el-table-column>
-          <el-table-column prop="texture" label="来源" width="120"></el-table-column>
-          <el-table-column prop="degree" label="级别" width="120"></el-table-column>
-          <el-table-column prop="number" label="质地" width="120"></el-table-column>
-          <el-table-column prop="company" label="完残程度" width="120"></el-table-column>
-          <el-table-column prop="storehouse" label="状态" width="120"></el-table-column>
-          <el-table-column fixed="right" align="center" label="操作" width="100">
+          <el-table-column prop="classi-fication" label="分类号"></el-table-column>
+          <el-table-column prop="name" label="藏品名称">
+            <template slot-scope="scope">
+                <a class="m-btn" style="color:#0590FF; cursor:pointer;" type="text" @click="getNameDetails(scope.row)">{{ scope.row.date }}</a>
+              </template>
+          </el-table-column>
+          <el-table-column prop="name" label="年代"></el-table-column>
+          <el-table-column prop="address" label="来源"></el-table-column>
+          <el-table-column prop="address" label="级别"></el-table-column>
+          <el-table-column prop="address" label="质地"></el-table-column>
+          <el-table-column prop="address" label="完残程度"></el-table-column>
+          <el-table-column prop="address" label="状态"></el-table-column>
+          <el-table-column fixed="right" align="center" label="操作">
               <template>
                 <a class="m-btn" @click="build" type="text" size="small">建账</a>
               </template>
@@ -158,6 +161,7 @@ export default {
   },
   data() {
     return {
+      list: '',
       searchName: "",
       form: {
         name: '',
@@ -217,28 +221,28 @@ export default {
     }
   },
   created () {
-    this.initList()
+    // this.initList()
   },
   methods: {
-    initList() {
-      this.loading = true;
+    // initList() {
+      // this.loading = true;
       // 获取下拉状态选择值
-      this.$http.get('/collectDict/getSelectDataByKey', 
-        this.dicts
-      ).then(res => {
-        console.log(res.result)
-        this.state = res.result
-      })
-      // 初始化表格 点击查询
-      this.$http.get('/scheme/getSchemeList', 
-        this.listQuery 
-      ).then(res => {
-        console.log(res)
-        this.tableData = res.result
-        this.total = res.page.allRow
-        this.listLoading = false
-      })
-    },
+      // this.$http.get('/account/getAccountList', 
+      //   this.dicts
+      // ).then(res => {
+      //   console.log(res.result)
+      //   this.state = res.result
+      // })
+    //   // 初始化表格 点击查询
+      // this.$http.get('/scheme/getSchemeList', 
+      //   this.listQuery 
+      // ).then(res => {
+      //   console.log(res)
+      //   this.tableData = res.result
+      //   // this.total = res.page.allRow
+      //   this.listLoading = false
+      // })
+    // },
     // 获取表格序号
     handleSelectionChange(val){
       console.log(val)
@@ -367,6 +371,7 @@ export default {
             }
             .sch-content {
               width: 100%;
+              margin-top: 3px;
                 .lableSearch {
                   width: 18%;
                   float: left;

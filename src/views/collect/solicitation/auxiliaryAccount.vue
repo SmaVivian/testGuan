@@ -129,8 +129,8 @@
             <el-table-column prop="degree" label="级别" width="120"></el-table-column>
             <el-table-column prop="number" label="质地" width="120"></el-table-column>
             <el-table-column prop="company" label="完残程度" width="120"></el-table-column>
-            <el-table-column prop="storehouse" label="状态" width="120"></el-table-column>
-            <el-table-column fixed="right" align="center" label="操作">
+            <el-table-column prop="storehouse" label="状态" ></el-table-column>
+            <el-table-column fixed="right" label="操作" width="130">
               <template slot-scope="scope">
                 <a class="m-btn" @click="dialogLablectVisible = true" type="text" size="small">建账</a>
                 <a class="m-btn"  @click="handleDelete(scope.$index, scope.row)" type="text" size="small">转总账</a>
@@ -248,7 +248,7 @@ export default {
 
 <style lang="scss" scoped>
 .m-btn:nth-last-child(2) {
-     margin: 0 20px;
+     margin-right: 20px;
    }
 .el-form-item {
   margin: 0 10px;

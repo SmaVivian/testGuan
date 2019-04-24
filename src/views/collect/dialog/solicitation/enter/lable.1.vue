@@ -5,7 +5,7 @@
     <div class="labelTable">
       <h3 class="collectLable">已选标签</h3>
       <div>
-        <el-tag v-for="tag in markName" :key="tag" closable :disable-transitions="false" @close="handleClose(tag)" style="margin-bottom:30px" ref="tag">
+        <el-tag :key="tag" v-for="tag in dynamicTags" closable :disable-transitions="false" @close="handleClose(tag)" style="margin-bottom:30px">
         {{tag}}
         </el-tag>
         <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" size="small"
@@ -17,17 +17,21 @@
     
     <el-form :model="form">
       <el-form-item a:label-width="formLabelWidth">
-        <el-select v-model="formTag.collection" placeholder="选择标签" class="content" @change="seletState">
-          <el-option label="新建标签" value="0" ></el-option>
+        <el-select v-model="formTag.collection" placeholder="选择标签" class="content">
+          <el-option label="新建标签" value="0"></el-option>
           <el-option
-            v-for="item in state" :key="item.markId" :value="item.markId" :label="item.markName">
+            v-for="item in state" :key="item.dictCode" :label="item.dictName" :value="item.name">
           </el-option>
+          <!-- <el-option label="标签一" value="1"></el-option>
+          <el-option label="标签二" value="2"></el-option>
+          <el-option label="标签三" value="3"></el-option> -->
+          
         </el-select>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
-      <el-button @click="dialogLableVisible = false">取消</el-button>
-      <el-button type="primary" @click="fromCollection">确定</el-button>
+      <el-button @click="dialogLableVisible = false">取 消</el-button>
+      <el-button type="primary" @click="fromCollection">确 定</el-button>
     </div>
   </el-dialog>
       
@@ -40,64 +44,58 @@ export default {
   },
   data() {
     return {
-      collectId: '',
       inputVisible: false,
       dialogLableVisible: false,
-      markName: [],
-      markId:[],
-      markNameStr:'',
+      dynamicTags: ['陶器', '东周', '未定级'],
       form: {
           name: '',
           region: '',
           type:[]
         },
-        state: [],
+        state: [
+          {name:"借展出库", value: 1},
+        {name:"陈列出库", value: 2}, 
+        {name:"藏品观摩", value: 3}, 
+        {name:"修复出库", value: 4}, 
+        {name:"调拨出库", value: 5},
+        {name:"藏品注销出库", value: 6},   
+        ],
       formTag: {
         collection: ''
       },
     };
   },
   methods: {
-    seletState(val){
-      console.log(val)
-      if( this.markName.every( (item,index) => {
-        return this.markName != this.formTag.collection
-      } ) ){
-        this.markName.push( this.formTag.collection )
-
-      }
-    },
-    // 接受父组件弹出弹框\
-    showLable (collectId) {
-      this.collectId = collectId
-      // 渲染下拉列表
-      this.$http.get('/collection/getMarkList')
-      .then((res) => {
-        // console.log(res)
-        this.state = res.result
-      })
+    // 接受父组件弹出弹框
+   
+    showLable (row) {
+      console.log(row)
+      this.collectId= row.collectId
+      console.log(this.collectId)
       this.dialogLableVisible = true
     },
-    // 标签删除方法
     handleClose(tag) {
-      this.markName.splice(this.markName.indexOf(tag), 1);
+      this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
     },
-    // 确定提交数据
     fromCollection(){
       if(this.formTag.collection == 0) {
         this.callFun && this.callFun()
-      }
-      for(var i=0;i<this.markName.length;i++){
-        this.markNameStr = this.markNameStr+','+this.markName[i]
+        this.addDialogLablectVisible = true
+        return
       }
       this.$http.post('/collection/updateCollectMark', {
-        collectId: this.collectId,
-        markName: this.markNameStr
+        collectId:collectId,
+        markName:markName
       })
       .then((res) => {
-        if(res.success) {
-          this.$message.success('藏品标签添加成功')
-        }
+          console.log(res)
+        // if(res.success) {
+        //   this.$message.success('批量导入成功')
+        //   // this.fileList.push(res.result)
+        //   this.table = res.result
+        // } else {
+        //   this.$message.error(res.message)
+        // }
       })
       this.dialogLableVisible = false
     },

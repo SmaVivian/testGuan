@@ -4,13 +4,10 @@
     <div class="timeLine">
       <el-timeline >
         <el-timeline-item
-          v-for="(activity, index) in activities2" :key="index"
-          :icon="activity.icon"
-          :type="activity.type"
-          :color="activity.color"
-          :size="activity.size">
-          {{activity.name}}
-          {{activity.state}}
+          v-for="(activity, index) in activities" :key="index">
+          <img class="head-pic" :src=activity.userImage>
+          {{activity.currentApproval}}
+          {{activity.collectStatus}}
         </el-timeline-item>
       </el-timeline>
     </div>
@@ -20,123 +17,153 @@
       <el-form ref="form" :model="form" label-width="104px"  class="fl">
         <el-row>
           <el-col :span="12">
-            <el-form-item label="入馆凭证号 :">
-              <el-input v-model="form.schemeName"></el-input>
+            <el-form-item label="入馆凭证号 :" prop="enterSign">
+              <el-input v-model="form.enterSign"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="入馆凭证名称 :" label-width="95px">
-              <el-input v-model="form.schemeNumber"></el-input>
+            <el-form-item label="入馆凭证名称 :" label-width="95px" prop="enterSignName">
+              <el-input v-model="form.enterSignName"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="8">
-            <el-form-item label="收据号 :">
-              <el-input v-model="form.schemeReason"></el-input>
+            <el-form-item label="收据号 :" prop="receiptNumber">
+              <el-input v-model="form.receiptNumber"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="7">
-            <el-form-item label="单位或个人 :">
-              <el-input v-model="form.estimatedExpenditure" placeholder="万元"></el-input>
+            <el-form-item label="单位或个人 :" prop="opertor">
+              <el-input v-model="form.opertor" placeholder="万元"></el-input>
             </el-form-item>
             </el-col>
             <el-col :span="9"> 
-            <el-form-item label="来源 :">
-              <el-date-picker v-model="form.planYear" type="year" value-format="yyyy"></el-date-picker>
+            <el-form-item label="来源 :" prop="source">
+              <el-date-picker v-model="form.source" type="year" value-format="yyyy"></el-date-picker>
             </el-form-item>
           </el-col>
         </el-row>
-        <el-form-item label="入馆备注 :">
-          <el-input type="textarea" v-model="form.schemeBasis" style="resize:none"></el-input>
+        <el-form-item label="入馆备注 :" prop="enterRemarks">
+          <el-input type="textarea" v-model="form.enterRemarks" style="resize:none"></el-input>
         </el-form-item>
+
+        <el-form-item label="上传附件 :" prop="">
+          <!-- 上传 -->
+          <cmp-upload :callFun="uploadCallback" :fileList="remoteFileList" accept=".rar,.zip,.doc,.docx,.pdf,.jpg" :showName="true" :showTip="true" >
+          </cmp-upload>
+        </el-form-item>
+          
       </el-form>
-      <el-upload
-        class="upload-demo"
-        action="https://jsonplaceholder.typicode.com/posts/"
-        :on-preview="handlePreview"
-        :on-remove="handleRemove"
-        :before-remove="beforeRemove"
-        multiple
-        :limit="3"
-        :on-exceed="handleExceed"
-        :file-list="fileList">
-        <div class="uploadTit">
-          <h3>上传附件 :</h3>
-          <a class="m-btn" style="color:#0590FF;" type="text" size="small">点击上传</a>
-        </div>
-        <span slot="tip" class="el-upload__tip">支持扩展名: .rar .zip .doc .pdf .jpg</span> 
-      </el-upload>
       
       <!-- 表格 -->
       <div class="table">
         <div class="operation">
-          <h3>精品明细</h3>
+          <h3>藏品明细</h3>
           <a class="m-btn fr" @click="add" type="text" size="small">添加</a>
-          <a class="m-btn fr" @click="dialogLablectVisible = true" type="text" size="small">批量导入</a>
+          <a class="m-btn fr" type="text" size="small">
+            <el-upload
+              class="avatar-uploader g-inline-block"
+              action=""
+              :show-file-list="false"
+              multiple
+              :before-upload="beforeExport">
+              <a class="m-btn">
+                批量导入
+              </a>
+            </el-upload>
+          </a>
           <a class="m-btn fr" @click="deleteDetail" type="text" size="small">删除</a>
         </div>
-        <el-table :data="tableData" stripe @selection-change="handleSelectionChange">
-          <el-table-column type="selection" width="50"></el-table-column>
-          <el-table-column prop="number" label="编号"></el-table-column>
-          <el-table-column prop="picture" label="图片">
+        <el-table :data="tableData" stripe @selection-change="handleSelectionChange"
+        :row-class-name="tableRowClassName" @cell-click="cellClick">
+
+          <el-table-column type="selection"></el-table-column>
+
+          <el-table-column  v-if="false">
             <template slot-scope="scope">
+              <input type="text" v-model="scope.row.collectId" >
+            </template>
+          </el-table-column>
+
+          <el-table-column  v-if="false">
+            <template slot-scope="scope">
+              <input type="text" v-model="scope.row.pictureIds" >
+            </template>
+          </el-table-column>
+
+          <el-table-column prop="collectCode" label="编号">
+            <template slot-scope="scope">
+              <span v-if="collectCode">{{scope.row.collectCode}}</span>
+              <input type="text" v-model="scope.row.collectCode" v-else>
+            </template>
+          </el-table-column>
+
+          <el-table-column label="图片">
+            <template slot-scope="scope" prop="mainPicture">
               <a class="m-btn" @click="upLoadPicture" type="text" size="small">
-                <img :src="scope.row.head_pic" width="40" height="40" class="head_pic"/>
+                <img :src="scope.row.mainPicture" width="40" height="40" />
               </a>
             </template>
           </el-table-column>
-          <el-table-column prop="collect" label="藏品名称">
+          <el-table-column prop="collectName" label="藏品名称">
             <template slot-scope="scope">
-              <span v-if="collectName">{{scope.row.collect}}</span>
-              <input type="text" v-model="scope.row.collect" v-else>
+              <span v-if="collectName">{{scope.row.collectName}}</span>
+              <input type="text" v-model="scope.row.collectName" v-else>
             </template>
           </el-table-column>
-          <el-table-column prop="name" label="年代">
+          <el-table-column prop="collectYear" label="年代">
             <template slot-scope="scope">
-              <span v-if="collectYear">{{scope.row.name}}</span>
-              <input type="text" v-model="scope.row.name" v-else>
+              <span v-if="scope.row.collectId">{{scope.row.collectYear}}</span>
+              <input type="text" v-model="scope.row.collectYear" v-else>
             </template>
           </el-table-column>
-          <el-table-column prop="name" label="藏品分类">
+          <el-table-column prop="collectType" label="藏品分类">
             <template slot-scope="scope">
-              <span v-if="collectType">{{scope.row.name}}</span>
-              <input type="text" v-model="scope.row.name" v-else>
+              <span v-if="scope.row.collectId">{{scope.row.collectType}}</span>
+              <input type="text" v-model="scope.row.collectType" v-else>
             </template>
           </el-table-column>
-          <el-table-column prop="name" label="数量">
+          <el-table-column prop="num" label="数量">
             <template slot-scope="scope">
-              <span v-if="collectNumber">{{scope.row.name}}</span>
-              <input type="text" v-model="scope.row.name" v-else>
+              <span v-if="scope.row.collectId">{{scope.row.num}}</span>
+              <el-input-number v-model="scope.row.num" :min="1" label="描述文字" v-else>
+              </el-input-number>
             </template>
           </el-table-column>
-          <el-table-column prop="name" label="数量单位">
+          <el-table-column prop="numUnit" label="数量单位">
             <template slot-scope="scope">
-              <span v-if="collectDanwei">{{scope.row.name}}</span>
-              <input type="text" v-model="scope.row.name" v-else>
+              <span v-if="scope.row.collectId">{{scope.row.numUnit}}</span>
+              <input type="text" v-model="scope.row.numUnit" v-else>
             </template>
           </el-table-column>
           <el-table-column prop="name" label="级别">
             <template slot-scope="scope">
-              <span v-if="collectJibie">{{scope.row.name}}</span>
-              <input type="text" v-model="scope.row.name" v-else>
+              <span v-if="scope.row.collectId">{{scope.row.name}}</span>
+              <el-select size="medium" v-model="scope.row.collectLevel" v-else>
+                <el-option v-for="item in collectLevel" :key="item.dictCode" :label="item.dictName" :value="item.dictCode" ></el-option>
+              </el-select>
             </template>
           </el-table-column>
           <el-table-column prop="name" label="质地">
             <template slot-scope="scope">
-              <span v-if="collectZhidi">{{scope.row.name}}</span>
-              <input type="text" v-model="scope.row.name" v-else>
+              <span v-if="scope.row.collectId">{{scope.row.name}}</span>
+              <el-select size="medium" v-model="scope.row.collectTexture" v-else>
+                <el-option v-for="item in collectTexture" :key="item.dictCode" :label="item.dictName" :value="item.dictCode" ></el-option>
+              </el-select>
             </template>
           </el-table-column>
           <el-table-column prop="name" label="完残程度">
             <template slot-scope="scope">
-              <span v-if="collectChengdu">{{scope.row.name}}</span>
-              <input type="text" v-model="scope.row.name" v-else>
+              <span v-if="scope.row.collectId">{{scope.row.collectDisablity}}</span>
+              <el-select size="medium" v-model="scope.row.collectDisablity" v-else>
+                <el-option v-for="item in collectDisablity" :key="item.dictCode" :label="item.dictName" :value="item.dictCode" ></el-option>
+              </el-select>
             </template>
           </el-table-column>
           <el-table-column fixed="right" align="center"  label="操作">
-            <template>
-              <a class="m-btn" @click="edit" type="text" size="small" >{{BtnName}}</a>
+            <template slot-scope="scope">
+              <a class="m-btn" @click="edit(scope.row)" type="text" size="small" >编辑</a>
               <a class="m-btn" @click="showLable" type="text" size="small">标签</a>
             </template>
           </el-table-column>
@@ -144,8 +171,8 @@
       </div>
     </div>
     <div slot="footer" class="dialog-footer">
-      <el-button @click="dialogPlanDatilVisible = false">取 消</el-button>
-      <el-button type="primary" @click="fromCollection">提 交</el-button>
+      <el-button @click="dialogPlanDatilVisible = false">取消</el-button>
+      <el-button type="primary" @click="fromCollection">提交</el-button>
     </div>
   </el-dialog>
 
@@ -160,49 +187,106 @@
       <el-button type="primary" @click="addCollection">确 定</el-button>
     </div>
   </el-dialog>
+
+  <el-dialog title="选择出库藏品" :visible.sync="dialogCollectVisible" width="900px">
+      <el-input
+        placeholder="请输入"
+        v-model="searchName">
+        <i slot="prefix" class="el-input__icon el-icon-search addSearch"></i>
+      </el-input>
+      <el-table :data="tableDataList" >
+        <el-table-column type="selection" width="40" align="center"></el-table-column>
+        <el-table-column property="name" label="图片">
+          <template slot-scope="scope">
+            <a class="m-btn" type="text" size="small">
+              <img :src="scope.row.head_pic" width="40" height="40" class="head_pic"/>
+            </a>
+          </template>
+        </el-table-column>
+        <el-table-column property="name" label="登记号" ></el-table-column>
+        <el-table-column property="name" label="藏品名称"></el-table-column>
+        <el-table-column property="name" label="年代"></el-table-column>
+        <el-table-column property="name" label="藏品分类"></el-table-column>
+        <el-table-column property="name" label="级别"></el-table-column>
+        <el-table-column property="name" label="质地" ></el-table-column>
+        <el-table-column property="name" label="完残程度"></el-table-column>
+        <el-table-column property="name" label="数量"></el-table-column>
+        <el-table-column property="name" label="库房名称"></el-table-column>
+      </el-table>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="dialogOpenctVisible = false">提交</el-button>
+      </div>
+    </el-dialog>
     
 
   <!-- 点击表格标签弹出标签弹框 -->
     <collectLable ref="lableDialog" :callFun = "buildCollect"></collectLable>
+
+    <!-- 点击表格添加图片 -->
+    <upPictureDetil ref="pictureDialog"></upPictureDetil>
+
   </div>
 </template>
 
 <script>
 import collectLable from './lable'
+import cmpUpload from '@cmp/my-upload/index'
+import upPictureDetil from './upPicture'
 export default {
   components: {
-    collectLable
+    collectLable,
+    cmpUpload,
+    upPictureDetil
   },
   // 接收回调
-  props: {
-    callFun: Function
-  },
+  // props: {
+  //   callFun: Function
+  // },
 
   data () {
     return {
+      // 添加表格数据
+      tableDataList: [
+        {
+        number: '1',
+        name: '总登记号',
+        address: '上'
+      },
+      {
+        number: '1',
+        name: '总登记号',
+        address: '上'
+      },
+      {
+        number: '1',
+        name: '总登记号',
+        address: '上'
+      }
+      ],
+      // 搜索条件
+      searchName: "",
+      dialogCollectVisible: false,
+      // 接口返回的附件列表
+      remoteFileList: [],
       // 定义表格编辑状态
       collectName: true,
+      collectCode: true,
       collectYear: true,
       collectType: true,
       collectNumber: true,
-      collectDanwei: true,
-      collectJibie: true,
-      collectZhidi: true,
-      collectChengdu: true,
-      // 编辑按钮切换
-      BtnName: '编辑',
+      collectDisablity: true,
+      collectLevel: true,
+      collectTexture: true,
+      collectCode: true,
       dialogPlanDatilVisible: false,
       addDialogLablectVisible: false,
       form: {
-        schemeName: '',
-        schemeNumber: '',
-        schemeReason: '',
-        estimatedExpenditure: '',
-        planYear: '',
-        schemeBasis: '',
-        mainDescription: '',
+        enterSign: '',
+        enterSignName: '',
+        receiptNumber: '',
+        opertor: '',
+        source: '',
       },
-      fileList: [{name: '概念设计文档', url: ''}],
       // 定义表格数据
       tableData: [{
         number: '1',
@@ -211,118 +295,79 @@ export default {
         name: '王小',
         address: '上海市普陀区金沙江路 1518 弄'
       }],
-      activities2: [
-        {
-        name: '将明',
-        state: '待审核',
-        size: 'large',
-        type: 'primary',
-        icon: 'el-icon-more',
-        },
-        {
-          name: '冯桂英',
-          state: '待审核',
-          size: 'large',
-          type: 'primary',
-          icon: 'el-icon-more',
-        },
-        {
-          name: '将明',
-          state: '待审核',
-          size: 'large',
-          type: 'primary',
-          icon: 'el-icon-more',
-        },
-        {
-          name: '将明',
-          state: '待审核',
-          size: 'large',
-          type: 'primary',
-          icon: 'el-icon-more',
-        },
-        {
-          name: '将明',
-          state: '待审核',
-          size: 'large',
-          type: 'primary',
-          icon: 'el-icon-more',
-        },
-        {
-          name: '将明',
-          state: '待审核',
-          size: 'large',
-          type: 'primary',
-          icon: 'el-icon-more',
-        },
-        {
-          name: '将明',
-          state: '待审核',
-          size: 'large',
-          type: 'primary',
-          icon: 'el-icon-more',
-        },{
-          name: '将明',
-          state: '待审核',
-          size: 'large',
-          type: 'primary',
-          icon: 'el-icon-more',
-        },
-        {
-          name: '将明',
-          state: '待审核',
-          size: 'large',
-          type: 'primary',
-          icon: 'el-icon-more',
-        },{
-          name: '将明',
-          state: '待审核',
-          size: 'large',
-          type: 'primary',
-          icon: 'el-icon-more',
-        }
-      ],
+      activities: [],
       addformTag:{
             collection: ''
         },
     } 
   },
   methods: {
+     //  点击批量导入
+    beforeExport(file) {
+      let fd = new FormData()
+      fd.append('file', file)
+      this.$http.post('/collection/batchImport', fd)
+      .then((res) => {
+          console.log(res)
+        if(res.success) {
+          this.$message.success('批量导入成功')
+          // this.fileList.push(res.result)
+          this.table = res.result
+        } else {
+          this.$message.error(res.message)
+        }
+      })
+    },
+    tableRowClassName({row, rowIndex}) {
+      row.index = rowIndex
+    },
+    cellClick(row,column,cell) {
+      this.tableIndex = row.index
+      if(cell.cellIndex == '2'){
+        this.upLoadPicture()
+      }
+      // console.log(row.index)
+      // console.log(cell)
+    },
+    // 上传图片
+    uploadCallback(fileStr) {
+      // this.files = fileStr
+      this.form.attachmentIds = fileStr
+    },
+  
     // 定义父组件新建收藏弹框
     buildCollect () {
       this.addDialogLablectVisible = true
     },
     // 接收父组件弹出弹框
     enterShop () {
+      // 渲染审批流程列表
+      this.$http.get('/scheme/getApprovalDetailInfo')
+      .then((res) => {
+        console.log(res)
+        if(res.success) {
+          this.activities = res.result
+        } else {
+          this.$message.error(res.message)
+        }
+      })
       this.dialogPlanDatilVisible = true
-    },
-    lableContent () {
-     
-    },
-    handlePreview(file) {
-      console.log(file);
     },
     // 点击表格图片添加图片
     upLoadPicture () {
-      this.dialogPhotosVisible = true
-      this.callFun && this.callFun()
-    },
-    // 点击上传
-    handleRemove(file, fileList) {
-      console.log(file, fileList);
-    },
-    beforeRemove(file, fileList) {
-      return this.$confirm(`确定移除 ${ file.name }？`);
-    },
-    handleExceed(files, fileList) {
-      this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+      // this.dialogPhotosVisible = true
+      // this.callFun && this.callFun()
+      this.$refs.pictureDialog.upPicture()
     },
     // 点击提交
-    fromCollection () {
-      this.dialogPlanDatilVisible = false;
-      this.$http.post('/scheme/getSchemeDetail',{
-        schemeId: row.schemeId
-      }).then(res => {
+    fromCollection (formInfo) {
+      this.$http.post('/enter/addOrUpdateEnter',this.form).then(res => {
         console.log(res)
+        if(res.success) {
+          this.$message.success('藏品入馆成功')
+        }
+        this.dialogPlanDatilVisible = false;
+        this.$emit("initList")
       })
 
     },
@@ -354,7 +399,7 @@ export default {
       // })
     },
     // 编辑功能
-    edit () {
+    edit (row) {
        this.collectName = !this.collectName
        this.collectYear = !this.collectYear
        this.collectType = !this.collectType
@@ -363,21 +408,11 @@ export default {
        this.collectJibie = !this.collectJibie
        this.collectZhidi = !this.collectZhidi
        this.collectChengdu = !this.collectChengdu
-       this.BtnName = this.showInput ? '编辑' : '保存' 
     },
     // 表格上方添加按钮
     add () {
-      var list = {
-        number: this.number,
-        picture: this.picture,
-        type: this.type,
-      }
-      this.tableData.unshift(list)
+      this.dialogCollectVisible = true
     },
-     // 点击表格标签
-    // collectLable () {
-
-    // },
     // 点击标签弹框弹框
     showLable () {
       this.$refs.lableDialog.showLable()
@@ -425,5 +460,9 @@ export default {
  }
  /deep/.el-upload-list__item-name {
     margin-left: 60px;
+  }
+  .addSearch {
+    position: absolute;
+    left: 255px;
   }
 </style>

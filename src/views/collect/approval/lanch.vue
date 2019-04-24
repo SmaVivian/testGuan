@@ -107,18 +107,17 @@
         <el-button type="primary">确 定</el-button>
       </div>
     </el-dialog>
-   
-    <el-dialog title="征集计划审批"  class="approval" :visible.sync="dialogSolicitationVisible" width="900px" >
-      <solicitationDialog />
-    </el-dialog>
-
-    <el-dialog title="藏品入馆审批"  class="approval" :visible.sync="dialogEnterVisible" width="900px" >
-      <enterDialog />
-    </el-dialog>
 
     <el-dialog title="藏品标签" :visible.sync="dialogEnterVisible">
        <lableDialog :callFun = "buliLable"/>
      </el-dialog>
+    
+    <!-- 点击计划审核弹框 -->
+    <solicitationDialog ref="palnDialog"></solicitationDialog>
+
+    <!-- 点击藏品入馆弹框 -->
+    <enterDialog ref="enterShopDialog"></enterDialog>
+
 
 
   </div>
@@ -155,21 +154,24 @@ export default {
       // 搜索条件
       searchName: "",
       // 选择出库藏品表格数据
-      attribute: [{
-        number: '1',
-        name: '总登记号',
-        address: '上'
-      },
-      {
-        number: '1',
-        name: '总登记号',
-        address: '上'
-      },
-      {
-        number: '1',
-        name: '总登记号',
-        address: '上'
-      }],
+      attribute: 
+      [
+        {
+          number: '1',
+          name: '总登记号',
+          address: '上'
+        },
+        {
+          number: '1',
+          name: '总登记号',
+          address: '上'
+        },
+        {
+          number: '1',
+          name: '总登记号',
+          address: '上'
+        }
+      ],
       ruleForm: {
         shape: '',
         content: ''
@@ -212,9 +214,9 @@ export default {
     // 弹框循环事件
     handleDialog(index){
       if (index === 1) {
-        this.dialogSolicitationVisible = true
+        this.$refs.palnDialog.plan()
       } else if (index === 2) {
-        this.dialogEnterVisible = true
+        this.$refs.enterShopDialog.enter()
       } else if (index === 3) {
         this.dialogTypeVisible = true
       } else if (index === 4) {
@@ -344,16 +346,16 @@ export default {
       height: 160px;
     }
     .card-pic-11 {
-      @include bg(url(~@images/approval/collect-4.svg), '', '', contain)
+      @include bg(url(~@images/collect/approval/collect-4.svg), '', '', contain)
     }
     .card-pic-12 {
-      @include bg(url(~@images/approval/collect-3.svg), '', '', contain)
+      @include bg(url(~@images/collect/approval/collect-3.svg), '', '', contain)
     }
     .card-pic-21 {
-      @include bg(url(~@images/approval/collect-2.svg), '', '', contain)
+      @include bg(url(~@images/collect/approval/collect-2.svg), '', '', contain)
     }
     .card-pic-22 {
-      @include bg(url(~@images/approval/collect-1.svg), '', '', contain)
+      @include bg(url(~@images/collect/approval/collect-1.svg), '', '', contain)
     }
     .box-card {
       border:4px solid transparent;

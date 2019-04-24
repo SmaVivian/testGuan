@@ -57,6 +57,12 @@ export const constantRouterMap = [
         meta: {title: '首页' }
       },
       {
+        path: '/mysocket',
+        name: 'mysocket',
+        component: () => import('@/views/project/mySocket'),
+        meta: {title: '测试' }
+      },
+      {
         path: '/project',
         name: 'project',
         component: () => import('@/views/project/index'),

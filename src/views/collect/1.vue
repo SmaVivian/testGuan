@@ -1,159 +1,198 @@
 <template>
-  <div class="tableDate">
-    <div class="button" style="width:3%;float:right;">
-      <P><el-button class="el-icon-plus" @click.prevent="addRow()"></el-button></P>
-      <p><el-button class="el-icon-minus" @click.prevent="delData()"></el-button></p>
+   <el-dialog title="征集计划审批"  class="approval" :visible.sync="dialogSolicitationVisible" width="900px" >
+    <div class="timeLine">
+      <el-timeline >
+        <el-timeline-item
+          v-for="(activity, index) in activities2" :key="index"
+          :icon="activity.icon"
+          :type="activity.type"
+          :color="activity.color"
+          :size="activity.size">
+          {{activity.name}}
+          {{activity.state}}
+        </el-timeline-item>
+      </el-timeline>
     </div>
-    <div class="table">
-      <el-table
-        :data="tableData"
-        ref="table"
-        tooltip-effect="dark"
-        border
-        stripe
-        style="width: 95%"
-        @selection-change='selectRow'>
-        <el-table-column type="selection" width="45" align="center"></el-table-column>
-        <el-table-column label="序号"  type="index" width="60" align="center"></el-table-column>
-        <el-table-column  label="地址" align="center">
-          <template slot-scope="scope">
-              <el-input v-model="scope.row.address"></el-input>
-          </template>
-        </el-table-column>
-        <el-table-column label="男猪脚">
-          <template slot-scope="scope">
-            <el-input v-model="scope.row.name"></el-input>
-          </template>
-        </el-table-column>
-        <el-table-column label="女猪脚">
-          <template slot-scope="scope">
-            <el-input v-model="scope.row.loveer"></el-input>
-          </template>
-        </el-table-column>
-        <el-table-column prop="name" label="天气">
-          <template slot-scope="scope">
-            <el-input v-model="scope.row.weather"></el-input>
-          </template>
-        </el-table-column>
-        <el-table-column label="电话">
-          <template slot-scope="scope">
-            <el-input v-model="scope.row.phone"></el-input>
-          </template>
-        </el-table-column>
-        <el-table-column label="牵手日">
-          <template slot-scope="scope">
-            <el-input v-model="scope.row.date"></el-input>
-          </template>
-        </el-table-column>
-        <el-table-column label="纪念日">
-          <template slot-scope="scope">
-            <el-input v-model="scope.row.mdate"></el-input>
-          </template>
-        </el-table-column>
-      </el-table>
+    <div class="right">
+      <h3>2018 / 01 / 11</h3>
+      <h3 class="personName fr">贾军</h3>
+       <el-form ref="form" :model="form" label-width="104px"  class="fl">
+         <el-row>
+          <el-col :span="12">
+            <el-form-item label="计划名称 :">
+              <el-input v-model="form.name" placeholder="计划一"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="计划编号 :" label-width="95px">
+              <el-input v-model="form.name" placeholder="计划一"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="8">
+            <el-form-item label="征集目的 :">
+              <el-input v-model="form.name" placeholder="计划一"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="7">
+            <el-form-item label="预计经费 :">
+              <el-input v-model="form.name" placeholder="万元"></el-input>
+            </el-form-item>
+            </el-col>
+            <el-col :span="9"> 
+            <el-form-item label="年度计划 :">
+              <el-date-picker v-model="value1" type="date"></el-date-picker>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-form-item label="征集依据 :" prop="shape">
+          <el-input type="textarea" v-model="ruleForm.shape" style="resize:none"></el-input>
+        </el-form-item>
+        <div class="content">
+          <el-form-item label="正文内容 :" prop="content">
+            <el-input type="textarea" v-model="form.content"></el-input>
+          </el-form-item>
+        </div>
+      </el-form>
+      
+      <el-upload
+        class="upload-demo"
+        action="https://jsonplaceholder.typicode.com/posts/"
+        :on-preview="handlePreview"
+        :on-remove="handleRemove"
+        :before-remove="beforeRemove"
+        multiple
+        :limit="3"
+        :on-exceed="handleExceed"
+        :file-list="fileList">
+        <div class="uploadTit">
+          <h3>上传附件 :</h3>
+          <a class="m-btn" style="color:#0590FF;" type="text" size="small">点击上传</a>
+        </div>
+        
+        <span slot="tip" class="el-upload__tip">支持扩展名: .rar .zip .doc .pdf .jpg</span> 
+      </el-upload>
     </div>
-  </div>
+  
+    <div slot="footer" class="dialog-footer">
+      <el-button @click="dialogEnterlVisible = false">取 消</el-button>
+      <el-button type="primary" @click="fromCollection">提 交</el-button>
+    </div>
+  </el-dialog>
+  
 </template>
 
-
-
 <script>
-  import '../../../assets/css/commlist.css'
-  import '../../../assets/css/comm.sass'
-  import '../../../assets/css/commscoped.sass'
- 
-  export default {
-    data () {
-      return {
-        tableData: [{
-          rowNum: 1,
-          address: '西安城墙',
-          name: '小哥',
-          weather: '下雪',
-          phone: '0771-5201314',
-          date: '2016-11-22',
-          mdate: '2018-04-10',
-          loveer: '甜甜圈'
-        }, {
-          rowNum: 2,
-          address: '西安城墙',
-          name: '小哥',
-          weather: '下雪',
-          phone: '0771-5201314',
-          date: '2016-11-22',
-          mdate: '2018-04-10',
-          loveer: '甜甜圈'
-        }, {
-          rowNum: 3,
-          address: '西安城墙',
-          name: '小哥',
-          weather: '下雪',
-          phone: '0771-5201314',
-          date: '2016-11-22',
-          mdate: '2018-04-10',
-          loveer: '甜甜圈'
-        }, {
-          rowNum: 4,
-          address: '西安城墙',
-          name: '小哥',
-          weather: '下雪',
-          phone: '0771-5201314',
-          date: '2016-11-22',
-          mdate: '2018-04-10',
-          loveer: '甜甜圈'
-        }, {
-          rowNum: 5,
-          address: '西安城墙',
-          name: '小哥',
-          weather: '下雪',
-          phone: '0771-5201314',
-          date: '2016-11-22',
-          mdate: '2018-04-10',
-          loveer: '甜甜圈'
+export default {
+  data() {
+    return {
+      activities2: [{
+          name: '将明',
+          state: '待审核',
+          size: 'large',
+          type: 'primary',
+          icon: 'el-icon-more',
+        },
+        {
+          name: '冯桂英',
+          state: '待审核',
+          size: 'large',
+          type: 'primary',
+          icon: 'el-icon-more',
+        },
+        {
+          name: '将明',
+          state: '待审核',
+          size: 'large',
+          type: 'primary',
+          icon: 'el-icon-more',
+        },
+        {
+          name: '将明',
+          state: '待审核',
+          size: 'large',
+          type: 'primary',
+          icon: 'el-icon-more',
         }],
-        selectlistRow: []
-      }
+      fileList: [{name: '概念设计文档', url: ''}],
+      form: {
+        name: '',
+        region: ''
+      },
+      ruleForm: {
+          shape: '',
+          content: ''
+        },
+      // 时间选择器
+        value1: '',
+        dialogSolicitationVisible: false
+    };
+  },
+  methods: {
+    plan() {
+      this.dialogSolicitationVisible = true
     },
-    methods: {
-      // 获取表格选中时的数据
-      selectRow (val) {
-        this.selectlistRow = val
+      handlePreview(file) {
+        console.log(file);
       },
-      // 增加行
-      addRow () {
-        var list = {
-          rowNum: '',
-          address: this.address,
-          name: this.name,
-          weather: this.weather,
-          phone: this.phone,
-          date: this.date,
-          mdate: this.mdate,
-          loveer: this.loveer}
-        this.tableData.unshift(list)
+      // 点击上传
+      handleRemove(file, fileList) {
+        console.log(file, fileList);
       },
-      // 删除方法
-      // 删除选中行
-      delData () {
-        for (let i = 0; i < this.selectlistRow.length; i++) {
-          let val = this.selectlistRow
-          // 获取选中行的索引的方法
-          // 遍历表格中tableData数据和选中的val数据，比较它们的rowNum,相等则输出选中行的索引
-          // rowNum的作用主要是为了让每一行有一个唯一的数据，方便比较，可以根据个人的开发需求从后台传入特定的数据
-          val.forEach((val, index) => {
-            this.tableData.forEach((v, i) => {
-              if (val.rowNum === v.rowNum) {
-                // i 为选中的索引
-                this.tableData.splice(i, 1)
-              }
-            })
-          })
-        }
-        // 删除完数据之后清除勾选框
-        this.$refs.tableData.clearSelection()
+      beforeRemove(file, fileList) {
+        return this.$confirm(`确定移除 ${ file.name }？`);
+      },
+      handleExceed(files, fileList) {
+        this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+      },
+      fromCollection(){
+        //    alert(this.formTag.collection)
+           if(this.formTag.collection == 4) {
+            //    alert(1)
+               this.addDialogLablectVisible = true;
+               return;
+           }
+
+           this.dialogApprovalVisible = false
+       },
+    }
+};
+</script>
+<style lang="scss" scoped>
+.el-dialog__body {
+  .right {
+    .content {
+      margin: 30px 0;
+    }
+  }
+  .dialog-footer {
+    margin-top: 30px;
+  }
+  .timeLine {
+    height: 535px;
+  }
+  .upload-demo {
+    margin-top: 43%;
+    .el-upload {
+      .uploadTit {
+        display: flex;
+          .m-btn {
+            margin: 0 20px;
+          }
+      }
+    }
+    .el-upload-list {
+      .el-upload-list__item-name {
+        margin: 0 80px;
       }
     }
   }
-</script>
+}
+  
+</style>
+
+
+
 
 

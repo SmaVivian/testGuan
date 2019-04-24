@@ -501,7 +501,13 @@
 
 // 重置时间线样式
 .el-timeline-item {
-  .el-timeline-item__node--large {
+  .head-pic{
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: none;
+  }
+  .el-timeline-item__node {
     width: 5px;
     height: 5px;
     left: 1px;
@@ -509,7 +515,7 @@
   .el-icon-more:before {
     content: none;
   }
-  .el-timeline-item__node--primary {
+  .el-timeline-item__node {
     background-color: #fff;
     border: 1px solid #0590FF;
   }
@@ -528,7 +534,7 @@
 }
 .approval {
   .el-timeline-item__content {
-     width: 45px;
+     width: 42px;
      color: #9699A2;
        } 
   .el-dialog__header {

@@ -103,23 +103,23 @@
         </div>
         <!-- 表格 -->
         <div class="table">
-          <el-table :data="tableData3" stripe style="width: 100%">
-            <el-table-column align="center" type="selection"></el-table-column>
-            <el-table-column align="center" prop="image" label="图片"></el-table-column>
-            <el-table-column label="总登记号" align="center" prop="name"></el-table-column>
-            <el-table-column align="center" prop="classi-fication" label="入库凭证号"></el-table-column>
-            <el-table-column align="center" prop="name" label="入库库房"></el-table-column>
-            <el-table-column align="center" prop="name" label="藏品名称">
+          <el-table :data="tableData" stripe style="width: 100%" @selection-change="handleSelectionChange">
+            <el-table-column  type="selection"></el-table-column>
+            <el-table-column  prop="image" label="图片"></el-table-column>
+            <el-table-column label="总登记号"  prop="name"></el-table-column>
+            <el-table-column  prop="classi-fication" label="入库凭证号"></el-table-column>
+            <el-table-column  prop="name" label="入库库房"></el-table-column>
+            <el-table-column  prop="name" label="藏品名称">
               <template slot-scope="scope">
-                <a class="m-btn" style="color:#0590FF;text-decoration:underline;cursor:pointer;" type="text" size="small" @click="getNameDetails(scope.row)">{{ scope.row.date }}</a>
+                <a class="m-btn" style="color:#0590FF; cursor:pointer;" type="text" @click="getNameDetails(scope.row)">{{ scope.row.date }}</a>
               </template>
             </el-table-column>
-            <el-table-column align="center" prop="name" label="年代"></el-table-column>
-            <el-table-column align="center" prop="name" label="藏品分类"></el-table-column>
-            <el-table-column align="center" prop="texture" label="质地"></el-table-column>
-            <el-table-column align="center" prop="texture" label="完残程度"></el-table-column>
-            <el-table-column align="center" prop="texture" label="状态"></el-table-column>
-            <el-table-column fixed="right" align="center" label="操作">
+            <el-table-column prop="name" label="年代"></el-table-column>
+            <el-table-column prop="name" label="藏品分类"></el-table-column>
+            <el-table-column prop="texture" label="质地"></el-table-column>
+            <el-table-column prop="texture" label="完残程度"></el-table-column>
+            <el-table-column prop="texture" label="状态"></el-table-column>
+            <el-table-column fixed="right" label="操作">
               <template>
                 <a class="m-btn" @click="enter" type="text" size="small">入库</a>
               </template>
@@ -139,7 +139,11 @@
       </div>
     </div>
 
-    <enterDialog ref="enterStoreDialog"> </enterDialog>
+    <!-- 入馆 -->
+    <enterDialog ref="enterStoreDialog" @initList = "init"> </enterDialog>
+
+    <!-- 点击表格获取内容详情 -->
+    <contentDetil ref="contentDialog"></contentDetil>
 
   </div>
 </template>
@@ -148,14 +152,16 @@
 import cmpHeaderSub from '@cmp/header-sub'
 import sidebar from '@cmp/sidebar'
 import enterDialog from '../dialog/enterStore/enterGoing'
+import contentDetil from '../dialog/enterStore/enterDetail'
 
 export default {
   components: {
-  cmpHeaderSub,
-  sidebar,
-  enterDialog
-  // cmpEnterCollect
-},
+    cmpHeaderSub,
+    sidebar,
+    enterDialog,
+    contentDetil
+    // cmpEnterCollect
+  },
   data() {
     return {
       searchName: "",
@@ -215,25 +221,51 @@ export default {
       // 当前选中页面
       currentPage: 5,
       // 表格数据
-      tableData3: [{
-        date: '2016-05-03',
-        name: '王小',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-02',
-        name: '王小',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-07',
-        name: '王小',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }],
+      tableData: [
+        {
+          date: '2016-05-03',
+          name: '王小',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }, {
+          date: '2016-05-02',
+          name: '王小',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }, {
+          date: '2016-05-07',
+          name: '王小',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }
+      ],
+      multipleSelection: [],
     }
   },
   created() {
     this.getDataList()
   },
   methods: {
+    // 接受子页面调用的方法
+    init(){
+      this.initList()
+    },
+    initList() {
+      this.loading = true;
+      // 获取下拉状态选择值
+      // this.$http.get('/collectDict/getSelectDataByKey', 
+      //   this.dicts
+      // ).then(res => {
+      //   this.state = res.result
+      // })
+      // 初始化表格 点击查询
+      // this.$http.get('/enter/getEnterList', 
+      //   this.listQuery 
+      // ).then(res => {
+      //   console.log(res)
+      //   this.tableData = res.result
+      //   this.total = res.page.allRow
+      //   this.listLoading = false
+      // })
+    },
+
     enter () {
       this.$refs.enterStoreDialog.enterStore()
     },
@@ -247,26 +279,39 @@ export default {
         this.$refs.span.innerHTML = '收起'
       }
     },
-  //  点击删除
-  handleDelete(index, row) {
-  // console.log(index, row);
-  },
-  
+
   //  获取表格计划名称事件
   getNameDetails(){
-    console.log('成功了')
+    this.$refs.contentDialog.nameDetail()
     this.dialogNameDetailsVisible = true
     },
-  //    进度条事件
-  //  next() {
-  //     if (this.active++ > 2) this.active = 0;
-  //   },
-  //    标签方法
+  // 标签删除方法
   handleClose(tag) {
     this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
   },
+
+  // 获取表格序号
+    handleSelectionChange(val){
+      console.log(val)
+      this.tableIndex = val
+      this.multipleSelection = val
+      // this.multipleSelection += val[0].schemeId + ','
+    },
+
   onExport(){
-    console.log('点我')
+    if(!this.multipleSelection.length) {
+        this.$message({
+          message: '请选择藏品',
+          type: 'warning'
+        })
+        return
+      } else {
+          let str = ''
+            this.multipleSelection.forEach((it, i) => {
+            str += it.schemeId + ','
+         })
+        //  location.href = '/singleMuseum/scheme/exportScheme?arr=' + str
+      }
   },
   //  表格分页
   getDataList() {

@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="藏品建总帐"  class="approval" :visible.sync="dialogTotalVisible" width="900px" >
+  <el-dialog title="藏品建总帐"  class="approval" :visible.sync="dialogTypeVisible" width="900px" >
     <div class="tit">
       <h3>2018 / 01 / 11</h3>
       <h3 class="name">贾军</h3>
@@ -154,10 +154,10 @@
       </el-upload> -->
       
 
-    <div slot="footer" class="dialog-footer">
-      <el-button @click="dialogTotalVisible = false">取消</el-button>
+    <!-- <div slot="footer" class="dialog-footer">
+      <el-button @click="dialogTypeVisible = false">取消</el-button>
       <el-button type="primary" @click="buildAccount">建账</el-button>
-    </div>
+    </div> -->
   </el-dialog>
 </template>
 
@@ -183,15 +183,15 @@ export default {
       },
       value1: '',
       fileList: [{name: '概念设计文档', url: ''}],
-      dialogTotalVisible: false
+      dialogTypeVisible: false
     }
   },
   methods: {
     uploadCallback() {
 
     },
-    buildAccount () {
-      this.dialogTotalVisible = true
+    typeDetail () {
+      this.dialogTypeVisible = true
     },
     handleRemove(file, fileList) {
       console.log(file, fileList);

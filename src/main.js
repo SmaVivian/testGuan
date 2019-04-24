@@ -14,6 +14,11 @@ import '@/utils/filters'
 Vue.prototype.$http = request
 Vue.prototype.$common = common
 
+// import VueSocketio from 'vue-socket.io';
+// import socketio from 'socket.io-client';
+// // Vue.use(VueSocketio, socketio('ws://127.0.0.1:8000'));//与socket服务端链接
+// Vue.use(VueSocketio, socketio('http://192.168.5.208:8000'));//与socket服务端链接
+
 router.beforeEach((to, from, next) => {
   store.state.user.noScrollY = false
   // 页面刷新时，重新赋值token、userid

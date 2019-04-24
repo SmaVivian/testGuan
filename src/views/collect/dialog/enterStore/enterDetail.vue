@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="藏品建总帐"  class="approval" :visible.sync="dialogTotalVisible" width="900px" >
+  <el-dialog title="藏品入库"  class="approval" :visible.sync="dialogTotalVisible" width="900px" >
     <div class="tit">
       <h3>2018 / 01 / 11</h3>
       <h3 class="name">贾军</h3>
@@ -7,25 +7,44 @@
     
       <el-form ref="form" :model="form" label-width="100px" >
 
+        <div class="planName">
+  
+          <el-form-item label="入馆凭证号 :">
+            <el-input v-model="form.name"></el-input>
+          </el-form-item>
+
+          <el-form-item label="注销凭证号 :">
+            <el-input v-model="form.name"></el-input>
+          </el-form-item>
+        </div>
+
         <div class="content">
+
           <div class="enterContent">
             <h6>总登记号: </h6> <div class="m-tit ml-20">12-20-12</div>
           </div>
 
           <div class="enterContent">
-            <h6>登记日期: </h6> <div class="m-tit ml-20">2018/06/20</div>
+            <h6>入库日期: </h6> <div class="m-tit ml-20">2018/06/20</div>
           </div>
 
           <div class="enterContent">
-            <h6>入馆凭证号: </h6> <div class="m-tit ml-20">RGLS-2018-23</div>
+            <h6>入库凭证号: </h6> <div class="m-tit ml-20">RGLS-2018-23</div>
           </div>
+
         </div>
         
         <div class="planName">
-          <el-form-item label="分类别 :">
+  
+          <el-form-item label="分类号 :">
             <el-input v-model="form.name"></el-input>
           </el-form-item>
-          <el-form-item label="分类号 :">
+
+          <el-form-item label="入库库房 :">
+            <el-input v-model="form.name"></el-input>
+          </el-form-item>
+
+           <el-form-item label="存放地点 :">
             <el-input v-model="form.name"></el-input>
           </el-form-item>
         </div>
@@ -136,24 +155,6 @@
 
     </el-form>
 
-    <!-- <el-upload
-        class="upload-demo"
-        action="https://jsonplaceholder.typicode.com/posts/"
-        :on-preview="handlePreview"
-        :on-remove="handleRemove"
-        :before-remove="beforeRemove"
-        multiple
-        :limit="3"
-        :on-exceed="handleExceed"
-        :file-list="fileList">
-        <div class="uploadTit">
-          <h3>上传附件 :</h3>
-          <a class="m-btn" style="color:#0590FF;" type="text" size="small">点击上传</a>
-        </div>
-        <span slot="tip" class="el-upload__tip">支持扩展名: .rar .zip .doc .pdf .jpg</span> 
-      </el-upload> -->
-      
-
     <div slot="footer" class="dialog-footer">
       <el-button @click="dialogTotalVisible = false">取消</el-button>
       <el-button type="primary" @click="buildAccount">建账</el-button>
@@ -170,11 +171,7 @@ export default {
   data() {
     return {
       // 接口返回的附件列表
-      remoteFileList: [
-        {realFileName: '123'},
-        {realFileName: '123'},
-        {realFileName: '123'},
-      ],
+      remoteFileList: [],
       form: {
         collectName: '青花瓷器入馆',
         name: '',
@@ -187,10 +184,24 @@ export default {
     }
   },
   methods: {
-    uploadCallback() {
-
-    },
     buildAccount () {
+      // this.$http.post('/scheme/addOrUpdateScheme',this.form).then(res => {
+      //   console.log(res)
+      //   if(res.success) {
+      //     this.$message.success('藏品入库成功')
+      //   }
+      //   this.dialogPlanVisible = false;
+      //   // 接受父组件传递过来刷新页面方法
+      //   this.$emit("initList")
+      // })
+      this.dialogTotalVisible = false
+    },
+    uploadCallback() {
+      // this.files = fileStr
+      this.form.attachmentIds = fileStr
+      console.log('附件id集合', this.files)
+    },
+    nameDetail () {
       this.dialogTotalVisible = true
     },
     handleRemove(file, fileList) {

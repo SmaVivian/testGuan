@@ -405,16 +405,16 @@ export default {
       height: 160px;
     }
     .card-pic-11 {
-      @include bg(url(~@images/approval/collect-4.svg), '', '', contain)
+      @include bg(url(~@images/collect/approval/collect-4.svg), '', '', contain)
     }
     .card-pic-12 {
-      @include bg(url(~@images/approval/collect-3.svg), '', '', contain)
+      @include bg(url(~@images/collect/approval/collect-3.svg), '', '', contain)
     }
     .card-pic-21 {
-      @include bg(url(~@images/approval/collect-2.svg), '', '', contain)
+      @include bg(url(~@images/collect/approval/collect-2.svg), '', '', contain)
     }
     .card-pic-22 {
-      @include bg(url(~@images/approval/collect-1.svg), '', '', contain)
+      @include bg(url(~@images/collect/approval/collect-1.svg), '', '', contain)
     }
     .box-card {
       border:4px solid transparent;

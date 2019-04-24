@@ -116,20 +116,24 @@
         <!-- 表格 -->
         <div class="table">
           <el-table :data="tableData3" stripe>
-            <el-table-column type="selection" width="50" align="center"></el-table-column>
-            <el-table-column prop="image" label="图片" width="100"></el-table-column>
-            <el-table-column label="登记号" width="100" align="center">
+            <el-table-column type="selection"></el-table-column>
+            <el-table-column prop="image" label="图片"></el-table-column>
+            <el-table-column label="登记号">
               <template slot-scope="scope">{{ scope.row.date }}</template>
             </el-table-column>
-            <el-table-column prop="classi-fication" label="分类号" width="100"></el-table-column>
-            <el-table-column prop="name" label="分类别"  width="100"></el-table-column>
-            <el-table-column prop="name" label="藏品名称" width="100"></el-table-column>
-            <el-table-column prop="name" label="年代" width="100"></el-table-column>
-            <el-table-column prop="texture" label="来源" width="120"></el-table-column>
-            <el-table-column prop="degree" label="级别" width="120"></el-table-column>
-            <el-table-column prop="number" label="质地" width="120"></el-table-column>
-            <el-table-column prop="company" label="完残程度" width="120"></el-table-column>
-            <el-table-column prop="storehouse" label="状态" width="120"></el-table-column>
+            <el-table-column prop="classi-fication" label="分类号"></el-table-column>
+            <el-table-column prop="name" label="分类别"></el-table-column>
+            <el-table-column label="藏品名称">
+              <template slot-scope="scope">
+                <a class="m-btn" style="color:#0590FF; cursor:pointer;" type="text" size="small" @click="getDetails(scope.row)">{{ scope.row.name }}</a>
+              </template>
+            </el-table-column>
+            <el-table-column prop="name" label="年代"></el-table-column>
+            <el-table-column prop="texture" label="来源"></el-table-column>
+            <el-table-column prop="degree" label="级别"></el-table-column>
+            <el-table-column prop="number" label="质地"></el-table-column>
+            <el-table-column prop="company" label="完残程度"></el-table-column>
+            <el-table-column prop="storehouse" label="状态"></el-table-column>
           </el-table>
           <div class="pagination-container">
             <el-pagination :current-page="listQuery.currentPage" :page-size="listQuery.size" :total="total" background layout="total, prev, pager, next"  @size-change="handleSizeChange" @current-change="handleCurrentChange"/>
@@ -137,12 +141,18 @@
         </div>
       </div>
     </div>
+
+    <!-- 点击表格藏品名称弹框 -->
+    <enterTypeDialog ref="typeDialog"></enterTypeDialog>
+
   </div>
 </template>
 
 <script>
+import enterTypeDialog from '../dialog/solicitation/typeAccount/type'
 export default {
   components: {
+    enterTypeDialog
   },
   data() {
     return {
@@ -204,20 +214,16 @@ export default {
     }
   },
   methods: {
+    
+    // 表格名称点击查看详情
+    getDetails () {
+      console.log('ddd')
+      this.$refs.typeDialog.typeDetail()
+    },
     onExport(){
       console.log('点我')
     },
     //  表格分页
-    getDataList() {
-      // this.listLoading = true
-      this.$http.get('/list', {
-        ...this.listQuery
-      }).then(response => {
-        this.list = response.data.list
-        this.total = response.data.page.allRow
-        this.listLoading = false
-      })
-    },
     handleSizeChange(val) {
       this.listQuery.size = val
       this.getDataList()
@@ -361,9 +367,7 @@ export default {
       }
   }
 }
- .el-breadcrumb::after {
-   display: none;
-}
+
 </style>
 
 

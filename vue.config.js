@@ -79,12 +79,13 @@ module.exports = {
   devServer: {
     port: 8080,
     proxy: {
-      '/singleMuseum': {
-        target: 'http://192.168.5.14:8888',  // 程荣凯
-        // target: 'http://192.168.5.89:8080',  // 陈诗雅
-        ws: false,
-        changeOrigin: true
-      },
+      // '/singleMuseum': {
+      //   target: 'http://192.168.5.14:8080',  // 测试环境
+      //   // target: 'http://192.168.5.14:8888',  // 程荣凯
+      //   // target: 'http://192.168.5.89:8080',  // 陈诗雅
+      //   ws: false,
+      //   changeOrigin: true
+      // },
       '/vivi': {
         target: 'https://easy-mock.com/mock/5c3c2ce0de22053ce38a84de', //请求本地 需要jeecg-boot后台项目
         ws: false,
