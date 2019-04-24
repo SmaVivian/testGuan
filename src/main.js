@@ -14,6 +14,12 @@ import '@/utils/filters'
 Vue.prototype.$http = request
 Vue.prototype.$common = common
 
+// import '../public/ueditor1/ueditor.config.js'
+// import '../public/ueditor1/ueditor.all.js'
+// import '../public/ueditor1/lang/zh-cn/zh-cn.js'
+// import '../public/ueditor1/ueditor.parse.min.js'
+// import uPase from '../public/ueditor1/ueditor.parse.js';
+
 // import VueSocketio from 'vue-socket.io';
 // import socketio from 'socket.io-client';
 // // Vue.use(VueSocketio, socketio('ws://127.0.0.1:8000'));//与socket服务端链接

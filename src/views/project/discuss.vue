@@ -28,6 +28,8 @@
         </ul> 
 
         <!-- 发表评论 -->
+        <el-input v-model="msg" placeholder="评论哈"></el-input>
+        <el-button class="btn-comment" type="primary">评论</el-button>
         <!-- <el-form class="form-common form-wrap" ref="form" :model="form">
           <el-form-item label="">
             <img class="g-pic" src="~@images/default-head.svg" alt="">
@@ -51,9 +53,10 @@ export default {
   },
   data() {
     return {
+      msg: '',
       form: {
         info: '',
-        subDate: ''  // 子任务时间
+        subDate: '',  // 子任务时间
       },
     }
   }
