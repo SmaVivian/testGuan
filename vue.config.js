@@ -1,4 +1,5 @@
 const path = require('path')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 function resolve(dir) {
   return path.join(__dirname, dir)
@@ -25,7 +26,29 @@ module.exports = {
   //   : '/',
   // publicPath: process.env.NODE_ENV === 'production' ? './' : '/',
   // outputDir: 'demo',
-  configureWebpack: {},
+  configureWebpack: config => {
+    // 确保静态资源
+    config.resolve.extensions = ['.js', '.vue', '.json', '.css']
+    config.plugins.push(
+      new CopyWebpackPlugin([{ from: 'public/', to: 'public' }]),
+    )
+    // if (process.env.NODE_ENV === 'production') {
+    //   // 为生产环境修改配置...
+    //   new TerserPlugin({
+    //     cache: true,
+    //     parallel: true,
+    //     sourceMap: true, // Must be set to true if using source-maps in production
+    //     terserOptions: {
+    //       compress: {
+    //         drop_console: true,
+    //         drop_debugger: true
+    //       }
+    //     }
+    //   })
+    // } else {
+    //   // 为开发环境修改配置...
+    // }
+  },
   transpileDependencies: [
     'vue-echarts',
     'resize-detector',
@@ -55,6 +78,7 @@ module.exports = {
   },
 
   css: {
+    sourceMap: true,  // 查看css源文件
     loaderOptions: {
       sass: {
         data: `

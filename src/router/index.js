@@ -43,6 +43,8 @@ Vue.mixin({
 export const constantRouterMap = [
   { path: '/login', component: () => import('@views/login/index') },
   { path: '/register', component: () => import('@views/login/register') },
+  { path: '/test', component: () => import('@views/project/test') },
+  { path: '/test2', component: () => import('@views/project/test2') },
   {
     path: '/',
     name: 'index',
