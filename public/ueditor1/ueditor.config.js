@@ -32,6 +32,8 @@
 
         // 服务器统一请求接口路径
         // , serverUrl: URL + "jsp/controller.jsp"
+        , serverUrl: 'http://35.201.165.105:8000/controller.php'
+        // , serverUrl: 'https://easy-mock.com/mock/5c3c2ce0de22053ce38a84de/vivi/upload'
 
         //工具栏上的所有的功能按钮和下拉框，可以在new编辑器的实例时选择自己需要的重新定义
         , toolbars: [[
