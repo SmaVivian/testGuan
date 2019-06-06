@@ -45,6 +45,7 @@ export const constantRouterMap = [
   { path: '/register', component: () => import('@views/login/register') },
   { path: '/test', component: () => import('@views/project/test') },
   { path: '/test2', component: () => import('@views/project/test2') },
+  { path: '/test3', component: () => import('@views/project/ckeditor') },
   {
     path: '/',
     name: 'index',

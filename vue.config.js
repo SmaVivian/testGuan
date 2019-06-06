@@ -32,6 +32,9 @@ module.exports = {
     config.plugins.push(
       new CopyWebpackPlugin([{ from: 'public/', to: 'public' }]),
     )
+    config.externals = {
+      "CKEDITOR": "window.CKEDITOR"
+    }
     // if (process.env.NODE_ENV === 'production') {
     //   // 为生产环境修改配置...
     //   new TerserPlugin({
