@@ -15,6 +15,53 @@ export default {
   methods: {
     // https://ckeditor.com/docs/ckeditor4/latest/examples/image2.html   文档
     initEditor() {
+      // CKEDITOR.replace('editor', {
+      //   language: 'zh-CN',//改成中文版
+      //   extraPlugins: 'image2,uploadimage',
+      //   // extraPlugins: 'easyimage',
+      //   // removePlugins: 'image',
+      //   // removeDialogTabs: 'link:advanced',
+      //   toolbar: [{
+      //       name: 'clipboard',
+      //       items: ['Undo', 'Redo']
+      //     },
+      //     {
+      //       name: 'styles',
+      //       items: ['Styles', 'Format']
+      //     },
+      //     {
+      //       name: 'basicstyles',
+      //       items: ['Bold', 'Italic', 'Strike', '-', 'RemoveFormat']
+      //     },
+      //     {
+      //       name: 'paragraph',
+      //       items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote']
+      //     },
+      //     {
+      //       name: 'links',
+      //       items: ['Link', 'Unlink']
+      //     },
+      //     {
+      //       name: 'insert',
+      //       items: ['Image', 'Table']
+      //     },
+      //     {
+      //       name: 'tools',
+      //       items: ['Maximize']
+      //     },
+      //     {
+      //       name: 'editing',
+      //       items: ['Scayt']
+      //     }
+      //   ],
+      //   imageUploadUrl : 'https://ckeditor.com/apps/ckfinder/3.5.0/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
+      //    // filebrowserBrowseUrl: 'https://ckeditor.com/apps/ckfinder/3.4.5/ckfinder.html',
+      //   // filebrowserImageBrowseUrl: 'https://ckeditor.com/apps/ckfinder/3.4.5/ckfinder.html?type=Images',
+      //   // filebrowserUploadUrl: 'https://ckeditor.com/apps/ckfinder/3.4.5/core/connector/php/connector.php?command=QuickUpload&type=Files',
+      //   filebrowserImageUploadUrl: 'https://ckeditor.com/apps/ckfinder/3.4.5/core/connector/php/connector.php?command=QuickUpload&type=Images',
+      //   format_tags: 'p;h1;h2;h3;pre',
+      //   removeDialogTabs: 'image:advanced;link:advanced',
+      // })
       CKEDITOR.replace('editor', {
         language: 'zh-CN',//改成中文版
         extraPlugins: 'image2,uploadimage',
